@@ -39,13 +39,14 @@
 html, body {
   height: 100%;
   overflow: hidden;
+  font-size: 16px;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   display: flex;
   flex-direction: column;
@@ -88,16 +89,16 @@ body {
 
 .brand-title {
   font-family: var(--font-mono);
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 8px;
+  letter-spacing: 10px;
   color: var(--amber);
   text-shadow: 0 0 20px var(--amber-glow), 0 0 40px rgba(200, 160, 74, 0.08);
 }
 
 .brand-sub {
-  font-size: 9px;
-  letter-spacing: 4px;
+  font-size: 11px;
+  letter-spacing: 5px;
   color: var(--text-secondary);
   text-transform: uppercase;
   margin-top: 2px;
@@ -185,27 +186,27 @@ body {
 
 /* ── Offline Bar ─────────────────────────────────────────── */
 .offline-bar {
-  background: var(--bg-tertiary);
-  border-bottom: 1px solid var(--border);
-  padding: 5px 20px;
+  background: rgba(58, 138, 58, 0.08);
+  border-bottom: 1px solid rgba(74, 204, 74, 0.15);
+  padding: 6px 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   flex-shrink: 0;
 }
 
 .offline-badge {
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--red-alert);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--green-bright);
   white-space: nowrap;
   font-weight: 700;
 }
 
 .offline-sub {
-  font-size: 10px;
-  color: var(--text-dim);
-  letter-spacing: 1px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
 }
 
 /* ── Chat Container ──────────────────────────────────────── */
@@ -233,24 +234,24 @@ body {
 }
 
 .welcome-skull {
-  font-size: 48px;
-  margin-bottom: 16px;
+  font-size: 56px;
+  margin-bottom: 20px;
   opacity: 0.4;
   filter: grayscale(1);
 }
 
 .welcome-title {
-  font-size: 18px;
-  letter-spacing: 8px;
+  font-size: 22px;
+  letter-spacing: 10px;
   color: var(--amber);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .welcome-sub {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--text-secondary);
-  letter-spacing: 2px;
-  margin-bottom: 32px;
+  letter-spacing: 1px;
+  margin-bottom: 36px;
 }
 
 .prompt-grid {
@@ -287,9 +288,9 @@ body {
 }
 
 .prompt-card p {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
   font-family: var(--font-sans);
 }
 
@@ -342,17 +343,17 @@ body {
 }
 
 .message-label {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 2px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .message.user .message-label { color: var(--text-dim); }
 .message.assistant .message-label { color: var(--amber-dim); }
 
 .message-body {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.8;
   font-family: var(--font-sans);
 }
 
@@ -471,13 +472,13 @@ body {
   border-radius: var(--radius-lg);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
-  padding: 10px 14px;
+  padding: 12px 16px;
   resize: none;
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
-  min-height: 42px;
+  min-height: 48px;
   max-height: 140px;
   overflow-y: auto;
 }
@@ -490,13 +491,13 @@ body {
 }
 
 .send-btn {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   background: var(--amber);
   border: none;
   border-radius: var(--radius-lg);
   color: var(--bg-primary);
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;

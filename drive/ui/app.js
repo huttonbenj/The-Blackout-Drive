@@ -43,15 +43,15 @@ function showConnectingOverlay() {
   overlay.className = 'connecting-overlay';
   overlay.innerHTML = `
     <div class="connecting-skull">☠</div>
-    <div class="connecting-title">INITIALIZING SYSTEM</div>
-    <div class="connecting-sub">CONNECTING TO LOCAL AI ENGINE...</div>
+    <div class="connecting-title">STARTING AI ENGINE</div>
+    <div class="connecting-sub">Loading your offline AI. This takes 10–30 seconds...</div>
     <div class="connecting-bar"><div class="connecting-progress"></div></div>
     <div class="connecting-instructions">
       <p>
-        <strong>System starting up.</strong><br>
-        Keep the launcher terminal/window open.<br><br>
+        <strong>Keep the launcher window open.</strong><br>
+        The AI runs entirely on your computer — no internet needed.<br><br>
         If this takes more than 60 seconds,<br>
-        check that your computer has <strong>8GB+ RAM</strong>.
+        your computer may need <strong>8GB+ RAM</strong> to run the AI.
       </p>
     </div>
   `;
@@ -86,15 +86,15 @@ function setStatus(state) {
   statusText.className = 'status-text ' + state;
 
   if (state === 'online') {
-    statusText.textContent = '● SYSTEM ONLINE';
+    statusText.textContent = 'AI READY';
     sendBtn.disabled = false;
     hideConnectingOverlay();
   } else if (state === 'error') {
-    statusText.textContent = '✕ ENGINE OFFLINE';
+    statusText.textContent = 'AI OFFLINE';
     sendBtn.disabled = true;
-    showWarning('DOOMSDAY engine not responding. Ensure the launcher is running. Retrying...');
+    showWarning('The AI engine stopped responding. Try closing and relaunching the drive.');
   } else {
-    statusText.textContent = '○ CONNECTING...';
+    statusText.textContent = 'STARTING...';
     sendBtn.disabled = true;
   }
 }
