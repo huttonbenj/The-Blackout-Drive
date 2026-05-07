@@ -330,11 +330,11 @@ function cancelGeneration() {
 
 // ── Prompt Cards ──────────────────────────────────────────
 function usePrompt(card) {
+  if (!isConnected || isGenerating) return; // guard: AI must be ready
   const text = card.querySelector('p').textContent;
   userInput.value = text;
   updateCharCount();
-  autoResize();
-  userInput.focus();
+  sendMessage(); // fire immediately — no intermediate textarea step
 }
 
 // ── UI Utilities ──────────────────────────────────────────
