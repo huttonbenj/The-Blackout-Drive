@@ -1,6 +1,6 @@
 @echo off
 :: ============================================================
-:: BEACON DRIVE — Windows Emergency Stop
+:: The Blackout Drive — Windows Emergency Stop
 :: ============================================================
 :: Run this if:
 ::  - You want to stop BEACON before unplugging the drive
@@ -8,27 +8,17 @@
 ::  - You suspect Ollama is still running after removal
 :: ============================================================
 
-title BEACON // Emergency Shutdown
-
 echo.
 echo  [SHUTDOWN] Stopping BEACON system...
 echo.
 
-:: Kill all ollama processes
+:: Kill the Python UI server (started with window title "BlackoutDriveServer")
+taskkill /fi "WINDOWTITLE eq BlackoutDriveServer" /f >nul 2>&1
+
+:: Kill Ollama
 taskkill /f /im ollama.exe >nul 2>&1
 
-:: Verify it's dead
-timeout /t 1 /nobreak >nul
-tasklist | findstr "ollama.exe" >nul 2>&1
-if %errorlevel% == 0 (
-    echo  [WARNING] Ollama still running. Forcing termination...
-    taskkill /f /im ollama.exe >nul 2>&1
-    timeout /t 2 /nobreak >nul
-) else (
-    echo  [OK] BEACON system stopped successfully.
-)
-
+echo  [OK] BEACON system stopped.
 echo  [OK] Safe to unplug the drive.
 echo.
-timeout /t 3 /nobreak >nul
-exit /b 0
+pause

@@ -105,8 +105,14 @@ echo -e "  ${BOLD}[4/6] Downloading content library...${NC}"
 bash "$SCRIPT_DIR/download_content.sh"
 echo ""
 
-# ── Step 5: Verify drive integrity ──────────────────────────
-echo -e "  ${BOLD}[5/6] Verifying drive integrity...${NC}"
+# ── Step 5: Copy server.py into drive for USB self-containment ─
+echo -e "  ${BOLD}[5/7] Copying server.py into drive...${NC}"
+cp "$SCRIPT_DIR/server.py" "$DRIVE_DIR/server.py"
+echo -e "  ${GREEN}[OK]${NC} server.py copied to drive/"
+echo ""
+
+# ── Step 6: Verify drive integrity ──────────────────────────
+echo -e "  ${BOLD}[6/7] Verifying drive integrity...${NC}"
 echo ""
 
 # UI files
@@ -129,6 +135,9 @@ check "drive/FIRST_RUN_MAC.command"  "$DRIVE_DIR/FIRST_RUN_MAC.command"
 check "drive/FIRST_RUN_WINDOWS.bat"  "$DRIVE_DIR/FIRST_RUN_WINDOWS.bat"
 check "drive/FIRST_RUN_README.txt"   "$DRIVE_DIR/FIRST_RUN_README.txt"
 
+# Server
+check "drive/server.py"              "$DRIVE_DIR/server.py"
+
 # Legal
 check "drive/LEGAL/DISCLAIMER.txt"          "$DRIVE_DIR/LEGAL/DISCLAIMER.txt"
 check "drive/LEGAL/OPEN_SOURCE_NOTICES.txt" "$DRIVE_DIR/LEGAL/OPEN_SOURCE_NOTICES.txt"
@@ -149,8 +158,8 @@ check "content/books/" "$DRIVE_DIR/content/books/"
 
 echo ""
 
-# ── Step 6: Final summary ────────────────────────────────────
-echo -e "  ${BOLD}[6/6] Drive Summary${NC}"
+# ── Step 7: Final summary ────────────────────────────────────
+echo -e "  ${BOLD}[7/7] Drive Summary${NC}"
 echo ""
 echo "  Total drive size:"
 du -sh "$DRIVE_DIR" 2>/dev/null | awk '{print "    " $1}'

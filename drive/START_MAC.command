@@ -132,10 +132,10 @@ fi
 # ── Step 10: Start UI server + open chat interface ──────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting UI server..."
 # Serve UI via local HTTP to avoid browser file:// CORS restrictions
-python3 "$REPO_ROOT/scripts/server.py" "$BLACKOUT_UI_PORT" "$SCRIPT_DIR" &>/dev/null &
+python3 "$SCRIPT_DIR/server.py" "$BLACKOUT_UI_PORT" "$SCRIPT_DIR" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "${BLACKOUT_UI_URL}/ui/"
+open "${BLACKOUT_UI_URL}"
 
 echo ""
 echo "  -------------------------------------------------------"

@@ -55,7 +55,7 @@ function _restoreLibState() {
       if (s.cat === '__getmore') {
         showGetMorePanel();
       } else if (s.cat === '__manage') {
-        showManageSpace();
+        showManagePanel();
       } else if (s.cat) {
         selectCategory(s.cat);
         // If was in reader mode, restore that item too
@@ -580,15 +580,7 @@ async function openItem(item) {
   }
   if (item.type === 'ham-radio-tools') {
     libMode = 'reader'; updateLibHeader();
-    if (typeof window.renderHamRadioTools === 'function') {
-      libMain.innerHTML = '';
-      const wrapper = document.createElement('div');
-      wrapper.className = 'generic-reader ham-radio-wrapper';
-      libMain.appendChild(wrapper);
-      window.renderHamRadioTools(wrapper);
-    } else {
-      libMain.innerHTML = '<div class="lib-missing-panel"><div class="lib-missing-title">⚠ Ham Radio Tools Not Loaded</div></div>';
-    }
+    libMain.innerHTML = '<div class="lib-zim-panel"><div style="font-size:40px">📻</div><div class="lib-zim-title">HAM RADIO TOOLS</div><div class="lib-zim-desc">Interactive ham radio tools are coming in V2.<br>Stay tuned for Morse code trainer, frequency charts, and quiz mode.</div></div>';
     return;
   }
   if (item.type === 'zim') { libMode = 'reader'; updateLibHeader(); showZimPanel(item); return; }
@@ -1320,7 +1312,8 @@ async function cancelPackDownload(packId) {
   const actionsEl = document.getElementById(`pa-${packId}`);
   const progressBar = document.getElementById(`pp-${packId}`);
   const statusEl = document.getElementById(`ps-${packId}`);
-  if (actionsEl) actionsEl.innerHTML = `<button class="pack-dl-btn" onclick="startPackDownload(this)">⬇ DOWNLOAD PACK</button>`;
+  // Re-render the GET MORE panel to rebuild pack cards with correct onclick bindings
+  if (actionsEl) actionsEl.innerHTML = `<button class="pack-dl-btn" onclick="showGetMorePanel()">⬇ RELOAD PACKS</button>`;
   if (progressBar) progressBar.style.display = 'none';
   if (statusEl) statusEl.textContent = 'Cancelled.';
 }

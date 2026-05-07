@@ -218,7 +218,8 @@ window.DDAPI = (() => {
    */
   async function openFile(relPath) {
     try {
-      const res = await fetch(`http://localhost:${SERVER_PORT}/api/open-file?path=${encodeURIComponent(relPath)}`);
+      const port = (cfg().network || cfg()).uiPort || 8080;
+      const res = await fetch(`http://localhost:${port}/api/open-file?path=${encodeURIComponent(relPath)}`);
       return res.ok ? await res.json() : { ok: false };
     } catch {
       return { ok: false };

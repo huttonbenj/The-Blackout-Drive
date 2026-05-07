@@ -2,8 +2,7 @@
 
 > **Offline AI survival intelligence. Plug in. Power up. No internet required.**
 
-[![Private Repo](https://img.shields.io/badge/repo-private-red)]()
-[![Phase](https://img.shields.io/badge/phase-0%20infrastructure-blue)]()
+[![Phase](https://img.shields.io/badge/phase-1%20MVP-blue)]()
 [![License: MIT](https://img.shields.io/badge/components-MIT%20%2F%20Apache%202.0-green)]()
 
 ---
@@ -23,7 +22,7 @@ The Blackout Drive is a plug-and-play USB drive preloaded with a fully offline A
 This repo uses a structured documentation system so any AI agent or developer can pick up the project cold without needing a briefing. All context lives in `docs/`.
 
 | Doc | Purpose |
-|-----|---------|
+|-----|---------| 
 | [`docs/AGENT_CONTEXT.md`](docs/AGENT_CONTEXT.md) | Full project context — read this first |
 | [`docs/STATE.md`](docs/STATE.md) | Current project state + what's in progress |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | All architectural decisions + rationale |
@@ -39,11 +38,11 @@ This repo uses a structured documentation system so any AI agent or developer ca
 The-Blackout-Drive/
 ├── docs/          ← All project documentation
 ├── drive/         ← Everything that ships ON the USB drive
-│   ├── ui/        ← Custom offline chat interface
-│   ├── knowledge/ ← Survival content library
-│   ├── prompts/   ← 100+ survival prompts
+│   ├── ui/        ← Custom offline chat interface (vanilla HTML/CSS/JS)
+│   ├── content/   ← Offline knowledge library (books, PDFs, catalogs)
 │   ├── runtime/   ← Ollama binaries (downloaded via script)
 │   ├── models/    ← GGUF model files (downloaded via script)
+│   ├── server.py  ← Local HTTP API server (standard lib Python 3)
 │   └── LEGAL/     ← License files + medical disclaimer
 ├── scripts/       ← Build, download, test automation
 └── marketing/     ← Product copy + generated assets
@@ -57,16 +56,17 @@ The-Blackout-Drive/
 |-----------|-----------|
 | AI engine | Ollama (portable binary) |
 | Default model | Phi-3 Mini Q4_K_M (MIT license) |
-| Persona | The Blackout Drive (custom Ollama Modelfile) |
+| Persona | BEACON (custom Ollama Modelfile) |
 | Chat UI | Custom HTML/CSS/JS (zero CDN) |
-| Knowledge base | Kiwix ZIM + public domain PDFs |
+| API server | Python 3 standard library (no pip installs) |
+| Knowledge base | Public domain texts + PDFs |
 | OS support | Windows 10/11, macOS ARM, macOS Intel |
 
 ---
 
 ## Getting Started (Dev Setup)
 
-> **Note:** Large files (model weights, ZIM archives, Ollama binaries) are not tracked in git.
+> **Note:** Large files (model weights, Ollama binaries) are not tracked in git.
 > Use the setup scripts to download them.
 
 ```bash
@@ -74,19 +74,25 @@ The-Blackout-Drive/
 git clone https://github.com/huttonbenj/The-Blackout-Drive.git
 cd The-Blackout-Drive
 
-# 2. Run full setup (downloads all binaries and content)
-chmod +x scripts/setup.sh
-./scripts/setup.sh
+# 2. Download runtimes + models
+bash scripts/download_runtime.sh
+bash scripts/download_models.sh
 
-# 3. Test the drive
-./scripts/test_drive.sh
-
-# 4. Launch the UI (for dev/testing)
+# 3. Launch the drive (for dev/testing)
 # Mac:
 ./drive/START_MAC.command
 # Windows:
 # Double-click drive/START_WINDOWS.bat
 ```
+
+---
+
+## What Ships on the Drive (V1 Basecamp Edition)
+
+- **BEACON AI** — Offline AI assistant powered by Phi-3 Mini
+- **KJV Bible** — Full King James Version (preloaded)
+- **Downloadable Library** — Survival manuals, medical guides, legal documents, philosophy, and more
+- **In-browser text reader** — Chapter navigation, search, Bible reader with book/chapter/verse nav
 
 ---
 
@@ -98,4 +104,4 @@ All components are licensed for commercial redistribution. See [`docs/LEGAL.md`]
 
 ---
 
-*Built by Hutton Technologies · Private repository*
+*Built by Hutton Technologies*

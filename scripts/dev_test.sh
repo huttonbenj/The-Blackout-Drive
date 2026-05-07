@@ -26,7 +26,7 @@ DRIVE_DIR="$SCRIPT_DIR/../drive"
 # ── Load configuration (single source of truth) ────────────────
 source "$DRIVE_DIR/config.sh"
 
-MODELFILE="$DRIVE_DIR/$BEACON_MODELFILE"
+MODELFILE="$DRIVE_DIR/$BLACKOUT_MODELFILE"
 UI_PATH="$DRIVE_DIR/ui/index.html"
 
 RED='\033[0;31m'
@@ -74,11 +74,11 @@ fi
 
 # ── Step 4: Create / update blackout-beacon model ──────────────────
 echo -e "  ${CYAN}[4/5]${NC} Building BEACON model from Modelfile..."
-echo "         (This downloads $BEACON_BASE_MODEL if not already cached — ~2.3GB)"
+echo "         (This downloads $BLACKOUT_BASE_MODEL if not already cached — ~2.3GB)"
 echo ""
 
 # Start ollama serve if not running
-if ! curl -s "$BEACON_OLLAMA_URL" > /dev/null 2>&1; then
+if ! curl -s "$BLACKOUT_OLLAMA_URL" > /dev/null 2>&1; then
     echo -e "  ${CYAN}[INFO]${NC} Starting Ollama server..."
     ollama serve &
     OLLAMA_PID=$!
@@ -86,7 +86,7 @@ if ! curl -s "$BEACON_OLLAMA_URL" > /dev/null 2>&1; then
     
     # Wait for it to be ready
     WAIT=0
-    while ! curl -s "$BEACON_OLLAMA_URL" > /dev/null 2>&1; do
+    while ! curl -s "$BLACKOUT_OLLAMA_URL" > /dev/null 2>&1; do
         sleep 1
         WAIT=$((WAIT + 1))
         if [ $WAIT -ge 30 ]; then
@@ -102,18 +102,18 @@ else
 fi
 
 # Create the model
-ollama create "$BEACON_MODEL_NAME" -f "$MODELFILE"
+ollama create "$BLACKOUT_MODEL_NAME" -f "$MODELFILE"
 echo ""
-echo -e "  ${GREEN}[PASS]${NC} $BEACON_MODEL_NAME model built successfully"
+echo -e "  ${GREEN}[PASS]${NC} $BLACKOUT_MODEL_NAME model built successfully"
 
 # ── Step 5: Smoke test — send a test prompt ──────────────────
 echo -e "  ${CYAN}[5/5]${NC} Smoke testing BEACON persona..."
 echo "         Sending test prompt: 'How do I purify water in an emergency?'"
 echo ""
 
-RESPONSE=$(curl -s "${BEACON_OLLAMA_URL}/api/chat" \
+RESPONSE=$(curl -s "${BLACKOUT_OLLAMA_URL}/api/chat" \
     -d "{
-        \"model\": \"$BEACON_MODEL_NAME\",
+        \"model\": \"$BLACKOUT_MODEL_NAME\",
         \"messages\": [{\"role\": \"user\", \"content\": \"In 2 sentences, how do I purify water in an emergency?\"}],
         \"stream\": false
     }" | python3 -c "import sys,json; data=json.load(sys.stdin); print(data.get('message',{}).get('content','[no response]'))" 2>/dev/null)
@@ -141,10 +141,10 @@ echo "  UI path: $UI_PATH"
 echo "  ============================================="
 echo ""
 
-python3 -m http.server "$BEACON_UI_PORT" --directory "$DRIVE_DIR/ui" &>/dev/null &
+python3 "$SCRIPT_DIR/server.py" "$BLACKOUT_UI_PORT" "$DRIVE_DIR" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "${BEACON_UI_URL}"
+open "${BLACKOUT_UI_URL}"
 
 # ── Cleanup on exit ──────────────────────────────────────────
 cleanup() {

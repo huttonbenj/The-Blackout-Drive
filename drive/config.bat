@@ -39,3 +39,7 @@ set "BLACKOUT_OLLAMA_HOST_ADDR=%BLACKOUT_OLLAMA_BIND%:%BLACKOUT_OLLAMA_PORT%"
 set "BLACKOUT_OLLAMA_URL=http://localhost:%BLACKOUT_OLLAMA_PORT%"
 set "BLACKOUT_UI_URL=http://localhost:%BLACKOUT_UI_PORT%"
 set "BLACKOUT_OLLAMA_ORIGINS=http://localhost:%BLACKOUT_UI_PORT%,http://127.0.0.1:%BLACKOUT_UI_PORT%"
+
+:: ── Drive Root (auto-detected from config.bat location) ──
+:: This is the drive\ directory itself — where config.bat lives.
+set "BLACKOUT_DRIVE_ROOT=%~dp0"

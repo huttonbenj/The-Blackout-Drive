@@ -38,3 +38,8 @@ BLACKOUT_OLLAMA_HOST_ADDR="${BLACKOUT_OLLAMA_BIND}:${BLACKOUT_OLLAMA_PORT}"
 BLACKOUT_OLLAMA_URL="http://localhost:${BLACKOUT_OLLAMA_PORT}"
 BLACKOUT_UI_URL="http://localhost:${BLACKOUT_UI_PORT}/ui/"
 BLACKOUT_OLLAMA_ORIGINS="${BLACKOUT_UI_URL},http://127.0.0.1:${BLACKOUT_UI_PORT}"
+
+# ── Drive Root (auto-detected from config.sh location) ───
+# This is the drive/ directory itself — where config.sh lives.
+# Used by launcher scripts to locate server.py and other resources.
+BLACKOUT_DRIVE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

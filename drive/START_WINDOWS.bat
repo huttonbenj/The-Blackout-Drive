@@ -2,9 +2,9 @@
 setlocal enabledelayedexpansion
 
 :: ============================================================
-:: BEACON DRIVE — Windows Launcher
+:: The Blackout Drive — Windows Launcher
 :: ============================================================
-:: This script launches the BEACON offline AI system.
+:: This script launches The Blackout Drive offline AI system.
 :: It runs entirely from the USB drive — nothing is installed
 :: on your computer. All data stays on the drive.
 ::
@@ -48,7 +48,7 @@ if not exist "%OLLAMA_EXE%" (
 )
 
 :: ── Step 2: Check for model ──────────────────────────────────
-set "MODEL_FILE=%SCRIPT_DIR%models\%BEACON_MODEL_FILE%"
+set "MODEL_FILE=%SCRIPT_DIR%models\%BLACKOUT_MODEL_FILE%"
 
 if not exist "%MODEL_FILE%" (
     echo  [ERROR] AI model not found: %MODEL_FILE%
@@ -61,7 +61,7 @@ if not exist "%MODEL_FILE%" (
 )
 
 :: ── Step 3: Check if Ollama is already running ───────────────
-curl -s %BEACON_OLLAMA_URL% >nul 2>&1
+curl -s %BLACKOUT_OLLAMA_URL% >nul 2>&1
 if %errorlevel% == 0 (
     echo  [INFO] BEACON system already running. Opening interface...
     goto :open_ui
@@ -71,8 +71,8 @@ if %errorlevel% == 0 (
 echo  [BOOT] Initializing BEACON system...
 set "OLLAMA_MODELS=%SCRIPT_DIR%models"
 set "OLLAMA_HOME=%SCRIPT_DIR%runtime\ollama-windows"
-set "OLLAMA_HOST=%BEACON_OLLAMA_HOST_ADDR%"
-set "OLLAMA_ORIGINS=%BEACON_OLLAMA_ORIGINS%"
+set "OLLAMA_HOST=%BLACKOUT_OLLAMA_HOST_ADDR%"
+set "OLLAMA_ORIGINS=%BLACKOUT_OLLAMA_ORIGINS%"
 
 :: ── Step 5: Launch Ollama in background ─────────────────────
 start /b "" "%OLLAMA_EXE%" serve
@@ -82,7 +82,7 @@ echo  [BOOT] Starting AI engine...
 set /a WAIT_COUNT=0
 :wait_loop
 timeout /t 1 /nobreak >nul
-curl -s %BEACON_OLLAMA_URL% >nul 2>&1
+curl -s %BLACKOUT_OLLAMA_URL% >nul 2>&1
 if %errorlevel% == 0 goto :ollama_ready
 set /a WAIT_COUNT+=1
 if %WAIT_COUNT% GEQ 30 (
@@ -98,31 +98,32 @@ goto :wait_loop
 echo  [BOOT] AI engine online.
 
 :: ── Step 7: Load the BEACON model ─────────────────────────
-echo  [BOOT] Loading BEACON intelligence model...
-"%OLLAMA_EXE%" run "%BEACON_MODEL_NAME%" "" >nul 2>&1
-
-:: If model doesn't exist yet, create it from Modelfile
-"%OLLAMA_EXE%" list | findstr "%BEACON_MODEL_NAME%" >nul 2>&1
+:: Check if model exists FIRST, then create if needed
+echo  [BOOT] Checking BEACON intelligence model...
+"%OLLAMA_EXE%" list | findstr "%BLACKOUT_MODEL_NAME%" >nul 2>&1
 if %errorlevel% NEQ 0 (
     echo  [BOOT] First run — building model...
-    "%OLLAMA_EXE%" create "%BEACON_MODEL_NAME%" -f "%SCRIPT_DIR%%BEACON_MODELFILE%"
+    "%OLLAMA_EXE%" create "%BLACKOUT_MODEL_NAME%" -f "%SCRIPT_DIR%%BLACKOUT_MODELFILE%"
     echo  [BOOT] Model ready.
+) else (
+    echo  [BOOT] BEACON model loaded.
 )
 
 :open_ui
 :: ── Step 8: Start UI server + open chat interface ────────────
 echo  [BOOT] Starting UI server...
 :: Serve UI via local HTTP (fixes CORS — browser can't call Ollama from file://)
-start /b "" python "%REPO_ROOT%scripts\server.py" %BEACON_UI_PORT% "%SCRIPT_DIR%"
+:: server.py is co-located in drive/ for USB self-containment
+start "BlackoutDriveServer" /b python "%SCRIPT_DIR%server.py" %BLACKOUT_UI_PORT% "%SCRIPT_DIR%"
 timeout /t 1 /nobreak >nul
-start "" %BEACON_UI_URL%
+start "" %BLACKOUT_UI_URL%
 
 echo.
 echo  -------------------------------------------------------
-echo  The Blackout Drive is online. Browser opening at %BEACON_UI_URL%
+echo  The Blackout Drive is online. Browser opening at %BLACKOUT_UI_URL%
 echo  
 echo  If your browser doesn't open, navigate to:
-echo  %BEACON_UI_URL%
+echo  %BLACKOUT_UI_URL%
 echo.
 echo  IMPORTANT: Keep this window open while using BEACON.
 echo  Closing this window will shut down the AI system.
@@ -136,7 +137,8 @@ pause >nul
 :: ── Step 10: Cleanup — kill Ollama + UI server on exit ───────
 echo  [SHUTDOWN] Shutting down BEACON system...
 taskkill /f /im ollama.exe >nul 2>&1
-taskkill /f /im python.exe >nul 2>&1
+:: Kill only OUR Python server (started with window title "BlackoutDriveServer")
+taskkill /fi "WINDOWTITLE eq BlackoutDriveServer" /f >nul 2>&1
 echo  [SHUTDOWN] System offline. All data remains on your drive.
 echo.
 

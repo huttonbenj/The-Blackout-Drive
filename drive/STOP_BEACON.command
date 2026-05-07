@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# BEACON DRIVE — Mac Emergency Stop
+# The Blackout Drive — Mac Emergency Stop
 # ============================================================
 # Run this if:
 #  - You want to stop BEACON before unplugging the drive
@@ -11,6 +11,9 @@
 echo ""
 echo "  [SHUTDOWN] Stopping BEACON system..."
 echo ""
+
+# Kill the Python UI server
+pkill -f "server.py" 2>/dev/null
 
 # Kill all ollama processes
 pkill -f "ollama" 2>/dev/null

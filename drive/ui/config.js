@@ -32,8 +32,8 @@
       ollamaBind: '127.0.0.1',
     },
     content: {
-      remoteCatalogUrl: 'https://cdn.blackoutdrive.com/catalog.json',
-      remoteFilesBase:  'https://cdn.blackoutdrive.com/files',
+      remoteCatalogUrl: null,
+      remoteFilesBase:  null,
       contentDir:       'content',
       booksDir:         'content/books',
       zimDir:           'content/zim',
