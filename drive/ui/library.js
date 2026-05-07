@@ -640,10 +640,20 @@ async function startPackDownload(pack) {
   const progressBar = document.getElementById(`pp-${pack.id}`);
   const statusEl = document.getElementById(`ps-${pack.id}`);
 
+  // Pre-check: enough disk space?
+  if (libStatusData && libStatusData.free_bytes) {
+    const needBytes = pack.size_mb * 1024 * 1024;
+    if (libStatusData.free_bytes < needBytes * 1.1) { // 10% buffer
+      if (statusEl) statusEl.textContent = `⚠ Not enough space (need ~${pack.size_mb} MB free). Use MANAGE SPACE to free up room.`;
+      return;
+    }
+  }
+
   if (actionsEl) actionsEl.innerHTML = `<button class="pack-dl-btn pack-cancel-btn" onclick="cancelPackDownload('${pack.id}')">✕ CANCEL</button>`;
   if (progressBar) progressBar.style.display = 'block';
   if (statusEl) statusEl.textContent = 'Starting download...';
 
+  // Resume support: skip files already fully present in manifest
   const filesToDownload = pack.files.filter(f => !installed.has(f.dest));
   if (!filesToDownload.length) {
     if (statusEl) statusEl.textContent = 'All files already installed.';
