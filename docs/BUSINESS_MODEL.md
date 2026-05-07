@@ -171,3 +171,74 @@ DD-02 and DD-03 are deferred to post-launch.
 - Revenue flows through LLC
 - COGS (drives, packaging, shipping) are business deductions
 - Shopify/Pirateship provide transaction records for accounting
+
+---
+
+## Realistic Revenue Scenarios (Added May 2026)
+
+> Based on $79 retail, ~$20 true all-in COGS (includes packaging, mailers, labels), ~$59 true GP/unit.
+> Note: Original model used $17.50 COGS. Real COGS is ~$20 when you include packaging materials and label printing. True GP = ~$59/unit, not $61.50. Margin is still excellent at ~75%.
+
+### 90-Day Launch Window
+
+| Scenario | Units | Gross Profit | What It Looks Like |
+|----------|-------|-------------|-------------------|
+| **Bad** | 20 | ~$1,180 | TikToks flatline. Sales only from Etsy/forum posts. Break even on initial inventory. |
+| **Mediocre** | 100 | ~$5,900 | 1-2 sales/day. A couple TikToks hit 10K-20K views. Steady trickle. |
+| **Great** | 300 | ~$17,700 | Transparency video hits the algorithm. Spend a weekend at the duplicator hub to keep up. |
+
+### Year 1 Total
+
+| Scenario | Units | Gross Profit | What It Looks Like |
+|----------|-------|-------------|-------------------|
+| **Bad** | 300 | ~$17,700 | Novelty wears off. No paid ads. Product dies on the vine. |
+| **Mediocre** | 1,500 | ~$88,500 | Match BunkerAI volume. Dialed-in ad spend. Affiliate links from prepper YouTubers. |
+| **Great** | 4,000+ | ~$236,000+ | Catch PortableMind. Dominate prepper lane. DD-02 PRO boosting AOV. Exploring 3PL. |
+
+### Year 2 Total
+
+| Scenario | Units | Gross Profit | What It Looks Like |
+|----------|-------|-------------|-------------------|
+| **Bad** | ~0 additional | — | Big Tech integrates native offline AI into OS. Market erodes. (Counter-argument: big tech AI = cloud-synced = tracked. Preppers specifically don't want this. Risk is lower than it sounds.) |
+| **Mediocre** | 2,500 | ~$147,500 | Consumer retail slows but stable. Low-maintenance machine generating six figures. Focus on other projects. |
+| **Great** | 10,000 | ~$590,000+ | Pivot to B2B wholesale. Bulk lots of 50 drives to surplus stores, law firms, accountants, rural clinics. |
+
+---
+
+## B2B Wholesale Strategy (Year 2+ Priority)
+
+The real money is not $79/unit DTC — it's **bulk wholesale to organizations**.
+
+### Target B2B Buyers
+| Buyer Type | Use Case | Volume Potential |
+|-----------|----------|-----------------|
+| Survivalist surplus stores | Retail add-on next to freeze-dried food | 50-200 units/order |
+| Independent law firms | Air-gapped research + document AI | 5-20 units/firm |
+| Rural medical clinics | Offline medical reference | 2-10 units/clinic |
+| Country/homestead churches | Congregation preparedness | 5-30 units/church |
+| Municipal emergency management | Community preparedness resource | 10-50 units |
+| Homeschool co-ops | Offline educational resource | 5-20 units |
+
+### Wholesale Pricing Structure (Year 2)
+| Qty | Price/Unit | GP/Unit |
+|-----|-----------|---------|
+| 1-9 (retail) | $79 | ~$59 |
+| 10-49 | $65 | ~$45 |
+| 50-99 | $55 | ~$35 |
+| 100+ | $45 | ~$25 |
+
+Even at $45/unit bulk, a single order of 100 drives = $4,500 revenue, $2,500 GP, zero marketing cost.
+
+---
+
+## Faraday Pouch Upsell (Add to Shopify Checkout)
+
+PortableMind successfully upsells a $14.99 carbon fiber EMP shielding pouch.
+- **COGS:** ~$2-3 sourced from Alibaba in 50+ unit quantities
+- **GP:** ~$12-13 per pouch
+- **Estimated attach rate:** 25-30% of buyers
+- **AOV lift:** +$3.75-4.50/unit average across all orders
+- **Year 1 impact at 1,500 units:** ~$5,600-6,750 in additional GP at zero extra ad spend
+
+**Action:** Source Alibaba listings for "carbon fiber Faraday pouch USB" and "EMP shielding pouch." Order 50 samples to validate quality before bulk.
+
