@@ -6,6 +6,20 @@
 
 ---
 
+## ⚠️ IMMUTABLE RULE — BACKLOG IS APPEND-ONLY
+
+**This rule applies to ALL AI agents, contributors, and developers without exception:**
+
+> **NEVER delete, replace, or overwrite existing entries in `task.md` or any backlog/planning document.**
+> **You may ONLY add new entries.** Mark items `[x]` when done. Add notes or sub-items below existing ones.
+> The backlog is the permanent historical record of all decisions, work, and context.
+> Overwriting it destroys project memory and creates confusion between sessions.
+
+The full backlog lives in `~/.gemini/antigravity/brain/{conversation-id}/task.md` (Antigravity brain).
+Key docs that are also append-only: `docs/DECISIONS.md`, `docs/STATE.md`.
+
+---
+
 ## What Is This Project?
 
 **DOOMSDAY.AI** is a physical product business. We manufacture and sell USB drives preloaded with a fully offline AI survival system, targeted at the prepper / self-reliance / survivalist market.
@@ -28,13 +42,16 @@ The drive contains:
 | Product name | DOOMSDAY.AI |
 | LLC | Hutton Technologies |
 | Lead developer/architect | AI agent (Antigravity) — owns the entire project |
-| GitHub | https://github.com/huttonbenj/Doomsday-Drive |
-| Local path | `/Users/benjamin/github/doomsday-drive` |
+| Drive GitHub | https://github.com/huttonbenj/Doomsday-Drive (PUBLIC — MIT license) |
+| Web GitHub | https://github.com/huttonbenj/Doomsday-Web (PRIVATE) |
+| Drive local path | `/Users/benjamin/github/doomsday-drive` |
+| Web local path | `/Users/benjamin/github/Doomsday-Web` |
 | Target market | Prepper / survivalist / self-reliance niche |
 | Price | $79 (Tier 1), $119 (Tier 2 PRO) |
+| Content packs | Free and paid packs — purchased via doomsday.ai website |
 | Margin | ~78% gross margin |
 | Hardware | 64GB SanDisk Ultra Dual USB-C/USB-A 3.2 |
-| Sales channels | Shopify → Etsy → TikTok Shop → Amazon |
+| Sales channels | doomsday.ai (primary) → Etsy → TikTok Shop → Amazon → Shopify (marketplace only) |
 
 Full business model, unit economics, and competitive analysis: see `docs/BUSINESS_MODEL.md` and `docs/RESEARCH.md`.
 
@@ -42,15 +59,32 @@ Full business model, unit economics, and competitive analysis: see `docs/BUSINES
 
 ## Tech Stack
 
+### Drive (doomsday-drive — PUBLIC)
+
 | Component | Technology | Why |
 |-----------|-----------|-----|
 | AI engine | Ollama (portable, no-install binary) | MIT license, cross-platform, zero dependency |
 | Default model | Phi-3 Mini (Q4_K_M quantization, ~2.3GB) | MIT license, runs on 8GB RAM, no install |
-| Persona | Ollama Modelfile — "DOOMSDAY.AI" | 30 min effort, full behavioral tuning |
+| Persona | Ollama Modelfile — DOOMSDAY.AI | Full behavioral tuning, short numbered rules |
 | Chat UI | Custom HTML/CSS/JS (zero CDN deps) | Full control, survives upstream changes |
-| Knowledge base | Kiwix ZIM (Wikipedia survival) + public domain PDFs | CC BY-SA 4.0 + public domain = no legal risk |
-| OS support | Windows 10/11 (x86_64), macOS ARM (M1+), macOS Intel | Covers >99% of prepper laptop hardware |
-| Platform | Shopify | Standard e-commerce |
+| Local server | Python 3 (stdlib only) — `scripts/server.py` | File mgmt, downloads, manifest generation |
+| Library system | `library.js` + `api.js` — vanilla JS | Manifest-driven, offline-first, plug-and-play |
+| Content catalog | `content/library.json` + `catalog_extended.json` | Base + downloadable pack definitions |
+| OS support | Windows 10/11, macOS ARM (M1+), macOS Intel | Covers >99% of prepper laptop hardware |
+| License | MIT (open source) | Trust signal + community + marketing story |
+
+### Website (Doomsday-Web — PRIVATE)
+
+| Component | Technology | Why |
+|-----------|-----------|-----|
+| Frontend | Next.js 15 (App Router) | Best for marketing site + SEO + e-commerce |
+| Database | Supabase (Postgres + auth) | Free tier generous, auth built in |
+| Payments | Stripe | Industry standard, best DX |
+| Hosting | Vercel | Native Next.js, free tier, edge CDN |
+| License API | FastAPI on Render.com | Stripe webhook → key generation → email |
+| Email | Resend (transactional) | Simple API, generous free tier |
+| File CDN | Cloudflare R2 | Cheap object storage for content pack files |
+| Auth | Supabase Auth | Integrated with DB, no extra service needed |
 
 ---
 
@@ -58,13 +92,16 @@ Full business model, unit economics, and competitive analysis: see `docs/BUSINES
 
 These rules were set by the project owner and must be followed at all times:
 
-1. **No guesswork.** Every implementation decision must be proven before it's committed.
-2. **No bandaids.** If something doesn't work cleanly, fix the root cause.
-3. **No shortcuts.** Every feature is built completely or not at all.
-4. **Prove it works.** Each phase ends with a verification step before moving on.
-5. **Commit as you go.** Every logical unit of work gets its own git commit with a meaningful message.
-6. **Documentation lives in the repo.** Any AI agent picking this up must be able to get full context from `/docs/` alone.
-7. **Nothing ships that hasn't been tested on real hardware.** The launcher must be verified on all 4 OS variants before any drives are flashed.
+1. **BACKLOG IS APPEND-ONLY.** Never delete or replace entries in task.md or any planning doc. Only add. Mark done with `[x]`.
+2. **No guesswork.** Every implementation decision must be proven before it's committed.
+3. **No bandaids.** If something doesn't work cleanly, fix the root cause.
+4. **No shortcuts.** Every feature is built completely or not at all.
+5. **Prove it works.** Each phase ends with a verification step before moving on.
+6. **Commit as you go.** Every logical unit of work gets its own git commit with a meaningful message.
+7. **Documentation lives in the repo.** Any AI agent picking this up must be able to get full context from `/docs/` alone.
+8. **Nothing ships that hasn't been tested on real hardware.** The launcher must be verified on all 4 OS variants before any drives are flashed.
+9. **Two repos, two concerns.** Drive code = `doomsday-drive` (public). Business code = `Doomsday-Web` (private). Never mix them.
+10. **Content catalog paths are fixed.** `dest` fields in catalog JSONs are immutable — the library maps files by exact path.
 
 ---
 
@@ -165,14 +202,16 @@ Full legal analysis: `docs/LEGAL.md`
 
 ## How to Continue Work as an AI Agent
 
-1. Read this file completely
-2. Read `docs/STATE.md` — find out exactly what phase/task is in progress
-3. Read `docs/DECISIONS.md` — understand the rationale behind all choices
-4. Check `task.md` (in the Antigravity brain) for the master backlog
-5. Look at the most recently committed code to understand what's already built
-6. **Never skip verification gates** — each phase has a gate that must pass before moving to the next
-7. **Always commit after completing a logical unit** — don't batch up many changes into one commit
-8. **Always test before committing** — especially launcher scripts (they must work on real OS, not just look correct)
+1. **Read this file completely** — all rules and decisions are here
+2. **Read `docs/STATE.md`** — find out exactly what phase/task is in progress
+3. **Read `docs/DECISIONS.md`** — understand the rationale behind all choices
+4. **Check the Antigravity brain backlog** (`task.md`) — the master task list
+5. **Look at recent git commits** — `git log --oneline -20` to see what's already done
+6. **NEVER remove from the backlog** — append-only, always. Rule #1 above.
+7. **Never skip verification gates** — each phase has a gate that must pass before next
+8. **Always commit after completing a logical unit** — don't batch many changes into one
+9. **Always test before committing** — especially launcher scripts
+10. **Check both repos** when relevant — drive logic in `doomsday-drive`, site logic in `Doomsday-Web`
 
 ---
 
