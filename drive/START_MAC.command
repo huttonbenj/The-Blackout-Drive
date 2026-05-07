@@ -17,6 +17,9 @@
 # ── Resolve script location (works regardless of mount point) ──
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+# ── Load configuration (single source of truth) ────────────────
+source "$SCRIPT_DIR/config.sh"
+
 # ── Terminal colors ──────────────────────────────────────────
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -64,7 +67,7 @@ if [ ! -f "$OLLAMA_BINARY" ]; then
 fi
 
 # ── Step 3: Verify model exists ──────────────────────────────
-MODEL_FILE="$SCRIPT_DIR/models/phi3-mini.Q4_K_M.gguf"
+MODEL_FILE="$SCRIPT_DIR/models/$DOOMSDAY_MODEL_FILE"
 if [ ! -f "$MODEL_FILE" ]; then
     echo ""
     echo -e "  ${RED}[ERROR]${NC} AI model not found: $MODEL_FILE"
@@ -80,7 +83,7 @@ fi
 chmod +x "$OLLAMA_BINARY"
 
 # ── Step 5: Check if Ollama is already running ───────────────
-if curl -s http://localhost:11434 > /dev/null 2>&1; then
+if curl -s "${DOOMSDAY_OLLAMA_URL}" > /dev/null 2>&1; then
     echo -e "  ${GREEN}[INFO]${NC} DOOMSDAY system already running. Opening interface..."
     open "$SCRIPT_DIR/ui/index.html"
     exit 0
@@ -88,9 +91,9 @@ fi
 
 # ── Step 6: Set environment — point Ollama to drive ─────────
 export OLLAMA_MODELS="$SCRIPT_DIR/models"
-export OLLAMA_HOST="127.0.0.1:11434"
+export OLLAMA_HOST="$DOOMSDAY_OLLAMA_HOST_ADDR"
 # Allow browser to reach Ollama from our local UI server (fixes CORS)
-export OLLAMA_ORIGINS="http://localhost:8080,http://127.0.0.1:8080"
+export OLLAMA_ORIGINS="$DOOMSDAY_OLLAMA_ORIGINS"
 
 # ── Step 7: Launch Ollama in background ─────────────────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting AI engine..."
@@ -100,7 +103,7 @@ OLLAMA_PID=$!
 # ── Step 8: Wait for Ollama to be ready (up to 45 seconds) ──
 WAIT_COUNT=0
 MAX_WAIT=45
-while ! curl -s http://localhost:11434 > /dev/null 2>&1; do
+while ! curl -s "${DOOMSDAY_OLLAMA_URL}" > /dev/null 2>&1; do
     sleep 1
     WAIT_COUNT=$((WAIT_COUNT + 1))
     echo -e "  ${CYAN}[BOOT]${NC} Waiting for engine... ($WAIT_COUNT/$MAX_WAIT)"
@@ -118,9 +121,9 @@ echo -e "  ${GREEN}[BOOT]${NC} AI engine online."
 
 # ── Step 9: Load the DOOMSDAY model (first run: create it) ──
 echo -e "  ${CYAN}[BOOT]${NC} Checking DOOMSDAY model..."
-if ! "$OLLAMA_BINARY" list 2>/dev/null | grep -q "doomsday"; then
-    echo -e "  ${CYAN}[BOOT]${NC} First run — building DOOMSDAY model (takes ~30 seconds)..."
-    "$OLLAMA_BINARY" create doomsday -f "$SCRIPT_DIR/Modelfile"
+if ! "$OLLAMA_BINARY" list 2>/dev/null | grep -q "$DOOMSDAY_MODEL_NAME"; then
+    echo -e "  ${CYAN}[BOOT]${NC} First run — building model (takes ~30 seconds)..."
+    "$OLLAMA_BINARY" create "$DOOMSDAY_MODEL_NAME" -f "$SCRIPT_DIR/$DOOMSDAY_MODELFILE"
     echo -e "  ${GREEN}[BOOT]${NC} DOOMSDAY model ready."
 else
     echo -e "  ${GREEN}[BOOT]${NC} DOOMSDAY model loaded."
@@ -129,10 +132,10 @@ fi
 # ── Step 10: Start UI server + open chat interface ──────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting UI server..."
 # Serve UI via local HTTP to avoid browser file:// CORS restrictions
-python3 -m http.server 8080 --directory "$SCRIPT_DIR/ui" &>/dev/null &
+python3 -m http.server "$DOOMSDAY_UI_PORT" --directory "$SCRIPT_DIR/ui" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "http://localhost:8080"
+open "${DOOMSDAY_UI_URL}"
 
 echo ""
 echo "  -------------------------------------------------------"

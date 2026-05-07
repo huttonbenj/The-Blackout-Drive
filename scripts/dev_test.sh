@@ -22,7 +22,11 @@ set -e
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DRIVE_DIR="$SCRIPT_DIR/../drive"
-MODELFILE="$DRIVE_DIR/Modelfile"
+
+# ── Load configuration (single source of truth) ────────────────
+source "$DRIVE_DIR/config.sh"
+
+MODELFILE="$DRIVE_DIR/$DOOMSDAY_MODELFILE"
 UI_PATH="$DRIVE_DIR/ui/index.html"
 
 RED='\033[0;31m'
@@ -56,7 +60,7 @@ echo -e "  ${GREEN}[PASS]${NC} Modelfile found: $MODELFILE"
 # ── Step 3: Check UI files exist ────────────────────────────
 echo -e "  ${CYAN}[3/5]${NC} Checking UI files..."
 UI_OK=true
-for f in "index.html" "style.css" "app.js"; do
+for f in "index.html" "style.css" "app.js" "config.js"; do
     if [ ! -f "$DRIVE_DIR/ui/$f" ]; then
         echo -e "  ${RED}[FAIL]${NC} Missing: drive/ui/$f"
         UI_OK=false
@@ -70,11 +74,11 @@ fi
 
 # ── Step 4: Create / update doomsday model ──────────────────
 echo -e "  ${CYAN}[4/5]${NC} Building DOOMSDAY model from Modelfile..."
-echo "         (This downloads phi3:mini if not already cached — ~2.3GB)"
+echo "         (This downloads $DOOMSDAY_BASE_MODEL if not already cached — ~2.3GB)"
 echo ""
 
 # Start ollama serve if not running
-if ! curl -s http://localhost:11434 > /dev/null 2>&1; then
+if ! curl -s "$DOOMSDAY_OLLAMA_URL" > /dev/null 2>&1; then
     echo -e "  ${CYAN}[INFO]${NC} Starting Ollama server..."
     ollama serve &
     OLLAMA_PID=$!
@@ -82,7 +86,7 @@ if ! curl -s http://localhost:11434 > /dev/null 2>&1; then
     
     # Wait for it to be ready
     WAIT=0
-    while ! curl -s http://localhost:11434 > /dev/null 2>&1; do
+    while ! curl -s "$DOOMSDAY_OLLAMA_URL" > /dev/null 2>&1; do
         sleep 1
         WAIT=$((WAIT + 1))
         if [ $WAIT -ge 30 ]; then
@@ -98,21 +102,21 @@ else
 fi
 
 # Create the model
-ollama create doomsday -f "$MODELFILE"
+ollama create "$DOOMSDAY_MODEL_NAME" -f "$MODELFILE"
 echo ""
-echo -e "  ${GREEN}[PASS]${NC} DOOMSDAY model built successfully"
+echo -e "  ${GREEN}[PASS]${NC} $DOOMSDAY_MODEL_NAME model built successfully"
 
 # ── Step 5: Smoke test — send a test prompt ──────────────────
 echo -e "  ${CYAN}[5/5]${NC} Smoke testing DOOMSDAY persona..."
 echo "         Sending test prompt: 'How do I purify water in an emergency?'"
 echo ""
 
-RESPONSE=$(curl -s http://localhost:11434/api/chat \
-    -d '{
-        "model": "doomsday",
-        "messages": [{"role": "user", "content": "In 2 sentences, how do I purify water in an emergency?"}],
-        "stream": false
-    }' | python3 -c "import sys,json; data=json.load(sys.stdin); print(data.get('message',{}).get('content','[no response]'))" 2>/dev/null)
+RESPONSE=$(curl -s "${DOOMSDAY_OLLAMA_URL}/api/chat" \
+    -d "{
+        \"model\": \"$DOOMSDAY_MODEL_NAME\",
+        \"messages\": [{\"role\": \"user\", \"content\": \"In 2 sentences, how do I purify water in an emergency?\"}],
+        \"stream\": false
+    }" | python3 -c "import sys,json; data=json.load(sys.stdin); print(data.get('message',{}).get('content','[no response]'))" 2>/dev/null)
 
 if [ -z "$RESPONSE" ] || [ "$RESPONSE" = "[no response]" ]; then
     echo -e "  ${RED}[FAIL]${NC} No response from model"
@@ -137,7 +141,10 @@ echo "  UI path: $UI_PATH"
 echo "  ============================================="
 echo ""
 
-open "$UI_PATH"
+python3 -m http.server "$DOOMSDAY_UI_PORT" --directory "$DRIVE_DIR/ui" &>/dev/null &
+UI_SERVER_PID=$!
+sleep 1
+open "${DOOMSDAY_UI_URL}"
 
 # ── Cleanup on exit ──────────────────────────────────────────
 cleanup() {

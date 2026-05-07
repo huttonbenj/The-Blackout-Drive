@@ -17,6 +17,9 @@ title DOOMSDAY // Offline Survival Intelligence
 set "DRIVE_ROOT=%~d0"
 set "SCRIPT_DIR=%~dp0"
 
+:: ── Load configuration (single source of truth) ────────────────
+call "%SCRIPT_DIR%config.bat"
+
 echo.
 echo  ██████╗  ██████╗  ██████╗ ███╗   ███╗███████╗██████╗  █████╗ ██╗   ██╗
 echo  ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║██╔════╝██╔══██╗██╔══██╗╚██╗ ██╔╝
@@ -45,7 +48,7 @@ if not exist "%OLLAMA_EXE%" (
 )
 
 :: ── Step 2: Check for model ──────────────────────────────────
-set "MODEL_FILE=%SCRIPT_DIR%models\phi3-mini.Q4_K_M.gguf"
+set "MODEL_FILE=%SCRIPT_DIR%models\%DOOMSDAY_MODEL_FILE%"
 
 if not exist "%MODEL_FILE%" (
     echo  [ERROR] AI model not found: %MODEL_FILE%
@@ -58,7 +61,7 @@ if not exist "%MODEL_FILE%" (
 )
 
 :: ── Step 3: Check if Ollama is already running ───────────────
-curl -s http://localhost:11434 >nul 2>&1
+curl -s %DOOMSDAY_OLLAMA_URL% >nul 2>&1
 if %errorlevel% == 0 (
     echo  [INFO] DOOMSDAY system already running. Opening interface...
     goto :open_ui
@@ -68,8 +71,8 @@ if %errorlevel% == 0 (
 echo  [BOOT] Initializing DOOMSDAY system...
 set "OLLAMA_MODELS=%SCRIPT_DIR%models"
 set "OLLAMA_HOME=%SCRIPT_DIR%runtime\ollama-windows"
-set "OLLAMA_HOST=127.0.0.1:11434"
-set "OLLAMA_ORIGINS=http://localhost:8080,http://127.0.0.1:8080"
+set "OLLAMA_HOST=%DOOMSDAY_OLLAMA_HOST_ADDR%"
+set "OLLAMA_ORIGINS=%DOOMSDAY_OLLAMA_ORIGINS%"
 
 :: ── Step 5: Launch Ollama in background ─────────────────────
 start /b "" "%OLLAMA_EXE%" serve
@@ -79,7 +82,7 @@ echo  [BOOT] Starting AI engine...
 set /a WAIT_COUNT=0
 :wait_loop
 timeout /t 1 /nobreak >nul
-curl -s http://localhost:11434 >nul 2>&1
+curl -s %DOOMSDAY_OLLAMA_URL% >nul 2>&1
 if %errorlevel% == 0 goto :ollama_ready
 set /a WAIT_COUNT+=1
 if %WAIT_COUNT% GEQ 30 (
@@ -96,30 +99,30 @@ echo  [BOOT] AI engine online.
 
 :: ── Step 7: Load the DOOMSDAY model ─────────────────────────
 echo  [BOOT] Loading DOOMSDAY intelligence model...
-"%OLLAMA_EXE%" run doomsday "" >nul 2>&1
+"%OLLAMA_EXE%" run "%DOOMSDAY_MODEL_NAME%" "" >nul 2>&1
 
 :: If model doesn't exist yet, create it from Modelfile
-"%OLLAMA_EXE%" list | findstr "doomsday" >nul 2>&1
+"%OLLAMA_EXE%" list | findstr "%DOOMSDAY_MODEL_NAME%" >nul 2>&1
 if %errorlevel% NEQ 0 (
-    echo  [BOOT] First run — building DOOMSDAY model...
-    "%OLLAMA_EXE%" create doomsday -f "%SCRIPT_DIR%Modelfile"
-    echo  [BOOT] DOOMSDAY model ready.
+    echo  [BOOT] First run — building model...
+    "%OLLAMA_EXE%" create "%DOOMSDAY_MODEL_NAME%" -f "%SCRIPT_DIR%%DOOMSDAY_MODELFILE%"
+    echo  [BOOT] Model ready.
 )
 
 :open_ui
 :: ── Step 8: Start UI server + open chat interface ────────────
 echo  [BOOT] Starting UI server...
 :: Serve UI via local HTTP (fixes CORS — browser can't call Ollama from file://)
-start /b "" python -m http.server 8080 --directory "%SCRIPT_DIR%ui"
+start /b "" python -m http.server %DOOMSDAY_UI_PORT% --directory "%SCRIPT_DIR%ui"
 timeout /t 1 /nobreak >nul
-start "" http://localhost:8080
+start "" %DOOMSDAY_UI_URL%
 
 echo.
 echo  -------------------------------------------------------
-echo  DOOMSDAY is online. Browser opening at http://localhost:8080
+echo  DOOMSDAY is online. Browser opening at %DOOMSDAY_UI_URL%
 echo  
 echo  If your browser doesn't open, navigate to:
-echo  http://localhost:8080
+echo  %DOOMSDAY_UI_URL%
 echo.
 echo  IMPORTANT: Keep this window open while using DOOMSDAY.
 echo  Closing this window will shut down the AI system.

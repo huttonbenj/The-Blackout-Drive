@@ -6,13 +6,19 @@
 
 'use strict';
 
-// ── Configuration ─────────────────────────────────────────
-const CONFIG = {
-  ollamaHost:    'http://localhost:11434',
-  model:         'doomsday',
-  streamTimeout: 120000,  // 2 min max per response
-  retryInterval: 2000,    // Check connection every 2s
-  maxRetries:    30,       // Give up after 60s
+// ── Configuration (sourced from config.js) ────────────────
+// All values live in drive/ui/config.js — do not hardcode here.
+// Fallbacks are safety nets only; config.js should always load.
+const CONFIG = window.DOOMSDAY_CONFIG || {
+  appName:        'DOOMSDAY',
+  version:        '1.0.0',
+  model:          'doomsday',
+  ollamaPort:     11434,
+  ollamaHost:     'http://localhost:11434',
+  uiPort:         8080,
+  streamTimeout:  120000,
+  retryInterval:  2000,
+  maxRetries:     30,
 };
 
 // ── State ─────────────────────────────────────────────────
