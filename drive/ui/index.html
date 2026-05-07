@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOOMSDAY // Offline Survival Intelligence</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">CONNECTING...</span>
+      </div>
+    </div>
+    <div class="header-center">
+      <h1 class="brand-title">DOOMSDAY</h1>
+      <p class="brand-sub">OFFLINE SURVIVAL INTELLIGENCE</p>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="clearBtn" title="Clear conversation">
+        &#x2715; CLEAR
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Warning Banner ─────────────────────────────────── -->
+  <div class="warning-banner" id="warningBanner" style="display:none;">
+    <span class="warning-icon">⚠</span>
+    <span id="warningText"></span>
+  </div>
+
+  <!-- ── Offline Status Bar ─────────────────────────────── -->
+  <div class="offline-bar">
+    <span class="offline-badge">🔴 OFFLINE MODE</span>
+    <span class="offline-sub">AI running locally · No data sent to internet · All responses generated on your hardware</span>
+  </div>
+
+  <!-- ── Main Chat Area ─────────────────────────────────── -->
+  <main class="chat-container" id="chatContainer">
+
+    <!-- Welcome Screen (shown when no messages) -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <div class="welcome-skull">☠</div>
+      <h2 class="welcome-title">SYSTEM ONLINE</h2>
+      <p class="welcome-sub">Grid-down survival intelligence. Ask anything.</p>
+      
+      <div class="prompt-grid">
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">💧</div>
+          <p>How do I purify water from a creek without store-bought filters?</p>
+        </div>
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">🩹</div>
+          <p>How do I treat a deep laceration with no medical supplies?</p>
+        </div>
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">🔥</div>
+          <p>How do I start a fire in wet conditions with no lighter?</p>
+        </div>
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">📻</div>
+          <p>What emergency radio frequencies should I monitor?</p>
+        </div>
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">🌿</div>
+          <p>Which common plants in North America are safe to eat?</p>
+        </div>
+        <div class="prompt-card" onclick="usePrompt(this)">
+          <div class="prompt-icon">🏠</div>
+          <p>How do I build an emergency shelter in the woods overnight?</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="messages" id="messages"></div>
+
+  </main>
+
+  <!-- ── Input Area ──────────────────────────────────────── -->
+  <footer class="input-area">
+    <div class="input-wrapper">
+      <textarea
+        id="userInput"
+        class="message-input"
+        placeholder="Ask DOOMSDAY anything..."
+        rows="1"
+        maxlength="4000"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" disabled>
+        <span id="sendIcon">&#x2BAD;</span>
+      </button>
+    </div>
+    <div class="input-footer">
+      <span class="char-count" id="charCount">0 / 4000</span>
+      <span class="disclaimer">For informational use only · Not a substitute for emergency services · Call 911 if available</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
