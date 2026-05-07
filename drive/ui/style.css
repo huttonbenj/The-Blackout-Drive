@@ -2925,6 +2925,77 @@ body.beacon-offline .beacon-icon {
 /* HAM RADIO CSS removed — moved to v2-experimental branch (P3-2) */
 
 /* ════════════════════════════════════════════════════════════
+   CUSTOM CONFIRM MODAL (replaces native confirm() dialogs)
+   ════════════════════════════════════════════════════════════ */
+.bd-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.bd-confirm-overlay.bd-confirm-visible {
+  opacity: 1;
+}
+.bd-confirm-box {
+  background: var(--bg-card, #161c13);
+  border: 1px solid rgba(200, 160, 74, 0.3);
+  border-radius: 8px;
+  padding: 28px 32px 24px;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+.bd-confirm-msg {
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(12px, 0.8vw, 14px);
+  letter-spacing: 1px;
+  color: var(--text-primary, #d4d4c8);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.bd-confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.bd-confirm-btn {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid;
+}
+.bd-confirm-cancel {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text-dim, #4a5a4a);
+}
+.bd-confirm-cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary, #d4d4c8);
+}
+.bd-confirm-ok {
+  background: rgba(200, 160, 74, 0.12);
+  border-color: rgba(200, 160, 74, 0.4);
+  color: var(--amber, #c8a04a);
+}
+.bd-confirm-ok:hover {
+  background: rgba(200, 160, 74, 0.25);
+  border-color: var(--amber, #c8a04a);
+}
+
+/* ════════════════════════════════════════════════════════════
    SKELETON LOADERS — Replace body opacity flash
    ════════════════════════════════════════════════════════════ */
 .skeleton-sidebar {

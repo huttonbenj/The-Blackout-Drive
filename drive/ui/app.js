@@ -642,11 +642,54 @@ function autoResize() {
 
 function clearConversation() {
   if (messages.length === 0) return;
-  if (!confirm('Clear the conversation? This cannot be undone.')) return;
-  messages = [];
-  messagesEl.innerHTML = '';
-  welcomeScreen.style.display = 'flex';
-  try { sessionStorage.removeItem(CHAT_SS_KEY); } catch {} // P1-7
+  _showConfirmModal('Clear the conversation? This cannot be undone.', () => {
+    messages = [];
+    messagesEl.innerHTML = '';
+    welcomeScreen.style.display = 'flex';
+    try { sessionStorage.removeItem(CHAT_SS_KEY); } catch {}
+  });
+}
+
+// ── Custom confirm modal (replaces native confirm()) ──────────
+function _showConfirmModal(message, onConfirm) {
+  // Remove any existing modal
+  const old = document.getElementById('bdConfirmModal');
+  if (old) old.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'bdConfirmModal';
+  modal.className = 'bd-confirm-overlay';
+  modal.innerHTML = `
+    <div class="bd-confirm-box">
+      <div class="bd-confirm-msg">${message}</div>
+      <div class="bd-confirm-actions">
+        <button class="bd-confirm-btn bd-confirm-cancel">CANCEL</button>
+        <button class="bd-confirm-btn bd-confirm-ok">CONFIRM</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Fade in
+  requestAnimationFrame(() => modal.classList.add('bd-confirm-visible'));
+
+  const close = () => {
+    modal.classList.remove('bd-confirm-visible');
+    setTimeout(() => modal.remove(), 200);
+  };
+
+  modal.querySelector('.bd-confirm-cancel').addEventListener('click', close);
+  modal.querySelector('.bd-confirm-ok').addEventListener('click', () => {
+    close();
+    onConfirm();
+  });
+  // Escape to cancel
+  const esc = (e) => { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); } };
+  document.addEventListener('keydown', esc);
+  // Click outside to cancel
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  // Focus the cancel button
+  modal.querySelector('.bd-confirm-cancel').focus();
 }
 
 // P1-7: Persist chat messages to sessionStorage (max 50 messages to limit size)
@@ -702,18 +745,12 @@ clearBtn.addEventListener('click', clearConversation);
   if (typeof _restoreLibState === 'function') {
     try {
       _restoreLibState();
-      // If library was NOT open, reveal body immediately
-      const wasLib = sessionStorage.getItem('dd_lib');
-      const parsed = wasLib ? JSON.parse(wasLib) : null;
-      if (!parsed || !parsed.open) {
-        requestAnimationFrame(() => { document.body.style.opacity = '1'; });
-      }
-    } catch(e) {
-      requestAnimationFrame(() => { document.body.style.opacity = '1'; });
-    }
-  } else {
-    requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+    } catch(e) {}
   }
+
+  // P1-7: Restore chat AFTER library state so messages don't flash
+  // behind the library panel during the brief render gap.
+  _restoreChatState();
 
   // Initialize voice input (shows mic button if browser supports it)
   initVoiceInput();

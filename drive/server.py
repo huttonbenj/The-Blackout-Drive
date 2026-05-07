@@ -221,8 +221,15 @@ class BlackoutDriveHandler(BaseHTTPRequestHandler):
     def _serve_file(self, url_path: str):
         # Map URL path to filesystem path under DRIVE_DIR
         rel = url_path.lstrip('/')
+
+        # Root URL → redirect to /ui/ so relative paths (config.js, app.js, etc.)
+        # resolve correctly. Serving ui/index.html inline at '/' would break them.
         if not rel:
-            rel = 'ui/index.html'
+            self.send_response(302)
+            self.send_header('Location', '/ui/')
+            self.end_headers()
+            return
+
         full = self._safe_path(rel)
         if not full:
             self.send_error(403, 'Forbidden')

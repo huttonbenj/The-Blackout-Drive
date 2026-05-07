@@ -1465,26 +1465,28 @@ async function showManagePanel() {
 async function deleteCategory(catId) {
   const cat = libRawCatalog && libRawCatalog.categories.find(c => c.id === catId);
   if (!cat) return;
-  if (!confirm(`Remove all ${cat.items.length} file(s) in "${cat.name}"? This frees up disk space. You can re-download later.`)) return;
-  for (const item of cat.items) {
-    if (libManifest && libManifest.has(item.file)) await DDAPI.deleteFile(item.file);
-  }
-  await refreshAfterManifestChange();
-  showManagePanel();
+  _showConfirmModal(`Remove all ${cat.items.length} file(s) in "${cat.name}"? This frees up disk space. You can re-download later.`, async () => {
+    for (const item of cat.items) {
+      if (libManifest && libManifest.has(item.file)) await DDAPI.deleteFile(item.file);
+    }
+    await refreshAfterManifestChange();
+    showManagePanel();
+  });
 }
 
 async function confirmDeleteFile(filePath, displayName, itemId) {
-  if (!confirm(`Remove "${displayName}"?\nThis deletes the file from your drive. You can re-download it later.`)) return;
-  const row = document.getElementById(`mfr-${itemId}`);
-  if (row) row.style.opacity = '0.4';
-  const result = await DDAPI.deleteFile(filePath);
-  if (result && result.ok) {
-    await refreshAfterManifestChange();
-    showManagePanel();
-  } else {
-    if (row) row.style.opacity = '1';
-    alert('Could not delete file. ' + (result ? result.error : ''));
-  }
+  _showConfirmModal(`Remove "${displayName}"? This deletes the file from your drive. You can re-download it later.`, async () => {
+    const row = document.getElementById(`mfr-${itemId}`);
+    if (row) row.style.opacity = '0.4';
+    const result = await DDAPI.deleteFile(filePath);
+    if (result && result.ok) {
+      await refreshAfterManifestChange();
+      showManagePanel();
+    } else {
+      if (row) row.style.opacity = '1';
+      showToast('Could not delete file. ' + (result ? result.error : ''));
+    }
+  });
 }
 
 // ── Utilities ────────────────────────────────────────────────
