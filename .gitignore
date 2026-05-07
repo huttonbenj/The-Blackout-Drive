@@ -1,0 +1,49 @@
+# ─── macOS ───────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# ─── AI Models (too large for git — use scripts/download_models.sh) ──────────
+drive/models/*.gguf
+drive/models/*.bin
+drive/models/*.safetensors
+
+# ─── Ollama Runtime Binaries (use scripts/download_runtime.sh) ───────────────
+drive/runtime/ollama-windows/
+drive/runtime/ollama-mac-arm/
+drive/runtime/ollama-mac-intel/
+drive/runtime/ollama-linux/
+!drive/runtime/.gitkeep
+
+# ─── Kiwix ZIM Files (large — use scripts/download_content.sh) ───────────────
+drive/knowledge/zim/*.zim
+!drive/knowledge/zim/.gitkeep
+
+# ─── Downloaded PDFs (use scripts/download_content.sh) ───────────────────────
+drive/knowledge/pdfs/*.pdf
+!drive/knowledge/pdfs/.gitkeep
+
+# ─── Build Artifacts ──────────────────────────────────────────────────────────
+build/
+*.img
+*.iso
+*.dmg
+
+# ─── Secrets & Environment ────────────────────────────────────────────────────
+.env
+.env.local
+*.secret
+
+# ─── Editor ───────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── Node (if any tooling is added later) ─────────────────────────────────────
+node_modules/
