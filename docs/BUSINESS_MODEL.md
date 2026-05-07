@@ -242,3 +242,29 @@ PortableMind successfully upsells a $14.99 carbon fiber EMP shielding pouch.
 
 **Action:** Source Alibaba listings for "carbon fiber Faraday pouch USB" and "EMP shielding pouch." Order 50 samples to validate quality before bulk.
 
+
+---
+
+## Themed Editions Strategy (V1.5 — Post Launch Validation)
+
+> DO NOT implement until Tier 1 is selling 100+ units/month.
+> Operational principle: batch-flash identical drives = 78% margin preserved.
+> À la carte = manual flash per order = margin destruction.
+
+### The 3 Master Images (1 flash each, batch-duplicated):
+
+| Edition | SKU | Price | Content Bundle |
+|---------|-----|-------|---------------|
+| **Standard** (default) | DD-01 | $79 | Bible (all 4) + Survival + Medical + Philosophy |
+| **Homestead & Harvest** | DD-01H | $89 | Standard + USDA agriculture, seed saving, off-grid solar, canning deep archive |
+| **Tactical & Comms** | DD-01T | $89 | Standard + Ham radio freq guides, PACE plans, comms protocols, tactical manuals |
+
+### Amazon FBA Rule:
+Send only **DD-01 Standard** to Amazon FBA (identical SKUs, batch-flashed).
+Route Homestead and Tactical editions exclusively through Shopify (own the customer data).
+
+### V2 Content Hub Concept:
+Ship every drive identical. Include a local "DOOMSDAY Hub" app that lets users download
+optional content packs (Homestead Pack, Tactical Pack) from a CDN on their first run
+while they still have internet. Drive stays operationally uniform. Customization moves
+to software, not hardware.

@@ -1044,3 +1044,102 @@ body {
   color: var(--green-bright);
   letter-spacing: 1px;
 }
+
+/* ── Bible Reader ─────────────────────────────────────────── */
+.lib-sidebar-section {
+  font-size: clamp(8px, 0.55vw, 10px);
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  padding: 10px 16px 4px;
+  text-transform: uppercase;
+}
+
+.bible-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: clamp(14px, 1.5vh, 22px);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: clamp(14px, 1.5vh, 22px);
+  flex-wrap: wrap;
+}
+
+.bible-select {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 0.8vw, 14px);
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.bible-select:focus { border-color: var(--amber-dim); }
+.bible-select option { background: var(--bg-secondary); }
+
+.bible-jump-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.bible-chapter-title {
+  font-size: clamp(14px, 1.2vw, 20px);
+  color: var(--amber);
+  letter-spacing: clamp(3px, 0.4vw, 7px);
+  text-align: center;
+  margin-bottom: clamp(20px, 2.5vh, 36px);
+}
+
+.bible-verses {
+  max-width: 72ch;
+  margin: 0 auto clamp(24px, 3vh, 48px);
+}
+
+.bible-verse {
+  display: flex;
+  gap: 12px;
+  margin-bottom: clamp(10px, 1.2vh, 18px);
+  line-height: 1.9;
+  transition: background 0.3s ease;
+  border-radius: var(--radius);
+  padding: 2px 6px;
+}
+
+.bible-verse-highlight {
+  background: rgba(200, 160, 74, 0.12) !important;
+}
+
+.bible-verse-num {
+  color: var(--amber-dim);
+  font-size: clamp(9px, 0.6vw, 11px);
+  font-family: var(--font-mono);
+  min-width: 26px;
+  text-align: right;
+  padding-top: 5px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+.bible-verse-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: var(--text-primary);
+  line-height: 1.9;
+}
+
+.bible-bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(14px, 1.5vh, 24px) 0;
+  border-top: 1px solid var(--border);
+  margin-top: clamp(14px, 1.5vh, 24px);
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
+}
