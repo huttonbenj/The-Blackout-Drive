@@ -1,5 +1,5 @@
-DOOMSDAY DRIVE — FIRST TIME SETUP
-==================================
+DOOMSDAY.AI — FIRST TIME SETUP
+================================
 
 WINDOWS USERS — READ THIS FIRST:
 ----------------------------------
@@ -9,7 +9,7 @@ show a security warning ("Windows protected your PC").
 FIX IN 3 STEPS:
   1. Double-click: FIRST_RUN_WINDOWS.bat
   2. Click "Yes" when Windows asks for permission
-  3. DOOMSDAY will launch automatically
+  3. DOOMSDAY.AI will launch automatically
 
 After that first setup, always use: START_WINDOWS.bat
 
@@ -22,7 +22,7 @@ it's from an unidentified developer" message.
 
 FIX IN 2 STEPS:
   1. Double-click: FIRST_RUN_MAC.command
-  2. DOOMSDAY will launch automatically
+  2. DOOMSDAY.AI will launch automatically
 
 After that first setup, always use: START_MAC.command
 
@@ -30,12 +30,59 @@ After that first setup, always use: START_MAC.command
 
 BEFORE UNPLUGGING:
 ------------------
-Always shut down DOOMSDAY before removing the drive:
+Always shut down DOOMSDAY.AI before removing the drive:
   → Close the launcher window (or press Ctrl+C), OR
   → Double-click: STOP_DOOMSDAY (Windows) or STOP_DOOMSDAY.command (Mac)
 
 Do NOT just yank the drive. The AI engine runs in your 
 computer's memory — the stop script shuts it down cleanly.
+
+─────────────────────────────────────────────────────────────
+
+WHAT'S ON THIS DRIVE:
+----------------------
+DOOMSDAY.AI is a fully capable, general-purpose offline AI.
+Ask it anything — survival, law, science, history, or everyday
+questions. It has no internet and sends nothing to any server.
+
+Click the "📚 LIBRARY" button inside the chat interface to
+browse and read everything preloaded on this drive:
+
+  HOLY BIBLE
+    • King James Version (KJV, 1611)
+    • World English Bible (WEB — modern English)
+    • American Standard Version (ASV, 1901)
+    • Young's Literal Translation (YLT, 1862)
+
+  SURVIVAL MANUALS
+    • US Army FM 21-76 Survival Manual
+    • US Army FM 3-05.70 Survival Guide
+    • FEMA Are You Ready? Guide
+    • FEMA CERT Training Manual
+    • USDA Complete Guide to Home Canning
+    • EPA Emergency Drinking Water Disinfection
+
+  MEDICAL & HEALTH
+    • Where There Is No Doctor (Hesperian)
+    • Where There Is No Dentist
+    • A Book for Midwives
+    • Red Cross Family Disaster Plan
+
+  LAW & REFERENCE
+    • US Constitution & Bill of Rights
+    • Declaration of Independence
+    • UN Universal Declaration of Human Rights
+    • Black's Law Dictionary (1910 Edition)
+
+  PHILOSOPHY & WISDOM
+    • Meditations — Marcus Aurelius
+    • Enchiridion — Epictetus
+    • The Art of War — Sun Tzu
+
+  WIKIPEDIA OFFLINE (via Kiwix)
+    • Wikipedia Medicine & Health
+    • Wikipedia Outdoor & Wilderness
+    • Wiktionary — English Dictionary
 
 ─────────────────────────────────────────────────────────────
 
