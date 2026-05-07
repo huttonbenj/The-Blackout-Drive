@@ -1492,3 +1492,83 @@ body {
 .lib-file-name { font-weight: 600; margin-bottom: 2px; }
 .lib-file-desc { color: var(--text-secondary); line-height: 1.35; margin-bottom: 3px; }
 .lib-file-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+
+/* ── Pack Pricing & Paid Pack UI ─────────────────────────── */
+.pack-price-badge {
+  display: inline-block;
+  font-size: clamp(9px, 0.6vw, 11px);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  margin-left: 8px;
+  background: rgba(200, 60, 60, 0.12);
+  border: 1px solid rgba(200, 60, 60, 0.3);
+  color: #e07777;
+  vertical-align: middle;
+  font-weight: 700;
+}
+.pack-price-badge.free {
+  background: rgba(80, 180, 80, 0.1);
+  border-color: rgba(80, 180, 80, 0.25);
+  color: var(--green-bright);
+}
+.pack-locked {
+  border-color: rgba(200, 60, 60, 0.2) !important;
+  background: rgba(200, 60, 60, 0.02) !important;
+}
+.pack-purchase-btn {
+  text-decoration: none;
+  display: inline-block;
+  background: rgba(200, 60, 60, 0.1) !important;
+  border-color: rgba(200, 60, 60, 0.35) !important;
+  color: #e07777 !important;
+}
+.pack-purchase-btn:hover { background: rgba(200, 60, 60, 0.2) !important; }
+.pack-unlock-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-dim);
+  padding: 5px 12px;
+  border-radius: var(--radius);
+  font-size: clamp(10px, 0.68vw, 12px);
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+.pack-unlock-btn:hover { border-color: var(--amber-dim); color: var(--amber); }
+.pack-license-row {
+  margin-top: 8px;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Per-file download buttons ───────────────────────────── */
+.pack-file-name { flex: 1; }
+.pack-file-done { color: var(--green-bright); font-size: 12px; flex-shrink: 0; }
+.pack-file-locked { color: rgba(200,60,60,0.5); font-size: 12px; flex-shrink: 0; }
+.pack-file-dl-btn {
+  background: none;
+  border: 1px solid rgba(255,170,0,0.2);
+  color: var(--amber-dim);
+  width: 22px; height: 22px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.pack-file-dl-btn:hover { background: rgba(255,170,0,0.12); color: var(--amber); border-color: rgba(255,170,0,0.4); }
+.pack-file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(10px, 0.7vw, 12px);
+  color: var(--text-secondary);
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.pack-file-item:last-child { border-bottom: none; }

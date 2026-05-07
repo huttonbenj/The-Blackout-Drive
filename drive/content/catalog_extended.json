@@ -1,16 +1,19 @@
 {
-  "schema": "1.0",
+  "schema": "1.1",
   "updated": "2026-05-07",
-  "_comment": "Available content packs for download via GET MORE panel. URLs will point to CDN when live. Currently uses Project Gutenberg for public domain texts.",
+  "_comment": "Available content packs for download via GET MORE panel. price:0 = free. price>0 = paid (requires purchase_url and license). dest paths are fixed — users cannot change them.",
   "packs": [
     {
       "id": "bible-commentary",
       "name": "Bible Commentary Pack",
-      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) — verse-by-verse exposition.",
+      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) — verse-by-verse Puritan exposition, free to download.",
       "icon": "📖",
       "category": "religious",
       "version": "1.0.0",
       "size_mb": 14,
+      "price": 0,
+      "license_required": false,
+      "purchase_url": null,
       "files": [
         {
           "id": "matthew_henry_vol1",
@@ -31,7 +34,7 @@
           "license": "Public Domain (1706)"
         },
         {
-          "id": "matthew_henry_vol6",
+          "id": "matthew_henry_nt",
           "name": "Matthew Henry Commentary — New Testament",
           "description": "NT commentary from Acts through Revelation",
           "url": "https://www.gutenberg.org/cache/epub/6431/pg6431.txt",
@@ -44,16 +47,19 @@
     {
       "id": "extended-medical",
       "name": "Extended Medical Pack",
-      "description": "Advanced offline medical references — anatomy, materia medica, and field surgery guides.",
+      "description": "Advanced offline medical references — Gray's Anatomy, Merck Materia Medica, and Red Cross home nursing. Free to download.",
       "icon": "🏥",
       "category": "medical",
       "version": "1.0.0",
-      "size_mb": 38,
+      "size_mb": 9,
+      "price": 0,
+      "license_required": false,
+      "purchase_url": null,
       "files": [
         {
           "id": "grays_anatomy",
           "name": "Gray's Anatomy (1918 Edition)",
-          "description": "Complete anatomical reference with descriptions",
+          "description": "Complete anatomical reference with systematic descriptions",
           "url": "https://www.gutenberg.org/cache/epub/16413/pg16413.txt",
           "dest": "content/books/grays_anatomy.txt",
           "size_mb": 6,
@@ -62,7 +68,7 @@
         {
           "id": "merck_materia_medica",
           "name": "Merck's Manual of Materia Medica (1899)",
-          "description": "Drug references, dosages, and treatments — 1899 edition",
+          "description": "Drug references, dosages, and treatments",
           "url": "https://www.gutenberg.org/cache/epub/35980/pg35980.txt",
           "dest": "content/books/merck_materia_medica.txt",
           "size_mb": 2,
@@ -70,7 +76,7 @@
         },
         {
           "id": "home_nursing",
-          "name": "Home Nursing (American Red Cross, 1918)",
+          "name": "Home Nursing — American Red Cross (1918)",
           "description": "Field nursing and emergency care for non-professionals",
           "url": "https://www.gutenberg.org/cache/epub/10346/pg10346.txt",
           "dest": "content/books/home_nursing_redcross.txt",
@@ -82,11 +88,14 @@
     {
       "id": "homestead",
       "name": "Homestead & Agriculture Pack",
-      "description": "Off-grid farming, herbalism, food preservation, and self-sufficient living references.",
+      "description": "Off-grid farming, herbalism, and self-sufficient living. Culpeper's herbal, practical farming guides. Free to download.",
       "icon": "🌿",
       "category": "survival",
       "version": "1.0.0",
-      "size_mb": 22,
+      "size_mb": 5,
+      "price": 0,
+      "license_required": false,
+      "purchase_url": null,
       "files": [
         {
           "id": "culpeper_herbal",
@@ -107,7 +116,7 @@
           "license": "Public Domain (1864)"
         },
         {
-          "id": "farm_and_garden",
+          "id": "farm_garden_rulebook",
           "name": "Farm and Garden Rule-Book (1911)",
           "description": "Practical farming rules, planting calendars, animal husbandry",
           "url": "https://www.gutenberg.org/cache/epub/37622/pg37622.txt",
@@ -120,11 +129,14 @@
     {
       "id": "philosophy-extended",
       "name": "Philosophy & Wisdom Pack",
-      "description": "Extended collection of Stoic philosophy, classical wisdom, and moral reasoning texts.",
+      "description": "Extended Stoic philosophy — Plato's Republic, Marcus Aurelius letters, and Seneca's moral epistles. Free.",
       "icon": "∞",
       "category": "philosophy",
       "version": "1.0.0",
-      "size_mb": 8,
+      "size_mb": 3,
+      "price": 0,
+      "license_required": false,
+      "purchase_url": null,
       "files": [
         {
           "id": "plato_republic",
@@ -136,15 +148,6 @@
           "license": "Public Domain"
         },
         {
-          "id": "marcus_aurelius_extended",
-          "name": "The Letters of Marcus Aurelius",
-          "description": "Personal letters and extended writings of the Stoic emperor",
-          "url": "https://www.gutenberg.org/cache/epub/2761/pg2761.txt",
-          "dest": "content/books/marcus_aurelius_letters.txt",
-          "size_mb": 1,
-          "license": "Public Domain"
-        },
-        {
           "id": "seneca_letters",
           "name": "Letters of Seneca to Lucilius",
           "description": "124 moral epistles on Stoic philosophy and how to live well",
@@ -152,6 +155,56 @@
           "dest": "content/books/seneca_letters.txt",
           "size_mb": 1,
           "license": "Public Domain"
+        },
+        {
+          "id": "marcus_letters",
+          "name": "The Letters of Marcus Aurelius",
+          "description": "Personal letters and extended writings of the Stoic emperor",
+          "url": "https://www.gutenberg.org/cache/epub/2761/pg2761.txt",
+          "dest": "content/books/marcus_aurelius_letters.txt",
+          "size_mb": 1,
+          "license": "Public Domain"
+        }
+      ]
+    },
+    {
+      "id": "ham-radio-premium",
+      "name": "Ham Radio & Emergency Comms Pack",
+      "description": "Complete amateur radio reference: frequency charts, phonetic alphabet, Morse code, emergency net protocols, and band plans. Premium pack.",
+      "icon": "📡",
+      "category": "communications",
+      "version": "1.0.0",
+      "size_mb": 12,
+      "price": 4.99,
+      "license_required": true,
+      "purchase_url": "https://doomsdaydrive.com/shop/ham-radio-pack",
+      "files": [
+        {
+          "id": "arrl_band_plan",
+          "name": "ARRL Frequency & Band Plan Reference",
+          "description": "Complete US amateur radio band plan with frequencies, modes, and emergency channels",
+          "url": "https://cdn.doomsday.ai/files/arrl_band_plan.txt",
+          "dest": "content/books/arrl_band_plan.txt",
+          "size_mb": 1,
+          "license": "Licensed Content"
+        },
+        {
+          "id": "morse_code_guide",
+          "name": "Morse Code Complete Reference",
+          "description": "International Morse code chart, practice sentences, and emergency signal procedures",
+          "url": "https://cdn.doomsday.ai/files/morse_code_complete.txt",
+          "dest": "content/books/morse_code_complete.txt",
+          "size_mb": 1,
+          "license": "Licensed Content"
+        },
+        {
+          "id": "emergency_comms_guide",
+          "name": "Emergency Communications Field Guide",
+          "description": "ICS-205 forms, ARES/RACES procedures, net protocols, and go-bag radio setup",
+          "url": "https://cdn.doomsday.ai/files/emergency_comms_guide.txt",
+          "dest": "content/books/emergency_comms_guide.txt",
+          "size_mb": 10,
+          "license": "Licensed Content"
         }
       ]
     }

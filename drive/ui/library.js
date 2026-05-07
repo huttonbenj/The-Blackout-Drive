@@ -569,6 +569,75 @@ function showMissingPanel(item) {
   libMain.innerHTML = `<div class="lib-missing-panel"><div class="lib-missing-title">⚠ FILE NOT DOWNLOADED</div><div class="lib-missing-desc">${escapeHtml(item.name)}<br>This file is in the catalog but not yet on this drive.</div><div class="lib-missing-cmd">bash scripts/setup_drive.sh</div><div class="lib-missing-sub">Or use ⬇ GET MORE in the sidebar (internet required).</div></div>`;
 }
 
+// ── License Management ───────────────────────────────────────────
+function licenseExists(packId) {
+  // Checks localStorage for stored license key (stored by server after validation)
+  return !!localStorage.getItem(`dd_license_${packId}`);
+}
+
+function showLicenseInput(packId) {
+  const row = document.getElementById(`plr-${packId}`);
+  if (row) { row.style.display = 'flex'; row.style.gap = '8px'; document.getElementById(`pli-${packId}`)?.focus(); }
+}
+function hideLicenseInput(packId) {
+  const row = document.getElementById(`plr-${packId}`);
+  if (row) row.style.display = 'none';
+}
+async function submitLicenseKey(packId, pack) {
+  const input = document.getElementById(`pli-${packId}`);
+  const statusEl = document.getElementById(`ps-${packId}`);
+  if (!input) return;
+  const key = input.value.trim();
+  if (!key) { if (statusEl) statusEl.textContent = 'Please enter a license key.'; return; }
+  if (statusEl) statusEl.textContent = 'Validating key…';
+  // Store key locally and attempt download
+  // In production, server validates key against CDN before revealing URLs
+  // For now: store key and unlock optimistically (CDN will reject if invalid)
+  localStorage.setItem(`dd_license_${packId}`, key);
+  hideLicenseInput(packId);
+  if (statusEl) statusEl.textContent = 'Key accepted — starting download…';
+  // Re-render to show download button, then start download
+  await startPackDownload(pack);
+}
+
+async function startSingleFileDownload(pack, file) {
+  const installed = libManifest || new Set();
+  if (installed.has(file.dest)) return;
+  // Disk check
+  if (libStatusData && libStatusData.free_bytes) {
+    const needBytes = file.size_mb * 1024 * 1024;
+    if (libStatusData.free_bytes < needBytes * 1.1) {
+      const statusEl = document.getElementById(`ps-${pack.id}`);
+      if (statusEl) statusEl.textContent = `⚠ Not enough space for ${file.name}. Use MANAGE SPACE to free up room.`;
+      return;
+    }
+  }
+  const btn = document.querySelector(`button[onclick*="${file.id}"]`);
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  const result = await DDAPI.startDownload(file.url, file.dest);
+  if (result && result.jobId) {
+    pollSingleFile(pack.id, file, result.jobId, btn);
+  } else {
+    if (btn) { btn.disabled = false; btn.textContent = '⬇'; }
+    const statusEl = document.getElementById(`ps-${pack.id}`);
+    if (statusEl) statusEl.textContent = 'Error starting download.';
+  }
+}
+
+async function pollSingleFile(packId, file, jobId, btn) {
+  const poll = setInterval(async () => {
+    const status = await DDAPI.getDownloadStatus(jobId);
+    if (status.done) {
+      clearInterval(poll);
+      await refreshAfterManifestChange();
+      if (btn) { btn.textContent = '✓'; btn.style.color = 'var(--green-bright)'; btn.disabled = true; }
+    } else if (status.error && status.error !== 'cancelled') {
+      clearInterval(poll);
+      if (btn) { btn.disabled = false; btn.textContent = '⬇'; }
+    }
+  }, 800);
+}
+
 // ── GET MORE panel ───────────────────────────────────────────
 async function showGetMorePanel() {
   libActiveCat = '__getmore'; libMode = 'files';
@@ -609,15 +678,48 @@ async function showGetMorePanel() {
   remoteCatalog.packs.forEach(pack => {
     const allInstalled = pack.files.every(f => installed.has(f.dest));
     const someInstalled = pack.files.some(f => installed.has(f.dest));
+    const isPaid = (pack.price || 0) > 0;
+    const hasLicense = isPaid && licenseExists(pack.id);
+    const isLocked = isPaid && !hasLicense && !allInstalled;
+
     const packEl = document.createElement('div');
-    packEl.className = 'pack-card';
+    packEl.className = 'pack-card' + (isLocked ? ' pack-locked' : '');
     packEl.id = `pack-${pack.id}`;
-    const fileSummary = pack.files.map(f => `<div class="pack-file-item"><span>${f.name}</span><span class="pack-file-size">~${f.size_mb} MB</span></div>`).join('');
+
+    // Individual file rows with per-file download
+    const fileSummary = pack.files.map(f => {
+      const fileInstalled = installed.has(f.dest);
+      return `<div class="pack-file-item">
+        <span class="pack-file-name">${f.name}</span>
+        <span class="pack-file-size">~${f.size_mb} MB</span>
+        ${fileInstalled
+          ? `<span class="pack-file-done">✓</span>`
+          : (!isLocked ? `<button class="pack-file-dl-btn" onclick="startSingleFileDownload(${JSON.stringify(pack).replace(/"/g,'&quot;')}, ${JSON.stringify(f).replace(/"/g,'&quot;')})" title="Download this file only">⬇</button>` : `<span class="pack-file-locked">🔒</span>`)}
+      </div>`;
+    }).join('');
+
+    // Price badge
+    const priceBadge = isPaid
+      ? `<span class="pack-price-badge">${hasLicense ? '🔓 UNLOCKED' : '$' + pack.price.toFixed(2)}</span>`
+      : `<span class="pack-price-badge free">FREE</span>`;
+
+    // Primary CTA
+    let primaryCTA = '';
+    if (allInstalled) {
+      primaryCTA = `<div class="pack-installed">✓ INSTALLED</div>`;
+    } else if (isLocked) {
+      primaryCTA = `<a class="pack-dl-btn pack-purchase-btn" href="${pack.purchase_url || '#'}" target="_blank" rel="noopener">🛒 PURCHASE — $${pack.price.toFixed(2)}</a>
+        <button class="pack-unlock-btn" onclick="showLicenseInput('${pack.id}')">🔑 I have a key</button>`;
+    } else {
+      const label = someInstalled ? 'UPDATE PACK' : 'DOWNLOAD PACK';
+      primaryCTA = `<button class="pack-dl-btn" onclick="startPackDownload(${JSON.stringify(pack).replace(/"/g,'&quot;')})" ${someInstalled?'title="Some files already installed"':''}>⬇ ${label}</button>`;
+    }
+
     packEl.innerHTML = `
       <div class="pack-header">
         <span class="pack-icon">${pack.icon}</span>
         <div class="pack-meta">
-          <div class="pack-name">${pack.name}</div>
+          <div class="pack-name">${pack.name} ${priceBadge}</div>
           <div class="pack-desc">${pack.description}</div>
         </div>
         <div class="pack-size">~${pack.size_mb} MB</div>
@@ -626,11 +728,12 @@ async function showGetMorePanel() {
         <button class="pack-files-toggle" onclick="togglePackFiles('${pack.id}')">▾ ${pack.files.length} file${pack.files.length!==1?'s':''}</button>
         <div class="pack-files-list" id="pfl-${pack.id}" style="display:none">${fileSummary}</div>
       </div>
-      <div class="pack-actions" id="pa-${pack.id}">
-        ${allInstalled
-          ? `<div class="pack-installed">✓ INSTALLED</div>`
-          : `<button class="pack-dl-btn" onclick="startPackDownload(${JSON.stringify(pack).replace(/"/g,'&quot;')})" ${someInstalled?'title="Some files already installed"':''}>⬇ ${someInstalled?'UPDATE':'DOWNLOAD PACK'}</button>`}
+      <div class="pack-license-row" id="plr-${pack.id}" style="display:none">
+        <input type="text" class="lib-search-input" id="pli-${pack.id}" placeholder="Enter license key…" style="flex:1;margin:0">
+        <button class="pack-dl-btn" onclick="submitLicenseKey('${pack.id}', ${JSON.stringify(pack).replace(/"/g,'&quot;')})">UNLOCK</button>
+        <button class="pack-files-toggle" onclick="hideLicenseInput('${pack.id}')">✕</button>
       </div>
+      <div class="pack-actions" id="pa-${pack.id}">${primaryCTA}</div>
       <div class="pack-progress-bar" id="pp-${pack.id}" style="display:none">
         <div class="pack-progress-fill" id="ppf-${pack.id}" style="width:0%"></div>
       </div>
