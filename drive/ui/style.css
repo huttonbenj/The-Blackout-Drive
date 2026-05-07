@@ -1874,3 +1874,521 @@ body {
   letter-spacing: 0.5px;
 }
 .pack-files-toggle:hover { color: var(--amber); border-color: rgba(200,160,74,0.3); }
+
+/* ════════════════════════════════════════════════════════════════════
+   PRODUCTION POLISH — Authoritative overrides (always wins cascade)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. FILE LIST: 2-column grid with equal-height, flex cards ──── */
+.lib-file-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px !important;
+  align-items: stretch !important;   /* both cells in a row stretch to same height */
+  flex-direction: unset !important;  /* kill old flex-direction:column */
+  padding: 0 !important;
+}
+@media (max-width: 860px) {
+  .lib-file-list { grid-template-columns: 1fr !important; }
+}
+
+/* Card internal layout: badge left, info column right fills height */
+.lib-file-list .lib-file-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  height: 100% !important;          /* fill the stretched grid area */
+  min-height: 80px !important;
+  padding: 14px 16px !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s !important;
+  transform: none !important;       /* suppress parent transform */
+}
+.lib-file-list .lib-file-item:hover {
+  background: rgba(255,255,255,0.042) !important;
+  border-color: rgba(200,160,74,0.28) !important;
+  box-shadow: 0 0 10px rgba(200,160,74,0.06) !important;
+  transform: none !important;
+}
+.lib-file-list .lib-file-item.lib-file-not-downloaded {
+  cursor: default !important;
+  opacity: 0.78;
+}
+.lib-file-list .lib-file-item.lib-file-not-downloaded:hover {
+  background: var(--bg-card) !important;
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+}
+
+/* Info column fills card height; button/meta pins to bottom */
+.lib-file-list .lib-file-item .lib-file-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+.lib-file-list .lib-file-item .lib-file-name {
+  font-size: clamp(12px, 0.9vw, 15px) !important;
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin-bottom: 4px !important;
+}
+.lib-file-list .lib-file-item .lib-file-desc {
+  font-size: clamp(11px, 0.75vw, 13px) !important;
+  color: var(--text-secondary) !important;
+  line-height: 1.45 !important;
+  /* clamp to 2 lines — prevents extreme height differences */
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  margin-bottom: 6px !important;
+}
+/* Meta and action button always at bottom of card */
+.lib-file-list .lib-file-item .lib-file-meta {
+  font-size: clamp(10px, 0.67vw, 11px) !important;
+  color: rgba(255,255,255,0.32) !important;
+  letter-spacing: 0.5px !important;
+  margin-top: auto !important;       /* pin to bottom */
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+/* Download button within file info — stays at bottom */
+.lib-file-list .lib-file-item .lib-file-info .lib-download-btn {
+  margin-top: 8px !important;
+  align-self: flex-start !important;
+}
+
+/* Type badge: fixed size, top-aligned */
+.lib-file-list .lib-file-item .lib-file-type-badge {
+  flex-shrink: 0 !important;
+  align-self: flex-start !important;
+  margin-top: 1px !important;
+}
+
+/* ── 2. CATEGORY OVERVIEW GRID: consistent card height ──────────── */
+.lib-cat-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(200px, 22vw, 280px), 1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+.lib-cat-grid .lib-file-item {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 110px !important;
+  height: 100% !important;
+  padding: 20px 22px !important;
+  cursor: pointer !important;
+  border-radius: var(--radius) !important;
+  gap: 6px !important;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s !important;
+  transform: none !important;
+}
+.lib-cat-grid .lib-file-item:hover {
+  border-color: rgba(200,160,74,0.4) !important;
+  background: rgba(200,160,74,0.05) !important;
+  box-shadow: 0 4px 18px rgba(200,160,74,0.07) !important;
+  transform: none !important;
+}
+.lib-cat-grid .lib-file-item .lib-file-name {
+  font-size: clamp(13px, 1vw, 17px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  color: var(--text-primary) !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+.lib-cat-grid .lib-file-item .lib-file-desc {
+  display: none !important; /* cats don't have desc — hide empty space */
+}
+.lib-cat-grid .lib-file-item .lib-file-meta {
+  margin-top: auto !important;
+  font-family: var(--font-mono) !important;
+  font-size: clamp(10px, 0.68vw, 11px) !important;
+  color: var(--amber-dim) !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Category icon: bigger, more prominent */
+.lib-cat-icon {
+  font-size: 26px !important;
+  line-height: 1 !important;
+  margin-bottom: 4px !important;
+}
+
+/* ── 3. GET MORE PACK TILES: contained layout, readable text ────── */
+.pack-tile {
+  padding: 16px 20px !important;
+  gap: 16px !important;
+  align-items: flex-start !important;
+  min-height: 80px !important;
+}
+.pack-tile .pack-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+}
+.pack-tile .pack-name {
+  font-size: clamp(12px, 0.9vw, 15px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+.pack-tile .pack-desc {
+  font-size: clamp(11px, 0.76vw, 13px) !important;
+  color: rgba(255,255,255,0.6) !important;
+  line-height: 1.5 !important;
+  /* clamp to 2 lines */
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  margin-bottom: 6px !important;
+  max-width: 700px !important;
+}
+.pack-tile .pack-meta {
+  font-size: clamp(10px, 0.68vw, 11px) !important;
+  color: rgba(255,255,255,0.3) !important;
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Pack action area: flex column, top-right aligned */
+.pack-tile .pack-action {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  gap: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Make price badge consistent with FREE badge */
+.pack-price-badge {
+  font-size: 10px !important;
+  letter-spacing: 1.5px !important;
+  padding: 2px 8px !important;
+  border-radius: 3px !important;
+}
+
+/* ── 4. MANAGE SPACE: polished category sections ─────────────────── */
+.manage-panel {
+  padding: 0 0 20px !important;
+}
+.manage-header {
+  padding: 14px 16px 16px !important;
+  margin-bottom: 4px !important;
+}
+.manage-usage-label {
+  font-size: clamp(11px, 0.76vw, 13px) !important;
+  color: var(--text-secondary) !important;
+  margin-bottom: 8px !important;
+}
+.manage-category {
+  border-radius: 6px !important;
+  margin-top: 10px !important;
+  overflow: hidden !important;
+}
+.manage-cat-header {
+  padding: 10px 16px !important;
+  font-size: clamp(11px, 0.76vw, 13px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.manage-cat-size {
+  margin-left: auto !important;
+  font-size: clamp(10px, 0.67vw, 11px) !important;
+  color: var(--text-dim) !important;
+  font-family: var(--font-mono) !important;
+}
+/* Remove All: muted, not aggressive */
+.manage-del-btn {
+  font-size: clamp(10px, 0.67vw, 11px) !important;
+  padding: 3px 9px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.5px !important;
+  background: transparent !important;
+  color: rgba(200,80,80,0.7) !important;
+  border: 1px solid rgba(200,80,80,0.25) !important;
+  transition: color 0.15s, border-color 0.15s, background 0.15s !important;
+}
+.manage-del-btn:hover {
+  color: rgba(220,80,80,1) !important;
+  border-color: rgba(220,80,80,0.5) !important;
+  background: rgba(220,80,80,0.08) !important;
+}
+.manage-file-row {
+  padding: 8px 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: clamp(11px, 0.76vw, 13px) !important;
+}
+.manage-file-row:hover {
+  background: rgba(255,255,255,0.025) !important;
+}
+.manage-file-name {
+  flex: 1 !important;
+  color: rgba(255,255,255,0.75) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.manage-file-size {
+  font-family: var(--font-mono) !important;
+  font-size: clamp(9px, 0.65vw, 11px) !important;
+  color: rgba(255,255,255,0.3) !important;
+  flex-shrink: 0 !important;
+  min-width: 50px !important;
+  text-align: right !important;
+}
+
+/* ── 5. SIDEBAR: polished spacing and active states ─────────────── */
+.lib-cat-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  transition: background 0.15s !important;
+  position: relative !important;
+}
+.lib-cat-item:hover { background: rgba(255,255,255,0.05) !important; }
+.lib-cat-item.active {
+  background: rgba(200,160,74,0.1) !important;
+  color: var(--amber) !important;
+}
+.lib-cat-icon-sm {
+  font-size: 14px !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  text-align: center !important;
+}
+.lib-cat-name {
+  font-size: clamp(11px, 0.78vw, 13px) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+.lib-cat-count {
+  font-family: var(--font-mono) !important;
+  font-size: 10px !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-radius: 10px !important;
+  padding: 1px 6px !important;
+  flex-shrink: 0 !important;
+  color: rgba(255,255,255,0.5) !important;
+}
+.lib-cat-item.active .lib-cat-count {
+  background: rgba(200,160,74,0.15) !important;
+  color: var(--amber-dim) !important;
+}
+
+/* ── 6. LIBRARY HEADER: consistent height, no wrapping ─────────── */
+.lib-topbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 16px !important;
+  flex-shrink: 0 !important;
+}
+.lib-topbar-title {
+  font-size: clamp(11px, 0.85vw, 14px) !important;
+  letter-spacing: 3px !important;
+  font-family: var(--font-mono) !important;
+  text-transform: uppercase !important;
+  color: var(--amber) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 1 !important;
+  text-align: center !important;
+}
+
+/* ── 7. READER: balanced typography for universal text reader ───── */
+.utxt-body {
+  padding: 28px 52px !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  font-size: clamp(14px, 1vw, 16px) !important;
+  line-height: 1.85 !important;
+  color: rgba(255,255,255,0.82) !important;
+}
+.utxt-heading {
+  font-size: clamp(10px, 0.72vw, 12px) !important;
+  letter-spacing: 2.5px !important;
+  margin: 36px 0 14px !important;
+}
+.utxt-para {
+  margin: 0 0 0.9em !important;
+}
+.utxt-toc-panel {
+  width: 200px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── 8. BIBLE READER: nav bar and verse styling ─────────────────── */
+.bible-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 12px 20px !important;
+  border-bottom: 1px solid var(--border) !important;
+  flex-wrap: wrap !important;
+  flex-shrink: 0 !important;
+}
+.bible-select {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-primary) !important;
+  padding: 5px 10px !important;
+  border-radius: 4px !important;
+  font-family: var(--font-mono) !important;
+  font-size: clamp(10px, 0.72vw, 12px) !important;
+  cursor: pointer !important;
+}
+.bible-select:focus { outline: 1px solid var(--amber-dim) !important; }
+.bible-chapter-title {
+  font-family: var(--font-mono) !important;
+  font-size: clamp(11px, 0.8vw, 13px) !important;
+  letter-spacing: 3px !important;
+  color: var(--amber) !important;
+  padding: 16px 20px 8px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  flex-shrink: 0 !important;
+}
+.bible-verses {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 16px 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+.bible-verse {
+  display: flex !important;
+  gap: 12px !important;
+  padding: 4px 0 !important;
+  line-height: 1.7 !important;
+  font-size: clamp(13px, 0.9vw, 15px) !important;
+}
+.bible-verse-num {
+  font-family: var(--font-mono) !important;
+  font-size: clamp(9px, 0.62vw, 11px) !important;
+  color: var(--amber-dim) !important;
+  flex-shrink: 0 !important;
+  width: 24px !important;
+  text-align: right !important;
+  padding-top: 3px !important;
+}
+.bible-verse-text {
+  color: rgba(255,255,255,0.82) !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  line-height: 1.75 !important;
+}
+.bible-bottom-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 20px !important;
+  border-top: 1px solid var(--border) !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── 9. GLOBAL BUTTON CONSISTENCY ───────────────────────────────── */
+.lib-search-btn {
+  font-size: clamp(10px, 0.7vw, 12px) !important;
+  padding: 6px 14px !important;
+  border-radius: 4px !important;
+  letter-spacing: 1px !important;
+  font-family: var(--font-mono) !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+/* ── 10. LOADING SPINNER: proper centered loading state ─────────── */
+.lib-loading {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  min-height: 200px !important;
+}
+.lib-loading span {
+  font-family: var(--font-mono) !important;
+  font-size: clamp(11px, 0.8vw, 13px) !important;
+  letter-spacing: 3px !important;
+  color: var(--text-dim) !important;
+  animation: blink 1.2s ease-in-out infinite !important;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ── 11. LIBRARY MAIN CONTENT AREA: ensure full height use ──────── */
+#libMain {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  padding: 16px 20px !important;
+  min-height: 0 !important;
+}
+
+/* ── 12. STATUS BADGE COLORS ─────────────────────────────────────── */
+.status-ok   { color: var(--green-bright) !important; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; }
+.status-miss { color: rgba(200,160,74,0.6) !important; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; }
+
+/* ── 13. SCROLL SMOOTHING ────────────────────────────────────────── */
+#libMain, .utxt-body, .utxt-toc-panel, .bible-verses, .lib-sidebar {
+  scroll-behavior: smooth !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255,255,255,0.1) transparent !important;
+}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ── 14. FOCUS STATES (accessibility) ───────────────────────────── */
+button:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid rgba(200,160,74,0.6) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── 15. PACK FILES EXPANDED LIST ───────────────────────────────── */
+.pack-files-list {
+  margin-top: 10px !important;
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  padding-top: 8px !important;
+}
+.pack-file-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 5px 0 !important;
+  font-size: clamp(10px, 0.7vw, 12px) !important;
+  color: rgba(255,255,255,0.6) !important;
+}

@@ -1,13 +1,13 @@
 {
   "schema": "1.1",
   "updated": "2026-05-07",
-  "_comment": "Available content packs for download via GET MORE panel. price:0 = free. price>0 = paid (requires purchase_url and license). dest paths are fixed — users cannot change them.",
+  "_comment": "Available content packs for download via GET MORE panel. price:0 = free. price>0 = paid (requires purchase_url and license). dest paths are fixed \u2014 users cannot change them.",
   "packs": [
     {
       "id": "bible-commentary",
       "name": "Bible Commentary Pack",
-      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) — verse-by-verse Puritan exposition, free to download.",
-      "icon": "📖",
+      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) \u2014 verse-by-verse Puritan exposition, free to download.",
+      "icon": "\ud83d\udcd6",
       "category": "religious",
       "version": "1.0.0",
       "size_mb": 14,
@@ -17,7 +17,7 @@
       "files": [
         {
           "id": "matthew_henry_vol1",
-          "name": "Matthew Henry Commentary — Vol. 1 (Genesis–Numbers)",
+          "name": "Matthew Henry Commentary \u2014 Vol. 1 (Genesis\u2013Numbers)",
           "description": "Classic Puritan commentary, public domain since 1706",
           "url": "https://www.gutenberg.org/cache/epub/4065/pg4065.txt",
           "dest": "content/books/matthew_henry_vol1.txt",
@@ -26,7 +26,7 @@
         },
         {
           "id": "matthew_henry_vol2",
-          "name": "Matthew Henry Commentary — Vol. 2 (Joshua–Esther)",
+          "name": "Matthew Henry Commentary \u2014 Vol. 2 (Joshua\u2013Esther)",
           "description": "Continuation of the classic commentary",
           "url": "https://www.gutenberg.org/cache/epub/4613/pg4613.txt",
           "dest": "content/books/matthew_henry_vol2.txt",
@@ -35,7 +35,7 @@
         },
         {
           "id": "matthew_henry_nt",
-          "name": "Matthew Henry Commentary — New Testament",
+          "name": "Matthew Henry Commentary \u2014 New Testament",
           "description": "NT commentary from Acts through Revelation",
           "url": "https://www.gutenberg.org/cache/epub/6431/pg6431.txt",
           "dest": "content/books/matthew_henry_nt.txt",
@@ -47,8 +47,8 @@
     {
       "id": "extended-medical",
       "name": "Extended Medical Pack",
-      "description": "Advanced offline medical references — Gray's Anatomy, Merck Materia Medica, and Red Cross home nursing. Free to download.",
-      "icon": "🏥",
+      "description": "Advanced offline medical references \u2014 Gray's Anatomy, Merck Materia Medica, and Red Cross home nursing. Free to download.",
+      "icon": "\ud83c\udfe5",
       "category": "medical",
       "version": "1.0.0",
       "size_mb": 9,
@@ -76,7 +76,7 @@
         },
         {
           "id": "home_nursing",
-          "name": "Home Nursing — American Red Cross (1918)",
+          "name": "Home Nursing \u2014 American Red Cross (1918)",
           "description": "Field nursing and emergency care for non-professionals",
           "url": "https://www.gutenberg.org/cache/epub/10346/pg10346.txt",
           "dest": "content/books/home_nursing_redcross.txt",
@@ -89,7 +89,7 @@
       "id": "homestead",
       "name": "Homestead & Agriculture Pack",
       "description": "Off-grid farming, herbalism, and self-sufficient living. Culpeper's herbal, practical farming guides. Free to download.",
-      "icon": "🌿",
+      "icon": "\ud83c\udf3f",
       "category": "survival",
       "version": "1.0.0",
       "size_mb": 5,
@@ -100,7 +100,7 @@
         {
           "id": "culpeper_herbal",
           "name": "Culpeper's Complete Herbal (1653)",
-          "description": "Classic herbal medicine reference — 400+ medicinal plants",
+          "description": "Classic herbal medicine reference \u2014 400+ medicinal plants",
           "url": "https://www.gutenberg.org/cache/epub/49778/pg49778.txt",
           "dest": "content/books/culpeper_herbal.txt",
           "size_mb": 3,
@@ -129,39 +129,21 @@
     {
       "id": "philosophy-extended",
       "name": "Philosophy & Wisdom Pack",
-      "description": "Extended Stoic philosophy — Plato's Republic, Marcus Aurelius letters, and Seneca's moral epistles. Free.",
-      "icon": "∞",
+      "description": "Extended Stoic philosophy \u2014 Plato's Republic, Marcus Aurelius letters, and Seneca's moral epistles. Free.",
+      "icon": "\u221e",
       "category": "philosophy",
       "version": "1.0.0",
-      "size_mb": 3,
+      "size_mb": 1,
       "price": 0,
       "license_required": false,
       "purchase_url": null,
       "files": [
         {
           "id": "plato_republic",
-          "name": "The Republic — Plato",
+          "name": "The Republic \u2014 Plato",
           "description": "Plato's foundational work on justice, governance, and the ideal society",
           "url": "https://www.gutenberg.org/cache/epub/1497/pg1497.txt",
           "dest": "content/books/plato_republic.txt",
-          "size_mb": 1,
-          "license": "Public Domain"
-        },
-        {
-          "id": "seneca_letters",
-          "name": "Letters of Seneca to Lucilius",
-          "description": "124 moral epistles on Stoic philosophy and how to live well",
-          "url": "https://www.gutenberg.org/cache/epub/900/pg900.txt",
-          "dest": "content/books/seneca_letters.txt",
-          "size_mb": 1,
-          "license": "Public Domain"
-        },
-        {
-          "id": "marcus_letters",
-          "name": "The Letters of Marcus Aurelius",
-          "description": "Personal letters and extended writings of the Stoic emperor",
-          "url": "https://www.gutenberg.org/cache/epub/2761/pg2761.txt",
-          "dest": "content/books/marcus_aurelius_letters.txt",
           "size_mb": 1,
           "license": "Public Domain"
         }
@@ -171,7 +153,7 @@
       "id": "ham-radio-premium",
       "name": "Ham Radio & Emergency Comms Pack",
       "description": "Complete amateur radio reference: frequency charts, phonetic alphabet, Morse code, emergency net protocols, and band plans. Premium pack.",
-      "icon": "📡",
+      "icon": "\ud83d\udce1",
       "category": "communications",
       "version": "1.0.0",
       "size_mb": 12,

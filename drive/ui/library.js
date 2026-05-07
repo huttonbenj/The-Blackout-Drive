@@ -344,7 +344,6 @@ function showCategorySelect() {
   cats.forEach(cat => {
     const card = document.createElement('div');
     card.className = 'lib-file-item';
-    card.style.flexDirection = 'column';
     card.onclick = () => selectCategory(cat.id);
     const installedCount = cat.items.filter(i => !libManifest || libManifest.has(i.file)).length;
     const totalCount = cat.items.length;
@@ -352,8 +351,8 @@ function showCategorySelect() {
       ? `${totalCount} item${totalCount !== 1 ? 's' : ''}`
       : `${installedCount} / ${totalCount} downloaded`;
     card.innerHTML = `
-      <div style="font-size:clamp(28px,2.5vw,40px);margin-bottom:8px;">${cat.icon}</div>
-      <div class="lib-file-name">${cat.name}</div>
+      <div class="lib-cat-icon">${cat.icon}</div>
+      <div class="lib-file-name">${escapeHtml(cat.name)}</div>
       <div class="lib-file-meta">${countLabel}</div>`;
     grid.appendChild(card);
   });
@@ -402,16 +401,16 @@ function renderFileList(catId) {
     }
 
     const statusBadge = inManifest
-      ? `<span class="lib-file-status-ok">✓ ON DRIVE</span>`
+      ? `<span class="status-ok">✓ ON DRIVE</span>`
       : (isZim
-        ? `<span class="lib-file-status-missing">⬇ LARGE FILE</span>`
-        : `<span class="lib-file-status-missing">⬇ NOT DOWNLOADED</span>`);
+        ? `<span class="status-miss">⬇ LARGE FILE</span>`
+        : `<span class="status-miss">⬇ NOT DOWNLOADED</span>`);
 
     el.innerHTML = `
       <span class="lib-file-type-badge ${item.type}">${item.type.toUpperCase()}</span>
       <div class="lib-file-info">
-        <div class="lib-file-name">${item.name}</div>
-        <div class="lib-file-desc">${item.short || ''}</div>
+        <div class="lib-file-name">${escapeHtml(item.name)}</div>
+        <div class="lib-file-desc">${escapeHtml(item.short || '')}</div>
         <div class="lib-file-meta">${item.size_label || ''} &middot; ${item.license || ''} &middot; ${statusBadge}</div>
       </div>`;
 
@@ -543,20 +542,66 @@ async function openItem(item) {
 }
 
 // ── Bible Reader ─────────────────────────────────────────────
+// Auto-detects format:
+//   KJV/WEB: "1:1 text" or "001:001 text"  (chapter:verse at line start)
+//   ASV/YLT: "Genesis 1:1\ttext"           (Book chapter:verse TAB text)
 function parseBibleText(raw) {
-  const marker = '*** START OF THE PROJECT GUTENBERG EBOOK';
-  const text = raw.indexOf(marker) >= 0 ? raw.slice(raw.indexOf(marker)) : raw;
-  const books = BIBLE_BOOK_NAMES.map(name => ({ name, chapters: [null] }));
-  let bookIdx = -1, curCh = 0;
-  for (const rawLine of text.split('\n')) {
-    const m = rawLine.trim().match(/^(\d+):(\d+)\s+(.+)/);
-    if (!m) continue;
-    const ch = parseInt(m[1]), vs = parseInt(m[2]), verseText = m[3].trim();
-    if (ch === 1 && vs === 1) { bookIdx++; if (bookIdx >= BIBLE_BOOK_NAMES.length) break; curCh = 1; books[bookIdx].chapters[1] = []; }
-    if (bookIdx < 0) continue;
-    if (ch !== curCh) { curCh = ch; if (!books[bookIdx].chapters[ch]) books[bookIdx].chapters[ch] = []; }
-    if (books[bookIdx].chapters[ch]) books[bookIdx].chapters[ch].push({ vs, text: verseText });
+  const strip = raw.replace(/^\uFEFF/, '');
+  const lines = strip.split('\n');
+
+  // Detect format by looking at first verse-like line
+  const BOOK_TAB_RX = /^([1-9]?\s*[A-Za-z][A-Za-z\s]+?)\s+(\d+):(\d+)\t(.+)/;
+  const CHVERSE_RX  = /^0*(\d+):0*(\d+)\s+(.+)/;
+  let isBookTabFormat = false;
+  for (const ln of lines.slice(0, 20)) {
+    if (BOOK_TAB_RX.test(ln.trim())) { isBookTabFormat = true; break; }
   }
+
+  const books = BIBLE_BOOK_NAMES.map(name => ({ name, chapters: [null] }));
+
+  if (isBookTabFormat) {
+    // ASV / YLT format: "Genesis 1:1\ttext"
+    const bookMap = {};
+    BIBLE_BOOK_NAMES.forEach((name, idx) => {
+      // Index by first 3 chars lowercase for fuzzy matching
+      bookMap[name.toLowerCase().slice(0, 4)] = idx;
+      bookMap[name.toLowerCase()] = idx;
+    });
+    let curBookIdx = -1, curCh = 0;
+    for (const rawLine of lines) {
+      const m = rawLine.trim().match(BOOK_TAB_RX);
+      if (!m) continue;
+      const bookRaw = m[1].trim().toLowerCase();
+      const ch = parseInt(m[2]), vs = parseInt(m[3]), verseText = m[4].trim();
+      // Resolve book index
+      let bIdx = bookMap[bookRaw] ?? bookMap[bookRaw.slice(0, 4)] ?? -1;
+      if (bIdx === -1) {
+        // Try prefix match
+        for (const [k, v] of Object.entries(bookMap)) {
+          if (bookRaw.startsWith(k.slice(0, 3)) || k.startsWith(bookRaw.slice(0, 3))) { bIdx = v; break; }
+        }
+      }
+      if (bIdx === -1) continue;
+      curBookIdx = bIdx;
+      if (ch !== curCh) { curCh = ch; if (!books[bIdx].chapters[ch]) books[bIdx].chapters[ch] = []; }
+      if (books[bIdx].chapters[ch]) books[bIdx].chapters[ch].push({ vs, text: verseText });
+    }
+  } else {
+    // KJV / WEB format: "1:1 text" or "001:001 text"
+    const marker = '*** START OF THE PROJECT GUTENBERG EBOOK';
+    const text = strip.indexOf(marker) >= 0 ? strip.slice(strip.indexOf(marker)) : strip;
+    let bookIdx = -1, curCh = 0;
+    for (const rawLine of text.split('\n')) {
+      const m = rawLine.trim().match(CHVERSE_RX);
+      if (!m) continue;
+      const ch = parseInt(m[1]), vs = parseInt(m[2]), verseText = m[3].trim();
+      if (ch === 1 && vs === 1) { bookIdx++; if (bookIdx >= BIBLE_BOOK_NAMES.length) break; curCh = 1; books[bookIdx].chapters[1] = []; }
+      if (bookIdx < 0) continue;
+      if (ch !== curCh) { curCh = ch; if (!books[bookIdx].chapters[ch]) books[bookIdx].chapters[ch] = []; }
+      if (books[bookIdx].chapters[ch]) books[bookIdx].chapters[ch].push({ vs, text: verseText });
+    }
+  }
+
   return books.filter(b => b.chapters.length > 1);
 }
 
