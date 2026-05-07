@@ -456,7 +456,7 @@ function renderFileList(catId) {
       btn.className = 'lib-dl-corner-btn';
       btn.title = 'Download to drive';
       btn.setAttribute('aria-label', 'Download ' + item.name);
-      btn.innerHTML = '<span class="lib-dl-icon" aria-hidden="true">&#8595;</span>';
+      btn.innerHTML = '<span class="lib-dl-icon" aria-hidden="true">&#8595;</span><span class="lib-dl-label">GET</span>';
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         downloadLibItem(item, el, btn);
@@ -539,7 +539,9 @@ async function downloadLibItem(item, el, btn) {
       const pct = status.total > 0 ? Math.round((status.progress / status.total) * 100) : '…';
       const _iconSpan2 = btn.querySelector('.lib-dl-icon') || btn;
       btn.title = `Downloading ${pct}%`;
-      _iconSpan2.textContent = pct === '…' ? '↻' : pct + '%';
+      _iconSpan2.textContent = '↻';
+      const _dlLabel = btn.querySelector('.lib-dl-label');
+      if (_dlLabel) _dlLabel.textContent = pct === '…' ? '…' : pct + '%';
     }, 600);
   } catch (err) {
     btn.disabled = false;
@@ -1106,8 +1108,10 @@ async function showGetMorePanel() {
     if (allInstalled) {
       primaryCTA = `<div class="pack-installed">✓ INSTALLED</div>`;
     } else if (isLocked) {
-      primaryCTA = `<a class="pack-dl-btn pack-purchase-btn" href="${pack.purchase_url || '#'}" target="_blank" rel="noopener">🛒 PURCHASE — $${pack.price.toFixed(2)}</a>
-        <button class="pack-unlock-btn" onclick="showLicenseInput('${pack.id}')">🔑 I have a key</button>`;
+      primaryCTA = `<div class="pack-cta-stack">
+          <a class="pack-dl-btn pack-purchase-btn" href="${pack.purchase_url || '#'}" target="_blank" rel="noopener">🛒 PURCHASE — &#36;${pack.price.toFixed(2)}</a>
+          <button class="pack-unlock-btn" onclick="showLicenseInput('${pack.id}')">🔑 HAVE A KEY</button>
+        </div>`;
     } else {
       const label = someInstalled ? 'UPDATE PACK' : 'DOWNLOAD PACK';
       primaryCTA = `<button class="pack-dl-btn" onclick="startPackDownload(${JSON.stringify(pack).replace(/"/g,'&quot;')})" ${someInstalled?'title="Some files already installed"':''}>⬇ ${label}</button>`;

@@ -506,19 +506,34 @@ body {
 }
 
 .send-btn {
-  width: clamp(48px, 4vw, 60px);
+  width: clamp(60px, 4.5vw, 72px);
   height: clamp(48px, 4vw, 60px);
   background: var(--amber);
   border: none;
   border-radius: var(--radius-lg);
   color: var(--bg-primary);
-  font-size: clamp(18px, 1.4vw, 24px);
+  font-size: 18px;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 2px;
+  padding: 0 8px;
   flex-shrink: 0;
   transition: all var(--transition);
+}
+.send-btn #sendIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+.send-btn .send-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.9;
 }
 
 .send-btn:hover:not(:disabled) {
@@ -2404,19 +2419,21 @@ button:focus-visible, select:focus-visible, input:focus-visible {
 /* The corner icon button */
 .lib-dl-corner-btn {
   position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: 50% !important;
+  top: 8px !important;
+  right: 8px !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 4px !important;
   background: rgba(200,160,74,0.1) !important;
-  border: 1px solid rgba(200,160,74,0.25) !important;
+  border: 1px solid rgba(200,160,74,0.3) !important;
   color: var(--amber) !important;
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
+  gap: 2px !important;
   cursor: pointer !important;
-  font-size: 14px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   transition: background 0.15s, border-color 0.15s, transform 0.12s, box-shadow 0.15s !important;
@@ -2424,6 +2441,16 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   flex-shrink: 0 !important;
   padding: 0 !important;
   font-family: var(--font-mono) !important;
+}
+.lib-dl-corner-btn .lib-dl-icon {
+  font-size: 11px !important;
+  line-height: 1 !important;
+}
+.lib-dl-corner-btn .lib-dl-label {
+  font-size: 7px !important;
+  letter-spacing: 1.5px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
 }
 .lib-dl-corner-btn:hover {
   background: rgba(200,160,74,0.22) !important;
@@ -2651,4 +2678,82 @@ html[data-restore="lib"] body {
 body {
   opacity: 1;
   transition: opacity 0.15s ease;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BUTTON TEXT LABELS — Sprint 3 May 2026
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Send button: icon + SEND text ────────────────────────── */
+.send-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  min-width: 56px !important;
+  padding: 0 10px !important;
+}
+#sendIcon {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+.send-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 9px !important;
+  letter-spacing: 2px !important;
+  font-weight: 600 !important;
+  opacity: 0.85 !important;
+  line-height: 1 !important;
+}
+
+/* ── Corner GET button: icon + text ────────────────────────── */
+.lib-dl-corner-btn {
+  flex-direction: column !important;
+  gap: 1px !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 4px !important;
+}
+.lib-dl-icon {
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+.lib-dl-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 7px !important;
+  letter-spacing: 1.5px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  opacity: 0.85 !important;
+}
+
+/* ── Pack purchase CTA: stacked buttons ─────────────────────── */
+.pack-cta-stack {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+.pack-purchase-btn,
+.pack-unlock-btn {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: clamp(9px, 0.65vw, 11px) !important;
+  letter-spacing: 1px !important;
+  padding: 6px 8px !important;
+}
+
+/* ── Offline state: dim the welcome skull when BEACON is offline ── */
+.welcome-title {
+  transition: color 0.3s ease !important;
+}
+
+/* ── Red CSS variable for error states ─────────────────────── */
+:root {
+  --red: #cc3333;
+  --red-dim: #882222;
 }

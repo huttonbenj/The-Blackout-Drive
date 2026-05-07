@@ -121,8 +121,9 @@
         rows="1"
         maxlength="4000"
       ></textarea>
-      <button class="send-btn" id="sendBtn" disabled>
-        <span id="sendIcon">&#x2BAD;</span>
+      <button class="send-btn" id="sendBtn" disabled title="Send message (Enter)">
+        <span id="sendIcon">⬭</span>
+        <span class="send-label" id="sendLabel">SEND</span>
       </button>
     </div>
     <div class="input-footer">
@@ -137,6 +138,7 @@
     <!-- Library Header -->
     <div class="library-header">
       <button class="lib-back-btn hidden" id="libBackBtn" onclick="handleLibBack()">← BACK</button>
+      <!-- lib-back-btn text is updated dynamically by updateLibHeader() -->
       <div class="lib-header-title" id="libHeaderTitle">📚 OFFLINE LIBRARY</div>
       <button class="lib-close-btn" onclick="closeLibrary()">✕ CLOSE</button>
     </div>

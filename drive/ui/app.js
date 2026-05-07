@@ -93,16 +93,33 @@ function setStatus(state) {
   statusText.className = 'status-text ' + state;
 
   if (state === 'online') {
-    statusText.textContent = 'AI READY';
-    sendBtn.disabled = false;
+    statusText.textContent = 'BEACON READY';
+    sendBtn.disabled = userInput && !userInput.value.trim() ? true : false;
+    // Restore welcome title
+    const welcomeTitle = document.querySelector('.welcome-title');
+    if (welcomeTitle) {
+      welcomeTitle.textContent = 'BEACON IS READY';
+      welcomeTitle.style.color = '';
+    }
     hideConnectingOverlay();
   } else if (state === 'error') {
-    statusText.textContent = 'AI OFFLINE';
+    statusText.textContent = 'BEACON OFFLINE';
     sendBtn.disabled = true;
-    showWarning('The AI engine stopped responding. Try closing and relaunching the drive.');
+    // Update welcome title to reflect offline state
+    const welcomeTitle = document.querySelector('.welcome-title');
+    if (welcomeTitle) {
+      welcomeTitle.textContent = 'BEACON IS OFFLINE';
+      welcomeTitle.style.color = 'var(--red, #cc3333)';
+    }
+    showWarning('BEACON is offline. Launch the drive using START_MAC.command (Mac) or START_WINDOWS.bat (Windows) to start the AI.');
   } else {
     statusText.textContent = 'STARTING...';
     sendBtn.disabled = true;
+    const welcomeTitle = document.querySelector('.welcome-title');
+    if (welcomeTitle) {
+      welcomeTitle.textContent = 'STARTING BEACON...';
+      welcomeTitle.style.color = 'var(--amber-dim, #8c7030)';
+    }
   }
 }
 
@@ -267,7 +284,9 @@ async function sendMessage() {
   sendBtn.disabled = true;
   sendBtn.classList.add('loading');
   sendIcon.textContent = '⏹';
-  sendBtn.title = 'Stop generation';
+  const sendLabel = document.getElementById('sendLabel');
+  if (sendLabel) sendLabel.textContent = 'STOP';
+  sendBtn.title = 'Stop generation (click to cancel)';
   sendBtn.onclick = cancelGeneration;
 
   // Add assistant message placeholder
@@ -360,9 +379,15 @@ async function sendMessage() {
         assistantMsgEl.remove();
       }
     } else {
-      const errMsg = `**System Error**\n\nFailed to get response: ${err.message}\n\nEnsure the launcher is still running.`;
-      updateMessageContent(assistantMsgEl, errMsg);
-      showWarning('Response error. Is the launcher still running?');
+      let friendlyMsg;
+      if (err.message.includes('404') || err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+        friendlyMsg = `**BEACON is offline.**\n\nThe AI engine is not responding.\n\n**To start BEACON:**\n- Mac: Double-click \`START_MAC.command\`\n- Windows: Double-click \`START_WINDOWS.bat\`\n\nKeep the launcher window open while using the drive.`;
+        showWarning('BEACON offline — start the launcher to connect the AI.');
+      } else {
+        friendlyMsg = `**Could not get a response.** (${err.message})\n\nTry again, or restart the launcher if the problem persists.`;
+        showWarning('Response error — try again or restart the launcher.');
+      }
+      updateMessageContent(assistantMsgEl, friendlyMsg);
     }
   } finally {
     // Reset state
@@ -370,7 +395,9 @@ async function sendMessage() {
     currentReader = null;
     sendBtn.classList.remove('loading');
     sendIcon.textContent = '⬭';
-    sendBtn.title = 'Send message';
+    const _sendLabel = document.getElementById('sendLabel');
+    if (_sendLabel) _sendLabel.textContent = 'SEND';
+    sendBtn.title = 'Send message (Enter)';
     sendBtn.onclick = sendMessage;
     if (isConnected) sendBtn.disabled = false;
     userInput.focus();
