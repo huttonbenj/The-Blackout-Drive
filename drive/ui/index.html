@@ -21,6 +21,9 @@
       <p class="brand-sub">OFFLINE SURVIVAL INTELLIGENCE</p>
     </div>
     <div class="header-right">
+      <button class="icon-btn" id="libraryBtn" title="Browse offline library" onclick="openLibrary()">
+        📚 LIBRARY
+      </button>
       <button class="icon-btn" id="clearBtn" title="Clear conversation">
         &#x2715; CLEAR
       </button>
@@ -46,7 +49,7 @@
     <div class="welcome-screen" id="welcomeScreen">
       <div class="welcome-skull">☠</div>
       <h2 class="welcome-title">AI READY</h2>
-      <p class="welcome-sub">Grid-down survival intelligence. Running locally. Ask anything.</p>
+      <p class="welcome-sub">General-purpose offline AI. Ask anything — survival, science, history, religion, law, and more.</p>
       
       <div class="prompt-grid">
         <div class="prompt-card" onclick="usePrompt(this)">
@@ -101,7 +104,37 @@
     </div>
   </footer>
 
+  <!-- ── Library Panel ──────────────────────────────────── -->
+  <div class="library-panel" id="libraryPanel" style="display:none;" role="dialog" aria-label="Offline Library">
+
+    <!-- Library Header -->
+    <div class="library-header">
+      <button class="lib-back-btn" id="libBackBtn" onclick="handleLibBack()">← BACK</button>
+      <div class="lib-header-title" id="libHeaderTitle">📚 OFFLINE LIBRARY</div>
+      <button class="lib-close-btn" onclick="closeLibrary()">✕ CLOSE</button>
+    </div>
+
+    <!-- Library Body: sidebar + main -->
+    <div class="library-body" id="libraryBody">
+
+      <!-- Category Sidebar -->
+      <nav class="lib-sidebar" id="libSidebar">
+        <div class="lib-sidebar-label">CATEGORIES</div>
+        <!-- Populated by JS from library.json -->
+      </nav>
+
+      <!-- Main Content: file list or reader -->
+      <div class="lib-main" id="libMain">
+        <div class="lib-loading" id="libLoading">
+          <span>Loading library...</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="library.js"></script>
 </body>
 </html>

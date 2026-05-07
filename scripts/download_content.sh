@@ -233,6 +233,111 @@ download_file \
 
 echo ""
 
+
+# ── More Bible translations ───────────────────────────────
+# Young's Literal Translation (YLT, 1862) — hyper-literal, PD
+download_file \
+    "Young's Literal Translation (YLT, 1862)" \
+    "https://www.gutenberg.org/cache/epub/1895/pg1895.txt" \
+    "$BOOKS_DIR/bible_ylt.txt" \
+    "5"
+
+# ── Other Religious Texts ─────────────────────────────────
+# Quran — Shakir translation (public domain)
+download_file \
+    "The Quran — Shakir Translation" \
+    "https://www.gutenberg.org/cache/epub/16955/pg16955.txt" \
+    "$BOOKS_DIR/quran_shakir.txt" \
+    "2"
+
+# Bhagavad Gita — Edwin Arnold verse translation (1885, PD)
+download_file \
+    "Bhagavad Gita — Edwin Arnold (1885)" \
+    "https://www.gutenberg.org/cache/epub/2388/pg2388.txt" \
+    "$BOOKS_DIR/bhagavad_gita.txt" \
+    "1"
+
+# Book of Mormon — Project Gutenberg #17
+download_file \
+    "The Book of Mormon" \
+    "https://www.gutenberg.org/cache/epub/17/pg17.txt" \
+    "$BOOKS_DIR/book_of_mormon.txt" \
+    "2"
+
+# Tao Te Ching — Legge translation (PD)
+download_file \
+    "Tao Te Ching — James Legge Translation" \
+    "https://www.gutenberg.org/cache/epub/216/pg216.txt" \
+    "$BOOKS_DIR/tao_te_ching.txt" \
+    "1"
+
+echo ""
+
+# ============================================================
+# SECTION 6: PHILOSOPHY & WISDOM (PUBLIC DOMAIN)
+# ============================================================
+echo -e "  ${BOLD}── Philosophy & Wisdom (Public Domain) ────────────────${NC}"
+echo ""
+
+# Meditations — Marcus Aurelius (PD)
+download_file \
+    "Meditations — Marcus Aurelius" \
+    "https://www.gutenberg.org/cache/epub/2680/pg2680.txt" \
+    "$BOOKS_DIR/meditations_marcus_aurelius.txt" \
+    "1"
+
+# Enchiridion — Epictetus (PD)
+download_file \
+    "Enchiridion — Epictetus" \
+    "https://www.gutenberg.org/cache/epub/45109/pg45109.txt" \
+    "$BOOKS_DIR/enchiridion_epictetus.txt" \
+    "1"
+
+# The Art of War — Sun Tzu (PD)
+download_file \
+    "The Art of War — Sun Tzu" \
+    "https://www.gutenberg.org/cache/epub/132/pg132.txt" \
+    "$BOOKS_DIR/art_of_war.txt" \
+    "1"
+
+echo ""
+
+# ============================================================
+# SECTION 7: LAW & FOUNDING DOCUMENTS (PUBLIC DOMAIN)
+# ============================================================
+echo -e "  ${BOLD}── Law & Founding Documents (Public Domain) ───────────${NC}"
+echo ""
+
+# US Constitution + Bill of Rights (from Gutenberg)
+download_file \
+    "US Constitution & Bill of Rights" \
+    "https://www.gutenberg.org/cache/epub/5/pg5.txt" \
+    "$BOOKS_DIR/us_constitution.txt" \
+    "1"
+
+# Declaration of Independence
+download_file \
+    "Declaration of Independence (1776)" \
+    "https://www.gutenberg.org/cache/epub/1/pg1.txt" \
+    "$BOOKS_DIR/declaration_of_independence.txt" \
+    "1"
+
+# UN Universal Declaration of Human Rights
+download_file \
+    "UN Universal Declaration of Human Rights" \
+    "https://www.gutenberg.org/cache/epub/10000/pg10000.txt" \
+    "$BOOKS_DIR/un_declaration_human_rights.txt" \
+    "1"
+
+# Black's Law Dictionary (1910 — public domain)
+download_file \
+    "Black's Law Dictionary (1910 Edition)" \
+    "https://www.gutenberg.org/cache/epub/22559/pg22559.txt" \
+    "$BOOKS_DIR/blacks_law_dictionary_1910.txt" \
+    "5"
+
+echo ""
+
 # ============================================================
 # SUMMARY
 # ============================================================
