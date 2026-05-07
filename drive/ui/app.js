@@ -26,6 +26,7 @@ let isConnected   = false;
 let isGenerating  = false;
 let messages      = [];   // { role, content }
 let currentReader  = null; // Active stream reader for cancellation
+let libContextStr  = '';   // RAG: library manifest injected into LLM system prompt
 
 // ── DOM References ────────────────────────────────────────
 const $ = id => document.getElementById(id);
