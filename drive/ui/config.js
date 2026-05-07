@@ -1,5 +1,5 @@
 /**
- * DOOMSDAY.AI — UI Configuration Loader
+ * The Blackout Drive — UI Configuration Loader
  * ============================================================
  * Fetches drive/config.json (the master config) and merges
  * it into window.DOOMSDAY_CONFIG for use by all JS modules.
@@ -18,12 +18,12 @@
   // These are ONLY used if config.json cannot be fetched.
   const DEFAULTS = {
     app: {
-      name:    'DOOMSDAY.AI',
+      name:    'The Blackout Drive',
       version: '1.0.0',
-      tagline: 'Offline Survival Intelligence',
+      tagline: 'Offline AI Intelligence',
     },
     model: {
-      name: 'doomsday-ai',
+      name: 'blackout-scout',
       base: 'phi3:mini',
     },
     network: {
@@ -32,8 +32,8 @@
       ollamaBind: '127.0.0.1',
     },
     content: {
-      remoteCatalogUrl: 'https://cdn.doomsday.ai/catalog.json',
-      remoteFilesBase:  'https://cdn.doomsday.ai/files',
+      remoteCatalogUrl: 'https://cdn.blackoutdrive.com/catalog.json',
+      remoteFilesBase:  'https://cdn.blackoutdrive.com/files',
       contentDir:       'content',
       booksDir:         'content/books',
       zimDir:           'content/zim',
@@ -55,6 +55,7 @@
       ...c,
       // Flat aliases (backward compat)
       appName:       (c.app  || {}).name    || DEFAULTS.app.name,
+      aiName:        (c.app  || {}).aiName   || 'Scout',
       version:       (c.app  || {}).version || DEFAULTS.app.version,
       model:         (c.model || {}).name   || DEFAULTS.model.name,
       ollamaPort:    (c.network || {}).ollamaPort || DEFAULTS.network.ollamaPort,

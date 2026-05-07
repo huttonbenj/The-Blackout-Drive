@@ -1,5 +1,5 @@
 /**
- * DOOMSDAY.AI — Offline Library Browser (Sprint 2)
+ * The Blackout Drive — Offline Library Browser
  * Zero external dependencies — pure vanilla JS.
  * Reads from DDAPI (api.js) for all HTTP calls.
  */
@@ -40,7 +40,7 @@ function _restoreLibState() {
     });
   } catch {}
 }
-document.addEventListener('DOMContentLoaded', () => setTimeout(_restoreLibState, 300));
+// State restore is called by app.js after DOM is ready — see initApp()
 
 
 // ── Bible Book Names ────────────────────────────────────────
@@ -660,7 +660,22 @@ function renderBibleChapterView() {
       <span style="color:var(--text-dim);font-size:clamp(10px,0.7vw,12px);letter-spacing:2px">${book.name} ${bibleChapter} / ${totalCh}</span>
       <button class="lib-search-btn" onclick="nextBibleChapter()" ${hasNext?'':'disabled style="opacity:0.3"'}>NEXT →</button>
     </div>`;
-  libMain.scrollTop = 0;
+  // Auto-scroll to first structural section if there is preamble content before it.
+  // This skips translator's notes, dedications, "Contents" tables, etc.
+  // Users can still scroll up to read the preamble — it's just not the default view.
+  if (hasTOC && sections.length > 0) {
+    requestAnimationFrame(() => {
+      const firstHeading = document.getElementById('utxt-sec-0');
+      const content = document.getElementById('libReaderContent');
+      if (firstHeading && content) {
+        // Only auto-scroll if there's actual preamble content (heading not at very top)
+        const headingOffset = firstHeading.offsetTop;
+        if (headingOffset > 80) {
+          content.scrollTop = Math.max(0, headingOffset - 24);
+        }
+      }
+    });
+  }
 }
 
 function selectBibleBook(idx) {
@@ -750,19 +765,41 @@ function stripGutenbergBoilerplate(raw) {
   return text.replace(/^\s+/, '').trimEnd();
 }
 
+/**
+ * Detect structural headings in plain text, building the TOC.
+ * Guards against false-positives in "Contents" / index blocks by requiring
+ * that a heading line is EITHER:
+ *   a) Not indented (starts at column 0 / trimmed === line minus leading whitespace)
+ *   b) OR surrounded by blank lines (true standalone heading)
+ * Then deduplicates headings with near-identical titles (from contents + body).
+ *
+ * @returns {{ title: string, lineIndex: number, firstContentIdx: number }[]}
+ */
 function detectTextSections(text) {
   const lines = text.split('\n');
   const sections = [];
   const HEADING_RX = [
-    /^(CHAPTER|Chapter)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
-    /^(BOOK|Book|PART|Part)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
-    /^(ARTICLE|Article|SECTION|Section)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
-    /^(AMENDMENT|Amendment)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
+    /^(CHAPTER|Chapter)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
+    /^(BOOK|Book|PART|Part)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
+    /^(ARTICLE|Article|SECTION|Section)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
+    /^(AMENDMENT|Amendment)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
     /^([IVXLCDM]{2,6})\.?\s*$/,
   ];
+
   lines.forEach((line, i) => {
     const trimmed = line.trim();
-    if (!trimmed || trimmed.length > 80) return;
+    if (!trimmed || trimmed.length > 100) return;
+
+    // A line is a candidate heading if it is not indented (col 0 or only spaces, not tab-indent)
+    const isAtCol0 = line.length === 0 || line[0] !== ' ' || line.startsWith(trimmed);
+    // Also: line must be surrounded by blank-ish context (not mid-paragraph)
+    const prevBlank = i === 0 || !lines[i - 1].trim();
+    const nextBlank = i === lines.length - 1 || !lines[i + 1].trim();
+    const isIsolated = prevBlank || nextBlank;
+
+    // Must be at col 0 OR isolated to count as a structural heading
+    if (!isAtCol0 && !isIsolated) return;
+
     for (const rx of HEADING_RX) {
       if (rx.test(trimmed)) {
         sections.push({ title: trimmed, lineIndex: i });
@@ -770,7 +807,28 @@ function detectTextSections(text) {
       }
     }
   });
-  return sections;
+
+  // Deduplicate: if two entries share the same canonical form (same structural
+  // keyword + number), keep only the LAST one (body occurrence beats contents block)
+  const canonical = (t) => t.toLowerCase()
+    .replace(/[.:\s]+/g, ' ')
+    .replace(/\bthe\b/g, '')
+    .trim()
+    .slice(0, 30);
+
+  const seen = new Map(); // canonical → index in sections[]
+  sections.forEach((s, idx) => {
+    const key = canonical(s.title);
+    if (seen.has(key)) {
+      // Keep the later one (actual body text) — remove the earlier (contents index)
+      sections[seen.get(key)] = null; // mark for removal
+    }
+    seen.set(key, idx);
+  });
+
+  const deduped = sections.filter(Boolean);
+
+  return deduped;
 }
 
 function textToHtml(text, sections) {
@@ -858,7 +916,22 @@ function renderGenericReader(item, rawText) {
       item.classList.add('active');
     });
   }
-  libMain.scrollTop = 0;
+  // Auto-scroll to first structural section if there is preamble content before it.
+  // This skips translator's notes, dedications, "Contents" tables, etc.
+  // Users can still scroll up to read the preamble — it's just not the default view.
+  if (hasTOC && sections.length > 0) {
+    requestAnimationFrame(() => {
+      const firstHeading = document.getElementById('utxt-sec-0');
+      const content = document.getElementById('libReaderContent');
+      if (firstHeading && content) {
+        // Only auto-scroll if there's actual preamble content (heading not at very top)
+        const headingOffset = firstHeading.offsetTop;
+        if (headingOffset > 80) {
+          content.scrollTop = Math.max(0, headingOffset - 24);
+        }
+      }
+    });
+  }
 }
 function doLibSearch() {
   const input = document.getElementById('libSearchInput');

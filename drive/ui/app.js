@@ -1,5 +1,5 @@
 /**
- * DOOMSDAY DRIVE — Chat Application Logic
+ * The Blackout Drive — Chat Application Logic
  * Connects to local Ollama instance, streams responses
  * Zero external dependencies — pure vanilla JS
  */
@@ -10,9 +10,9 @@
 // All values live in drive/ui/config.js — do not hardcode here.
 // Fallbacks are safety nets only; config.js should always load.
 const CONFIG = window.DOOMSDAY_CONFIG || {
-  appName:        'DOOMSDAY.AI',
+  appName:        'The Blackout Drive',
   version:        '1.0.0',
-  model:          'doomsday-ai',
+  model:          'blackout-scout',
   ollamaPort:     11434,
   ollamaHost:     'http://localhost:11434',
   uiPort:         8080,
@@ -50,7 +50,7 @@ function showConnectingOverlay() {
   overlay.className = 'connecting-overlay';
   overlay.innerHTML = `
     <div class="connecting-skull">☠</div>
-    <div class="connecting-title">STARTING DOOMSDAY.AI ENGINE</div>
+    <div class="connecting-title">STARTING THE BLACKOUT DRIVE</div>
     <div class="connecting-sub">Loading your offline AI. This takes 10–30 seconds...</div>
     <div class="connecting-bar"><div class="connecting-progress"></div></div>
     <div class="connecting-instructions">
@@ -152,8 +152,8 @@ function renderMessage(role, content, streaming = false) {
   const msgEl = document.createElement('div');
   msgEl.className = `message ${role}`;
 
-  const avatar  = role === 'user' ? '👤' : '☠';
-  const label   = role === 'user' ? 'YOU' : 'DOOMSDAY.AI';
+  const avatar  = role === 'user' ? '👤' : '⚡';
+  const label   = role === 'user' ? 'YOU' : (window.DOOMSDAY_CONFIG?.aiName || 'SCOUT');
 
   msgEl.innerHTML = `
     <div class="message-avatar">${avatar}</div>
@@ -439,8 +439,26 @@ sendBtn.addEventListener('click', sendMessage);
 clearBtn.addEventListener('click', clearConversation);
 
 // ── Initialize ────────────────────────────────────────────
+// Anti-flicker strategy:
+// 1. index.html sets body { opacity:0; transition: opacity 0.15s ease }
+// 2. We synchronously restore session state before ANY frame is painted
+// 3. Then fade the body in — user sees the correct page with no chat flash
 (async function init() {
   sendBtn.disabled = true;
   sendIcon.textContent = '⬭';
+
+  // Restore library/view state BEFORE first paint to eliminate reload flicker.
+  // _restoreLibState is defined in library.js (loaded before app.js).
+  // It reads sessionStorage synchronously; openLibrary() is async but fast.
+  if (typeof _restoreLibState === 'function') {
+    try { _restoreLibState(); } catch(e) {}
+  }
+
+  // Fade body in — regardless of whether library restored or not
+  // Small rAF ensures DOM is ready before we reveal
+  requestAnimationFrame(() => {
+    document.body.style.opacity = '1';
+  });
+
   maintainConnection(); // runs forever in background
 })();

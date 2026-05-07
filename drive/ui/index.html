@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DOOMSDAY.AI // Offline Survival Intelligence</title>
+  <meta name="description" content="The Blackout Drive — Fully offline AI and survival knowledge library. Runs on your laptop with no internet, no cloud, no accounts.">
+  <title>The Blackout Drive // Offline AI Intelligence</title>
+  <!--
+    Anti-flicker: body starts invisible. app.js restores session state
+    synchronously on init, then sets opacity:1 before first paint.
+    This prevents the chat page from flashing before library is restored.
+  -->
+  <style>body { opacity: 0; transition: opacity 0.18s ease; }</style>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,8 +24,8 @@
       </div>
     </div>
     <div class="header-center">
-      <h1 class="brand-title">DOOMSDAY.AI</h1>
-      <p class="brand-sub">OFFLINE SURVIVAL INTELLIGENCE</p>
+      <h1 class="brand-title">THE BLACKOUT DRIVE</h1>
+      <p class="brand-sub">OFFLINE AI INTELLIGENCE</p>
     </div>
     <div class="header-right">
       <button class="icon-btn" id="libraryBtn" title="Browse offline library" onclick="openLibrary()">
@@ -47,10 +54,10 @@
 
     <!-- Welcome Screen (shown when no messages) -->
     <div class="welcome-screen" id="welcomeScreen">
-      <div class="welcome-skull">☠</div>
-      <h2 class="welcome-title">AI READY</h2>
-      <p class="welcome-sub">General-purpose offline AI. Ask anything — survival, science, history, religion, law, and more.</p>
-      
+      <div class="welcome-skull">⚡</div>
+      <h2 class="welcome-title">SCOUT IS READY</h2>
+      <p class="welcome-sub">Your offline AI assistant. Ask anything — survival, medicine, law, science, faith, history, and more.</p>
+
       <div class="prompt-grid">
         <div class="prompt-card" onclick="usePrompt(this)">
           <div class="prompt-icon">💧</div>
@@ -90,7 +97,7 @@
       <textarea
         id="userInput"
         class="message-input"
-        placeholder="Ask DOOMSDAY.AI anything..."
+        placeholder="Ask Scout anything..."
         rows="1"
         maxlength="4000"
       ></textarea>
@@ -133,9 +140,16 @@
     </div>
   </div>
 
+  <!--
+    LOAD ORDER IS CRITICAL FOR ANTI-FLICKER:
+    1. config.js  — app config (appName, model, ports)
+    2. api.js     — DDAPI helper (fetch wrappers)
+    3. library.js — defines _restoreLibState (MUST be before app.js)
+    4. app.js     — calls _restoreLibState() synchronously in init()
+  -->
   <script src="config.js"></script>
   <script src="api.js"></script>
-  <script src="app.js"></script>
   <script src="library.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

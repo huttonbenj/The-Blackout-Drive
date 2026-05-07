@@ -2483,3 +2483,57 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   opacity: 1 !important;
   background: rgba(200,160,74,0.22) !important;
 }
+
+/* ════════════════════════════════════════════════════════════
+   BLACKOUT DRIVE REBRAND — typography and brand adjustments
+   ════════════════════════════════════════════════════════════ */
+
+/* Brand title: slightly smaller to fit "THE BLACKOUT DRIVE" on one line */
+.brand-title {
+  font-size: clamp(12px, 1.4vw, 20px) !important;
+  letter-spacing: clamp(3px, 0.5vw, 8px) !important;
+  white-space: nowrap !important;
+}
+.brand-sub {
+  font-size: clamp(8px, 0.6vw, 10px) !important;
+  letter-spacing: clamp(2px, 0.4vw, 5px) !important;
+}
+
+/* Welcome skull → lightning ⚡ readability */
+.welcome-skull {
+  font-size: clamp(36px, 4vw, 64px) !important;
+  filter: none !important;
+  text-shadow: 0 0 30px rgba(200,160,74,0.5) !important;
+}
+
+/* SCOUT label in chat — use accent color */
+.message.assistant .message-label {
+  color: var(--amber) !important;
+  letter-spacing: 2px !important;
+}
+
+/* Reader content: ensure the content scroll area, not libMain, scrolls */
+.utxt-content-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.lib-reader-content.utxt-body {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+/* TOC sidebar: fix scrolling independently of content */
+.utxt-toc-panel {
+  overflow-y: auto !important;
+  flex-shrink: 0 !important;
+}
+
+/* lib-main should NOT scroll when reader is active — the inner content-wrap does */
+.utxt-layout {
+  height: 100% !important;
+  overflow: hidden !important;
+}

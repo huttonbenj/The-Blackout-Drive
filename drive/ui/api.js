@@ -1,5 +1,5 @@
 /**
- * DOOMSDAY.AI — API Layer
+ * The Blackout Drive — API Layer
  * ============================================================
  * ALL HTTP calls go through this module. Zero UI logic here.
  * Pure data in, pure data out.
