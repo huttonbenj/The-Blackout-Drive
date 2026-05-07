@@ -1,39 +1,88 @@
 /**
- * DOOMSDAY DRIVE — UI Configuration
+ * DOOMSDAY.AI — UI Configuration Loader
  * ============================================================
- * Single source of truth for all browser-side config values.
- * Loaded before app.js in index.html.
+ * Fetches drive/config.json (the master config) and merges
+ * it into window.DOOMSDAY_CONFIG for use by all JS modules.
  *
- * ⚠ IMPORTANT: If you change ollamaPort or model here, you
- * MUST also update the matching values in:
- *   → drive/config.sh   (Mac/Linux launchers)
- *   → drive/config.bat  (Windows launchers)
+ * Falls back to safe defaults if config.json can't be loaded
+ * (e.g., opened as a file:// without a server).
  *
- * These cannot be auto-synced because the browser cannot
- * read shell variables (this is an offline, air-gapped app).
+ * Load order in index.html: config.js → api.js → app.js → library.js
  * ============================================================
  */
 
-window.DOOMSDAY_CONFIG = {
+(function () {
+  'use strict';
 
-  // ── Product Identity ─────────────────────────────────────
-  appName:        'DOOMSDAY.AI',
-  version:        '1.0.0',
+  // Safe defaults — match config.json values exactly.
+  // These are ONLY used if config.json cannot be fetched.
+  const DEFAULTS = {
+    app: {
+      name:    'DOOMSDAY.AI',
+      version: '1.0.0',
+      tagline: 'Offline Survival Intelligence',
+    },
+    model: {
+      name: 'doomsday-ai',
+      base: 'phi3:mini',
+    },
+    network: {
+      ollamaPort: 11434,
+      uiPort:     8080,
+      ollamaBind: '127.0.0.1',
+    },
+    content: {
+      remoteCatalogUrl: 'https://cdn.doomsday.ai/catalog.json',
+      remoteFilesBase:  'https://cdn.doomsday.ai/files',
+      contentDir:       'content',
+      booksDir:         'content/books',
+      zimDir:           'content/zim',
+      packsDir:         'content/packs',
+    },
+    chat: {
+      streamTimeoutMs: 120000,
+      retryIntervalMs: 2000,
+      maxRetries:      30,
+      maxInputChars:   4000,
+    },
+  };
 
-  // ── AI Model ─────────────────────────────────────────────
-  // Must match MODEL_NAME in config.sh / config.bat
-  model:          'doomsday-ai',
+  // Flatten nested config for backward compatibility with app.js/library.js
+  // that use window.DOOMSDAY_CONFIG.model, .ollamaPort, etc. (flat keys)
+  function flattenConfig(c) {
+    return {
+      // Structured (new style)
+      ...c,
+      // Flat aliases (backward compat)
+      appName:       (c.app  || {}).name    || DEFAULTS.app.name,
+      version:       (c.app  || {}).version || DEFAULTS.app.version,
+      model:         (c.model || {}).name   || DEFAULTS.model.name,
+      ollamaPort:    (c.network || {}).ollamaPort || DEFAULTS.network.ollamaPort,
+      ollamaHost:    `http://localhost:${(c.network || {}).ollamaPort || DEFAULTS.network.ollamaPort}`,
+      uiPort:        (c.network || {}).uiPort     || DEFAULTS.network.uiPort,
+      streamTimeout: (c.chat  || {}).streamTimeoutMs || DEFAULTS.chat.streamTimeoutMs,
+      retryInterval: (c.chat  || {}).retryIntervalMs || DEFAULTS.chat.retryIntervalMs,
+      maxRetries:    (c.chat  || {}).maxRetries      || DEFAULTS.chat.maxRetries,
+    };
+  }
 
-  // ── Network ──────────────────────────────────────────────
-  // ollamaPort must match DOOMSDAY_OLLAMA_PORT in config.sh/bat
-  // uiPort must match DOOMSDAY_UI_PORT in config.sh/bat
-  ollamaPort:     11434,
-  ollamaHost:     'http://localhost:11434',  // derived from ollamaPort
-  uiPort:         8080,
+  // Set defaults immediately so downstream code always has a config object
+  window.DOOMSDAY_CONFIG = flattenConfig(DEFAULTS);
 
-  // ── Chat Behavior ─────────────────────────────────────────
-  streamTimeout:  120000,  // max ms per streamed response (2 min)
-  retryInterval:  2000,    // ms between connection retry attempts
-  maxRetries:     30,      // give up after this many retries (~60s)
+  // Attempt to load the real config.json from the server
+  fetch('/config.json')
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      window.DOOMSDAY_CONFIG = flattenConfig(data);
+      // Notify any listeners that config is ready
+      document.dispatchEvent(new CustomEvent('doomsday:config-ready', { detail: window.DOOMSDAY_CONFIG }));
+    })
+    .catch(() => {
+      // Silently fall back to defaults — already set above
+      document.dispatchEvent(new CustomEvent('doomsday:config-ready', { detail: window.DOOMSDAY_CONFIG }));
+    });
 
-};
+})();

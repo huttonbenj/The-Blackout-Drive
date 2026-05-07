@@ -1,0 +1,232 @@
+/**
+ * DOOMSDAY.AI — API Layer
+ * ============================================================
+ * ALL HTTP calls go through this module. Zero UI logic here.
+ * Pure data in, pure data out.
+ *
+ * Loaded before app.js and library.js in index.html.
+ * Reads network config from window.DOOMSDAY_CONFIG (set by config.js).
+ * ============================================================
+ */
+
+'use strict';
+
+window.DDAPI = (() => {
+
+  // ── Internal helpers ─────────────────────────────────────
+  function cfg() {
+    return window.DOOMSDAY_CONFIG || {};
+  }
+
+  function ollamaBase() {
+    const port = (cfg().network || cfg()).ollamaPort || 11434;
+    return `http://localhost:${port}`;
+  }
+
+  // Active download jobs: { jobId: { progress, total, done, error, xhr } }
+  const _jobs = {};
+  let _jobCounter = 0;
+
+  // ── Ollama ────────────────────────────────────────────────
+
+  /**
+   * Check if Ollama is responding.
+   * @returns {Promise<boolean>}
+   */
+  async function checkOllama() {
+    try {
+      const res = await fetch(`${ollamaBase()}/api/tags`, {
+        signal: AbortSignal.timeout(3000)
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Stream a chat completion from Ollama.
+   * @param {string} model
+   * @param {Array<{role:string, content:string}>} messages
+   * @param {function} onChunk   - called with each text delta
+   * @param {function} onDone    - called when stream completes
+   * @param {function} onError   - called with Error on failure
+   * @returns {AbortController} — call .abort() to cancel
+   */
+  function streamChat(model, messages, onChunk, onDone, onError) {
+    const ctrl = new AbortController();
+    const timeout = (cfg().chat || cfg()).streamTimeoutMs || 120000;
+    const timer = setTimeout(() => ctrl.abort(), timeout);
+
+    fetch(`${ollamaBase()}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model, messages, stream: true }),
+      signal: ctrl.signal
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`Ollama HTTP ${res.status}`);
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      function pump() {
+        reader.read().then(({ done, value }) => {
+          if (done) { clearTimeout(timer); onDone(); return; }
+          const lines = decoder.decode(value, { stream: true }).split('\n');
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            try {
+              const parsed = JSON.parse(line);
+              if (parsed.message?.content) onChunk(parsed.message.content);
+              if (parsed.done) { clearTimeout(timer); onDone(); return; }
+            } catch { /* partial line */ }
+          }
+          pump();
+        }).catch(err => { clearTimeout(timer); onError(err); });
+      }
+      pump();
+    })
+    .catch(err => { clearTimeout(timer); onError(err); });
+
+    return ctrl;
+  }
+
+  // ── Local Server API ──────────────────────────────────────
+
+  /**
+   * Get the drive manifest (which files are present).
+   * @returns {Promise<{schema, assembled, file_count, total_bytes, files}|null>}
+   */
+  async function getManifest() {
+    try {
+      const res = await fetch('/api/manifest');
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Get drive status (disk usage, version).
+   * @returns {Promise<{content_size_bytes, free_bytes, version}|null>}
+   */
+  async function getStatus() {
+    try {
+      const res = await fetch('/api/status');
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Delete a file from the drive. Updates manifest.json automatically.
+   * @param {string} relPath  - relative to drive root, e.g. "content/books/file.txt"
+   * @returns {Promise<{ok:boolean, removed:string}|{error:string}>}
+   */
+  async function deleteFile(relPath) {
+    try {
+      const res = await fetch(`/api/files?path=${encodeURIComponent(relPath)}`, {
+        method: 'DELETE'
+      });
+      return await res.json();
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
+  /**
+   * Start downloading a file from a URL to a drive path.
+   * Non-blocking — returns a jobId immediately.
+   * Poll getDownloadStatus(jobId) to track progress.
+   * @param {string} url   - remote URL to download
+   * @param {string} dest  - destination path relative to drive root
+   * @returns {Promise<{ok:boolean, jobId:string}|{error:string}>}
+   */
+  async function startDownload(url, dest) {
+    try {
+      const res = await fetch('/api/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, dest })
+      });
+      return await res.json();
+    } catch (e) {
+      return { error: e.message };
+    }
+  }
+
+  /**
+   * Poll the progress of a running download.
+   * @param {string} jobId
+   * @returns {Promise<{progress:number, total:number, done:boolean, error:string|null}>}
+   */
+  async function getDownloadStatus(jobId) {
+    try {
+      const res = await fetch(`/api/download/${encodeURIComponent(jobId)}`);
+      if (!res.ok) return { done: true, error: `HTTP ${res.status}` };
+      return await res.json();
+    } catch (e) {
+      return { done: true, error: e.message };
+    }
+  }
+
+  /**
+   * Cancel a running download.
+   * @param {string} jobId
+   */
+  async function cancelDownload(jobId) {
+    try {
+      await fetch(`/api/download/${encodeURIComponent(jobId)}`, { method: 'DELETE' });
+    } catch { /* best effort */ }
+  }
+
+  // ── Remote Catalog (online only) ──────────────────────────
+
+  /**
+   * Fetch the available pack catalog from the CDN.
+   * Only call when navigator.onLine === true.
+   * @returns {Promise<{packs: Array}|null>}
+   */
+  async function fetchRemoteCatalog() {
+    const url = (cfg().content || {}).remoteCatalogUrl;
+    if (!url) return null;
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  }
+
+  // ── Connectivity ──────────────────────────────────────────
+
+  /**
+   * True if the browser reports internet connectivity.
+   * Uses navigator.onLine — fast, no network request.
+   */
+  function isOnline() {
+    return navigator.onLine === true;
+  }
+
+  // ── Public surface ────────────────────────────────────────
+  return {
+    // Ollama
+    checkOllama,
+    streamChat,
+    // Local server
+    getManifest,
+    getStatus,
+    deleteFile,
+    startDownload,
+    getDownloadStatus,
+    cancelDownload,
+    // Remote
+    fetchRemoteCatalog,
+    // Utilities
+    isOnline,
+  };
+
+})();

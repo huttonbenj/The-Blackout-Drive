@@ -1,0 +1,33 @@
+{
+  "_comment": "DOOMSDAY.AI — Master Configuration. Single source of truth. All other configs are derived from this file. Do not hardcode values in shell scripts, JS, or HTML.",
+  "app": {
+    "name": "DOOMSDAY.AI",
+    "version": "1.0.0",
+    "tagline": "Offline Survival Intelligence"
+  },
+  "model": {
+    "name": "doomsday-ai",
+    "base": "phi3:mini",
+    "file": "phi3-mini.Q4_K_M.gguf",
+    "modelfile": "Modelfile"
+  },
+  "network": {
+    "ollamaPort": 11434,
+    "ollamaBind": "127.0.0.1",
+    "uiPort": 8080
+  },
+  "content": {
+    "remoteCatalogUrl": "https://cdn.doomsday.ai/catalog.json",
+    "remoteFilesBase": "https://cdn.doomsday.ai/files",
+    "contentDir": "content",
+    "booksDir": "content/books",
+    "zimDir": "content/zim",
+    "packsDir": "content/packs"
+  },
+  "chat": {
+    "streamTimeoutMs": 120000,
+    "retryIntervalMs": 2000,
+    "maxRetries": 30,
+    "maxInputChars": 4000
+  }
+}

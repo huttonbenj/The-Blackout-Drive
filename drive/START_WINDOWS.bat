@@ -113,7 +113,7 @@ if %errorlevel% NEQ 0 (
 :: ── Step 8: Start UI server + open chat interface ────────────
 echo  [BOOT] Starting UI server...
 :: Serve UI via local HTTP (fixes CORS — browser can't call Ollama from file://)
-start /b "" python -m http.server %DOOMSDAY_UI_PORT% --directory "%SCRIPT_DIR%ui"
+start /b "" python "%REPO_ROOT%scripts\server.py" %DOOMSDAY_UI_PORT% "%SCRIPT_DIR%"
 timeout /t 1 /nobreak >nul
 start "" %DOOMSDAY_UI_URL%
 
