@@ -49,7 +49,7 @@ function showConnectingOverlay() {
   overlay.id = 'connectingOverlay';
   overlay.className = 'connecting-overlay';
   overlay.innerHTML = `
-    <div class="connecting-skull">☠</div>
+    <div class="connecting-skull">📡</div>
     <div class="connecting-title">STARTING BEACON</div>
     <div class="connecting-sub">Loading your offline AI. This takes 10–30 seconds...</div>
     <div class="connecting-bar"><div class="connecting-progress"></div></div>
@@ -75,14 +75,44 @@ function hideConnectingOverlay() {
 }
 
 // ── Connection Management ─────────────────────────────────
+/**
+ * Check if Ollama is running AND the BEACON model is available.
+ * We check /api/tags (model list) not just root /, because:
+ * - root / returns 200 even if the model isn't loaded
+ * - /api/chat returns 404 if model isn't registered
+ * We verify the specific model exists in the tags list.
+ */
 async function checkConnection() {
   try {
-    // Use root endpoint — more universally accessible than /api/tags
-    // which can be blocked by API middleware or Ollama proxy configurations
-    const res = await fetch(`${CONFIG.ollamaHost}/`, {
+    const res = await fetch(`${CONFIG.ollamaHost}/api/tags`, {
       signal: AbortSignal.timeout(3000)
     });
-    return res.ok;
+    if (!res.ok) return false;
+    // Verify the BEACON model is registered
+    const data = await res.json().catch(() => null);
+    if (!data || !data.models) return false;
+    const modelName = CONFIG.model || 'blackout-beacon';
+    // Match either exact name or name without tag (e.g. "blackout-beacon:latest")
+    return data.models.some(m =>
+      m.name === modelName ||
+      m.name.startsWith(modelName + ':') ||
+      m.name.startsWith(modelName.split(':')[0] + ':')
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Check if Ollama itself is running (even without the model).
+ * Used to give more specific offline state messages.
+ */
+async function checkOllamaAlive() {
+  try {
+    const res = await fetch(`${CONFIG.ollamaHost}/`, {
+      signal: AbortSignal.timeout(2000)
+    });
+    return res.ok || res.status === 400; // 400 = alive but bad request
   } catch {
     return false;
   }
@@ -95,6 +125,7 @@ function setStatus(state) {
   if (state === 'online') {
     statusText.textContent = 'BEACON READY';
     sendBtn.disabled = userInput && !userInput.value.trim() ? true : false;
+    document.body.classList.remove('beacon-offline');
     // Restore welcome title
     const welcomeTitle = document.querySelector('.welcome-title');
     if (welcomeTitle) {
@@ -105,16 +136,21 @@ function setStatus(state) {
   } else if (state === 'error') {
     statusText.textContent = 'BEACON OFFLINE';
     sendBtn.disabled = true;
+    document.body.classList.add('beacon-offline');
+    // CRITICAL: hide the overlay so the user can still use the library
+    hideConnectingOverlay();
     // Update welcome title to reflect offline state
     const welcomeTitle = document.querySelector('.welcome-title');
     if (welcomeTitle) {
       welcomeTitle.textContent = 'BEACON IS OFFLINE';
       welcomeTitle.style.color = 'var(--red, #cc3333)';
     }
-    showWarning('BEACON is offline. Launch the drive using START_MAC.command (Mac) or START_WINDOWS.bat (Windows) to start the AI.');
+    showWarning('BEACON is offline. Open the drive folder and double-click the START launcher for your system.');
   } else {
+    // STARTING state — overlay is shown by showConnectingOverlay() in maintainConnection()
     statusText.textContent = 'STARTING...';
     sendBtn.disabled = true;
+    // Don't add beacon-offline yet — still trying to connect
     const welcomeTitle = document.querySelector('.welcome-title');
     if (welcomeTitle) {
       welcomeTitle.textContent = 'STARTING BEACON...';
@@ -138,9 +174,9 @@ async function maintainConnection() {
   setStatus('');
 
   while (true) {
-    const connected = await checkConnection();
+    const modelReady = await checkConnection();
 
-    if (connected && !isConnected) {
+    if (modelReady && !isConnected) {
       isConnected = true;
       retries = 0;
       setStatus('online');
@@ -150,13 +186,20 @@ async function maintainConnection() {
         .then(r => r.ok ? r.json() : null)
         .then(d => { if (d && d.context) libContextStr = d.context; })
         .catch(() => {});
-    } else if (!connected && isConnected) {
+    } else if (!modelReady && isConnected) {
       isConnected = false;
       setStatus('error');
-    } else if (!connected && !isConnected) {
+    } else if (!modelReady && !isConnected) {
       retries++;
       if (retries > CONFIG.maxRetries) {
-        setStatus('error');
+        // Distinguish: Ollama running but model missing vs Ollama not running
+        const ollamaAlive = await checkOllamaAlive();
+        if (ollamaAlive) {
+          setStatus('error'); // this now calls hideConnectingOverlay()
+          showWarning('BEACON model not found. Run scripts/download_models.sh to install the AI model, then restart the launcher.');
+        } else {
+          setStatus('error'); // this now calls hideConnectingOverlay()
+        }
       }
     }
 
@@ -169,7 +212,7 @@ function renderMessage(role, content, streaming = false) {
   const msgEl = document.createElement('div');
   msgEl.className = `message ${role}`;
 
-  const avatar  = role === 'user' ? '👤' : '⚡';
+  const avatar  = role === 'user' ? '👤' : '📡';
   const label   = role === 'user' ? 'YOU' : (window.BLACKOUT_CONFIG?.aiName || 'BEACON');
 
   msgEl.innerHTML = `
@@ -380,9 +423,11 @@ async function sendMessage() {
       }
     } else {
       let friendlyMsg;
-      if (err.message.includes('404') || err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-        friendlyMsg = `**BEACON is offline.**\n\nThe AI engine is not responding.\n\n**To start BEACON:**\n- Mac: Double-click \`START_MAC.command\`\n- Windows: Double-click \`START_WINDOWS.bat\`\n\nKeep the launcher window open while using the drive.`;
+      if (err.message.includes('404') || err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('Load failed')) {
+        friendlyMsg = `**BEACON is offline.**\n\nThe AI engine is not responding. To start BEACON, open the drive folder and double-click the START launcher for your system (START_MAC.command on Mac, START_WINDOWS.bat on Windows). Keep the launcher window open while using the drive.`;
         showWarning('BEACON offline — start the launcher to connect the AI.');
+        isConnected = false;
+        setStatus('error');
       } else {
         friendlyMsg = `**Could not get a response.** (${err.message})\n\nTry again, or restart the launcher if the problem persists.`;
         showWarning('Response error — try again or restart the launcher.');
@@ -412,11 +457,36 @@ function cancelGeneration() {
 
 // ── Prompt Cards ──────────────────────────────────────────
 function usePrompt(card) {
-  if (!isConnected || isGenerating) return; // guard: AI must be ready
+  if (isGenerating) return;
+  if (!isConnected) {
+    // Don't fire into the void — show a clear toast instead
+    showOfflineToast();
+    return;
+  }
   const text = card.querySelector('p').textContent;
   userInput.value = text;
   updateCharCount();
-  sendMessage(); // fire immediately — no intermediate textarea step
+  sendMessage();
+}
+
+function showOfflineToast() {
+  // Remove any existing toast first
+  const existing = document.getElementById('offlineToast');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.id = 'offlineToast';
+  t.style.cssText = [
+    'position:fixed','bottom:100px','left:50%','transform:translateX(-50%)',
+    'background:rgba(18,22,16,0.97)','border:1px solid rgba(200,160,74,0.5)',
+    'color:var(--amber)','padding:14px 24px','border-radius:6px',
+    'font-family:var(--font-mono,monospace)','font-size:12px',
+    'letter-spacing:1.5px','z-index:9999','pointer-events:none',
+    'max-width:460px','text-align:center','backdrop-filter:blur(12px)',
+    'box-shadow:0 4px 32px rgba(0,0,0,0.6)'
+  ].join(';');
+  t.innerHTML = '📡 BEACON IS OFFLINE<br><span style="font-size:10px;opacity:0.7;letter-spacing:1px">Start the launcher to connect the AI</span>';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
 }
 
 // ── UI Utilities ──────────────────────────────────────────
@@ -452,6 +522,9 @@ userInput.addEventListener('input', () => {
   updateCharCount();
   autoResize();
   sendBtn.disabled = !userInput.value.trim() || !isConnected || isGenerating;
+  sendBtn.title = !isConnected
+    ? 'Start the launcher to connect BEACON'
+    : (!userInput.value.trim() ? 'Type a message first' : 'Send message (Enter)');
 });
 
 userInput.addEventListener('keydown', e => {

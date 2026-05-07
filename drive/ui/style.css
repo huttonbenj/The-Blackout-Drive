@@ -1535,11 +1535,11 @@ body {
 .pack-purchase-btn {
   text-decoration: none;
   display: inline-block;
-  background: rgba(200, 60, 60, 0.1) !important;
-  border-color: rgba(200, 60, 60, 0.35) !important;
-  color: #e07777 !important;
+  background: rgba(200,160,74,0.15) !important;
+  border-color: rgba(200,160,74,0.5) !important;
+  color: var(--amber) !important;
 }
-.pack-purchase-btn:hover { background: rgba(200, 60, 60, 0.2) !important; }
+.pack-purchase-btn:hover { background: rgba(200,160,74,0.28) !important; border-color: var(--amber) !important; }
 .pack-unlock-btn {
   background: none;
   border: 1px solid rgba(255,255,255,0.12);
@@ -2757,3 +2757,58 @@ body {
   --red: #cc3333;
   --red-dim: #882222;
 }
+
+
+/* ════════════════════════════════════════════════════════════
+   BEACON OFFLINE STATE + PROMPT CARD OFFLINE GUARDS
+   ════════════════════════════════════════════════════════════ */
+
+/* Dim prompt cards when BEACON is offline */
+body.beacon-offline .prompt-card {
+  opacity: 0.45 !important;
+  cursor: not-allowed !important;
+  filter: grayscale(0.3) !important;
+}
+body.beacon-offline .prompt-card:hover {
+  transform: none !important;
+  border-color: var(--border) !important;
+  box-shadow: none !important;
+}
+
+/* Beacon icon — subtle pulse animation for "ready" state */
+.beacon-icon {
+  animation: beacon-pulse 3s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 0 12px rgba(200,160,74,0.4));
+}
+@keyframes beacon-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 20px rgba(200,160,74,0.6)); }
+}
+
+/* Offline: beacon icon static + dimmed */
+body.beacon-offline .beacon-icon {
+  animation: none !important;
+  opacity: 0.4 !important;
+  filter: grayscale(1) !important;
+}
+
+/* Send button tooltip via CSS for accessibility */
+.send-btn[disabled]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: rgba(18,22,16,0.95);
+  border: 1px solid rgba(200,160,74,0.3);
+  color: var(--amber);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+}
+.input-wrapper { position: relative !important; }

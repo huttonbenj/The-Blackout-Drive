@@ -407,3 +407,79 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 - [ ] Register Cloudflare for DNS management (already using for huttontechnologies.com)
 
 ---
+
+---
+
+## 🔄 FEATURE AUDIT + UX SPRINT — May 2026
+
+### What's Real vs Facade (Honest Audit)
+
+**FULLY WORKING:**
+- ✅ Chat with BEACON (when Ollama + model are running)
+- ✅ Library browsing — Bible reader (KJV, WEB, ASV, YLT formats), text reader (Art of War, Constitution, etc.)
+- ✅ Library reload persistence (anti-flicker, restores to correct page on reload)
+- ✅ Download individual files from Gutenberg URLs (free packs)
+- ✅ Get More page with search + FREE/PAID filter
+- ✅ RAG Tier 1: library manifest injected into BEACON system prompt
+- ✅ RAG Tier 2: keyword search of local files injected with user query
+
+**PARTIALLY WORKING (requires CDN setup):**
+- ⚠ Pack downloads (free packs → Gutenberg URLs work; Ham Radio pack → CDN URL doesn't exist yet)
+- ⚠ Pack license key system (stub — localStorage save only, no real server validation)
+- ⚠ Manage Space page (shown in sidebar, needs space reporting from server)
+
+**NOT YET BUILT (documented in catalog/backlog but no code):**
+- ❌ Voice / Text-to-Speech — NOT IMPLEMENTED. Only a reference to content/audio/ directory.
+- ❌ Ham Radio interactive tools (phonetic alphabet trainer, frequency charts, Morse code practice)
+- ❌ Offline maps viewer (ZIM file support is stubbed, not tested)
+- ❌ Edition switching (Basecamp/Harvest/Chaplain) — config scaffold exists, no UI yet
+- ❌ BEACON personality per edition (BEACON/Overland/Providence) — Modelfile exists, no switcher
+
+### Backlog Items Added
+
+**CRITICAL — Broken UX flows:**
+- [ ] Fix: "BEACON READY" showing even when Ollama isn't actually running (checkConnection now verifies model list — deployed May 2026)
+- [ ] Fix: Prompt cards were clickable when offline (now guarded — deployed May 2026)
+- [ ] Fix: Error messages showed fake-clickable code blocks — now plain English (deployed May 2026)
+
+**VOICE / AUDIO:**
+- [ ] Research: Whisper.cpp for offline speech-to-text (user speaks → BEACON responds)
+- [ ] Research: Piper TTS for offline text-to-speech (BEACON speaks responses aloud)
+- [ ] Implement: voice input button in chat UI (microphone icon → transcription → send)
+- [ ] Implement: voice output toggle in chat (speaker icon → TTS reads BEACON response)
+- [ ] Package: whisper.cpp binary + small model for Mac ARM/Intel + Windows
+- [ ] Package: Piper TTS binary + voice model for Mac + Windows
+
+**HAM RADIO PACK:**
+- [ ] Build: Interactive phonetic alphabet trainer (NATO alphabet quiz)
+- [ ] Build: Frequency chart viewer (formatted table for ham bands, FRS, GMRS, MURS, NOAA)
+- [ ] Build: Morse code practice mode (visual + audio trainer)
+- [ ] Build: Emergency net protocol reference (step-by-step formatted guide)
+- [ ] Source: ARRL band plan as free/legal plain text (currently points to CDN URL that doesn't exist)
+- [ ] Decision: Is Ham Radio pack a premium upsell or free with Basecamp? (currently priced at $4.99)
+
+**CONTENT CDN:**
+- [ ] Set up Cloudflare R2 bucket: cdn.theblackoutdrive.com
+- [ ] Upload Ham Radio pack files to R2 (arrl_band_plan.txt, morse_code_complete.txt, emergency_comms_guide.txt)
+- [ ] Implement R2 signed URL generation for paid pack downloads (license key → signed URL → download)
+- [ ] Test: all free pack Gutenberg URLs still resolve (some Gutenberg URLs change)
+
+**MANAGE SPACE:**
+- [ ] Build: Manage Space page UI (disk usage bar, list of installed files with delete option)
+- [ ] API: /api/delete-file endpoint in server.py (removes file, updates manifest)
+- [ ] API: /api/disk-usage endpoint returning free/used/total bytes by category
+
+**EDITION SWITCHER:**
+- [ ] Build: edition selector in settings or first-run flow
+- [ ] Wire: Modelfile swap based on selected edition (BEACON/Overland/Providence)
+- [ ] Wire: aiName displayed in chat comes from selected edition config
+
+**BEACON ICON:**
+- [ ] Decision: 📡 satellite dish emoji chosen as BEACON icon (replaced ⚡ lightning bolt — May 2026)
+- [ ] Consider: Custom SVG beacon/radio tower icon for more unique brand identity (vs generic emoji)
+- [ ] Asset: Create beacon SVG icon for use in marketing materials, favicon, app icon
+
+**PURCHASE BUTTON UX:**
+- [ ] Changed: Purchase button from red → amber/gold (positive commercial signal — May 2026)
+- [ ] Future: A/B test amber vs green for purchase conversion rate once live
+
