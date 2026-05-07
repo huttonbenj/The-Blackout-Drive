@@ -12,7 +12,7 @@
 const CONFIG = window.DOOMSDAY_CONFIG || {
   appName:        'The Blackout Drive',
   version:        '1.0.0',
-  model:          'blackout-scout',
+  model:          'blackout-beacon',
   ollamaPort:     11434,
   ollamaHost:     'http://localhost:11434',
   uiPort:         8080,
@@ -50,7 +50,7 @@ function showConnectingOverlay() {
   overlay.className = 'connecting-overlay';
   overlay.innerHTML = `
     <div class="connecting-skull">☠</div>
-    <div class="connecting-title">STARTING THE BLACKOUT DRIVE</div>
+    <div class="connecting-title">STARTING BEACON</div>
     <div class="connecting-sub">Loading your offline AI. This takes 10–30 seconds...</div>
     <div class="connecting-bar"><div class="connecting-progress"></div></div>
     <div class="connecting-instructions">
@@ -153,7 +153,7 @@ function renderMessage(role, content, streaming = false) {
   msgEl.className = `message ${role}`;
 
   const avatar  = role === 'user' ? '👤' : '⚡';
-  const label   = role === 'user' ? 'YOU' : (window.DOOMSDAY_CONFIG?.aiName || 'SCOUT');
+  const label   = role === 'user' ? 'YOU' : (window.DOOMSDAY_CONFIG?.aiName || 'BEACON');
 
   msgEl.innerHTML = `
     <div class="message-avatar">${avatar}</div>

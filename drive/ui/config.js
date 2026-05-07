@@ -23,7 +23,7 @@
       tagline: 'Offline AI Intelligence',
     },
     model: {
-      name: 'blackout-scout',
+      name: 'blackout-beacon',
       base: 'phi3:mini',
     },
     network: {
@@ -55,7 +55,7 @@
       ...c,
       // Flat aliases (backward compat)
       appName:       (c.app  || {}).name    || DEFAULTS.app.name,
-      aiName:        (c.app  || {}).aiName   || 'Scout',
+      aiName:        (c.app  || {}).aiName   || 'BEACON',
       version:       (c.app  || {}).version || DEFAULTS.app.version,
       model:         (c.model || {}).name   || DEFAULTS.model.name,
       ollamaPort:    (c.network || {}).ollamaPort || DEFAULTS.network.ollamaPort,

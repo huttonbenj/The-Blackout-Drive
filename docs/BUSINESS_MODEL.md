@@ -381,3 +381,29 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 - [ ] Performance benchmark: cold-start time, time-to-first-token on 8GB RAM laptop
 
 ---
+
+---
+
+## 🔄 BEACON / DOMAIN SESSION — May 2026 (APPEND ONLY)
+
+### AI Persona: BEACON (finalized)
+- Decision: AI persona named **BEACON** (not Scout, not DOOMSDAY)
+- Rationale: BEACON = guides through darkness, signals safety, universally positive across all demographics (preppers AND Christians AND families). Perfect brand alignment with "Blackout Drive" theme.
+- Edition personas: BEACON (Basecamp) / Overland (Harvest) / Providence (Chaplain)
+- Ollama model identifier: `blackout-beacon`
+
+### Domain Decision: theblackoutdrive.com
+- **BUY NOW: theblackoutdrive.com** ($10.46/yr on Cloudflare) — the primary domain
+- `blackoutdrive.com` (no "the") appears already registered — Cloudflare shows `blackout-drive.com` (hyphenated) as the .com suggestion, confirming this
+- Do NOT buy hyphenated domains (blackout-drive.com) — looks unprofessional
+- Do NOT buy .net, .org, .co as primary — .com only for a consumer hardware product
+- Optional secondary: `theblackoutdrive.co` ($26/yr) — low priority, only if budget allows
+- Hosting: point theblackoutdrive.com Cloudflare DNS to Vercel for Next.js marketing site
+
+### Action Items (APPEND ONLY):
+- [ ] Purchase theblackoutdrive.com on Cloudflare ($10.46/yr) — DO THIS NOW
+- [ ] Update all CDN URL references from cdn.blackoutdrive.com → cdn.theblackoutdrive.com (post purchase)
+- [ ] Point theblackoutdrive.com DNS → Vercel once Doomsday-Web Next.js site is built
+- [ ] Register Cloudflare for DNS management (already using for huttontechnologies.com)
+
+---

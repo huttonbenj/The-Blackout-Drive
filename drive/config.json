@@ -3,18 +3,18 @@
   "_rule": "BACKLOG IS APPEND-ONLY. Never remove entries from any planning or backlog document. Only add. See docs/AGENT_CONTEXT.md.",
   "app": {
     "name": "The Blackout Drive",
-    "aiName": "Scout",
+    "aiName": "BEACON",
     "edition": "basecamp",
     "version": "1.0.0",
     "tagline": "Offline AI Intelligence",
     "editions": {
-      "basecamp": { "aiName": "Scout",      "modelfile": "Modelfile",           "price": 79  },
+      "basecamp": { "aiName": "BEACON",      "modelfile": "Modelfile",           "price": 79  },
       "harvest":  { "aiName": "Overland",   "modelfile": "Modelfile.harvest",    "price": 89  },
       "chaplain": { "aiName": "Providence", "modelfile": "Modelfile.chaplain",   "price": 89  }
     }
   },
   "model": {
-    "name": "blackout-scout",
+    "name": "blackout-beacon",
     "base": "phi3:mini",
     "file": "phi3-mini.Q4_K_M.gguf",
     "modelfile": "Modelfile"
