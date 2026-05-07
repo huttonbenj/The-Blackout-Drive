@@ -52,3 +52,7 @@ node_modules/
 drive/content/books/
 drive/content/zim/
 drive/content/manifest.json
+
+# License key files — never commit
+drive/content/licenses/
+drive/content/packs/*.json

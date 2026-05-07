@@ -288,6 +288,9 @@ function renderBibleSidebar() {
 function highlightBibleSidebar(idx) {
   libSidebar.querySelectorAll('.lib-cat-item').forEach(el =>
     el.classList.toggle('active', parseInt(el.dataset.bookIdx) === idx));
+  // Scroll active book into view in sidebar
+  const activeEl = libSidebar.querySelector('.lib-cat-item.active');
+  if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // ── Category select ──────────────────────────────────────────
