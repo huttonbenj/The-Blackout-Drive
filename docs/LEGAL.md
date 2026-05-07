@@ -1,6 +1,6 @@
 # LEGAL.md — License Compliance Guide
 
-> Every component on the Doomsday Drive has been reviewed for commercial redistribution rights.
+> Every component on the The Blackout Drive has been reviewed for commercial redistribution rights.
 > This document is the authoritative compliance record. Do not add any component to the drive without first verifying its license here.
 
 ---

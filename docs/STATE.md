@@ -18,7 +18,7 @@
 - First commit pushed: `1a361ac`
 
 **Phase 1 — Code committed, hardware test pending**
-- `drive/Modelfile` — DOOMSDAY survival persona (phi3:mini base)
+- `drive/Modelfile` — BEACON survival persona (phi3:mini base)
 - `drive/START_WINDOWS.bat` — Full Windows launcher with auto drive-letter detection
 - `drive/START_MAC.command` — Full Mac launcher with ARM/Intel auto-detection
 - `drive/ui/index.html` — Offline chat UI
@@ -55,7 +55,7 @@
 
 | # | Question | Default Used |
 |---|---------|-------------|
-| 1 | AI persona name | `DOOMSDAY.AI` (Ollama model: `doomsday-ai`) |
+| 1 | AI persona name | `The Blackout Drive` (Ollama model: `blackout-beacon`) |
 | 2 | Chat UI approach | Custom HTML ← used |
 | 3 | Default model | Phi-3 Mini Q4_K_M ← used |
 | 4 | Shopify account exists? | TBD — Phase 3 |

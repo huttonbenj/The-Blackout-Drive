@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY DRIVE — Download Content Library Script
+# THE BLACKOUT DRIVE — Download Content Library Script
 # ============================================================
 # Downloads the curated offline survival knowledge base:
 #
@@ -37,7 +37,7 @@ BOLD='\033[1m'
 NC='\033[0m'
 
 echo ""
-echo -e "${YELLOW}  DOOMSDAY DRIVE — Download Content Library${NC}"
+echo -e "${YELLOW}  THE BLACKOUT DRIVE — Download Content Library${NC}"
 echo "  ============================================="
 echo ""
 

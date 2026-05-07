@@ -9,12 +9,12 @@
 
 ---
 
-### D-001: AI Persona Name → DOOMSDAY.AI
+### D-001: AI Persona Name → The Blackout Drive
 **Date:** 2026-05-07  
 **Status:** Decided  
-**Decision:** The AI model persona is named `DOOMSDAY.AI`. The internal Ollama model identifier is `doomsday-ai` (dots are invalid in Ollama model names).  
-**Rationale:** Aligns with the product brand ("DOOMSDAY.AI"), is memorable, and communicates the survivalist use case immediately. Creates brand consistency between product name and AI identity.  
-**Implications:** The Ollama Modelfile creates a model named `doomsday-ai`. The UI displays "DOOMSDAY.AI" as the AI name. Marketing copy references "Ask DOOMSDAY.AI."
+**Decision:** The AI model persona is named `The Blackout Drive`. The internal Ollama model identifier is `blackout-beacon` (dots are invalid in Ollama model names).  
+**Rationale:** Aligns with the product brand ("The Blackout Drive"), is memorable, and communicates the survivalist use case immediately. Creates brand consistency between product name and AI identity.  
+**Implications:** The Ollama Modelfile creates a model named `blackout-beacon`. The UI displays "The Blackout Drive" as the AI name. Marketing copy references "Ask The Blackout Drive."
 
 ---
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY DRIVE — Download AI Model Script
+# THE BLACKOUT DRIVE — Download AI Model Script
 # ============================================================
 # Downloads the Phi-3 Mini GGUF model and places it in
 # drive/models/ ready to be read by the Ollama launcher.
@@ -25,17 +25,17 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo ""
-echo -e "${YELLOW}  DOOMSDAY DRIVE — Download AI Model${NC}"
+echo -e "${YELLOW}  THE BLACKOUT DRIVE — Download AI Model${NC}"
 echo "  ============================================="
 echo ""
-echo -e "  ${CYAN}[INFO]${NC} Model: $DOOMSDAY_BASE_MODEL"
-echo -e "  ${CYAN}[INFO]${NC} Output file: $DOOMSDAY_MODEL_FILE"
+echo -e "  ${CYAN}[INFO]${NC} Model: $BLACKOUT_BASE_MODEL"
+echo -e "  ${CYAN}[INFO]${NC} Output file: $BLACKOUT_MODEL_FILE"
 echo -e "  ${CYAN}[INFO]${NC} Destination: $MODELS_DIR"
 echo ""
 
 mkdir -p "$MODELS_DIR"
 
-DEST_FILE="$MODELS_DIR/$DOOMSDAY_MODEL_FILE"
+DEST_FILE="$MODELS_DIR/$BLACKOUT_MODEL_FILE"
 
 # ── Check if already downloaded ──────────────────────────────
 if [ -f "$DEST_FILE" ]; then
@@ -49,7 +49,7 @@ fi
 # ── Strategy: pull via Ollama, then export the GGUF ──────────
 # Ollama is the most reliable source — it handles mirrors,
 # authentication, and SHA256 verification automatically.
-echo -e "  ${CYAN}[1/3]${NC} Pulling $DOOMSDAY_BASE_MODEL via Ollama (downloads ~2.3GB)..."
+echo -e "  ${CYAN}[1/3]${NC} Pulling $BLACKOUT_BASE_MODEL via Ollama (downloads ~2.3GB)..."
 echo "         This will take a few minutes on a typical connection."
 echo ""
 
@@ -58,7 +58,7 @@ if ! command -v ollama &> /dev/null; then
     exit 1
 fi
 
-ollama pull "$DOOMSDAY_BASE_MODEL"
+ollama pull "$BLACKOUT_BASE_MODEL"
 echo ""
 echo -e "  ${GREEN}[OK]${NC} Pull complete."
 
@@ -75,7 +75,7 @@ if [ -z "$GGUF_BLOB" ]; then
     echo ""
     echo "  Manual fallback: download directly from HuggingFace:"
     echo "  https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf"
-    echo "  Rename file to: $DOOMSDAY_MODEL_FILE"
+    echo "  Rename file to: $BLACKOUT_MODEL_FILE"
     echo "  Place in: $MODELS_DIR/"
     echo ""
     exit 1
@@ -96,14 +96,14 @@ else
     exit 1
 fi
 
-# ── Also create the DOOMSDAY Modelfile persona model ─────────
+# ── Also create the BEACON Modelfile persona model ────────────
 echo ""
-echo -e "  ${CYAN}[BONUS]${NC} Building DOOMSDAY persona model..."
-if ollama list 2>/dev/null | grep -q "$DOOMSDAY_MODEL_NAME"; then
-    echo -e "  ${GREEN}[OK]${NC} $DOOMSDAY_MODEL_NAME model already exists."
+echo -e "  ${CYAN}[BONUS]${NC} Building BEACON persona model..."
+if ollama list 2>/dev/null | grep -q "$BLACKOUT_MODEL_NAME"; then
+    echo -e "  ${GREEN}[OK]${NC} $BLACKOUT_MODEL_NAME model already exists."
 else
-    ollama create "$DOOMSDAY_MODEL_NAME" -f "$DRIVE_DIR/$DOOMSDAY_MODELFILE"
-    echo -e "  ${GREEN}[OK]${NC} $DOOMSDAY_MODEL_NAME model created."
+    ollama create "$BLACKOUT_MODEL_NAME" -f "$DRIVE_DIR/$BLACKOUT_MODELFILE"
+    echo -e "  ${GREEN}[OK]${NC} $BLACKOUT_MODEL_NAME model created."
 fi
 
 echo ""

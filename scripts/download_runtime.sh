@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY DRIVE — Download Runtime Script
+# THE BLACKOUT DRIVE — Download Runtime Script
 # ============================================================
 # Downloads portable Ollama binaries for all 3 platforms
 # and places them in the correct drive/runtime/ directories.
@@ -26,7 +26,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo ""
-echo -e "${YELLOW}  DOOMSDAY DRIVE — Download Runtimes${NC}"
+echo -e "${YELLOW}  THE BLACKOUT DRIVE — Download Runtimes${NC}"
 echo "  ============================================="
 echo ""
 

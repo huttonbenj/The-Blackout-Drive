@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY.AI — Build Manifest
+# The Blackout Drive — Build Manifest
 # ============================================================
 # Generates drive/content/manifest.json after content is
 # downloaded by setup_drive.sh or download_content.sh.

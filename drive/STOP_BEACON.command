@@ -1,15 +1,15 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY DRIVE — Mac Emergency Stop
+# BEACON DRIVE — Mac Emergency Stop
 # ============================================================
 # Run this if:
-#  - You want to stop DOOMSDAY before unplugging the drive
+#  - You want to stop BEACON before unplugging the drive
 #  - The main launcher was closed without proper shutdown
 #  - You suspect Ollama is still running after removal
 # ============================================================
 
 echo ""
-echo "  [SHUTDOWN] Stopping DOOMSDAY system..."
+echo "  [SHUTDOWN] Stopping BEACON system..."
 echo ""
 
 # Kill all ollama processes
@@ -28,7 +28,7 @@ fi
 if pgrep -f "ollama" > /dev/null 2>&1; then
     echo "  [ERROR] Could not terminate Ollama. Try: sudo pkill -9 ollama"
 else
-    echo "  [OK] DOOMSDAY system stopped."
+    echo "  [OK] BEACON system stopped."
     echo "  [OK] Safe to unplug the drive."
 fi
 

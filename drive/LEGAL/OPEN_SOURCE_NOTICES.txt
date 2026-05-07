@@ -1,4 +1,4 @@
-DOOMSDAY DRIVE — OPEN SOURCE NOTICES & ATTRIBUTION
+The Blackout Drive DRIVE — OPEN SOURCE NOTICES & ATTRIBUTION
 ===================================================
 
 This product is built on open-source software. The following components 
@@ -68,5 +68,5 @@ ATTRIBUTION: Published by the Hesperian Foundation.
              Available free of charge from hesperian.org.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-DOOMSDAY DRIVE custom software (launchers, chat UI, Modelfile):
+The Blackout Drive DRIVE custom software (launchers, chat UI, Modelfile):
 Copyright © 2026 Hutton Technologies. All rights reserved.

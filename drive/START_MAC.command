@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # ============================================================
-# DOOMSDAY.AI DRIVE — macOS Launcher
+# The Blackout Drive DRIVE — macOS Launcher
 # ============================================================
-# This script launches the DOOMSDAY offline AI system.
+# This script launches The Blackout Drive offline AI system.
 # It runs entirely from the USB drive — nothing is installed
 # on your computer. All data stays on the drive.
 #
@@ -38,7 +38,7 @@ echo -e "${YELLOW}  ██║  ██║██║   ██║██║   ██�
 echo -e "${YELLOW}  ██████╔╝╚██████╔╝╚██████╔╝██║ ╚═╝ ██║███████║██████╔╝██║  ██║   ██║   ██║██║  ██║██║${NC}"
 echo -e "${YELLOW}  ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═╝╚═╝${NC}"
 echo ""
-echo -e "${WHITE}  DOOMSDAY.AI — OFFLINE SURVIVAL INTELLIGENCE${NC}"
+echo -e "${WHITE}  The Blackout Drive — OFFLINE SURVIVAL INTELLIGENCE${NC}"
 echo "  -------------------------------------------------------"
 echo "  No internet required. No data leaves this drive."
 echo "  -------------------------------------------------------"
@@ -67,7 +67,7 @@ if [ ! -f "$OLLAMA_BINARY" ]; then
 fi
 
 # ── Step 3: Verify model exists ──────────────────────────────
-MODEL_FILE="$SCRIPT_DIR/models/$DOOMSDAY_MODEL_FILE"
+MODEL_FILE="$SCRIPT_DIR/models/$BLACKOUT_MODEL_FILE"
 if [ ! -f "$MODEL_FILE" ]; then
     echo ""
     echo -e "  ${RED}[ERROR]${NC} AI model not found: $MODEL_FILE"
@@ -83,17 +83,17 @@ fi
 chmod +x "$OLLAMA_BINARY"
 
 # ── Step 5: Check if Ollama is already running ───────────────
-if curl -s "${DOOMSDAY_OLLAMA_URL}" > /dev/null 2>&1; then
-    echo -e "  ${GREEN}[INFO]${NC} DOOMSDAY.AI already running. Opening interface..."
+if curl -s "${BLACKOUT_OLLAMA_URL}" > /dev/null 2>&1; then
+    echo -e "  ${GREEN}[INFO]${NC} The Blackout Drive already running. Opening interface..."
     open "$SCRIPT_DIR/ui/index.html"
     exit 0
 fi
 
 # ── Step 6: Set environment — point Ollama to drive ─────────
 export OLLAMA_MODELS="$SCRIPT_DIR/models"
-export OLLAMA_HOST="$DOOMSDAY_OLLAMA_HOST_ADDR"
+export OLLAMA_HOST="$BLACKOUT_OLLAMA_HOST_ADDR"
 # Allow browser to reach Ollama from our local UI server (fixes CORS)
-export OLLAMA_ORIGINS="$DOOMSDAY_OLLAMA_ORIGINS"
+export OLLAMA_ORIGINS="$BLACKOUT_OLLAMA_ORIGINS"
 
 # ── Step 7: Launch Ollama in background ─────────────────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting AI engine..."
@@ -103,13 +103,13 @@ OLLAMA_PID=$!
 # ── Step 8: Wait for Ollama to be ready (up to 45 seconds) ──
 WAIT_COUNT=0
 MAX_WAIT=45
-while ! curl -s "${DOOMSDAY_OLLAMA_URL}" > /dev/null 2>&1; do
+while ! curl -s "${BLACKOUT_OLLAMA_URL}" > /dev/null 2>&1; do
     sleep 1
     WAIT_COUNT=$((WAIT_COUNT + 1))
     echo -e "  ${CYAN}[BOOT]${NC} Waiting for engine... ($WAIT_COUNT/$MAX_WAIT)"
     if [ $WAIT_COUNT -ge $MAX_WAIT ]; then
         echo ""
-        echo -e "  ${RED}[ERROR]${NC} DOOMSDAY system failed to start after ${MAX_WAIT}s."
+        echo -e "  ${RED}[ERROR]${NC} BEACON system failed to start after ${MAX_WAIT}s."
         echo "  Check that your Mac has at least 8GB of RAM."
         kill $OLLAMA_PID 2>/dev/null
         read -p "  Press Enter to exit..."
@@ -119,27 +119,27 @@ done
 
 echo -e "  ${GREEN}[BOOT]${NC} AI engine online."
 
-# ── Step 9: Load the DOOMSDAY model (first run: create it) ──
-echo -e "  ${CYAN}[BOOT]${NC} Checking DOOMSDAY model..."
-if ! "$OLLAMA_BINARY" list 2>/dev/null | grep -q "$DOOMSDAY_MODEL_NAME"; then
+# ── Step 9: Load the BEACON model (first run: create it) ──
+echo -e "  ${CYAN}[BOOT]${NC} Checking BEACON model..."
+if ! "$OLLAMA_BINARY" list 2>/dev/null | grep -q "$BLACKOUT_MODEL_NAME"; then
     echo -e "  ${CYAN}[BOOT]${NC} First run — building model (takes ~30 seconds)..."
-    "$OLLAMA_BINARY" create "$DOOMSDAY_MODEL_NAME" -f "$SCRIPT_DIR/$DOOMSDAY_MODELFILE"
-    echo -e "  ${GREEN}[BOOT]${NC} DOOMSDAY model ready."
+    "$OLLAMA_BINARY" create "$BLACKOUT_MODEL_NAME" -f "$SCRIPT_DIR/$BLACKOUT_MODELFILE"
+    echo -e "  ${GREEN}[BOOT]${NC} BEACON model ready."
 else
-    echo -e "  ${GREEN}[BOOT]${NC} DOOMSDAY model loaded."
+    echo -e "  ${GREEN}[BOOT]${NC} BEACON model loaded."
 fi
 
 # ── Step 10: Start UI server + open chat interface ──────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting UI server..."
 # Serve UI via local HTTP to avoid browser file:// CORS restrictions
-python3 "$REPO_ROOT/scripts/server.py" "$DOOMSDAY_UI_PORT" "$SCRIPT_DIR" &>/dev/null &
+python3 "$REPO_ROOT/scripts/server.py" "$BLACKOUT_UI_PORT" "$SCRIPT_DIR" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "${DOOMSDAY_UI_URL}/ui/"
+open "${BLACKOUT_UI_URL}/ui/"
 
 echo ""
 echo "  -------------------------------------------------------"
-echo -e "  ${GREEN}DOOMSDAY.AI is online.${NC} Your browser will open the interface."
+echo -e "  ${GREEN}The Blackout Drive is online.${NC} Your browser will open the interface."
 echo ""
 echo "  If your browser doesn't open, open this file manually:"
 echo "  $SCRIPT_DIR/ui/index.html"
@@ -152,7 +152,7 @@ echo ""
 # ── Step 11: Trap exit signals — cleanup on close ────────────
 cleanup() {
     echo ""
-    echo -e "  ${CYAN}[SHUTDOWN]${NC} Shutting down DOOMSDAY system..."
+    echo -e "  ${CYAN}[SHUTDOWN]${NC} Shutting down BEACON system..."
     kill $UI_SERVER_PID 2>/dev/null
     kill $OLLAMA_PID 2>/dev/null
     wait $OLLAMA_PID 2>/dev/null
@@ -164,6 +164,6 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 # ── Step 12: Keep alive until user closes ───────────────────
-echo "  Press Ctrl+C to shut down DOOMSDAY."
+echo "  Press Ctrl+C to shut down BEACON."
 echo ""
 wait $OLLAMA_PID

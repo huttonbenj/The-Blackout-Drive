@@ -1,7 +1,7 @@
 PolyForm Noncommercial License 1.0.0
 
 Copyright (c) 2025 Hutton Technologies
-Product: DOOMSDAY.AI (doomsday.ai)
+Product: The Blackout Drive (theblackoutdrive.com)
 
 ---
 
@@ -33,8 +33,8 @@ If you wish to use this software for commercial purposes (including
 bundling it on physical media for resale), contact:
 
   Hutton Technologies
-  hello@doomsday.ai
-  https://doomsday.ai
+  hello@theblackoutdrive.com
+  https://theblackoutdrive.com
 
 **What Is Free to Do**
 
@@ -46,7 +46,7 @@ bundling it on physical media for resale), contact:
 
 **Trademarks**
 
-"DOOMSDAY.AI", "Doomsday Drive", and the Hutton Technologies name and
+"The Blackout Drive", "The Blackout Drive", and the Hutton Technologies name and
 logos are trademarks of Hutton Technologies. This license does NOT grant
 any rights to use these marks. Do not use them without written permission.
 
@@ -81,7 +81,7 @@ CONTENT LICENSE NOTE:
 This license applies to the SOFTWARE ONLY (chat UI, server, scripts, launchers).
 It does NOT apply to:
 
-- Paid content packs distributed via cdn.doomsday.ai — All Rights Reserved
+- Paid content packs distributed via cdn.theblackoutdrive.com — All Rights Reserved
 - The content catalog (library.json, catalog_extended.json) — All Rights Reserved
 - The Ollama binary — MIT License (see drive/LEGAL/OLLAMA_LICENSE.txt)
 - The Phi-3 Mini model — MIT License (see drive/LEGAL/PHI3_LICENSE.txt)

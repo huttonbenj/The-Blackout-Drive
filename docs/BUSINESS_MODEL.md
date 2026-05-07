@@ -1,6 +1,6 @@
 # BUSINESS_MODEL.md — Unit Economics & Go-To-Market
 
-> Full business model for DOOMSDAY.AI. Updated as pricing or channels change.
+> Full business model for The Blackout Drive. Updated as pricing or channels change.
 
 ---
 
@@ -8,9 +8,9 @@
 
 | SKU | Name | Drive | Model | Price | Target Customer |
 |-----|------|-------|-------|-------|----------------|
-| DD-01 | DOOMSDAY.AI | 64GB SanDisk USB 3.2 | Phi-3 Mini (8GB+ RAM) | $79 | Core prepper/survivalist |
-| DD-02 | DOOMSDAY.AI PRO | 128GB SanDisk USB 3.2 Gen 2 | Mistral 7B (16GB+ RAM) | $119 | Power user, higher-spec hardware |
-| DD-03 | DOOMSDAY.AI Family Pack | 3× DD-01 | Phi-3 Mini | $199 | Families, gifters |
+| DD-01 | The Blackout Drive | 64GB SanDisk USB 3.2 | Phi-3 Mini (8GB+ RAM) | $79 | Core prepper/survivalist |
+| DD-02 | The Blackout Drive PRO | 128GB SanDisk USB 3.2 Gen 2 | Mistral 7B (16GB+ RAM) | $119 | Power user, higher-spec hardware |
+| DD-03 | The Blackout Drive Family Pack | 3× DD-01 | Phi-3 Mini | $199 | Families, gifters |
 
 DD-02 and DD-03 are deferred to post-launch.
 
@@ -84,7 +84,7 @@ DD-02 and DD-03 are deferred to post-launch.
 ## Sales Channels (Priority Order)
 
 ### 1. Shopify Store (Primary — launch first)
-- Domain: TBD (check doomsday.ai — primary target, also doomsdayai.com)
+- Domain: TBD (check theblackoutdrive.com — primary target, also theblackoutdrive.com)
 - Fees: 2.9% + $0.30 per transaction (Basic plan)
 - Benefits: Full customer data, email list, highest margin, brand control
 - Shipping: USPS Ground Advantage via Pirateship.com
@@ -112,18 +112,18 @@ DD-02 and DD-03 are deferred to post-launch.
 ### Core Content Formula (TikTok/Reels/Shorts)
 1. Show Wi-Fi turned off (visual proof)
 2. Ask a visceral survival question
-3. Show DOOMSDAY AI answering instantly, offline
+3. Show BEACON answering instantly, offline
 4. CTA with price
 
 ### Three Angle Tests
 | Angle | Hook Line |
 |-------|-----------|
 | EMP/Solar Flare | "A Carrington-level solar flare is not a matter of if — it's when. Here's what I'm doing." |
-| Cyberattack | "Imagine the internet goes down in a coordinated cyberattack. ChatGPT? Gone. DOOMSDAY.AI? Works." |
+| Cyberattack | "Imagine the internet goes down in a coordinated cyberattack. ChatGPT? Gone. The Blackout Drive? Works." |
 | Privacy | "ChatGPT stores every question you ask. Here's how I keep my AI completely private." |
 
 ### Trust-Building Video (Post First)
-"What's actually on the Doomsday Drive" — full transparency video showing every component, naming the model (Phi-3 by Microsoft), showing the Wikipedia content, reading the hardware requirements. Pre-empts the "is this a scam?" reaction.
+"What's actually on the The Blackout Drive" — full transparency video showing every component, naming the model (Phi-3 by Microsoft), showing the Wikipedia content, reading the hardware requirements. Pre-empts the "is this a scam?" reaction.
 
 ### Affiliate Program (Month 2)
 - Commission: 15% = $11.85/unit on Tier 1
@@ -167,7 +167,7 @@ DD-02 and DD-03 are deferred to post-launch.
 ## LLC & Tax Structure
 
 - Business entity: Hutton Technologies (existing LLC)
-- Product sold under: Hutton Technologies (or DBA "DOOMSDAY.AI" — ~$20-50 at county clerk)
+- Product sold under: Hutton Technologies (or DBA "The Blackout Drive" — ~$20-50 at county clerk)
 - Revenue flows through LLC
 - COGS (drives, packaging, shipping) are business deductions
 - Shopify/Pirateship provide transaction records for accounting
@@ -264,7 +264,7 @@ Send only **DD-01 Standard** to Amazon FBA (identical SKUs, batch-flashed).
 Route Homestead and Tactical editions exclusively through Shopify (own the customer data).
 
 ### V2 Content Hub Concept:
-Ship every drive identical. Include a local "DOOMSDAY Hub" app that lets users download
+Ship every drive identical. Include a local "Blackout Drive Hub" app that lets users download
 optional content packs (Homestead Pack, Tactical Pack) from a CDN on their first run
 while they still have internet. Drive stays operationally uniform. Customization moves
 to software, not hardware.
@@ -273,7 +273,7 @@ to software, not hardware.
 
 ## 🔄 REBRAND SESSION — May 2026 (APPEND ONLY — DO NOT REMOVE)
 
-### Rebranding: DOOMSDAY.AI → THE BLACKOUT DRIVE
+### Rebranding: The Blackout Drive → THE BLACKOUT DRIVE
 
 **Competitive Intelligence (from market research, May 2026):**
 - **PortableMind**: $138, 128GB, positioned as "privacy tech gadget" — NOT survival. Targets privacy nerds.
@@ -285,7 +285,7 @@ to software, not hardware.
 **Brand Decision: The Blackout Drive**
 - "Blackout" = universal, non-polarizing infrastructure failure word. Preppers AND faith families AND everyday homeowners relate to it.
 - No competing products own the term. Immediate SEO advantage.
-- The AI persona name remains TBD — consider keeping DOOMSDAY.AI for the AI, with "The Blackout Drive" as the product/hardware name.
+- The AI persona name remains TBD — consider keeping The Blackout Drive for the AI, with "The Blackout Drive" as the product/hardware name.
 
 **Our Take on Gemini's Tier System:**
 Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation but creates 3 flash images. Our counter-proposal:
@@ -308,7 +308,7 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 - [ ] Secure blackoutdrive.com domain IMMEDIATELY (check Cloudflare, GoDaddy)
 - [ ] Secure theblackoutdrive.com as secondary
 - [ ] Trademark "The Blackout Drive" — USPTO filing (Hutton Technologies)
-- [ ] Update AGENT_CONTEXT.md product name to "The Blackout Drive" (keep DOOMSDAY.AI as AI persona)
+- [ ] Update AGENT_CONTEXT.md product name to "The Blackout Drive" (keep The Blackout Drive as AI persona)
 - [ ] Design The Blackout Drive wordmark and logo (premium, tactical, not cheesy)
 - [ ] Decide final AI persona names for each edition (Scout/Overland/Providence or alternatives)
 
@@ -338,8 +338,8 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 - [ ] Add Chaplain edition content: Complete Bible set already done ✅, add first aid guide, add devotional reading
 - [ ] Verify all PDF download URLs (army FM21-76, FM3-05-70, FEMA guides, etc.) still resolve
 
-**WEBSITE — Doomsday-Web:**
-- [ ] Initialize Next.js 15 app in Doomsday-Web repo
+**WEBSITE — The-Blackout-Drive-Web:**
+- [ ] Initialize Next.js 15 app in The-Blackout-Drive-Web repo
 - [ ] Design and build The Blackout Drive marketing homepage
 - [ ] Build edition comparison/purchase page (Basecamp vs Harvest vs Chaplain)
 - [ ] Integrate Stripe for one-time purchases and content pack license keys
@@ -353,7 +353,7 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 
 **LEGAL:**
 - [ ] File trademark: "The Blackout Drive" — class 9 (electronic devices), class 42 (software)
-- [ ] Update all disclaimer language from "DOOMSDAY.AI" to "The Blackout Drive"
+- [ ] Update all disclaimer language from "The Blackout Drive" to "The Blackout Drive"
 - [ ] Add brand usage guidelines (don't want Amazon sellers calling knockoffs "Blackout")
 
 **MARKETING:**
@@ -387,7 +387,7 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 ## 🔄 BEACON / DOMAIN SESSION — May 2026 (APPEND ONLY)
 
 ### AI Persona: BEACON (finalized)
-- Decision: AI persona named **BEACON** (not Scout, not DOOMSDAY)
+- Decision: AI persona named **BEACON** (not Scout, not the old name — see branding decision earlier in this doc)
 - Rationale: BEACON = guides through darkness, signals safety, universally positive across all demographics (preppers AND Christians AND families). Perfect brand alignment with "Blackout Drive" theme.
 - Edition personas: BEACON (Basecamp) / Overland (Harvest) / Providence (Chaplain)
 - Ollama model identifier: `blackout-beacon`
@@ -403,7 +403,7 @@ Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation b
 ### Action Items (APPEND ONLY):
 - [ ] Purchase theblackoutdrive.com on Cloudflare ($10.46/yr) — DO THIS NOW
 - [ ] Update all CDN URL references from cdn.blackoutdrive.com → cdn.theblackoutdrive.com (post purchase)
-- [ ] Point theblackoutdrive.com DNS → Vercel once Doomsday-Web Next.js site is built
+- [ ] Point theblackoutdrive.com DNS → Vercel once The-Blackout-Drive-Web Next.js site is built
 - [ ] Register Cloudflare for DNS management (already using for huttontechnologies.com)
 
 ---

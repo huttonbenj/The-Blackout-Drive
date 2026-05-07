@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DOOMSDAY.AI — Local HTTP Server
+The Blackout Drive — Local HTTP Server
 ================================================================
 Replaces `python3 -m http.server` with a full-featured server
 that supports file management and content downloads.
@@ -180,7 +180,7 @@ def _download_worker(job_id: str, url: str, dest_abs: str, drive_dir: str):
 
 # ── Request Handler ────────────────────────────────────────────────────────────
 
-class DoomsdayHandler(BaseHTTPRequestHandler):
+class BlackoutDriveHandler(BaseHTTPRequestHandler):
 
     def log_message(self, fmt, *args):
         # Uncomment for debug logging:
@@ -515,8 +515,8 @@ class DoomsdayHandler(BaseHTTPRequestHandler):
 # ── Entry Point ────────────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
-    server = HTTPServer(('127.0.0.1', PORT), DoomsdayHandler)
-    print(f'  DOOMSDAY.AI server → http://localhost:{PORT}/ui/', flush=True)
+    server = HTTPServer(('127.0.0.1', PORT), BlackoutDriveHandler)
+    print(f'  The Blackout Drive server → http://localhost:{PORT}/ui/', flush=True)
     print(f'  Serving from: {DRIVE_DIR}', flush=True)
     try:
         server.serve_forever()

@@ -159,13 +159,13 @@
       "size_mb": 12,
       "price": 4.99,
       "license_required": true,
-      "purchase_url": "https://doomsdaydrive.com/shop/ham-radio-pack",
+      "purchase_url": "https://theblackoutdrive.com/shop/ham-radio-pack",
       "files": [
         {
           "id": "arrl_band_plan",
           "name": "ARRL Frequency & Band Plan Reference",
           "description": "Complete US amateur radio band plan with frequencies, modes, and emergency channels",
-          "url": "https://cdn.doomsday.ai/files/arrl_band_plan.txt",
+          "url": "https://cdn.theblackoutdrive.com/files/arrl_band_plan.txt",
           "dest": "content/books/arrl_band_plan.txt",
           "size_mb": 1,
           "license": "Licensed Content"
@@ -174,7 +174,7 @@
           "id": "morse_code_guide",
           "name": "Morse Code Complete Reference",
           "description": "International Morse code chart, practice sentences, and emergency signal procedures",
-          "url": "https://cdn.doomsday.ai/files/morse_code_complete.txt",
+          "url": "https://cdn.theblackoutdrive.com/files/morse_code_complete.txt",
           "dest": "content/books/morse_code_complete.txt",
           "size_mb": 1,
           "license": "Licensed Content"
@@ -183,7 +183,7 @@
           "id": "emergency_comms_guide",
           "name": "Emergency Communications Field Guide",
           "description": "ICS-205 forms, ARES/RACES procedures, net protocols, and go-bag radio setup",
-          "url": "https://cdn.doomsday.ai/files/emergency_comms_guide.txt",
+          "url": "https://cdn.theblackoutdrive.com/files/emergency_comms_guide.txt",
           "dest": "content/books/emergency_comms_guide.txt",
           "size_mb": 10,
           "license": "Licensed Content"

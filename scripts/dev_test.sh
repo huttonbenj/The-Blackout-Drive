@@ -1,16 +1,16 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY DRIVE — Local Dev Test Script
+# THE BLACKOUT DRIVE — Local Dev Test Script
 # ============================================================
 # Tests the full UI, Modelfile persona, and API integration
 # WITHOUT needing a physical USB drive.
 #
 # What this tests:
-#   ✅ DOOMSDAY Modelfile loads correctly
-#   ✅ Ollama serves the doomsday model
+#   ✅ BEACON Modelfile loads correctly
+#   ✅ Ollama serves the blackout-beacon model
 #   ✅ Chat UI opens and connects
 #   ✅ Streaming responses work
-#   ✅ DOOMSDAY persona behaves correctly
+#   ✅ BEACON persona behaves correctly
 #
 # What this does NOT test (requires physical USB):
 #   ❌ Portable Ollama binary (uses host Ollama install)
@@ -26,7 +26,7 @@ DRIVE_DIR="$SCRIPT_DIR/../drive"
 # ── Load configuration (single source of truth) ────────────────
 source "$DRIVE_DIR/config.sh"
 
-MODELFILE="$DRIVE_DIR/$DOOMSDAY_MODELFILE"
+MODELFILE="$DRIVE_DIR/$BEACON_MODELFILE"
 UI_PATH="$DRIVE_DIR/ui/index.html"
 
 RED='\033[0;31m'
@@ -36,7 +36,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo ""
-echo -e "${YELLOW}  DOOMSDAY DRIVE — Local Dev Test${NC}"
+echo -e "${YELLOW}  BEACON DRIVE — Local Dev Test${NC}"
 echo "  ============================================="
 echo ""
 
@@ -72,13 +72,13 @@ else
     exit 1
 fi
 
-# ── Step 4: Create / update doomsday model ──────────────────
-echo -e "  ${CYAN}[4/5]${NC} Building DOOMSDAY model from Modelfile..."
-echo "         (This downloads $DOOMSDAY_BASE_MODEL if not already cached — ~2.3GB)"
+# ── Step 4: Create / update blackout-beacon model ──────────────────
+echo -e "  ${CYAN}[4/5]${NC} Building BEACON model from Modelfile..."
+echo "         (This downloads $BEACON_BASE_MODEL if not already cached — ~2.3GB)"
 echo ""
 
 # Start ollama serve if not running
-if ! curl -s "$DOOMSDAY_OLLAMA_URL" > /dev/null 2>&1; then
+if ! curl -s "$BEACON_OLLAMA_URL" > /dev/null 2>&1; then
     echo -e "  ${CYAN}[INFO]${NC} Starting Ollama server..."
     ollama serve &
     OLLAMA_PID=$!
@@ -86,7 +86,7 @@ if ! curl -s "$DOOMSDAY_OLLAMA_URL" > /dev/null 2>&1; then
     
     # Wait for it to be ready
     WAIT=0
-    while ! curl -s "$DOOMSDAY_OLLAMA_URL" > /dev/null 2>&1; do
+    while ! curl -s "$BEACON_OLLAMA_URL" > /dev/null 2>&1; do
         sleep 1
         WAIT=$((WAIT + 1))
         if [ $WAIT -ge 30 ]; then
@@ -102,18 +102,18 @@ else
 fi
 
 # Create the model
-ollama create "$DOOMSDAY_MODEL_NAME" -f "$MODELFILE"
+ollama create "$BEACON_MODEL_NAME" -f "$MODELFILE"
 echo ""
-echo -e "  ${GREEN}[PASS]${NC} $DOOMSDAY_MODEL_NAME model built successfully"
+echo -e "  ${GREEN}[PASS]${NC} $BEACON_MODEL_NAME model built successfully"
 
 # ── Step 5: Smoke test — send a test prompt ──────────────────
-echo -e "  ${CYAN}[5/5]${NC} Smoke testing DOOMSDAY persona..."
+echo -e "  ${CYAN}[5/5]${NC} Smoke testing BEACON persona..."
 echo "         Sending test prompt: 'How do I purify water in an emergency?'"
 echo ""
 
-RESPONSE=$(curl -s "${DOOMSDAY_OLLAMA_URL}/api/chat" \
+RESPONSE=$(curl -s "${BEACON_OLLAMA_URL}/api/chat" \
     -d "{
-        \"model\": \"$DOOMSDAY_MODEL_NAME\",
+        \"model\": \"$BEACON_MODEL_NAME\",
         \"messages\": [{\"role\": \"user\", \"content\": \"In 2 sentences, how do I purify water in an emergency?\"}],
         \"stream\": false
     }" | python3 -c "import sys,json; data=json.load(sys.stdin); print(data.get('message',{}).get('content','[no response]'))" 2>/dev/null)
@@ -123,11 +123,11 @@ if [ -z "$RESPONSE" ] || [ "$RESPONSE" = "[no response]" ]; then
     exit 1
 fi
 
-echo "  ┌─ DOOMSDAY Response ─────────────────────────────────"
+echo "  ┌─ BEACON Response ─────────────────────────────────"
 echo "$RESPONSE" | fold -s -w 60 | sed 's/^/  │ /'
 echo "  └─────────────────────────────────────────────────────"
 echo ""
-echo -e "  ${GREEN}[PASS]${NC} DOOMSDAY persona responding correctly"
+echo -e "  ${GREEN}[PASS]${NC} BEACON persona responding correctly"
 
 # ── Open UI ──────────────────────────────────────────────────
 echo ""
@@ -141,10 +141,10 @@ echo "  UI path: $UI_PATH"
 echo "  ============================================="
 echo ""
 
-python3 -m http.server "$DOOMSDAY_UI_PORT" --directory "$DRIVE_DIR/ui" &>/dev/null &
+python3 -m http.server "$BEACON_UI_PORT" --directory "$DRIVE_DIR/ui" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "${DOOMSDAY_UI_URL}"
+open "${BEACON_UI_URL}"
 
 # ── Cleanup on exit ──────────────────────────────────────────
 cleanup() {

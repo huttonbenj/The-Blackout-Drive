@@ -5,7 +5,7 @@
  * Pure data in, pure data out.
  *
  * Loaded before app.js and library.js in index.html.
- * Reads network config from window.DOOMSDAY_CONFIG (set by config.js).
+ * Reads network config from window.BLACKOUT_CONFIG (set by config.js).
  * ============================================================
  */
 
@@ -15,7 +15,7 @@ window.DDAPI = (() => {
 
   // ── Internal helpers ─────────────────────────────────────
   function cfg() {
-    return window.DOOMSDAY_CONFIG || {};
+    return window.BLACKOUT_CONFIG || {};
   }
 
   function ollamaBase() {

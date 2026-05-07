@@ -9,7 +9,7 @@
 // ── Configuration (sourced from config.js) ────────────────
 // All values live in drive/ui/config.js — do not hardcode here.
 // Fallbacks are safety nets only; config.js should always load.
-const CONFIG = window.DOOMSDAY_CONFIG || {
+const CONFIG = window.BLACKOUT_CONFIG || {
   appName:        'The Blackout Drive',
   version:        '1.0.0',
   model:          'blackout-beacon',
@@ -153,7 +153,7 @@ function renderMessage(role, content, streaming = false) {
   msgEl.className = `message ${role}`;
 
   const avatar  = role === 'user' ? '👤' : '⚡';
-  const label   = role === 'user' ? 'YOU' : (window.DOOMSDAY_CONFIG?.aiName || 'BEACON');
+  const label   = role === 'user' ? 'YOU' : (window.BLACKOUT_CONFIG?.aiName || 'BEACON');
 
   msgEl.innerHTML = `
     <div class="message-avatar">${avatar}</div>

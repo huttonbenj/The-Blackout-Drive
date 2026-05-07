@@ -1,17 +1,17 @@
 @echo off
 :: ============================================================
-:: DOOMSDAY DRIVE — Windows Emergency Stop
+:: BEACON DRIVE — Windows Emergency Stop
 :: ============================================================
 :: Run this if:
-::  - You want to stop DOOMSDAY before unplugging the drive
+::  - You want to stop BEACON before unplugging the drive
 ::  - The main launcher was closed without proper shutdown
 ::  - You suspect Ollama is still running after removal
 :: ============================================================
 
-title DOOMSDAY // Emergency Shutdown
+title BEACON // Emergency Shutdown
 
 echo.
-echo  [SHUTDOWN] Stopping DOOMSDAY system...
+echo  [SHUTDOWN] Stopping BEACON system...
 echo.
 
 :: Kill all ollama processes
@@ -25,7 +25,7 @@ if %errorlevel% == 0 (
     taskkill /f /im ollama.exe >nul 2>&1
     timeout /t 2 /nobreak >nul
 ) else (
-    echo  [OK] DOOMSDAY system stopped successfully.
+    echo  [OK] BEACON system stopped successfully.
 )
 
 echo  [OK] Safe to unplug the drive.

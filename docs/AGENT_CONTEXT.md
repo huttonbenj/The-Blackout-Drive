@@ -1,4 +1,4 @@
-# AGENT_CONTEXT.md — DOOMSDAY.AI Project
+# AGENT_CONTEXT.md — The Blackout Drive Project
 
 > **This document is the single source of truth for any AI agent, developer, or collaborator joining this project.**
 > Read this file first. Read all docs in `docs/` second. Then look at the code.
@@ -22,11 +22,11 @@ Key docs that are also append-only: `docs/DECISIONS.md`, `docs/STATE.md`.
 
 ## What Is This Project?
 
-**DOOMSDAY.AI** is a physical product business. We manufacture and sell USB drives preloaded with a fully offline AI survival system, targeted at the prepper / self-reliance / survivalist market.
+**The Blackout Drive** is a physical product business. We manufacture and sell USB drives preloaded with a fully offline AI survival system, targeted at the prepper / self-reliance / survivalist market.
 
 The drive contains:
 - A portable AI engine (Ollama) that runs without installation on the host computer
-- A custom AI persona called **DOOMSDAY.AI** — tuned specifically for survival, field medicine, and grid-down scenarios
+- A custom AI persona called **The Blackout Drive** — tuned specifically for survival, field medicine, and grid-down scenarios
 - A curated offline survival knowledge library (Wikipedia survival slice, public domain PDFs)
 - A 100+ prompt survival library
 - A custom offline chat UI with tactical aesthetic
@@ -39,19 +39,19 @@ The drive contains:
 
 | Field | Value |
 |-------|-------|
-| Product name | DOOMSDAY.AI |
+| Product name | The Blackout Drive |
 | LLC | Hutton Technologies |
 | Lead developer/architect | AI agent (Antigravity) — owns the entire project |
-| Drive GitHub | https://github.com/huttonbenj/Doomsday-Drive (PUBLIC — MIT license) |
-| Web GitHub | https://github.com/huttonbenj/Doomsday-Web (PRIVATE) |
-| Drive local path | `/Users/benjamin/github/doomsday-drive` |
-| Web local path | `/Users/benjamin/github/Doomsday-Web` |
+| Drive GitHub | https://github.com/huttonbenj/The-Blackout-Drive (PUBLIC — MIT license) |
+| Web GitHub | https://github.com/huttonbenj/The-Blackout-Drive-Web (PRIVATE) |
+| Drive local path | `/Users/benjamin/github/the-blackout-drive` |
+| Web local path | `/Users/benjamin/github/The-Blackout-Drive-Web` |
 | Target market | Prepper / survivalist / self-reliance niche |
 | Price | $79 (Tier 1), $119 (Tier 2 PRO) |
-| Content packs | Free and paid packs — purchased via doomsday.ai website |
+| Content packs | Free and paid packs — purchased via theblackoutdrive.com website |
 | Margin | ~78% gross margin |
 | Hardware | 64GB SanDisk Ultra Dual USB-C/USB-A 3.2 |
-| Sales channels | doomsday.ai (primary) → Etsy → TikTok Shop → Amazon → Shopify (marketplace only) |
+| Sales channels | theblackoutdrive.com (primary) → Etsy → TikTok Shop → Amazon → Shopify (marketplace only) |
 
 Full business model, unit economics, and competitive analysis: see `docs/BUSINESS_MODEL.md` and `docs/RESEARCH.md`.
 
@@ -59,13 +59,13 @@ Full business model, unit economics, and competitive analysis: see `docs/BUSINES
 
 ## Tech Stack
 
-### Drive (doomsday-drive — PUBLIC)
+### Drive (The-Blackout-Drive)
 
 | Component | Technology | Why |
 |-----------|-----------|-----|
 | AI engine | Ollama (portable, no-install binary) | MIT license, cross-platform, zero dependency |
 | Default model | Phi-3 Mini (Q4_K_M quantization, ~2.3GB) | MIT license, runs on 8GB RAM, no install |
-| Persona | Ollama Modelfile — DOOMSDAY.AI | Full behavioral tuning, short numbered rules |
+| Persona | Ollama Modelfile — The Blackout Drive | Full behavioral tuning, short numbered rules |
 | Chat UI | Custom HTML/CSS/JS (zero CDN deps) | Full control, survives upstream changes |
 | Local server | Python 3 (stdlib only) — `scripts/server.py` | File mgmt, downloads, manifest generation |
 | Library system | `library.js` + `api.js` — vanilla JS | Manifest-driven, offline-first, plug-and-play |
@@ -73,7 +73,7 @@ Full business model, unit economics, and competitive analysis: see `docs/BUSINES
 | OS support | Windows 10/11, macOS ARM (M1+), macOS Intel | Covers >99% of prepper laptop hardware |
 | License | MIT (open source) | Trust signal + community + marketing story |
 
-### Website (Doomsday-Web — PRIVATE)
+### Website (The-Blackout-Drive-Web — PRIVATE)
 
 | Component | Technology | Why |
 |-----------|-----------|-----|
@@ -100,7 +100,7 @@ These rules were set by the project owner and must be followed at all times:
 6. **Commit as you go.** Every logical unit of work gets its own git commit with a meaningful message.
 7. **Documentation lives in the repo.** Any AI agent picking this up must be able to get full context from `/docs/` alone.
 8. **Nothing ships that hasn't been tested on real hardware.** The launcher must be verified on all 4 OS variants before any drives are flashed.
-9. **Two repos, two concerns.** Drive code = `doomsday-drive` (public). Business code = `Doomsday-Web` (private). Never mix them.
+9. **Two repos, two concerns.** Drive code = `The-Blackout-Drive` repo (public). Business code = `The-Blackout-Drive-Web` repo (private). Never mix the two repos.
 10. **Content catalog paths are fixed.** `dest` fields in catalog JSONs are immutable — the library maps files by exact path.
 
 ---
@@ -108,7 +108,7 @@ These rules were set by the project owner and must be followed at all times:
 ## Repository Structure
 
 ```
-doomsday-drive/
+The-Blackout-Drive/
 ├── docs/
 │   ├── AGENT_CONTEXT.md        ← YOU ARE HERE — read this first
 │   ├── STATE.md                ← Current project state + what's in progress
@@ -122,7 +122,7 @@ doomsday-drive/
 │   ├── START_WINDOWS.bat       ← Windows launcher (auto-detects drive letter)
 │   ├── START_MAC.command       ← Mac launcher (auto-detects ARM vs Intel)
 │   ├── START_LINUX.sh          ← Linux launcher
-│   ├── Modelfile               ← Ollama Modelfile — DOOMSDAY persona definition
+│   ├── Modelfile               ← Ollama Modelfile — BEACON AI persona definition
 │   ├── runtime/                ← Ollama binaries (git-ignored, use download script)
 │   ├── models/                 ← GGUF model files (git-ignored, use download script)
 │   ├── ui/
@@ -179,7 +179,7 @@ See `docs/DECISIONS.md` for full rationale. Summary:
 
 | Decision | Choice |
 |----------|--------|
-| AI persona name | DOOMSDAY.AI |
+| AI persona name | The Blackout Drive |
 | Base model | Phi-3 Mini Q4_K_M (MIT license) |
 | Chat UI approach | Custom HTML/CSS/JS (zero CDN dependencies) |
 | Content licensing | Public domain + CC BY-SA only (zero legal risk) |
@@ -211,7 +211,7 @@ Full legal analysis: `docs/LEGAL.md`
 7. **Never skip verification gates** — each phase has a gate that must pass before next
 8. **Always commit after completing a logical unit** — don't batch many changes into one
 9. **Always test before committing** — especially launcher scripts
-10. **Check both repos** when relevant — drive logic in `doomsday-drive`, site logic in `Doomsday-Web`
+10. **Check both repos** when relevant — drive logic in `The-Blackout-Drive` repo , site logic in `The-Blackout-Drive-Web` repo 
 
 ---
 
@@ -220,4 +220,4 @@ Full legal analysis: `docs/LEGAL.md`
 - **Project Owner:** Benjamin Hutton (huttonbenj on GitHub)
 - **Lead Architect:** AI agent — fully autonomous implementation
 - **LLC:** Hutton Technologies
-- **Repo:** https://github.com/huttonbenj/Doomsday-Drive (private)
+- **Repo:** https://github.com/huttonbenj/The-Blackout-Drive (private)

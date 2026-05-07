@@ -1,12 +1,12 @@
 #!/bin/bash
 # ============================================================
-# DOOMSDAY.AI — Flash Drive Script
+# The Blackout Drive — Flash Drive Script
 # ============================================================
 # Copies the assembled drive/ contents to a physical USB drive.
 # Run this AFTER setup_drive.sh passes all integrity checks.
 #
 # Usage:
-#   bash scripts/flash_drive.sh /Volumes/DOOMSDAY
+#   bash scripts/flash_drive.sh /Volumes/BLACKOUT
 #
 # Requirements:
 #   - A USB drive formatted as ExFAT or FAT32 (works on both
@@ -49,7 +49,7 @@ TARGET="$1"
 TARGET="${TARGET%/}"
 
 echo ""
-echo -e "${YELLOW}  DOOMSDAY.AI — Flash Drive${NC}"
+echo -e "${YELLOW}  The Blackout Drive — Flash Drive${NC}"
 echo "  ============================================="
 echo ""
 
@@ -89,7 +89,7 @@ echo -e "  ${GREEN}[OK]${NC}   Space check passed."
 echo ""
 
 # ── Confirmation prompt ───────────────────────────────────────
-echo -e "  ${YELLOW}⚠ WARNING:${NC} This will copy all DOOMSDAY.AI files to:"
+echo -e "  ${YELLOW}⚠ WARNING:${NC} This will copy all The Blackout Drive files to:"
 echo "  $TARGET"
 echo ""
 echo "  Existing files on the drive will NOT be deleted (rsync merge)."
@@ -126,7 +126,7 @@ echo ""
 # ── Set executable permissions on scripts (Mac can't always preserve them) ──
 echo -e "  ${CYAN}[POST]${NC}  Setting executable permissions..."
 chmod +x "$TARGET/START_MAC.command"         2>/dev/null || true
-chmod +x "$TARGET/STOP_DOOMSDAY.command"     2>/dev/null || true
+chmod +x "$TARGET/STOP_BEACON.command"     2>/dev/null || true
 chmod +x "$TARGET/FIRST_RUN_MAC.command"     2>/dev/null || true
 
 # ── Verify key files exist on the target ─────────────────────
@@ -136,8 +136,8 @@ ERRORS=0
 for F in \
     "START_MAC.command" \
     "START_WINDOWS.bat" \
-    "STOP_DOOMSDAY.command" \
-    "STOP_DOOMSDAY.bat" \
+    "STOP_BEACON.command" \
+    "STOP_BEACON.bat" \
     "FIRST_RUN_MAC.command" \
     "FIRST_RUN_WINDOWS.bat" \
     "FIRST_RUN_README.txt" \
@@ -158,12 +158,12 @@ for F in \
 done
 
 # Check model file
-MODEL_ON_DRIVE="$TARGET/models/$DOOMSDAY_MODEL_FILE"
+MODEL_ON_DRIVE="$TARGET/models/$BLACKOUT_MODEL_FILE"
 if [ -f "$MODEL_ON_DRIVE" ]; then
     MODEL_SIZE=$(du -sh "$MODEL_ON_DRIVE" | cut -f1)
-    echo -e "  ${GREEN}[OK]${NC}  models/$DOOMSDAY_MODEL_FILE ($MODEL_SIZE)"
+    echo -e "  ${GREEN}[OK]${NC}  models/$BLACKOUT_MODEL_FILE ($MODEL_SIZE)"
 else
-    echo -e "  ${RED}[MISSING]${NC} models/$DOOMSDAY_MODEL_FILE — model not flashed!"
+    echo -e "  ${RED}[MISSING]${NC} models/$BLACKOUT_MODEL_FILE — model not flashed!"
     ERRORS=$((ERRORS + 1))
 fi
 

@@ -1,10 +1,10 @@
 @echo off
 :: ============================================================
-:: DOOMSDAY DRIVE — Windows First Run / SmartScreen Fix
+:: BLACKOUT DRIVE DRIVE — Windows First Run / SmartScreen Fix
 :: ============================================================
 :: Windows SmartScreen and Defender may block unsigned scripts.
 :: This adds the drive folder to Windows Defender's exclusions
-:: so DOOMSDAY can run without interruption.
+:: so BLACKOUT DRIVE can run without interruption.
 ::
 :: This script requires Administrator privileges.
 :: Right-click → "Run as Administrator" if prompted.
@@ -13,7 +13,7 @@
 :: START_WINDOWS.bat for all future sessions.
 :: ============================================================
 
-title DOOMSDAY // First Run Setup
+title BLACKOUT DRIVE // First Run Setup
 
 :: Check for admin rights
 net session >nul 2>&1
@@ -27,7 +27,7 @@ if %errorlevel% NEQ 0 (
 )
 
 echo.
-echo  DOOMSDAY -- First Run Setup
+echo  BLACKOUT DRIVE -- First Run Setup
 echo  -------------------------------------------------------
 echo  Adding drive folder to Windows Defender exclusions...
 echo.
@@ -51,7 +51,7 @@ echo  [OK] Files unblocked.
 
 echo.
 echo  -------------------------------------------------------
-echo  Setup complete. Launching DOOMSDAY...
+echo  Setup complete. Launching BLACKOUT DRIVE...
 echo  -------------------------------------------------------
 echo.
 timeout /t 2 /nobreak >nul

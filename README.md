@@ -1,4 +1,4 @@
-# DOOMSDAY.AI
+# The Blackout Drive
 
 > **Offline AI survival intelligence. Plug in. Power up. No internet required.**
 
@@ -10,7 +10,7 @@
 
 ## What Is This?
 
-Doomsday Drive is a plug-and-play USB drive preloaded with a fully offline AI system built for grid-down survival scenarios. Customers plug it in, double-click a launcher, and get a fully functional AI running locally on their laptop — no internet, no accounts, no cloud, no subscription.
+The Blackout Drive is a plug-and-play USB drive preloaded with a fully offline AI system built for grid-down survival scenarios. Customers plug it in, double-click a launcher, and get a fully functional AI running locally on their laptop — no internet, no accounts, no cloud, no subscription.
 
 **Built for the prepper, self-reliance, and survivalist market.**
 
@@ -36,7 +36,7 @@ This repo uses a structured documentation system so any AI agent or developer ca
 ## Repository Structure
 
 ```
-doomsday-drive/
+The-Blackout-Drive/
 ├── docs/          ← All project documentation
 ├── drive/         ← Everything that ships ON the USB drive
 │   ├── ui/        ← Custom offline chat interface
@@ -57,7 +57,7 @@ doomsday-drive/
 |-----------|-----------|
 | AI engine | Ollama (portable binary) |
 | Default model | Phi-3 Mini Q4_K_M (MIT license) |
-| Persona | DOOMSDAY.AI (custom Ollama Modelfile) |
+| Persona | The Blackout Drive (custom Ollama Modelfile) |
 | Chat UI | Custom HTML/CSS/JS (zero CDN) |
 | Knowledge base | Kiwix ZIM + public domain PDFs |
 | OS support | Windows 10/11, macOS ARM, macOS Intel |
@@ -71,8 +71,8 @@ doomsday-drive/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/huttonbenj/Doomsday-Drive.git
-cd Doomsday-Drive
+git clone https://github.com/huttonbenj/The-Blackout-Drive.git
+cd The-Blackout-Drive
 
 # 2. Run full setup (downloads all binaries and content)
 chmod +x scripts/setup.sh

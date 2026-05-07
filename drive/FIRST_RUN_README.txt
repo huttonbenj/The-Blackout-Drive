@@ -1,4 +1,4 @@
-DOOMSDAY.AI — FIRST TIME SETUP
+The Blackout Drive — FIRST TIME SETUP
 ================================
 
 WINDOWS USERS — READ THIS FIRST:
@@ -9,7 +9,7 @@ show a security warning ("Windows protected your PC").
 FIX IN 3 STEPS:
   1. Double-click: FIRST_RUN_WINDOWS.bat
   2. Click "Yes" when Windows asks for permission
-  3. DOOMSDAY.AI will launch automatically
+  3. The Blackout Drive will launch automatically
 
 After that first setup, always use: START_WINDOWS.bat
 
@@ -22,7 +22,7 @@ it's from an unidentified developer" message.
 
 FIX IN 2 STEPS:
   1. Double-click: FIRST_RUN_MAC.command
-  2. DOOMSDAY.AI will launch automatically
+  2. The Blackout Drive will launch automatically
 
 After that first setup, always use: START_MAC.command
 
@@ -30,9 +30,9 @@ After that first setup, always use: START_MAC.command
 
 BEFORE UNPLUGGING:
 ------------------
-Always shut down DOOMSDAY.AI before removing the drive:
+Always shut down The Blackout Drive before removing the drive:
   → Close the launcher window (or press Ctrl+C), OR
-  → Double-click: STOP_DOOMSDAY (Windows) or STOP_DOOMSDAY.command (Mac)
+  → Double-click: STOP_BEACON (Windows) or STOP_BEACON.command (Mac)
 
 Do NOT just yank the drive. The AI engine runs in your 
 computer's memory — the stop script shuts it down cleanly.
@@ -41,7 +41,7 @@ computer's memory — the stop script shuts it down cleanly.
 
 WHAT'S ON THIS DRIVE:
 ----------------------
-DOOMSDAY.AI is a fully capable, general-purpose offline AI.
+The Blackout Drive is a fully capable, general-purpose offline AI.
 Ask it anything — survival, law, science, history, or everyday
 questions. It has no internet and sends nothing to any server.
 
