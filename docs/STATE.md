@@ -5,26 +5,37 @@
 
 ---
 
-## Current Phase: PHASE 0 — Project Infrastructure
+## Current Phase: PHASE 1 — Core Drive Build
 
-### Status: 🟡 IN PROGRESS
+### Status: 🟡 COMMITTED — PENDING HARDWARE TEST
 
 ### What Was Just Completed
-- Git repository initialized at `/Users/benjamin/github/doomsday-drive`
-- Remote connected to `https://github.com/huttonbenj/Doomsday-Drive.git`
-- Full directory structure created
-- `.gitignore` written
-- All `docs/` files being written (AGENT_CONTEXT, STATE, DECISIONS, RESEARCH, LEGAL, BUSINESS_MODEL)
-- `README.md` being written
+**Phase 0 — DONE ✅**
+- Git repo initialized and connected to GitHub
+- Full directory skeleton created
+- All 6 docs/ files written (AGENT_CONTEXT, STATE, DECISIONS, LEGAL, BUSINESS_MODEL, RESEARCH)
+- README.md written
+- First commit pushed: `1a361ac`
+
+**Phase 1 — Code committed, hardware test pending**
+- `drive/Modelfile` — DOOMSDAY survival persona (phi3:mini base)
+- `drive/START_WINDOWS.bat` — Full Windows launcher with auto drive-letter detection
+- `drive/START_MAC.command` — Full Mac launcher with ARM/Intel auto-detection
+- `drive/ui/index.html` — Offline chat UI
+- `drive/ui/style.css` — Dark tactical design system
+- `drive/ui/app.js` — Streaming Ollama API integration
+- `drive/LEGAL/` — All 4 license files + disclaimer
+- Commit pushed: `2988212`
 
 ### What Is In Progress Right Now
-- `P0-04` through `P0-10`: Writing all documentation files
-- `P0-11`: First commit + push (next step after docs are written)
+**Phase 1 Gate:** Hardware testing on all 4 OS variants
+- [ ] Windows 10 test
+- [ ] Windows 11 test  
+- [ ] macOS Apple Silicon test
+- [ ] macOS Intel test
 
-### What Is Next (After Phase 0 Gate Passes)
-- `P1-01`: Write `drive/Modelfile` — DOOMSDAY persona
-- `P1-04`: Write `drive/START_WINDOWS.bat`
-- `P1-05`: Write `drive/START_MAC.command`
+### What Is Next
+- Once Phase 1 gate passes → Phase 2: download scripts + content library
 
 ---
 
@@ -32,8 +43,8 @@
 
 | Phase | Name | Status | Gate Passed |
 |-------|------|--------|-------------|
-| 0 | Project Infrastructure | 🟡 In Progress | ❌ |
-| 1 | Core Drive Build | ⬜ Not Started | ❌ |
+| 0 | Project Infrastructure | ✅ Complete | ✅ |
+| 1 | Core Drive Build | 🟡 Committed, Testing | ❌ pending HW test |
 | 2 | Content Library | ⬜ Not Started | ❌ |
 | 3 | Business Assets | ⬜ Not Started | ❌ |
 | 4 | Launch | ⬜ Not Started | ❌ |
@@ -44,11 +55,11 @@
 
 | # | Question | Default Used |
 |---|---------|-------------|
-| 1 | AI persona name | `DOOMSDAY` ← used this |
-| 2 | Chat UI approach | Custom HTML ← used this |
-| 3 | Default model | Phi-3 Mini Q4_K_M ← used this |
-| 4 | Shopify account exists? | Unknown — Shopify setup guide will be written |
-| 5 | Domain registered? | Unknown — placeholder used in copy |
+| 1 | AI persona name | `DOOMSDAY` ← used |
+| 2 | Chat UI approach | Custom HTML ← used |
+| 3 | Default model | Phi-3 Mini Q4_K_M ← used |
+| 4 | Shopify account exists? | TBD — Phase 3 |
+| 5 | Domain registered? | TBD — Phase 3 |
 
 ---
 
@@ -56,13 +67,15 @@
 
 | Commit | Message | Date |
 |--------|---------|------|
-| (none yet) | — | — |
+| `1a361ac` | chore(init): Phase 0 — project infrastructure, docs, and repo structure | 2026-05-07 |
+| `2988212` | feat(drive): Phase 1 — core drive build complete | 2026-05-07 |
 
 ---
 
 ## Known Issues / Blockers
 
-None currently.
+- Phase 1 gate requires physical hardware test on 4 OS variants before moving to Phase 2
+- Ollama portable binary must be verified to work without host install on each platform
 
 ---
 
@@ -70,4 +83,4 @@ None currently.
 
 | Date | Session Summary |
 |------|----------------|
-| 2026-05-07 | Project kickoff. Research completed. Implementation plan approved. Phase 0 execution begun. |
+| 2026-05-07 | Project kickoff. Full research, legal, business model docs written. Phase 0 complete. Phase 1 (Modelfile, launchers, UI, legal files) built and committed. Pushing to GitHub. Hardware test pending. |
