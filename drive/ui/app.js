@@ -176,50 +176,69 @@ function updateMessageContent(msgEl, content) {
 function renderMarkdown(text) {
   if (!text) return '';
 
-  // Escape HTML first
-  let html = text
+  let safe = text
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  // Code blocks (must come before inline code)
-  html = html.replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  // Fenced code blocks
+  safe = safe.replace(/```[\w]*\n?([\s\S]*?)```/g, (_, code) =>
+    `<pre><code>${code.trimEnd()}</code></pre>`);
 
   // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
 
   // Headers
-  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.+)$/gm,  '<h2>$1</h2>');
-  html = html.replace(/^# (.+)$/gm,   '<h1>$1</h1>');
+  safe = safe.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  safe = safe.replace(/^## (.+)$/gm,  '<h2>$1</h2>');
+  safe = safe.replace(/^# (.+)$/gm,   '<h1>$1</h1>');
 
   // Bold / Italic
-  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  html = html.replace(/\*\*(.+?)\*\*/g,     '<strong>$1</strong>');
-  html = html.replace(/\*(.+?)\*/g,         '<em>$1</em>');
+  safe = safe.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  safe = safe.replace(/\*\*(.+?)\*\*/g,     '<strong>$1</strong>');
+  safe = safe.replace(/\*(.+?)\*/g,         '<em>$1</em>');
 
   // Horizontal rule
-  html = html.replace(/^---+$/gm, '<hr>');
+  safe = safe.replace(/^---+$/gm, '<hr>');
 
-  // Unordered lists
-  html = html.replace(/^[\-\*] (.+)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+  // Process line by line — group consecutive list items into <ul>/<ol>
+  const lines = safe.split('\n');
+  const out = [];
+  let inUl = false, inOl = false;
 
-  // Ordered lists
-  html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+  for (const line of lines) {
+    const ulMatch = line.match(/^[-*] (.+)$/);
+    const olMatch = line.match(/^\d+\. (.+)$/);
 
-  // Paragraphs (double newlines)
-  html = html.replace(/\n\n/g, '</p><p>');
-
-  // Single newlines
-  html = html.replace(/\n/g, '<br>');
-
-  // Wrap in paragraph if not already structured
-  if (!html.startsWith('<')) {
-    html = '<p>' + html + '</p>';
+    if (ulMatch) {
+      if (inOl) { out.push('</ol>'); inOl = false; }
+      if (!inUl) { out.push('<ul>'); inUl = true; }
+      out.push(`<li>${ulMatch[1]}</li>`);
+    } else if (olMatch) {
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (!inOl) { out.push('<ol>'); inOl = true; }
+      out.push(`<li>${olMatch[1]}</li>`);
+    } else {
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (inOl) { out.push('</ol>'); inOl = false; }
+      out.push(line === '' ? '\x00break\x00' : line);
+    }
   }
+  if (inUl) out.push('</ul>');
+  if (inOl) out.push('</ol>');
 
-  return html;
+  let html = out.join('\n');
+  html = html.replace(/(\x00break\x00\n?)+/g, '\x00break\x00');
+
+  const segments = html.split('\x00break\x00');
+  html = segments.map(seg => {
+    seg = seg.trim();
+    if (!seg) return '';
+    if (/^<(ul|ol|pre|h[1-6]|hr)/.test(seg)) return seg;
+    return `<p>${seg.replace(/\n/g, '<br>')}</p>`;
+  }).filter(Boolean).join('\n');
+
+  return html || `<p>${safe}</p>`;
 }
 
 // ── Chat Logic ────────────────────────────────────────────

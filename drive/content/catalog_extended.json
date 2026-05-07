@@ -1,0 +1,159 @@
+{
+  "schema": "1.0",
+  "updated": "2026-05-07",
+  "_comment": "Available content packs for download via GET MORE panel. URLs will point to CDN when live. Currently uses Project Gutenberg for public domain texts.",
+  "packs": [
+    {
+      "id": "bible-commentary",
+      "name": "Bible Commentary Pack",
+      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) — verse-by-verse exposition.",
+      "icon": "📖",
+      "category": "religious",
+      "version": "1.0.0",
+      "size_mb": 14,
+      "files": [
+        {
+          "id": "matthew_henry_vol1",
+          "name": "Matthew Henry Commentary — Vol. 1 (Genesis–Numbers)",
+          "description": "Classic Puritan commentary, public domain since 1706",
+          "url": "https://www.gutenberg.org/cache/epub/4065/pg4065.txt",
+          "dest": "content/books/matthew_henry_vol1.txt",
+          "size_mb": 4,
+          "license": "Public Domain (1706)"
+        },
+        {
+          "id": "matthew_henry_vol2",
+          "name": "Matthew Henry Commentary — Vol. 2 (Joshua–Esther)",
+          "description": "Continuation of the classic commentary",
+          "url": "https://www.gutenberg.org/cache/epub/4613/pg4613.txt",
+          "dest": "content/books/matthew_henry_vol2.txt",
+          "size_mb": 5,
+          "license": "Public Domain (1706)"
+        },
+        {
+          "id": "matthew_henry_vol6",
+          "name": "Matthew Henry Commentary — New Testament",
+          "description": "NT commentary from Acts through Revelation",
+          "url": "https://www.gutenberg.org/cache/epub/6431/pg6431.txt",
+          "dest": "content/books/matthew_henry_nt.txt",
+          "size_mb": 5,
+          "license": "Public Domain (1706)"
+        }
+      ]
+    },
+    {
+      "id": "extended-medical",
+      "name": "Extended Medical Pack",
+      "description": "Advanced offline medical references — anatomy, materia medica, and field surgery guides.",
+      "icon": "🏥",
+      "category": "medical",
+      "version": "1.0.0",
+      "size_mb": 38,
+      "files": [
+        {
+          "id": "grays_anatomy",
+          "name": "Gray's Anatomy (1918 Edition)",
+          "description": "Complete anatomical reference with descriptions",
+          "url": "https://www.gutenberg.org/cache/epub/16413/pg16413.txt",
+          "dest": "content/books/grays_anatomy.txt",
+          "size_mb": 6,
+          "license": "Public Domain (1918)"
+        },
+        {
+          "id": "merck_materia_medica",
+          "name": "Merck's Manual of Materia Medica (1899)",
+          "description": "Drug references, dosages, and treatments — 1899 edition",
+          "url": "https://www.gutenberg.org/cache/epub/35980/pg35980.txt",
+          "dest": "content/books/merck_materia_medica.txt",
+          "size_mb": 2,
+          "license": "Public Domain (1899)"
+        },
+        {
+          "id": "home_nursing",
+          "name": "Home Nursing (American Red Cross, 1918)",
+          "description": "Field nursing and emergency care for non-professionals",
+          "url": "https://www.gutenberg.org/cache/epub/10346/pg10346.txt",
+          "dest": "content/books/home_nursing_redcross.txt",
+          "size_mb": 1,
+          "license": "Public Domain (1918)"
+        }
+      ]
+    },
+    {
+      "id": "homestead",
+      "name": "Homestead & Agriculture Pack",
+      "description": "Off-grid farming, herbalism, food preservation, and self-sufficient living references.",
+      "icon": "🌿",
+      "category": "survival",
+      "version": "1.0.0",
+      "size_mb": 22,
+      "files": [
+        {
+          "id": "culpeper_herbal",
+          "name": "Culpeper's Complete Herbal (1653)",
+          "description": "Classic herbal medicine reference — 400+ medicinal plants",
+          "url": "https://www.gutenberg.org/cache/epub/49778/pg49778.txt",
+          "dest": "content/books/culpeper_herbal.txt",
+          "size_mb": 3,
+          "license": "Public Domain (1653)"
+        },
+        {
+          "id": "ten_acres_enough",
+          "name": "Ten Acres Enough (1864)",
+          "description": "Practical guide to small farm self-sufficiency",
+          "url": "https://www.gutenberg.org/cache/epub/23462/pg23462.txt",
+          "dest": "content/books/ten_acres_enough.txt",
+          "size_mb": 1,
+          "license": "Public Domain (1864)"
+        },
+        {
+          "id": "farm_and_garden",
+          "name": "Farm and Garden Rule-Book (1911)",
+          "description": "Practical farming rules, planting calendars, animal husbandry",
+          "url": "https://www.gutenberg.org/cache/epub/37622/pg37622.txt",
+          "dest": "content/books/farm_garden_rulebook.txt",
+          "size_mb": 1,
+          "license": "Public Domain (1911)"
+        }
+      ]
+    },
+    {
+      "id": "philosophy-extended",
+      "name": "Philosophy & Wisdom Pack",
+      "description": "Extended collection of Stoic philosophy, classical wisdom, and moral reasoning texts.",
+      "icon": "∞",
+      "category": "philosophy",
+      "version": "1.0.0",
+      "size_mb": 8,
+      "files": [
+        {
+          "id": "plato_republic",
+          "name": "The Republic — Plato",
+          "description": "Plato's foundational work on justice, governance, and the ideal society",
+          "url": "https://www.gutenberg.org/cache/epub/1497/pg1497.txt",
+          "dest": "content/books/plato_republic.txt",
+          "size_mb": 1,
+          "license": "Public Domain"
+        },
+        {
+          "id": "marcus_aurelius_extended",
+          "name": "The Letters of Marcus Aurelius",
+          "description": "Personal letters and extended writings of the Stoic emperor",
+          "url": "https://www.gutenberg.org/cache/epub/2761/pg2761.txt",
+          "dest": "content/books/marcus_aurelius_letters.txt",
+          "size_mb": 1,
+          "license": "Public Domain"
+        },
+        {
+          "id": "seneca_letters",
+          "name": "Letters of Seneca to Lucilius",
+          "description": "124 moral epistles on Stoic philosophy and how to live well",
+          "url": "https://www.gutenberg.org/cache/epub/900/pg900.txt",
+          "dest": "content/books/seneca_letters.txt",
+          "size_mb": 1,
+          "license": "Public Domain"
+        }
+      ]
+    }
+  ]
+}
