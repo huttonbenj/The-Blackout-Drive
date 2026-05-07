@@ -409,20 +409,30 @@ async function sendMessage() {
 
   try {
     // RAG Tier 2: keyword search of local library files
+    // Skip search for very short/casual messages (greetings, etc.)
     let searchContext = '';
-    try {
-      const searchRes = await fetch(`http://localhost:${CONFIG.uiPort}/api/search?q=${encodeURIComponent(text)}&limit=4`);
-      if (searchRes.ok) {
-        const searchData = await searchRes.json();
-        if (searchData.results && searchData.results.length > 0) {
-          const excerpts = searchData.results.map(r => `[SOURCE: ${r.file}]\n${r.excerpt}`).join('\n\n');
-          searchContext = `Relevant passages from the local library:\n\n${excerpts}\n\n---\n`;
+    const isSubstantiveQuery = text.length > 12 && !/^(hi|hey|hello|yo+|sup|what'?s? up|how are you|thanks|thank you|ok|bye|lol|haha)\b/i.test(text.trim());
+
+    if (isSubstantiveQuery) {
+      try {
+        const searchRes = await fetch(`http://localhost:${CONFIG.uiPort}/api/search?q=${encodeURIComponent(text)}&limit=4`);
+        if (searchRes.ok) {
+          const searchData = await searchRes.json();
+          if (searchData.results && searchData.results.length > 0) {
+            const excerpts = searchData.results.map(r => `[SOURCE: ${r.file}]\n${r.excerpt}`).join('\n\n');
+            searchContext = `Relevant passages from the local library:\n\n${excerpts}\n\n---\n`;
+          }
         }
-      }
-    } catch (_) {}
+      } catch (_) {}
+    }
 
     const messagesWithContext = [];
-    if (libContextStr) messagesWithContext.push({ role: 'system', content: libContextStr });
+    // Only inject library catalog context when the user is actually asking about
+    // library content, books, or reading material — not on every message.
+    // This prevents the model from dumping the catalog listing for casual conversation.
+    if (libContextStr && /\b(library|book|bible|read|download|content|what('?s| is) (on|available)|survival manual|constitution|meditat)/i.test(text)) {
+      messagesWithContext.push({ role: 'system', content: libContextStr });
+    }
     // P1-1: Sliding window — send only the last N messages to Ollama
     const historySlice = messages.slice(-MAX_CONTEXT_MESSAGES, -1);
     messagesWithContext.push(...historySlice);
