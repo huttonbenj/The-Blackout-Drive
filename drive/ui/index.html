@@ -6,11 +6,31 @@
   <meta name="description" content="The Blackout Drive — Fully offline AI and survival knowledge library. Runs on your laptop with no internet, no cloud, no accounts.">
   <title>The Blackout Drive // Offline AI Intelligence</title>
   <!--
-    Anti-flicker: body starts invisible. app.js restores session state
-    synchronously on init, then sets opacity:1 before first paint.
-    This prevents the chat page from flashing before library is restored.
+    ANTI-FLICKER SYSTEM (3-layer):
+    1. Inline script runs synchronously in <head> BEFORE any rendering.
+       Reads sessionStorage and adds html[data-restore] attribute.
+    2. CSS immediately makes libraryPanel flex + hides chat if library was open.
+       This is applied before first paint — zero flash.
+    3. app.js calls _restoreLibState() which loads content, then
+       removes data-restore attribute (smoothly reveals final state).
   -->
-  <style>body { opacity: 0; transition: opacity 0.18s ease; }</style>
+  <script>!function(){
+    try{
+      var s=JSON.parse(sessionStorage.getItem('dd_lib')||'null');
+      if(s&&s.open){document.documentElement.setAttribute('data-restore','lib');}
+    }catch(e){}
+  }();</script>
+  <style>
+    /* Layer 2: If library was open, show it BEFORE any JS runs */
+    html[data-restore="lib"] #libraryPanel{display:flex!important;}
+    /* Hide chat UI so library transition is seamless */
+    html[data-restore="lib"] .chat-container,
+    html[data-restore="lib"] .input-area,
+    html[data-restore="lib"] .offline-bar,
+    html[data-restore="lib"] .app-header .icon-btn#clearBtn{visibility:hidden;}
+    /* Body fade-in — only used when NOT restoring lib (chat page) */
+    body{transition:opacity 0.15s ease;}
+  </style>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>

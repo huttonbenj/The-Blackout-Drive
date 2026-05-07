@@ -447,18 +447,28 @@ clearBtn.addEventListener('click', clearConversation);
   sendBtn.disabled = true;
   sendIcon.textContent = '⬭';
 
-  // Restore library/view state BEFORE first paint to eliminate reload flicker.
-  // _restoreLibState is defined in library.js (loaded before app.js).
-  // It reads sessionStorage synchronously; openLibrary() is async but fast.
+  // Anti-flicker layer 3:
+  // _restoreLibState() is defined in library.js (loaded before app.js).
+  // It reads sessionStorage synchronously, sets up library panel if needed,
+  // then calls openLibrary() async to load content.
+  // It handles its own body.opacity reveal after content loads.
+  // If library was NOT open, it reveals body immediately.
   if (typeof _restoreLibState === 'function') {
-    try { _restoreLibState(); } catch(e) {}
+    try {
+      _restoreLibState();
+      // If library WAS open, _restoreLibState handles opacity reveal after load.
+      // If NOT open (chat page), we reveal here after a frame for smooth paint.
+      const wasLib = sessionStorage.getItem('dd_lib');
+      const parsed = wasLib ? JSON.parse(wasLib) : null;
+      if (!parsed || !parsed.open) {
+        requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+      }
+    } catch(e) {
+      requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+    }
+  } else {
+    requestAnimationFrame(() => { document.body.style.opacity = '1'; });
   }
-
-  // Fade body in — regardless of whether library restored or not
-  // Small rAF ensures DOM is ready before we reveal
-  requestAnimationFrame(() => {
-    document.body.style.opacity = '1';
-  });
 
   maintainConnection(); // runs forever in background
 })();

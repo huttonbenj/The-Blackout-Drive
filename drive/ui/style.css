@@ -2537,3 +2537,118 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   height: 100% !important;
   overflow: hidden !important;
 }
+
+/* ════════════════════════════════════════════════════════════
+   PRODUCTION POLISH — May 2026 Sprint (comprehensive fix batch)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Corner download button: SQUARE not circular ──────────────── */
+/* Matches the hard-edge tactical aesthetic of the rest of the UI */
+.lib-dl-corner-btn {
+  border-radius: 4px !important;   /* was 50% — now square */
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ── Get More: 2-column pack grid ─────────────────────────────── */
+.getmore-list {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+  padding: 0 4px 24px !important;
+  align-items: start !important;
+}
+/* Each pack card fills its grid cell consistently */
+.pack-card.pack-tile {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-height: 0 !important;
+  /* Ensure cards stay same-height within a row when content differs */
+}
+/* On very narrow viewports, fall back to 1 column */
+@media (max-width: 720px) {
+  .getmore-list { grid-template-columns: 1fr !important; }
+}
+
+/* ── Get More: search + filter toolbar ────────────────────────── */
+.packs-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 4px 16px !important;
+  flex-wrap: wrap !important;
+}
+.packs-search-input {
+  flex: 1 !important;
+  min-width: 140px !important;
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(200,160,74,0.25) !important;
+  border-radius: 4px !important;
+  color: var(--text) !important;
+  padding: 7px 12px !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: clamp(11px, 0.8vw, 13px) !important;
+  letter-spacing: 1px !important;
+  outline: none !important;
+  transition: border-color 0.2s ease !important;
+}
+.packs-search-input:focus {
+  border-color: rgba(200,160,74,0.6) !important;
+}
+.packs-filter-btns {
+  display: flex !important;
+  gap: 6px !important;
+}
+.pack-filter-btn {
+  background: rgba(255,255,255,0.04) !important;
+  border: 1px solid rgba(200,160,74,0.2) !important;
+  border-radius: 4px !important;
+  color: var(--text-dim, #888) !important;
+  padding: 6px 12px !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: clamp(10px, 0.7vw, 12px) !important;
+  letter-spacing: 2px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+.pack-filter-btn:hover {
+  border-color: rgba(200,160,74,0.5) !important;
+  color: var(--amber, #c8a04a) !important;
+}
+.pack-filter-btn.active {
+  background: rgba(200,160,74,0.15) !important;
+  border-color: rgba(200,160,74,0.7) !important;
+  color: var(--amber, #c8a04a) !important;
+}
+
+/* ── Pack card right column: ensure button doesn't overflow ──── */
+.pack-tile-right {
+  flex-shrink: 0 !important;
+  min-width: 120px !important;
+  max-width: 160px !important;
+}
+.pack-dl-btn, .pack-purchase-btn {
+  width: 100% !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* ── Anti-flicker: ensure data-restore transitions cleanly ─────── */
+html[data-restore] {
+  /* Keep page invisible while we set up the right view */
+}
+html[data-restore="lib"] body {
+  opacity: 0 !important;
+  transition: opacity 0.15s ease !important;
+}
+/* After _restoreLibState removes [data-restore], body reveals normally */
+body {
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}

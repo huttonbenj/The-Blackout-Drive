@@ -22,25 +22,60 @@ function _saveLibState() {
       open: libraryPanel && libraryPanel.style.display !== 'none',
       cat: libActiveCat,
       mode: libMode,
+      itemId: libActiveItem ? libActiveItem.id : null,
     }));
   } catch {}
 }
+
+/**
+ * Restore library state on page reload — called from app.js init().
+ *
+ * Anti-flicker contract:
+ *   • index.html inline <script> already added html[data-restore="lib"]
+ *     if library was open, making libraryPanel display:flex BEFORE paint.
+ *   • We just need to load catalog content, navigate to the right view,
+ *     then remove [data-restore] so the rest of the UI is revealed.
+ *   • body.opacity is set to 1 by app.js immediately after this returns
+ *     (synchronously) — content loading is async in the background.
+ */
 function _restoreLibState() {
+  const cleanup = () => document.documentElement.removeAttribute('data-restore');
   try {
     const s = JSON.parse(sessionStorage.getItem(LIB_SS_KEY) || 'null');
-    if (!s || !s.open) return;
+    if (!s || !s.open) {
+      // No library was open — hide any data-restore artifact and show chat
+      cleanup();
+      document.body.style.opacity = '1';
+      return;
+    }
+    // Library WAS open. libraryPanel is already flex via CSS (pre-paint).
+    // Now load catalog and navigate to the saved view.
+    const revealBody = () => { document.body.style.opacity = '1'; };
     openLibrary().then(() => {
-      if (s.cat && s.cat !== '__getmore' && s.cat !== '__manage') {
-        selectCategory(s.cat);
-      } else if (s.cat === '__getmore') {
+      if (s.cat === '__getmore') {
         showGetMorePanel();
       } else if (s.cat === '__manage') {
         showManageSpace();
+      } else if (s.cat) {
+        selectCategory(s.cat);
+        // If was in reader mode, restore that item too
+        if (s.mode === 'reader' && s.itemId && libRawCatalog) {
+          const allItems = libRawCatalog.categories.flatMap(c => c.items);
+          const item = allItems.find(i => i.id === s.itemId);
+          if (item && libManifest && libManifest.has(item.file)) {
+            openItem(item);
+          }
+        }
       }
-    });
-  } catch {}
+      cleanup();
+      revealBody();
+    }).catch(() => { cleanup(); revealBody(); });
+  } catch {
+    cleanup();
+    document.body.style.opacity = '1';
+  }
 }
-// State restore is called by app.js after DOM is ready — see initApp()
+// _restoreLibState is called by app.js init() — see anti-flicker comment there
 
 
 // ── Bible Book Names ────────────────────────────────────────
@@ -660,22 +695,6 @@ function renderBibleChapterView() {
       <span style="color:var(--text-dim);font-size:clamp(10px,0.7vw,12px);letter-spacing:2px">${book.name} ${bibleChapter} / ${totalCh}</span>
       <button class="lib-search-btn" onclick="nextBibleChapter()" ${hasNext?'':'disabled style="opacity:0.3"'}>NEXT →</button>
     </div>`;
-  // Auto-scroll to first structural section if there is preamble content before it.
-  // This skips translator's notes, dedications, "Contents" tables, etc.
-  // Users can still scroll up to read the preamble — it's just not the default view.
-  if (hasTOC && sections.length > 0) {
-    requestAnimationFrame(() => {
-      const firstHeading = document.getElementById('utxt-sec-0');
-      const content = document.getElementById('libReaderContent');
-      if (firstHeading && content) {
-        // Only auto-scroll if there's actual preamble content (heading not at very top)
-        const headingOffset = firstHeading.offsetTop;
-        if (headingOffset > 80) {
-          content.scrollTop = Math.max(0, headingOffset - 24);
-        }
-      }
-    });
-  }
 }
 
 function selectBibleBook(idx) {
@@ -916,22 +935,6 @@ function renderGenericReader(item, rawText) {
       item.classList.add('active');
     });
   }
-  // Auto-scroll to first structural section if there is preamble content before it.
-  // This skips translator's notes, dedications, "Contents" tables, etc.
-  // Users can still scroll up to read the preamble — it's just not the default view.
-  if (hasTOC && sections.length > 0) {
-    requestAnimationFrame(() => {
-      const firstHeading = document.getElementById('utxt-sec-0');
-      const content = document.getElementById('libReaderContent');
-      if (firstHeading && content) {
-        // Only auto-scroll if there's actual preamble content (heading not at very top)
-        const headingOffset = firstHeading.offsetTop;
-        if (headingOffset > 80) {
-          content.scrollTop = Math.max(0, headingOffset - 24);
-        }
-      }
-    });
-  }
 }
 function doLibSearch() {
   const input = document.getElementById('libSearchInput');
@@ -1078,6 +1081,7 @@ async function showGetMorePanel() {
 
     const packEl = document.createElement('div');
     packEl.className = 'pack-card pack-tile' + (isLocked ? ' pack-locked' : '');
+    packEl.dataset.paid = isPaid ? '1' : '0';
     packEl.id = `pack-${pack.id}`;
 
     // Individual file rows with per-file download
@@ -1137,9 +1141,59 @@ async function showGetMorePanel() {
     packList.appendChild(packEl);
   });
 
+  // Build search + filter toolbar
+  const toolbar = document.createElement('div');
+  toolbar.className = 'packs-toolbar';
+  toolbar.id = 'packsToolbar';
+  toolbar.innerHTML = `
+    <input type="text" class="packs-search-input" id="packsSearchInput"
+      placeholder="Search packs…" oninput="filterPacks()">
+    <div class="packs-filter-btns">
+      <button class="pack-filter-btn active" data-filter="all" onclick="setPackFilter(this,'all')">ALL</button>
+      <button class="pack-filter-btn" data-filter="free" onclick="setPackFilter(this,'free')">FREE</button>
+      <button class="pack-filter-btn" data-filter="paid" onclick="setPackFilter(this,'paid')">PAID</button>
+    </div>`;
+
   libMain.innerHTML = '';
   libMain.appendChild(header);
+  libMain.appendChild(toolbar);
   libMain.appendChild(packList);
+}
+
+// ── Pack search + filter ─────────────────────────────────────────
+window._packFilter = 'all';
+function setPackFilter(btn, filter) {
+  window._packFilter = filter;
+  document.querySelectorAll('.pack-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterPacks();
+}
+function filterPacks() {
+  const query = (document.getElementById('packsSearchInput')?.value || '').toLowerCase().trim();
+  const filter = window._packFilter || 'all';
+  document.querySelectorAll('#getmoreList .pack-card').forEach(card => {
+    const name = (card.querySelector('.pack-name')?.textContent || '').toLowerCase();
+    const desc = (card.querySelector('.pack-desc')?.textContent || '').toLowerCase();
+    const isFree = card.dataset.paid !== '1';
+    const matchesText = !query || name.includes(query) || desc.includes(query);
+    const matchesFilter = filter === 'all'
+      || (filter === 'free' && isFree)
+      || (filter === 'paid' && !isFree);
+    card.style.display = matchesText && matchesFilter ? '' : 'none';
+  });
+  // Show "no results" if all hidden
+  const visible = [...document.querySelectorAll('#getmoreList .pack-card')].filter(c => c.style.display !== 'none');
+  let noRes = document.getElementById('packsNoResults');
+  if (!visible.length) {
+    if (!noRes) {
+      noRes = document.createElement('div');
+      noRes.id = 'packsNoResults';
+      noRes.className = 'lib-zim-desc';
+      noRes.style.cssText = 'text-align:center;padding:32px;grid-column:1/-1;opacity:0.6;';
+      noRes.textContent = 'No packs match your search.';
+      document.getElementById('getmoreList')?.appendChild(noRes);
+    }
+  } else if (noRes) noRes.remove();
 }
 
 function togglePackFiles(packId) {
