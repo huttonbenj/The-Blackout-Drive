@@ -1,292 +1,446 @@
 {
-  "version": "1.0",
-  "description": "DOOMSDAY.AI Offline Library \u2014 Content Catalog",
+  "schema": "2.0",
+  "note": "This file defines ALL content that can appear in the sidebar library. Items with 'preloaded:true' come on the drive. Items with 'download_url' can be downloaded. Items in 'catalog_id' are part of a catalog_extended.json pack — download the pack to get them.",
   "categories": [
     {
-      "id": "religious",
+      "id": "holy_bible",
       "name": "Holy Bible",
-      "icon": "\u271d",
-      "description": "Four public domain translations of the Holy Bible \u2014 KJV, WEB, ASV, and YLT.",
+      "icon": "✝",
       "items": [
         {
           "id": "bible_kjv",
-          "name": "Holy Bible \u2014 King James Version (KJV)",
-          "description": "The 1611 King James Version. The most widely recognized English Bible translation in history.",
+          "name": "Holy Bible — King James Version (KJV)",
+          "short": "The 1611 King James Version. The most widely recognized English Bible translation in history.",
           "file": "content/books/bible_kjv.txt",
           "type": "txt",
-          "size_mb": 5,
-          "source": "Project Gutenberg #10",
-          "license": "Public Domain (US) \u2014 Published 1611"
+          "size_label": "~5 MB",
+          "license": "Public Domain (1611)",
+          "preloaded": true,
+          "download_url": null
         },
         {
           "id": "bible_web",
-          "name": "Holy Bible \u2014 World English Bible (WEB)",
-          "description": "A modern English translation explicitly dedicated to the public domain. Readable, contemporary language.",
+          "name": "Holy Bible — World English Bible (WEB)",
+          "short": "A modern English translation explicitly dedicated to the public domain. Readable, contemporary language.",
           "file": "content/books/bible_web.txt",
           "type": "txt",
-          "size_mb": 5,
-          "source": "Project Gutenberg #72674",
-          "license": "Public Domain \u2014 Explicitly Dedicated"
+          "size_label": "~5 MB",
+          "license": "Public Domain — Explicitly Dedicated",
+          "preloaded": false,
+          "catalog_id": "bible_translations",
+          "download_url": "https://www.gutenberg.org/cache/epub/8294/pg8294.txt"
         },
         {
           "id": "bible_asv",
-          "name": "Holy Bible \u2014 American Standard Version (ASV)",
-          "description": "The 1901 American Standard Version. A formal, word-for-word translation valued for theological study.",
+          "name": "Holy Bible — American Standard Version (ASV)",
+          "short": "The 1901 American Standard Version. A formal, word-for-word translation valued for theological study.",
           "file": "content/books/bible_asv.txt",
           "type": "txt",
-          "size_mb": 5,
-          "source": "Project Gutenberg #9182",
-          "license": "Public Domain \u2014 Published 1901"
+          "size_label": "~5 MB",
+          "license": "Public Domain (1901)",
+          "preloaded": false,
+          "catalog_id": "bible_translations",
+          "download_url": "https://www.gutenberg.org/cache/epub/34761/pg34761.txt"
         },
         {
           "id": "bible_ylt",
-          "name": "Holy Bible \u2014 Young's Literal Translation (YLT)",
-          "description": "Robert Young's 1862 hyper-literal translation, preserving the verb tenses of the original Hebrew and Greek.",
+          "name": "Holy Bible — Young's Literal Translation (YLT)",
+          "short": "Robert Young's 1862 hyper-literal translation, preserving the verb tenses of the original Hebrew and Greek.",
           "file": "content/books/bible_ylt.txt",
           "type": "txt",
-          "size_mb": 5,
-          "source": "Project Gutenberg",
-          "license": "Public Domain \u2014 Published 1862"
+          "size_label": "~5 MB",
+          "license": "Public Domain (1862)",
+          "preloaded": false,
+          "catalog_id": "bible_translations",
+          "download_url": "https://www.gutenberg.org/cache/epub/9548/pg9548.txt"
         }
       ]
     },
     {
       "id": "survival",
       "name": "Survival Manuals",
-      "icon": "\u2694",
-      "description": "Military, government, and field survival guides \u2014 all public domain",
+      "icon": "🛡",
       "items": [
         {
-          "id": "army_fm2176",
-          "name": "US Army FM 21-76 \u2014 Survival Manual (1992)",
-          "description": "The original Army survival field manual. Water, food, shelter, fire, navigation, signaling, and more.",
+          "id": "army_fm21_76",
+          "name": "US Army FM 21-76 — Survival Manual (1992)",
+          "short": "The definitive military survival manual. Navigation, shelter, water, food, signaling.",
           "file": "content/books/army_fm21-76_survival_1992.pdf",
           "type": "pdf",
-          "size_mb": 12,
-          "source": "US Army",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~16 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://www.bits.de/NRANEU/others/amd-us-archive/fm21-76%281992%29.pdf"
         },
         {
-          "id": "army_fm30570",
-          "name": "US Army FM 3-05.70 \u2014 Survival (2002)",
-          "description": "The updated Army survival manual. More comprehensive than FM 21-76.",
+          "id": "army_fm3_05_70",
+          "name": "US Army FM 3-05.70 — Survival (2002)",
+          "short": "Updated Army survival manual. Comprehensive field survival techniques and SERE training.",
           "file": "content/books/army_fm3-05-70_survival_2002.pdf",
           "type": "pdf",
-          "size_mb": 8,
-          "source": "US Army",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~8 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://www.bits.de/NRANEU/others/amd-us-archive/fm3-05-70.pdf"
         },
         {
           "id": "fema_ready",
-          "name": "FEMA \u2014 Are You Ready? Guide",
-          "description": "FEMA's official comprehensive emergency preparedness guide for households and communities.",
+          "name": "FEMA — Are You Ready? Guide",
+          "short": "FEMA's official comprehensive family disaster preparedness guide.",
           "file": "content/books/fema_are_you_ready.pdf",
           "type": "pdf",
-          "size_mb": 6,
-          "source": "FEMA",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~4 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://www.fema.gov/sites/default/files/2020-03/are-you-ready-guide.pdf"
         },
         {
           "id": "fema_cert",
-          "name": "FEMA \u2014 CERT Training Manual",
-          "description": "Community Emergency Response Team training guide. Search and rescue, first aid, disaster operations.",
+          "name": "FEMA — CERT Training Manual",
+          "short": "Community Emergency Response Team training manual. First aid, triage, disaster response.",
           "file": "content/books/fema_cert_training.pdf",
           "type": "pdf",
-          "size_mb": 4,
-          "source": "FEMA",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~5 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://www.ready.gov/sites/default/files/2021-03/community-emergency-response-team_participant-handbook.pdf"
         },
         {
           "id": "usda_canning",
-          "name": "USDA \u2014 Complete Guide to Home Canning",
-          "description": "The definitive guide to food preservation: canning, pickling, fermenting. Extends food shelf life for years.",
+          "name": "USDA — Complete Guide to Home Canning",
+          "short": "USDA's definitive guide for safe home food preservation. All methods, tested recipes.",
           "file": "content/books/usda_home_canning_complete.pdf",
           "type": "pdf",
-          "size_mb": 5,
-          "source": "USDA",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~6 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://nchfp.uga.edu/publications/publications_usda.html"
         },
         {
           "id": "epa_water",
-          "name": "EPA \u2014 Emergency Drinking Water Disinfection",
-          "description": "How to make water safe to drink using bleach, boiling, and other methods without power or filters.",
+          "name": "EPA — Emergency Drinking Water Disinfection",
+          "short": "EPA guidelines for purifying water during emergencies. Boiling, chemical treatment, filtration.",
           "file": "content/books/epa_emergency_water_disinfection.pdf",
           "type": "pdf",
-          "size_mb": 1,
-          "source": "EPA",
-          "license": "Public Domain \u2014 US Government"
+          "size_label": "~1 MB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "survival_manuals",
+          "download_url": "https://www.epa.gov/sites/default/files/2015-09/documents/emergency_disinfection.pdf"
         }
       ]
     },
     {
       "id": "medical",
       "name": "Medical & Health",
-      "icon": "\u2695",
-      "description": "First aid and medical guides for when professional care isn't available",
+      "icon": "💊",
       "items": [
         {
-          "id": "wtnd",
+          "id": "where_no_doctor",
           "name": "Where There Is No Doctor",
-          "description": "The world's most-used health care manual for people without access to doctors. Published by Hesperian.",
+          "short": "The essential village health worker handbook. Used worldwide in areas without medical infrastructure.",
           "file": "content/books/where_there_is_no_doctor.pdf",
           "type": "pdf",
-          "size_mb": 15,
-          "source": "Hesperian Foundation",
-          "license": "Free redistribution permitted"
+          "size_label": "~9 MB",
+          "license": "CC BY-SA 4.0 (Hesperian Health Guides)",
+          "preloaded": false,
+          "catalog_id": "medical_core",
+          "download_url": "https://store.hesperian.org/prod/Where_There_Is_No_Doctor.html"
         },
         {
-          "id": "wtndentist",
+          "id": "where_no_dentist",
           "name": "Where There Is No Dentist",
-          "description": "Dental care and emergency tooth pain management without professional equipment or supplies.",
+          "short": "Dental care when there is no dentist available. Extractions, fillings, pain management.",
           "file": "content/books/where_there_is_no_dentist.pdf",
           "type": "pdf",
-          "size_mb": 8,
-          "source": "Hesperian Foundation",
-          "license": "Free redistribution permitted"
+          "size_label": "~4 MB",
+          "license": "CC BY-SA 4.0 (Hesperian Health Guides)",
+          "preloaded": false,
+          "catalog_id": "medical_core",
+          "download_url": "https://store.hesperian.org/prod/Where_There_Is_No_Dentist.html"
         },
         {
-          "id": "midwives",
-          "name": "A Book for Midwives",
-          "description": "Emergency obstetric care, childbirth, and newborn care without hospital resources.",
-          "file": "content/books/book_for_midwives.pdf",
-          "type": "pdf",
-          "size_mb": 12,
-          "source": "Hesperian Foundation",
-          "license": "Free redistribution permitted"
+          "id": "grays_anatomy",
+          "name": "Gray's Anatomy (1918 Edition)",
+          "short": "The landmark medical anatomy reference. Detailed illustrations of the human body.",
+          "file": "content/books/grays_anatomy.txt",
+          "type": "txt",
+          "size_label": "~3 MB",
+          "license": "Public Domain (1918)",
+          "preloaded": false,
+          "catalog_id": "medical_extended",
+          "download_url": "https://www.gutenberg.org/cache/epub/24773/pg24773.txt"
         },
         {
-          "id": "redcross",
-          "name": "Red Cross \u2014 Family Disaster Plan",
-          "description": "Family emergency planning guide from the American Red Cross.",
-          "file": "content/books/redcross_family_disaster_plan.pdf",
-          "type": "pdf",
-          "size_mb": 2,
-          "source": "American Red Cross",
-          "license": "Free redistribution"
+          "id": "merck_materia",
+          "name": "Merck's Materia Medica (1899)",
+          "short": "Merck's comprehensive pharmaceutical reference. Drug properties, dosing, and therapeutic uses.",
+          "file": "content/books/merck_materia_medica.txt",
+          "type": "txt",
+          "size_label": "~1.5 MB",
+          "license": "Public Domain (1899)",
+          "preloaded": false,
+          "catalog_id": "medical_extended",
+          "download_url": "https://www.gutenberg.org/cache/epub/50589/pg50589.txt"
+        },
+        {
+          "id": "home_nursing",
+          "name": "Red Cross — Home Nursing (1918)",
+          "short": "Red Cross home nursing manual. Care for the sick, first aid, hygiene, and injury management.",
+          "file": "content/books/home_nursing_redcross.txt",
+          "type": "txt",
+          "size_label": "~2 MB",
+          "license": "Public Domain (1918)",
+          "preloaded": false,
+          "catalog_id": "medical_extended",
+          "download_url": "https://www.gutenberg.org/cache/epub/15401/pg15401.txt"
         }
       ]
     },
     {
-      "id": "reference",
+      "id": "law",
       "name": "Law & Government",
-      "icon": "\u2696",
-      "description": "Founding documents, legal references, and civil rights texts",
+      "icon": "⚖",
       "items": [
         {
           "id": "us_constitution",
           "name": "US Constitution & Bill of Rights",
-          "description": "The complete United States Constitution with all 27 amendments. Know your rights.",
+          "short": "The supreme law of the United States, including all 27 amendments.",
           "file": "content/books/us_constitution.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "Public Record",
-          "license": "Public Domain \u2014 Government Document"
+          "size_label": "~50 KB",
+          "license": "Public Domain (US Government)",
+          "preloaded": false,
+          "catalog_id": "law_documents",
+          "download_url": "https://www.gutenberg.org/cache/epub/5/pg5.txt"
         },
         {
           "id": "declaration",
           "name": "Declaration of Independence (1776)",
-          "description": "The original Declaration of Independence. A foundational document of American liberty.",
+          "short": "The original declaration of American independence from British rule.",
           "file": "content/books/declaration_of_independence.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "Public Record",
-          "license": "Public Domain \u2014 Government Document"
+          "size_label": "~20 KB",
+          "license": "Public Domain (1776)",
+          "preloaded": false,
+          "catalog_id": "law_documents",
+          "download_url": "https://www.gutenberg.org/cache/epub/1/pg1.txt"
         },
         {
-          "id": "un_declaration",
+          "id": "un_rights",
           "name": "UN Universal Declaration of Human Rights",
-          "description": "The 1948 United Nations declaration of fundamental human rights recognized internationally.",
+          "short": "The 1948 United Nations declaration of fundamental human rights.",
           "file": "content/books/un_declaration_human_rights.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "United Nations",
-          "license": "Public Domain"
+          "size_label": "~50 KB",
+          "license": "Public Domain (1948)",
+          "preloaded": false,
+          "catalog_id": "law_documents",
+          "download_url": "https://www.gutenberg.org/cache/epub/10000/pg10000.txt"
         },
         {
           "id": "blacks_law",
           "name": "Black's Law Dictionary (1910 Edition)",
-          "description": "The standard American legal dictionary. Definitions of legal terms, precedents, and procedure.",
+          "short": "The definitive legal dictionary. Definitions for thousands of legal terms and concepts.",
           "file": "content/books/blacks_law_dictionary_1910.txt",
           "type": "txt",
-          "size_mb": 5,
-          "source": "Project Gutenberg",
-          "license": "Public Domain \u2014 Published 1910"
+          "size_label": "~4 MB",
+          "license": "Public Domain (1910)",
+          "preloaded": false,
+          "catalog_id": "law_documents",
+          "download_url": "https://www.gutenberg.org/cache/epub/55050/pg55050.txt"
         }
       ]
     },
     {
       "id": "philosophy",
       "name": "Philosophy & Wisdom",
-      "icon": "\u221e",
-      "description": "Classic philosophical texts for thought, perspective, and guidance",
+      "icon": "∞",
       "items": [
         {
-          "id": "meditations",
-          "name": "Meditations \u2014 Marcus Aurelius",
-          "description": "The private journal of Roman Emperor Marcus Aurelius. Timeless Stoic philosophy on resilience and duty.",
-          "file": "content/books/meditations_marcus_aurelius.txt",
+          "id": "marcus_aurelius",
+          "name": "Meditations — Marcus Aurelius",
+          "short": "The Stoic emperor's private journal. Timeless wisdom on discipline, virtue, and leadership.",
+          "file": "content/books/marcus_aurelius_letters.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "Project Gutenberg #2680",
-          "license": "Public Domain"
+          "size_label": "~500 KB",
+          "license": "Public Domain",
+          "preloaded": false,
+          "catalog_id": "philosophy_wisdom",
+          "download_url": "https://www.gutenberg.org/cache/epub/55317/pg55317.txt"
         },
         {
-          "id": "enchiridion",
-          "name": "Enchiridion \u2014 Epictetus",
-          "description": "The handbook of Epictetus. How to maintain inner freedom regardless of external circumstances.",
+          "id": "epictetus",
+          "name": "Enchiridion — Epictetus",
+          "short": "The Stoic handbook. The essential guide to controlling what you can and accepting what you cannot.",
           "file": "content/books/enchiridion_epictetus.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "Project Gutenberg",
-          "license": "Public Domain"
+          "size_label": "~100 KB",
+          "license": "Public Domain",
+          "preloaded": false,
+          "catalog_id": "philosophy_wisdom",
+          "download_url": "https://www.gutenberg.org/cache/epub/45109/pg45109.txt"
         },
         {
           "id": "art_of_war",
-          "name": "The Art of War \u2014 Sun Tzu",
-          "description": "Sun Tzu's 2500-year-old military strategy masterpiece. Applicable to conflict, negotiation, and survival.",
+          "name": "The Art of War — Sun Tzu",
+          "short": "The ancient Chinese treatise on military strategy. Applicable to leadership, conflict, and survival.",
           "file": "content/books/art_of_war.txt",
           "type": "txt",
-          "size_mb": 1,
-          "source": "Project Gutenberg",
-          "license": "Public Domain"
+          "size_label": "~100 KB",
+          "license": "Public Domain",
+          "preloaded": false,
+          "catalog_id": "philosophy_wisdom",
+          "download_url": "https://www.gutenberg.org/cache/epub/132/pg132.txt"
+        },
+        {
+          "id": "plato_republic",
+          "name": "The Republic — Plato",
+          "short": "Plato's foundational work on justice, politics, and the ideal society.",
+          "file": "content/books/plato_republic.txt",
+          "type": "txt",
+          "size_label": "~1.2 MB",
+          "license": "Public Domain",
+          "preloaded": false,
+          "catalog_id": "philosophy_wisdom",
+          "download_url": "https://www.gutenberg.org/cache/epub/1497/pg1497.txt"
+        }
+      ]
+    },
+    {
+      "id": "bible_commentary",
+      "name": "Bible Commentary",
+      "icon": "📖",
+      "items": [
+        {
+          "id": "matthew_henry_vol1",
+          "name": "Matthew Henry Commentary — Vol. 1 (Genesis–Esther)",
+          "short": "Matthew Henry's Complete Commentary on the Whole Bible. Vol 1: Genesis through Esther.",
+          "file": "content/books/matthew_henry_vol1.txt",
+          "type": "txt",
+          "size_label": "~600 KB",
+          "license": "Public Domain (1706)",
+          "preloaded": false,
+          "catalog_id": "bible_commentary",
+          "download_url": "https://www.gutenberg.org/cache/epub/1159/pg1159.txt"
+        },
+        {
+          "id": "matthew_henry_vol2",
+          "name": "Matthew Henry Commentary — Vol. 2 (Job–Song of Solomon)",
+          "short": "Matthew Henry's Complete Commentary on the Whole Bible. Vol 2: Job through Song of Solomon.",
+          "file": "content/books/matthew_henry_vol2.txt",
+          "type": "txt",
+          "size_label": "~500 KB",
+          "license": "Public Domain (1706)",
+          "preloaded": false,
+          "catalog_id": "bible_commentary",
+          "download_url": "https://www.gutenberg.org/cache/epub/1160/pg1160.txt"
+        },
+        {
+          "id": "matthew_henry_nt",
+          "name": "Matthew Henry Commentary — New Testament",
+          "short": "Matthew Henry's Complete Commentary on the Whole Bible. Full New Testament exposition.",
+          "file": "content/books/matthew_henry_nt.txt",
+          "type": "txt",
+          "size_label": "~500 KB",
+          "license": "Public Domain (1706)",
+          "preloaded": false,
+          "catalog_id": "bible_commentary",
+          "download_url": "https://www.gutenberg.org/cache/epub/1158/pg1158.txt"
+        }
+      ]
+    },
+    {
+      "id": "homestead",
+      "name": "Homestead & Agriculture",
+      "icon": "🌿",
+      "items": [
+        {
+          "id": "culpeper_herbal",
+          "name": "Culpeper's Complete Herbal (1653)",
+          "short": "Nicholas Culpeper's landmark herbal medicine reference. Hundreds of plants and their medicinal uses.",
+          "file": "content/books/culpeper_herbal.txt",
+          "type": "txt",
+          "size_label": "~700 KB",
+          "license": "Public Domain (1653)",
+          "preloaded": false,
+          "catalog_id": "homestead_agriculture",
+          "download_url": "https://www.gutenberg.org/cache/epub/49513/pg49513.txt"
+        },
+        {
+          "id": "ten_acres",
+          "name": "Ten Acres Enough (1864)",
+          "short": "A practical guide to small-farm self-sufficiency. Market gardening, crops, and off-grid economics.",
+          "file": "content/books/ten_acres_enough.txt",
+          "type": "txt",
+          "size_label": "~300 KB",
+          "license": "Public Domain (1864)",
+          "preloaded": false,
+          "catalog_id": "homestead_agriculture",
+          "download_url": "https://www.gutenberg.org/cache/epub/46442/pg46442.txt"
+        },
+        {
+          "id": "farm_garden",
+          "name": "Farm and Garden Rule-Book (1914)",
+          "short": "Practical rules and reference for farming and gardening. Crops, soil, animals, preservation.",
+          "file": "content/books/farm_garden_rulebook.txt",
+          "type": "txt",
+          "size_label": "~1 MB",
+          "license": "Public Domain (1914)",
+          "preloaded": false,
+          "catalog_id": "homestead_agriculture",
+          "download_url": "https://www.gutenberg.org/cache/epub/50551/pg50551.txt"
         }
       ]
     },
     {
       "id": "wikipedia",
       "name": "Wikipedia Offline",
-      "icon": "W",
-      "description": "Curated offline Wikipedia archives \u2014 no internet required. Opens in Kiwix.",
+      "icon": "🌐",
       "items": [
         {
-          "id": "wiki_medicine",
-          "name": "Wikipedia \u2014 Medicine & Health",
-          "description": "A comprehensive offline archive of Wikipedia's medical articles. Drug references, diseases, procedures.",
+          "id": "wikipedia_medicine",
+          "name": "Wikipedia — Medicine & Health",
+          "short": "Offline Wikipedia medical articles. Diseases, treatments, anatomy, pharmacology.",
           "file": "content/zim/wikipedia_en_medicine.zim",
           "type": "zim",
-          "size_mb": 700,
-          "source": "Kiwix / Wikipedia",
-          "license": "CC BY-SA 4.0"
+          "size_label": "~2 GB",
+          "license": "CC BY-SA 4.0",
+          "preloaded": false,
+          "catalog_id": "wikipedia_packs",
+          "download_url": null,
+          "note": "Requires Kiwix reader. Download via setup script when online."
         },
         {
-          "id": "wiki_survival",
-          "name": "Wikipedia \u2014 Outdoor & Wilderness",
-          "description": "Wikipedia's survival, wilderness, and outdoor skills articles compiled offline.",
+          "id": "wikipedia_survival",
+          "name": "Wikipedia — Outdoor & Wilderness",
+          "short": "Offline Wikipedia survival and outdoor articles. Plants, navigation, wilderness medicine.",
           "file": "content/zim/wikipedia_en_survival.zim",
           "type": "zim",
-          "size_mb": 600,
-          "source": "Kiwix / Wikipedia",
-          "license": "CC BY-SA 4.0"
+          "size_label": "~500 MB",
+          "license": "CC BY-SA 4.0",
+          "preloaded": false,
+          "catalog_id": "wikipedia_packs",
+          "download_url": null,
+          "note": "Requires Kiwix reader. Download via setup script when online."
         },
         {
           "id": "wiktionary",
-          "name": "Wiktionary \u2014 English Dictionary",
-          "description": "Full offline English dictionary. Definitions, etymologies, and translations of over 7 million words.",
+          "name": "Wiktionary — English Dictionary",
+          "short": "Offline Wiktionary. Full English dictionary and thesaurus. Works without internet.",
           "file": "content/zim/wiktionary_en.zim",
           "type": "zim",
-          "size_mb": 900,
-          "source": "Kiwix / Wiktionary",
-          "license": "CC BY-SA 4.0"
+          "size_label": "~800 MB",
+          "license": "CC BY-SA 4.0",
+          "preloaded": false,
+          "catalog_id": "wikipedia_packs",
+          "download_url": null,
+          "note": "Requires Kiwix reader. Download via setup script when online."
         }
       ]
     }

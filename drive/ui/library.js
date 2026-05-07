@@ -279,21 +279,15 @@ function renderBibleSidebar() {
     el.innerHTML = `<span class="lib-cat-name" style="font-size:clamp(10px,0.72vw,13px)">${name}</span>`;
     libSidebar.appendChild(el);
   });
-  requestAnimationFrame(() => {
-    const active = libSidebar.querySelector('.lib-cat-item.active');
-    if (active) active.scrollIntoView({ block: 'nearest' });
-  });
 }
 
 function highlightBibleSidebar(idx) {
   libSidebar.querySelectorAll('.lib-cat-item').forEach(el =>
     el.classList.toggle('active', parseInt(el.dataset.bookIdx) === idx));
-  // Scroll active book into view in sidebar
   const activeEl = libSidebar.querySelector('.lib-cat-item.active');
   if (activeEl) activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ── Category select ──────────────────────────────────────────
 function showCategorySelect() {
   libMode = 'cats';
   libActiveCat = null;
@@ -302,7 +296,7 @@ function showCategorySelect() {
 
   const cats = libCatalog ? libCatalog.categories : [];
   const devBadge = libDevMode
-    ? `<div class="lib-dev-badge">⚙ DEV MODE — run <code>bash scripts/setup_drive.sh</code> then <code>bash scripts/build_manifest.sh</code></div>`
+    ? `<div class="lib-dev-badge">⚥ DEV MODE — run <code>bash scripts/setup_drive.sh</code> then <code>bash scripts/build_manifest.sh</code></div>`
     : '';
 
   const grid = document.createElement('div');
@@ -312,18 +306,22 @@ function showCategorySelect() {
     card.className = 'lib-file-item';
     card.style.flexDirection = 'column';
     card.onclick = () => selectCategory(cat.id);
+    const installedCount = cat.items.filter(i => !libManifest || libManifest.has(i.file)).length;
+    const totalCount = cat.items.length;
+    const countLabel = installedCount === totalCount
+      ? `${totalCount} item${totalCount !== 1 ? 's' : ''}`
+      : `${installedCount} / ${totalCount} downloaded`;
     card.innerHTML = `
       <div style="font-size:clamp(28px,2.5vw,40px);margin-bottom:8px;">${cat.icon}</div>
       <div class="lib-file-name">${cat.name}</div>
-      <div class="lib-file-desc">${cat.description}</div>
-      <div class="lib-file-meta">${cat.items.length} item${cat.items.length !== 1 ? 's' : ''}</div>`;
+      <div class="lib-file-meta">${countLabel}</div>`;
     grid.appendChild(card);
   });
 
   libMain.innerHTML = `
     <div class="lib-cat-header">
       <div class="lib-cat-title">OFFLINE LIBRARY</div>
-      <div class="lib-cat-desc">Everything preloaded on this drive. Browse and read without internet.</div>
+      <div class="lib-cat-desc">Browse your downloaded content. Get more from the ↓ GET MORE panel.</div>
       ${devBadge}
     </div>`;
   libMain.appendChild(grid);
@@ -338,38 +336,58 @@ function selectCategory(catId) {
 }
 
 function renderFileList(catId) {
-  // Always use raw catalog so ALL items show (downloaded + not downloaded)
+  // Use raw catalog so ALL items show (downloaded + not downloaded)
   const rawCat = libRawCatalog && libRawCatalog.categories.find(c => c.id === catId);
   if (!rawCat) return;
   const downloadedCount = rawCat.items.filter(i => !libManifest || libManifest.has(i.file)).length;
   const list = document.createElement('div');
   list.className = 'lib-file-list';
+
   rawCat.items.forEach(item => {
     const inManifest = !libManifest || libManifest.has(item.file);
+    const hasDirectUrl = item.download_url && item.type !== 'zim';
+    const isZim = item.type === 'zim';
     const el = document.createElement('div');
-    el.className = 'lib-file-item';
-    if (!inManifest) el.style.opacity = '0.55';
-    el.onclick = () => inManifest ? openItem(item) : showGetMoreHint(item);
-    const sizeStr = item.size_mb >= 1000 ? `${(item.size_mb/1024).toFixed(1)} GB` : `~${item.size_mb} MB`;
+    el.className = 'lib-file-item' + (inManifest ? '' : ' lib-file-not-downloaded');
+
+    // Click: open if downloaded, download if URL available, hint otherwise
+    el.onclick = (e) => {
+      if (inManifest) { openItem(item); return; }
+      if (e.target.classList.contains('lib-download-btn')) return; // handled by button
+      if (hasDirectUrl) { startSingleFileDownload(item, el); return; }
+      showGetMoreHint(item);
+    };
+
     const statusBadge = inManifest
       ? `<span class="lib-file-status-ok">✓ ON DRIVE</span>`
-      : `<span class="lib-file-status-missing">⬇ GET MORE</span>`;
+      : (isZim
+        ? `<span class="lib-file-status-missing">⬇ LARGE FILE</span>`
+        : `<span class="lib-file-status-missing">⬇ NOT DOWNLOADED</span>`);
+
+    const actionBtn = !inManifest && hasDirectUrl
+      ? `<button class="lib-download-btn" onclick="event.stopPropagation();startSingleFileDownload(${JSON.stringify(item).replace(/"/g,'&quot;')}, this.closest('.lib-file-item'))">⬇ DOWNLOAD</button>`
+      : (!inManifest && isZim
+        ? `<div class="lib-file-note">${item.note || 'Large file — use setup script when online'}</div>`
+        : '');
+
     el.innerHTML = `
       <span class="lib-file-type-badge ${item.type}">${item.type.toUpperCase()}</span>
       <div class="lib-file-info">
         <div class="lib-file-name">${item.name}</div>
-        <div class="lib-file-desc">${item.description}</div>
-        <div class="lib-file-meta">${sizeStr} · ${item.license} · ${statusBadge}</div>
+        <div class="lib-file-desc">${item.short || ''}</div>
+        <div class="lib-file-meta">${item.size_label || ''} &middot; ${item.license || ''} &middot; ${statusBadge}</div>
+        ${actionBtn}
       </div>`;
     list.appendChild(el);
   });
+
   const descSuffix = downloadedCount < rawCat.items.length
     ? ` <span style="color:var(--amber-dim);font-size:0.85em">(${downloadedCount} of ${rawCat.items.length} downloaded)</span>`
     : '';
   libMain.innerHTML = `
     <div class="lib-cat-header">
       <div class="lib-cat-title">${rawCat.icon} ${rawCat.name.toUpperCase()}</div>
-      <div class="lib-cat-desc">${rawCat.description}${descSuffix}</div>
+      <div class="lib-cat-desc">Click any item to read it. Use ↓ DOWNLOAD to get items not yet on your drive.${descSuffix}</div>
     </div>`;
   libMain.appendChild(list);
 }
@@ -377,9 +395,63 @@ function renderFileList(catId) {
 function showGetMoreHint(item) {
   const hint = document.createElement('div');
   hint.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.15);border:1px solid rgba(255,170,0,0.4);color:var(--amber);padding:10px 18px;border-radius:8px;font-size:13px;letter-spacing:1px;z-index:9999;pointer-events:none;';
-  hint.textContent = `"${item.name}" is not downloaded. Use ⬇ GET MORE to download it.`;
+  hint.innerHTML = `"${item.name}" requires a large download. Use the ↓ GET MORE panel or run the setup script when online.`;
   document.body.appendChild(hint);
-  setTimeout(() => hint.remove(), 3000);
+  setTimeout(() => hint.remove(), 3500);
+}
+
+async function startSingleFileDownload(item, el) {
+  if (!item.download_url) return;
+  if (!DDAPI.isOnline()) {
+    showGetMoreHint({ name: item.name + ' — no internet connection' });
+    return;
+  }
+  // Replace the download button with a progress indicator
+  const btnEl = el.querySelector('.lib-download-btn');
+  if (btnEl) btnEl.textContent = '⏳ Starting...';
+
+  try {
+    const { jobId } = await DDAPI.startDownload(item.download_url, item.file);
+    if (!jobId) throw new Error('No job ID');
+    // Poll progress
+    const poll = setInterval(async () => {
+      const status = await DDAPI.getDownloadStatus(jobId);
+      if (!status) return;
+      if (status.done && !status.error) {
+        clearInterval(poll);
+        el.classList.remove('lib-file-not-downloaded');
+        el.onclick = () => openItem(item);
+        const info = el.querySelector('.lib-file-info');
+        if (info) {
+          const meta = info.querySelector('.lib-file-meta');
+          if (meta) meta.innerHTML = `${item.size_label || ''} &middot; ${item.license || ''} &middot; <span class="lib-file-status-ok">✓ ON DRIVE</span>`;
+          const noteOrBtn = info.querySelector('.lib-download-btn, .lib-file-note');
+          if (noteOrBtn) noteOrBtn.remove();
+        }
+        // Refresh sidebar so the category count updates
+        await refreshAfterManifestChange();
+        return;
+      }
+      if (status.error) {
+        clearInterval(poll);
+        if (btnEl) { btnEl.textContent = '❌ Error — Retry'; btnEl.onclick = () => startSingleFileDownload(item, el); }
+        return;
+      }
+      // Show progress
+      const pct = status.total > 0 ? Math.round((status.progress / status.total) * 100) : '...';
+      if (btnEl) btnEl.textContent = `⏳ ${pct}%`;
+    }, 500);
+  } catch (err) {
+    if (btnEl) { btnEl.textContent = '❌ Failed'; }
+  }
+}
+
+function showGetMoreHint(item) {
+  const hint = document.createElement('div');
+  hint.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.15);border:1px solid rgba(255,170,0,0.4);color:var(--amber);padding:10px 18px;border-radius:8px;font-size:13px;letter-spacing:1px;z-index:9999;pointer-events:none;';
+  hint.innerHTML = `"${item.name}" requires a large download. Use the ⬇ GET MORE panel or run the setup script when online.`;
+  document.body.appendChild(hint);
+  setTimeout(() => hint.remove(), 3500);
 }
 
 // ── Open item ───────────────────────────────────────────────

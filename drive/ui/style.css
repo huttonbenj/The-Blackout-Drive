@@ -1594,3 +1594,39 @@ body {
   0%, 100% { opacity: 0.25; transform: translateY(0); }
   50%       { opacity: 1;    transform: translateY(-3px); }
 }
+
+/* ── Individual file download button ──────────────────────── */
+.lib-file-not-downloaded {
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.lib-file-not-downloaded:hover {
+  opacity: 0.85;
+}
+.lib-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 5px 12px;
+  background: rgba(200,160,74,0.12);
+  border: 1px solid rgba(200,160,74,0.35);
+  border-radius: 5px;
+  color: var(--amber);
+  font-size: clamp(10px, 0.7vw, 12px);
+  font-family: var(--font-mono);
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lib-download-btn:hover {
+  background: rgba(200,160,74,0.22);
+  border-color: rgba(200,160,74,0.6);
+}
+.lib-file-note {
+  margin-top: 8px;
+  font-size: clamp(10px, 0.7vw, 11px);
+  color: var(--text-dim);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
