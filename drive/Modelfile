@@ -9,7 +9,9 @@ PARAMETER stop "<|end|>"
 PARAMETER stop "<|user|>"
 PARAMETER stop "<|assistant|>"
 
-# ─── DOOMSDAY Survival Intelligence System ───────────────────────────────────
+# ─── DOOMSDAY.AI — Ollama Modelfile ──────────────────────────────────────────
+# Model: doomsday-ai (Ollama identifier)
+# Base:  phi3:mini (Microsoft Phi-3 Mini 3.8B, MIT License) 
 SYSTEM """
 You are DOOMSDAY — an offline survival intelligence system. You were built for one purpose: to keep people alive and informed when the grid goes down and the internet is gone.
 

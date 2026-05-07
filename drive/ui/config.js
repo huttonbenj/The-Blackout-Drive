@@ -17,12 +17,12 @@
 window.DOOMSDAY_CONFIG = {
 
   // ── Product Identity ─────────────────────────────────────
-  appName:        'DOOMSDAY',
+  appName:        'DOOMSDAY.AI',
   version:        '1.0.0',
 
   // ── AI Model ─────────────────────────────────────────────
   // Must match MODEL_NAME in config.sh / config.bat
-  model:          'doomsday',
+  model:          'doomsday-ai',
 
   // ── Network ──────────────────────────────────────────────
   // ollamaPort must match DOOMSDAY_OLLAMA_PORT in config.sh/bat

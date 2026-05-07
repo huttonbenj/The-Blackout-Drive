@@ -55,7 +55,7 @@
 
 | # | Question | Default Used |
 |---|---------|-------------|
-| 1 | AI persona name | `DOOMSDAY` ← used |
+| 1 | AI persona name | `DOOMSDAY.AI` (Ollama model: `doomsday-ai`) |
 | 2 | Chat UI approach | Custom HTML ← used |
 | 3 | Default model | Phi-3 Mini Q4_K_M ← used |
 | 4 | Shopify account exists? | TBD — Phase 3 |

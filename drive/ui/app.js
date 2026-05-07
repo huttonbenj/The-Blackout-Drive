@@ -10,9 +10,9 @@
 // All values live in drive/ui/config.js — do not hardcode here.
 // Fallbacks are safety nets only; config.js should always load.
 const CONFIG = window.DOOMSDAY_CONFIG || {
-  appName:        'DOOMSDAY',
+  appName:        'DOOMSDAY.AI',
   version:        '1.0.0',
-  model:          'doomsday',
+  model:          'doomsday-ai',
   ollamaPort:     11434,
   ollamaHost:     'http://localhost:11434',
   uiPort:         8080,
@@ -49,7 +49,7 @@ function showConnectingOverlay() {
   overlay.className = 'connecting-overlay';
   overlay.innerHTML = `
     <div class="connecting-skull">☠</div>
-    <div class="connecting-title">STARTING AI ENGINE</div>
+    <div class="connecting-title">STARTING DOOMSDAY.AI ENGINE</div>
     <div class="connecting-sub">Loading your offline AI. This takes 10–30 seconds...</div>
     <div class="connecting-bar"><div class="connecting-progress"></div></div>
     <div class="connecting-instructions">
@@ -147,7 +147,7 @@ function renderMessage(role, content, streaming = false) {
   msgEl.className = `message ${role}`;
 
   const avatar  = role === 'user' ? '👤' : '☠';
-  const label   = role === 'user' ? 'YOU' : 'DOOMSDAY';
+  const label   = role === 'user' ? 'YOU' : 'DOOMSDAY.AI';
 
   msgEl.innerHTML = `
     <div class="message-avatar">${avatar}</div>

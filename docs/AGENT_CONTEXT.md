@@ -1,4 +1,4 @@
-# AGENT_CONTEXT.md — Doomsday Drive Project
+# AGENT_CONTEXT.md — DOOMSDAY.AI Project
 
 > **This document is the single source of truth for any AI agent, developer, or collaborator joining this project.**
 > Read this file first. Read all docs in `docs/` second. Then look at the code.
@@ -8,11 +8,11 @@
 
 ## What Is This Project?
 
-**Doomsday Drive** is a physical product business. We manufacture and sell USB drives preloaded with a fully offline AI survival system, targeted at the prepper / self-reliance / survivalist market.
+**DOOMSDAY.AI** is a physical product business. We manufacture and sell USB drives preloaded with a fully offline AI survival system, targeted at the prepper / self-reliance / survivalist market.
 
 The drive contains:
 - A portable AI engine (Ollama) that runs without installation on the host computer
-- A custom AI persona called **DOOMSDAY** — tuned specifically for survival, field medicine, and grid-down scenarios
+- A custom AI persona called **DOOMSDAY.AI** — tuned specifically for survival, field medicine, and grid-down scenarios
 - A curated offline survival knowledge library (Wikipedia survival slice, public domain PDFs)
 - A 100+ prompt survival library
 - A custom offline chat UI with tactical aesthetic
@@ -25,7 +25,7 @@ The drive contains:
 
 | Field | Value |
 |-------|-------|
-| Product name | Doomsday Drive |
+| Product name | DOOMSDAY.AI |
 | LLC | Hutton Technologies |
 | Lead developer/architect | AI agent (Antigravity) — owns the entire project |
 | GitHub | https://github.com/huttonbenj/Doomsday-Drive |
@@ -46,7 +46,7 @@ Full business model, unit economics, and competitive analysis: see `docs/BUSINES
 |-----------|-----------|-----|
 | AI engine | Ollama (portable, no-install binary) | MIT license, cross-platform, zero dependency |
 | Default model | Phi-3 Mini (Q4_K_M quantization, ~2.3GB) | MIT license, runs on 8GB RAM, no install |
-| Persona | Ollama Modelfile — "DOOMSDAY" | 30 min effort, full behavioral tuning |
+| Persona | Ollama Modelfile — "DOOMSDAY.AI" | 30 min effort, full behavioral tuning |
 | Chat UI | Custom HTML/CSS/JS (zero CDN deps) | Full control, survives upstream changes |
 | Knowledge base | Kiwix ZIM (Wikipedia survival) + public domain PDFs | CC BY-SA 4.0 + public domain = no legal risk |
 | OS support | Windows 10/11 (x86_64), macOS ARM (M1+), macOS Intel | Covers >99% of prepper laptop hardware |
@@ -142,7 +142,7 @@ See `docs/DECISIONS.md` for full rationale. Summary:
 
 | Decision | Choice |
 |----------|--------|
-| AI persona name | DOOMSDAY |
+| AI persona name | DOOMSDAY.AI |
 | Base model | Phi-3 Mini Q4_K_M (MIT license) |
 | Chat UI approach | Custom HTML/CSS/JS (zero CDN dependencies) |
 | Content licensing | Public domain + CC BY-SA only (zero legal risk) |

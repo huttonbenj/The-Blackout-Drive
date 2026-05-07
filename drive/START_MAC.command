@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================================
-# DOOMSDAY DRIVE — macOS Launcher
+# DOOMSDAY.AI DRIVE — macOS Launcher
 # ============================================================
 # This script launches the DOOMSDAY offline AI system.
 # It runs entirely from the USB drive — nothing is installed
@@ -38,7 +38,7 @@ echo -e "${YELLOW}  ██║  ██║██║   ██║██║   ██�
 echo -e "${YELLOW}  ██████╔╝╚██████╔╝╚██████╔╝██║ ╚═╝ ██║███████║██████╔╝██║  ██║   ██║   ${NC}"
 echo -e "${YELLOW}  ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝   ╚═╝   ${NC}"
 echo ""
-echo -e "${WHITE}  OFFLINE SURVIVAL INTELLIGENCE SYSTEM${NC}"
+echo -e "${WHITE}  DOOMSDAY.AI — OFFLINE SURVIVAL INTELLIGENCE${NC}"
 echo "  -------------------------------------------------------"
 echo "  No internet required. No data leaves this drive."
 echo "  -------------------------------------------------------"
@@ -84,7 +84,7 @@ chmod +x "$OLLAMA_BINARY"
 
 # ── Step 5: Check if Ollama is already running ───────────────
 if curl -s "${DOOMSDAY_OLLAMA_URL}" > /dev/null 2>&1; then
-    echo -e "  ${GREEN}[INFO]${NC} DOOMSDAY system already running. Opening interface..."
+    echo -e "  ${GREEN}[INFO]${NC} DOOMSDAY.AI already running. Opening interface..."
     open "$SCRIPT_DIR/ui/index.html"
     exit 0
 fi
@@ -139,7 +139,7 @@ open "${DOOMSDAY_UI_URL}"
 
 echo ""
 echo "  -------------------------------------------------------"
-echo -e "  ${GREEN}DOOMSDAY is online.${NC} Your browser will open the interface."
+echo -e "  ${GREEN}DOOMSDAY.AI is online.${NC} Your browser will open the interface."
 echo ""
 echo "  If your browser doesn't open, open this file manually:"
 echo "  $SCRIPT_DIR/ui/index.html"

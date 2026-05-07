@@ -11,7 +11,7 @@ setlocal enabledelayedexpansion
 :: Requirements: Windows 10 or 11, 8GB+ RAM, USB 3.0+ port
 :: ============================================================
 
-title DOOMSDAY // Offline Survival Intelligence
+title DOOMSDAY.AI // Offline Survival Intelligence
 
 :: Get the drive letter this script is running from
 set "DRIVE_ROOT=%~d0"
@@ -28,7 +28,7 @@ echo  ██║  ██║██║   ██║██║   ██║██║╚
 echo  ██████╔╝╚██████╔╝╚██████╔╝██║ ╚═╝ ██║███████║██████╔╝██║  ██║   ██║   
 echo  ╚═════╝  ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝  ╚═╝   ╚═╝   
 echo.
-echo  OFFLINE SURVIVAL INTELLIGENCE SYSTEM
+echo  DOOMSDAY.AI — OFFLINE SURVIVAL INTELLIGENCE
 echo  -------------------------------------------------------
 echo  No internet required. No data leaves this drive.
 echo  -------------------------------------------------------
@@ -119,7 +119,7 @@ start "" %DOOMSDAY_UI_URL%
 
 echo.
 echo  -------------------------------------------------------
-echo  DOOMSDAY is online. Browser opening at %DOOMSDAY_UI_URL%
+echo  DOOMSDAY.AI is online. Browser opening at %DOOMSDAY_UI_URL%
 echo  
 echo  If your browser doesn't open, navigate to:
 echo  %DOOMSDAY_UI_URL%

@@ -13,7 +13,7 @@
 :: ============================================================
 
 :: ── Product Identity ──────────────────────────────────────
-set "DOOMSDAY_APP_NAME=DOOMSDAY"
+set "DOOMSDAY_APP_NAME=DOOMSDAY.AI"
 set "DOOMSDAY_VERSION=1.0.0"
 
 :: ── AI Model ─────────────────────────────────────────────
@@ -21,7 +21,7 @@ set "DOOMSDAY_VERSION=1.0.0"
 :: BASE_MODEL: the upstream model to pull (shown during download)
 :: MODELFILE:  filename of the Ollama Modelfile (relative to drive root)
 :: MODEL_FILE: expected GGUF filename in the models\ directory
-set "DOOMSDAY_MODEL_NAME=doomsday"
+set "DOOMSDAY_MODEL_NAME=doomsday-ai"
 set "DOOMSDAY_BASE_MODEL=phi3:mini"
 set "DOOMSDAY_MODELFILE=Modelfile"
 set "DOOMSDAY_MODEL_FILE=phi3-mini.Q4_K_M.gguf"

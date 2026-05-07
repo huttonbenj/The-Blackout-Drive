@@ -1,4 +1,4 @@
-# Doomsday Drive
+# DOOMSDAY.AI
 
 > **Offline AI survival intelligence. Plug in. Power up. No internet required.**
 
@@ -57,7 +57,7 @@ doomsday-drive/
 |-----------|-----------|
 | AI engine | Ollama (portable binary) |
 | Default model | Phi-3 Mini Q4_K_M (MIT license) |
-| Persona | DOOMSDAY (custom Ollama Modelfile) |
+| Persona | DOOMSDAY.AI (custom Ollama Modelfile) |
 | Chat UI | Custom HTML/CSS/JS (zero CDN) |
 | Knowledge base | Kiwix ZIM + public domain PDFs |
 | OS support | Windows 10/11, macOS ARM, macOS Intel |

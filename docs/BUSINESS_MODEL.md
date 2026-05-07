@@ -1,6 +1,6 @@
 # BUSINESS_MODEL.md — Unit Economics & Go-To-Market
 
-> Full business model for the Doomsday Drive. Updated as pricing or channels change.
+> Full business model for DOOMSDAY.AI. Updated as pricing or channels change.
 
 ---
 
@@ -8,9 +8,9 @@
 
 | SKU | Name | Drive | Model | Price | Target Customer |
 |-----|------|-------|-------|-------|----------------|
-| DD-01 | Doomsday Drive | 64GB SanDisk USB 3.2 | Phi-3 Mini (8GB+ RAM) | $79 | Core prepper/survivalist |
-| DD-02 | Doomsday Drive PRO | 128GB SanDisk USB 3.2 Gen 2 | Mistral 7B (16GB+ RAM) | $119 | Power user, higher-spec hardware |
-| DD-03 | Doomsday Drive Family Pack | 3× DD-01 | Phi-3 Mini | $199 | Families, gifters |
+| DD-01 | DOOMSDAY.AI | 64GB SanDisk USB 3.2 | Phi-3 Mini (8GB+ RAM) | $79 | Core prepper/survivalist |
+| DD-02 | DOOMSDAY.AI PRO | 128GB SanDisk USB 3.2 Gen 2 | Mistral 7B (16GB+ RAM) | $119 | Power user, higher-spec hardware |
+| DD-03 | DOOMSDAY.AI Family Pack | 3× DD-01 | Phi-3 Mini | $199 | Families, gifters |
 
 DD-02 and DD-03 are deferred to post-launch.
 
@@ -84,7 +84,7 @@ DD-02 and DD-03 are deferred to post-launch.
 ## Sales Channels (Priority Order)
 
 ### 1. Shopify Store (Primary — launch first)
-- Domain: TBD (check doomsdaydrive.com, doomsday-drive.com)
+- Domain: TBD (check doomsday.ai — primary target, also doomsdayai.com)
 - Fees: 2.9% + $0.30 per transaction (Basic plan)
 - Benefits: Full customer data, email list, highest margin, brand control
 - Shipping: USPS Ground Advantage via Pirateship.com
@@ -119,7 +119,7 @@ DD-02 and DD-03 are deferred to post-launch.
 | Angle | Hook Line |
 |-------|-----------|
 | EMP/Solar Flare | "A Carrington-level solar flare is not a matter of if — it's when. Here's what I'm doing." |
-| Cyberattack | "Imagine the internet goes down in a coordinated cyberattack. ChatGPT? Gone. DOOMSDAY? Works." |
+| Cyberattack | "Imagine the internet goes down in a coordinated cyberattack. ChatGPT? Gone. DOOMSDAY.AI? Works." |
 | Privacy | "ChatGPT stores every question you ask. Here's how I keep my AI completely private." |
 
 ### Trust-Building Video (Post First)
@@ -167,7 +167,7 @@ DD-02 and DD-03 are deferred to post-launch.
 ## LLC & Tax Structure
 
 - Business entity: Hutton Technologies (existing LLC)
-- Product sold under: Hutton Technologies (or DBA "Doomsday Drive" — ~$20-50 at county clerk)
+- Product sold under: Hutton Technologies (or DBA "DOOMSDAY.AI" — ~$20-50 at county clerk)
 - Revenue flows through LLC
 - COGS (drives, packaging, shipping) are business deductions
 - Shopify/Pirateship provide transaction records for accounting
