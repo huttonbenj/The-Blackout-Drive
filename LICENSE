@@ -1,38 +1,89 @@
-MIT License
+PolyForm Noncommercial License 1.0.0
 
 Copyright (c) 2025 Hutton Technologies
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Product: DOOMSDAY.AI (doomsday.ai)
 
 ---
 
-IMPORTANT NOTE ON CONTENT:
+**Acceptance**
 
-This license applies to the SOFTWARE ONLY (the chat UI, server, scripts, and
-launcher files). It does NOT apply to:
+By using the software, you agree to all of the terms and conditions below.
 
-- Content pack files in content/ (individual licenses apply per file)
-- The content catalog (library.json, catalog_extended.json) — proprietary
-- Any paid content packs distributed via cdn.doomsday.ai — proprietary
+**Copyright License**
+
+The licensor grants you a non-exclusive, royalty-free, worldwide,
+non-sublicensable, non-transferable license to copy, distribute, make
+available, and prepare derivative works of the software, in each case for
+Noncommercial purposes only.
+
+**Noncommercial Purposes**
+
+Noncommercial purposes means personal, educational, academic, research,
+or evaluation use. Noncommercial purposes do NOT include:
+
+- Selling, bundling, or distributing this software (or any derivative
+  of it) on physical media (USB drives, hard drives, etc.) for commercial gain
+- Including this software in any product or service offered for sale
+- Commercial redistribution of this software in any form
+- Providing this software as a service for a fee
+
+**Commercial Licensing**
+
+If you wish to use this software for commercial purposes (including
+bundling it on physical media for resale), contact:
+
+  Hutton Technologies
+  hello@doomsday.ai
+  https://doomsday.ai
+
+**What Is Free to Do**
+
+- Read, audit, and inspect every line of code for security/privacy review
+- Run the software on your own hardware for personal, non-commercial use
+- Fork the repository and modify it for personal, non-commercial use
+- Contribute improvements back via pull request
+- Share the repository link publicly
+
+**Trademarks**
+
+"DOOMSDAY.AI", "Doomsday Drive", and the Hutton Technologies name and
+logos are trademarks of Hutton Technologies. This license does NOT grant
+any rights to use these marks. Do not use them without written permission.
+
+**Notices**
+
+You must ensure that anyone who gets a copy of any part of the software
+from you also gets a copy of these terms.
+
+If you modify the software, you must include a prominent notice in your
+modified version stating that you have modified it from the original.
+
+**No Other Rights**
+
+These terms do not imply any licenses other than those expressly granted
+in these terms.
+
+**Termination**
+
+If you use the software in violation of these terms, such use is not
+licensed, and your licenses will automatically terminate.
+
+**No Liability**
+
+As far as the law allows, the software comes AS IS, without any warranty
+or condition, and the licensor will not be liable for any damages arising
+from your use of the software.
+
+---
+
+CONTENT LICENSE NOTE:
+
+This license applies to the SOFTWARE ONLY (chat UI, server, scripts, launchers).
+It does NOT apply to:
+
+- Paid content packs distributed via cdn.doomsday.ai — All Rights Reserved
+- The content catalog (library.json, catalog_extended.json) — All Rights Reserved
 - The Ollama binary — MIT License (see drive/LEGAL/OLLAMA_LICENSE.txt)
 - The Phi-3 Mini model — MIT License (see drive/LEGAL/PHI3_LICENSE.txt)
 - Wikipedia/Kiwix content — CC BY-SA 4.0
-
-Public domain content in content/ (US Government documents, Gutenberg texts)
-carries no restrictions. See individual files for their specific licenses.
+- Public domain content in content/ — No restrictions (see individual files)
