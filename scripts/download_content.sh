@@ -194,6 +194,45 @@ download_file \
 
 echo ""
 
+
+# ============================================================
+# SECTION 5: RELIGIOUS TEXTS (PUBLIC DOMAIN)
+# ============================================================
+# Legal basis:
+#   King James Version (KJV, 1611)  — published 1611, public domain in the US
+#   World English Bible (WEB)       — explicitly dedicated to the public domain
+#   American Standard Version (ASV) — published 1901, public domain
+#
+# Source: Project Gutenberg (https://www.gutenberg.org)
+# No royalties, no restrictions, free redistribution permitted.
+# ============================================================
+echo -e "  ${BOLD}── Religious Texts (Public Domain) ────────────────────${NC}"
+echo ""
+
+# King James Bible (KJV) — Plain Text from Project Gutenberg
+# Ebook #10 = King James Bible (most downloaded text on Gutenberg)
+download_file \
+    "King James Bible (KJV) — Project Gutenberg" \
+    "https://www.gutenberg.org/cache/epub/10/pg10.txt" \
+    "$BOOKS_DIR/bible_kjv.txt" \
+    "5"
+
+# World English Bible (WEB) — Modern English, explicitly Public Domain
+download_file \
+    "World English Bible (WEB)" \
+    "https://www.gutenberg.org/cache/epub/72674/pg72674.txt" \
+    "$BOOKS_DIR/bible_web.txt" \
+    "5"
+
+# American Standard Version (ASV, 1901) — Project Gutenberg
+download_file \
+    "American Standard Version (ASV, 1901)" \
+    "https://www.gutenberg.org/cache/epub/9182/pg9182.txt" \
+    "$BOOKS_DIR/bible_asv.txt" \
+    "5"
+
+echo ""
+
 # ============================================================
 # SUMMARY
 # ============================================================
