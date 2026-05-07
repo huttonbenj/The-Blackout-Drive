@@ -5,14 +5,9 @@
  */
 'use strict';
 
-// ── Toast notification (replaces dead-end showGetMoreHint) ──
-function showToast(msg, duration = 3500) {
-  const t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(18,22,16,0.95);border:1px solid rgba(200,160,74,0.4);color:var(--amber);padding:10px 20px;border-radius:8px;font-size:13px;letter-spacing:1px;z-index:9999;pointer-events:none;max-width:480px;text-align:center;backdrop-filter:blur(8px);box-shadow:0 4px 24px rgba(0,0,0,0.5);';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), duration);
-}
+// P0-2 FIX: showToast() is now defined only in app.js to avoid duplication.
+// library.js uses the global showToast() from app.js (loaded after library.js,
+// but all calls are async/event-driven, so it's always available when needed).
 
 // ── sessionStorage state: persist library open/view across reloads ──
 const LIB_SS_KEY = 'dd_lib';
@@ -562,6 +557,7 @@ async function downloadLibItem(item, el, btn) {
 // ── Open item ───────────────────────────────────────────────
 async function openItem(item) {
   libActiveItem = item;
+  _readerOriginalHtml = null; // P0-1: reset search cache for new item
   if (item.type === 'pdf') {
     libMode = 'reader';
     updateLibHeader();
@@ -732,14 +728,22 @@ function doBibleJump() {
   if (!input || !bibleData) return;
   const query = input.value.trim(); if (!query) return;
   let targetBook = bibleBookIdx, targetCh = bibleChapter, targetVs = null;
+  let bookFound = true;
   const fullRef = query.match(/^(.+?)\s+(\d+)(?::(\d+))?$/);
   if (fullRef) {
     const bq = fullRef[1].toLowerCase().trim();
     const fi = bibleData.findIndex(b => b.name.toLowerCase().startsWith(bq));
     if (fi >= 0) { targetBook = fi; targetCh = parseInt(fullRef[2]); if (fullRef[3]) targetVs = parseInt(fullRef[3]); }
+    else { bookFound = false; }
   } else {
     const cv = query.match(/^(\d+):(\d+)$/);
     if (cv) { targetCh = parseInt(cv[1]); targetVs = parseInt(cv[2]); }
+    else { bookFound = false; }
+  }
+  // P2-6 FIX: Show feedback for unrecognized references
+  if (!bookFound) {
+    showToast('Book not found. Try "John 3:16" or "Genesis 1".', 3500);
+    return;
   }
   bibleBookIdx = targetBook;
   bibleChapter = Math.max(1, Math.min(targetCh, bibleData[targetBook].chapters.length - 1));
@@ -948,20 +952,79 @@ function renderGenericReader(item, rawText) {
     });
   }
 }
+// P0-1 FIX: Cache original reader HTML to prevent search from destroying content.
+let _readerOriginalHtml = null;
+
 function doLibSearch() {
   const input = document.getElementById('libSearchInput');
   const content = document.getElementById('libReaderContent');
   const countEl = document.getElementById('libSearchCount');
   if (!input || !content) return;
+
+  // Cache original HTML on first search so we can always restore
+  if (_readerOriginalHtml === null) {
+    _readerOriginalHtml = content.innerHTML;
+  }
+
   const query = input.value.trim();
-  if (!query) { content.innerHTML = content.textContent; if (countEl) countEl.textContent = ''; return; }
-  const raw = content.textContent;
+  if (!query) {
+    // Restore original formatted HTML — NOT textContent
+    content.innerHTML = _readerOriginalHtml;
+    libSearchMatches = []; libSearchIdx = 0;
+    if (countEl) countEl.textContent = '';
+    return;
+  }
+
+  // Restore clean HTML first, then apply highlights
+  content.innerHTML = _readerOriginalHtml;
+
+  // Walk text nodes to inject <mark> without destroying HTML structure
   const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
-  content.innerHTML = raw.replace(regex, m => `<mark>${escapeHtml(m)}</mark>`);
-  libSearchMatches = content.querySelectorAll('mark'); libSearchIdx = 0;
-  if (libSearchMatches.length > 0) { libSearchMatches[0].scrollIntoView({ behavior: 'smooth', block: 'center' }); if (countEl) countEl.textContent = `1 / ${libSearchMatches.length}`; }
-  else if (countEl) countEl.textContent = 'Not found';
+  _highlightTextNodes(content, regex);
+
+  libSearchMatches = content.querySelectorAll('mark');
+  libSearchIdx = 0;
+  if (libSearchMatches.length > 0) {
+    libSearchMatches[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (countEl) countEl.textContent = `1 / ${libSearchMatches.length}`;
+  } else {
+    if (countEl) countEl.textContent = 'Not found';
+  }
 }
+
+/** Walk all text nodes under `root` and wrap regex matches in <mark> tags. */
+function _highlightTextNodes(root, regex) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  for (const node of textNodes) {
+    const text = node.nodeValue;
+    if (!regex.test(text)) continue;
+    regex.lastIndex = 0; // reset after .test()
+
+    const frag = document.createDocumentFragment();
+    let lastIdx = 0;
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      // Text before match
+      if (match.index > lastIdx) {
+        frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+      }
+      // Highlighted match
+      const mark = document.createElement('mark');
+      mark.textContent = match[0];
+      frag.appendChild(mark);
+      lastIdx = regex.lastIndex;
+    }
+    // Remaining text after last match
+    if (lastIdx < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+    }
+    node.parentNode.replaceChild(frag, node);
+  }
+}
+
 function libSearchNext() {
   if (!libSearchMatches.length) return;
   libSearchIdx = (libSearchIdx + 1) % libSearchMatches.length;

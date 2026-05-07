@@ -26,6 +26,13 @@ let messages      = [];
 let currentReader  = null;
 let libContextStr  = '';
 
+// P1-1: Max messages sent to Ollama (sliding window to prevent context overflow).
+// Full history stays in the DOM for scroll-back — only the API payload is trimmed.
+const MAX_CONTEXT_MESSAGES = 20;
+
+// P1-7: Chat persistence key
+const CHAT_SS_KEY = 'dd_chat';
+
 // ── DOM References ────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const statusDot      = $('statusDot');
@@ -233,7 +240,7 @@ function renderMessage(role, content, streaming = false) {
       <div class="message-label">${label}${ttsBtn}</div>
       <div class="message-body">${
         streaming
-          ? '<span class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>'
+          ? '<span class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span><div class="thinking-label">BEACON IS THINKING\u2026</div>'
           : renderMarkdown(content)
       }</div>
     </div>
@@ -377,16 +384,19 @@ async function sendMessage() {
   const text = userInput.value.trim();
   if (!text || !isConnected || isGenerating) return;
 
+  // P0-3 FIX: Set flag IMMEDIATELY (synchronously) before any async work.
+  // This closes the race window where rapid clicks could slip through.
+  isGenerating = true;
+  sendBtn.disabled = true;
+
   welcomeScreen.style.display = 'none';
   messages.push({ role: 'user', content: text });
   renderMessage('user', text);
+  _saveChatState(); // P1-7
 
   userInput.value = '';
   userInput.style.height = 'auto';
   updateCharCount();
-
-  isGenerating = true;
-  sendBtn.disabled = true;
   sendBtn.classList.add('loading');
   sendIcon.textContent = '⏹';
   const sendLabel = $('sendLabel');
@@ -413,7 +423,9 @@ async function sendMessage() {
 
     const messagesWithContext = [];
     if (libContextStr) messagesWithContext.push({ role: 'system', content: libContextStr });
-    messagesWithContext.push(...messages.slice(0, -1));
+    // P1-1: Sliding window — send only the last N messages to Ollama
+    const historySlice = messages.slice(-MAX_CONTEXT_MESSAGES, -1);
+    messagesWithContext.push(...historySlice);
     messagesWithContext.push({ role: 'user', content: searchContext ? searchContext + text : text });
 
     const response = await fetch(`${CONFIG.ollamaHost}/api/chat`, {
@@ -445,7 +457,10 @@ async function sendMessage() {
       }
     }
 
-    if (fullContent) messages.push({ role: 'assistant', content: fullContent });
+    if (fullContent) {
+      messages.push({ role: 'assistant', content: fullContent });
+      _saveChatState(); // P1-7
+    }
 
   } catch (err) {
     if (err.name === 'AbortError') {
@@ -631,6 +646,27 @@ function clearConversation() {
   messages = [];
   messagesEl.innerHTML = '';
   welcomeScreen.style.display = 'flex';
+  try { sessionStorage.removeItem(CHAT_SS_KEY); } catch {} // P1-7
+}
+
+// P1-7: Persist chat messages to sessionStorage (max 50 messages to limit size)
+function _saveChatState() {
+  try {
+    const toSave = messages.slice(-50);
+    sessionStorage.setItem(CHAT_SS_KEY, JSON.stringify(toSave));
+  } catch {}
+}
+
+function _restoreChatState() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(CHAT_SS_KEY) || 'null');
+    if (!saved || !Array.isArray(saved) || !saved.length) return;
+    messages = saved;
+    welcomeScreen.style.display = 'none';
+    for (const msg of messages) {
+      renderMessage(msg.role, msg.content);
+    }
+  } catch {}
 }
 
 // ── Event Listeners ───────────────────────────────────────
@@ -658,6 +694,9 @@ clearBtn.addEventListener('click', clearConversation);
 (async function init() {
   sendBtn.disabled = true;
   sendIcon.textContent = '⬭';
+
+  // P1-7: Restore chat messages from sessionStorage
+  _restoreChatState();
 
   // Restore library/view state — library.js must be loaded first
   if (typeof _restoreLibState === 'function') {
