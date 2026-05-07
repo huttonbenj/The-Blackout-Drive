@@ -89,6 +89,8 @@ fi
 # ── Step 6: Set environment — point Ollama to drive ─────────
 export OLLAMA_MODELS="$SCRIPT_DIR/models"
 export OLLAMA_HOST="127.0.0.1:11434"
+# Allow browser to reach Ollama from our local UI server (fixes CORS)
+export OLLAMA_ORIGINS="http://localhost:8080,http://127.0.0.1:8080"
 
 # ── Step 7: Launch Ollama in background ─────────────────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting AI engine..."
@@ -124,9 +126,13 @@ else
     echo -e "  ${GREEN}[BOOT]${NC} DOOMSDAY model loaded."
 fi
 
-# ── Step 10: Open the chat interface ─────────────────────────
-echo -e "  ${CYAN}[BOOT]${NC} Opening interface..."
-open "$SCRIPT_DIR/ui/index.html"
+# ── Step 10: Start UI server + open chat interface ──────────
+echo -e "  ${CYAN}[BOOT]${NC} Starting UI server..."
+# Serve UI via local HTTP to avoid browser file:// CORS restrictions
+python3 -m http.server 8080 --directory "$SCRIPT_DIR/ui" &>/dev/null &
+UI_SERVER_PID=$!
+sleep 1
+open "http://localhost:8080"
 
 echo ""
 echo "  -------------------------------------------------------"
@@ -144,6 +150,7 @@ echo ""
 cleanup() {
     echo ""
     echo -e "  ${CYAN}[SHUTDOWN]${NC} Shutting down DOOMSDAY system..."
+    kill $UI_SERVER_PID 2>/dev/null
     kill $OLLAMA_PID 2>/dev/null
     wait $OLLAMA_PID 2>/dev/null
     echo -e "  ${CYAN}[SHUTDOWN]${NC} System offline. All data remains on your drive."

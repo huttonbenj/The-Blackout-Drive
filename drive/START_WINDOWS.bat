@@ -69,6 +69,7 @@ echo  [BOOT] Initializing DOOMSDAY system...
 set "OLLAMA_MODELS=%SCRIPT_DIR%models"
 set "OLLAMA_HOME=%SCRIPT_DIR%runtime\ollama-windows"
 set "OLLAMA_HOST=127.0.0.1:11434"
+set "OLLAMA_ORIGINS=http://localhost:8080,http://127.0.0.1:8080"
 
 :: ── Step 5: Launch Ollama in background ─────────────────────
 start /b "" "%OLLAMA_EXE%" serve
@@ -106,16 +107,19 @@ if %errorlevel% NEQ 0 (
 )
 
 :open_ui
-:: ── Step 8: Open the chat interface ─────────────────────────
-echo  [BOOT] Opening interface...
-start "" "%SCRIPT_DIR%ui\index.html"
+:: ── Step 8: Start UI server + open chat interface ────────────
+echo  [BOOT] Starting UI server...
+:: Serve UI via local HTTP (fixes CORS — browser can't call Ollama from file://)
+start /b "" python -m http.server 8080 --directory "%SCRIPT_DIR%ui"
+timeout /t 1 /nobreak >nul
+start "" http://localhost:8080
 
 echo.
 echo  -------------------------------------------------------
-echo  DOOMSDAY is online. Your browser will open the interface.
+echo  DOOMSDAY is online. Browser opening at http://localhost:8080
 echo  
 echo  If your browser doesn't open, navigate to:
-echo  %SCRIPT_DIR%ui\index.html
+echo  http://localhost:8080
 echo.
 echo  IMPORTANT: Keep this window open while using DOOMSDAY.
 echo  Closing this window will shut down the AI system.
@@ -126,9 +130,10 @@ echo.
 echo  Press any key to shut down DOOMSDAY...
 pause >nul
 
-:: ── Step 10: Cleanup — kill Ollama on exit ──────────────────
+:: ── Step 10: Cleanup — kill Ollama + UI server on exit ───────
 echo  [SHUTDOWN] Shutting down DOOMSDAY system...
 taskkill /f /im ollama.exe >nul 2>&1
+taskkill /f /im python.exe >nul 2>&1
 echo  [SHUTDOWN] System offline. All data remains on your drive.
 echo.
 

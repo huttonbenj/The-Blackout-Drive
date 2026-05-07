@@ -70,7 +70,9 @@ function hideConnectingOverlay() {
 // ── Connection Management ─────────────────────────────────
 async function checkConnection() {
   try {
-    const res = await fetch(`${CONFIG.ollamaHost}/api/tags`, {
+    // Use root endpoint — more universally accessible than /api/tags
+    // which can be blocked by API middleware or Ollama proxy configurations
+    const res = await fetch(`${CONFIG.ollamaHost}/`, {
       signal: AbortSignal.timeout(3000)
     });
     return res.ok;
