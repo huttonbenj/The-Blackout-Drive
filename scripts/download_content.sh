@@ -243,33 +243,9 @@ download_file \
     "5"
 
 # ── Other Religious Texts ─────────────────────────────────
-# Quran — Shakir translation (public domain)
-download_file \
-    "The Quran — Shakir Translation" \
-    "https://www.gutenberg.org/cache/epub/16955/pg16955.txt" \
-    "$BOOKS_DIR/quran_shakir.txt" \
-    "2"
 
-# Bhagavad Gita — Edwin Arnold verse translation (1885, PD)
-download_file \
-    "Bhagavad Gita — Edwin Arnold (1885)" \
-    "https://www.gutenberg.org/cache/epub/2388/pg2388.txt" \
-    "$BOOKS_DIR/bhagavad_gita.txt" \
-    "1"
 
-# Book of Mormon — Project Gutenberg #17
-download_file \
-    "The Book of Mormon" \
-    "https://www.gutenberg.org/cache/epub/17/pg17.txt" \
-    "$BOOKS_DIR/book_of_mormon.txt" \
-    "2"
 
-# Tao Te Ching — Legge translation (PD)
-download_file \
-    "Tao Te Ching — James Legge Translation" \
-    "https://www.gutenberg.org/cache/epub/216/pg216.txt" \
-    "$BOOKS_DIR/tao_te_ching.txt" \
-    "1"
 
 echo ""
 

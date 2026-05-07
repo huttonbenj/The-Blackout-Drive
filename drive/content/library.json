@@ -1,167 +1,127 @@
 {
   "version": "1.0",
-  "description": "DOOMSDAY.AI Offline Library — Content Catalog",
+  "description": "DOOMSDAY.AI Offline Library \u2014 Content Catalog",
   "categories": [
     {
       "id": "religious",
-      "name": "Religious Texts",
-      "icon": "✝",
-      "description": "Sacred scriptures and spiritual writings — all public domain",
+      "name": "Holy Bible",
+      "icon": "\u271d",
+      "description": "Four public domain translations of the Holy Bible \u2014 KJV, WEB, ASV, and YLT.",
       "items": [
         {
           "id": "bible_kjv",
-          "name": "Holy Bible — King James Version (KJV)",
+          "name": "Holy Bible \u2014 King James Version (KJV)",
           "description": "The 1611 King James Version. The most widely recognized English Bible translation in history.",
           "file": "content/books/bible_kjv.txt",
           "type": "txt",
           "size_mb": 5,
           "source": "Project Gutenberg #10",
-          "license": "Public Domain (US) — Published 1611"
+          "license": "Public Domain (US) \u2014 Published 1611"
         },
         {
           "id": "bible_web",
-          "name": "Holy Bible — World English Bible (WEB)",
+          "name": "Holy Bible \u2014 World English Bible (WEB)",
           "description": "A modern English translation explicitly dedicated to the public domain. Readable, contemporary language.",
           "file": "content/books/bible_web.txt",
           "type": "txt",
           "size_mb": 5,
           "source": "Project Gutenberg #72674",
-          "license": "Public Domain — Explicitly Dedicated"
+          "license": "Public Domain \u2014 Explicitly Dedicated"
         },
         {
           "id": "bible_asv",
-          "name": "Holy Bible — American Standard Version (ASV)",
+          "name": "Holy Bible \u2014 American Standard Version (ASV)",
           "description": "The 1901 American Standard Version. A formal, word-for-word translation valued for theological study.",
           "file": "content/books/bible_asv.txt",
           "type": "txt",
           "size_mb": 5,
           "source": "Project Gutenberg #9182",
-          "license": "Public Domain — Published 1901"
+          "license": "Public Domain \u2014 Published 1901"
         },
         {
           "id": "bible_ylt",
-          "name": "Holy Bible — Young's Literal Translation (YLT)",
+          "name": "Holy Bible \u2014 Young's Literal Translation (YLT)",
           "description": "Robert Young's 1862 hyper-literal translation, preserving the verb tenses of the original Hebrew and Greek.",
           "file": "content/books/bible_ylt.txt",
           "type": "txt",
           "size_mb": 5,
           "source": "Project Gutenberg",
-          "license": "Public Domain — Published 1862"
-        },
-        {
-          "id": "quran",
-          "name": "The Quran — Shakir Translation",
-          "description": "M.H. Shakir's English translation of the Quran. A widely respected public domain rendering.",
-          "file": "content/books/quran_shakir.txt",
-          "type": "txt",
-          "size_mb": 2,
-          "source": "Project Gutenberg",
-          "license": "Public Domain"
-        },
-        {
-          "id": "bhagavad_gita",
-          "name": "Bhagavad Gita — Edwin Arnold Translation",
-          "description": "Sir Edwin Arnold's 1885 verse translation 'The Song Celestial'. A classic of Hindu scripture.",
-          "file": "content/books/bhagavad_gita.txt",
-          "type": "txt",
-          "size_mb": 1,
-          "source": "Project Gutenberg #2388",
-          "license": "Public Domain — Published 1885"
-        },
-        {
-          "id": "book_of_mormon",
-          "name": "The Book of Mormon",
-          "description": "The founding scripture of the Latter-day Saint movement, first published in 1830.",
-          "file": "content/books/book_of_mormon.txt",
-          "type": "txt",
-          "size_mb": 2,
-          "source": "Project Gutenberg #17",
-          "license": "Public Domain — Published 1830"
-        },
-        {
-          "id": "tao_te_ching",
-          "name": "Tao Te Ching — Legge Translation",
-          "description": "James Legge's public domain translation of Laozi's foundational Taoist text.",
-          "file": "content/books/tao_te_ching.txt",
-          "type": "txt",
-          "size_mb": 1,
-          "source": "Project Gutenberg",
-          "license": "Public Domain"
+          "license": "Public Domain \u2014 Published 1862"
         }
       ]
     },
     {
       "id": "survival",
       "name": "Survival Manuals",
-      "icon": "⚔",
-      "description": "Military, government, and field survival guides — all public domain",
+      "icon": "\u2694",
+      "description": "Military, government, and field survival guides \u2014 all public domain",
       "items": [
         {
           "id": "army_fm2176",
-          "name": "US Army FM 21-76 — Survival Manual (1992)",
+          "name": "US Army FM 21-76 \u2014 Survival Manual (1992)",
           "description": "The original Army survival field manual. Water, food, shelter, fire, navigation, signaling, and more.",
           "file": "content/books/army_fm21-76_survival_1992.pdf",
           "type": "pdf",
           "size_mb": 12,
           "source": "US Army",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         },
         {
           "id": "army_fm30570",
-          "name": "US Army FM 3-05.70 — Survival (2002)",
+          "name": "US Army FM 3-05.70 \u2014 Survival (2002)",
           "description": "The updated Army survival manual. More comprehensive than FM 21-76.",
           "file": "content/books/army_fm3-05-70_survival_2002.pdf",
           "type": "pdf",
           "size_mb": 8,
           "source": "US Army",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         },
         {
           "id": "fema_ready",
-          "name": "FEMA — Are You Ready? Guide",
+          "name": "FEMA \u2014 Are You Ready? Guide",
           "description": "FEMA's official comprehensive emergency preparedness guide for households and communities.",
           "file": "content/books/fema_are_you_ready.pdf",
           "type": "pdf",
           "size_mb": 6,
           "source": "FEMA",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         },
         {
           "id": "fema_cert",
-          "name": "FEMA — CERT Training Manual",
+          "name": "FEMA \u2014 CERT Training Manual",
           "description": "Community Emergency Response Team training guide. Search and rescue, first aid, disaster operations.",
           "file": "content/books/fema_cert_training.pdf",
           "type": "pdf",
           "size_mb": 4,
           "source": "FEMA",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         },
         {
           "id": "usda_canning",
-          "name": "USDA — Complete Guide to Home Canning",
+          "name": "USDA \u2014 Complete Guide to Home Canning",
           "description": "The definitive guide to food preservation: canning, pickling, fermenting. Extends food shelf life for years.",
           "file": "content/books/usda_home_canning_complete.pdf",
           "type": "pdf",
           "size_mb": 5,
           "source": "USDA",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         },
         {
           "id": "epa_water",
-          "name": "EPA — Emergency Drinking Water Disinfection",
+          "name": "EPA \u2014 Emergency Drinking Water Disinfection",
           "description": "How to make water safe to drink using bleach, boiling, and other methods without power or filters.",
           "file": "content/books/epa_emergency_water_disinfection.pdf",
           "type": "pdf",
           "size_mb": 1,
           "source": "EPA",
-          "license": "Public Domain — US Government"
+          "license": "Public Domain \u2014 US Government"
         }
       ]
     },
     {
       "id": "medical",
       "name": "Medical & Health",
-      "icon": "⚕",
+      "icon": "\u2695",
       "description": "First aid and medical guides for when professional care isn't available",
       "items": [
         {
@@ -196,7 +156,7 @@
         },
         {
           "id": "redcross",
-          "name": "Red Cross — Family Disaster Plan",
+          "name": "Red Cross \u2014 Family Disaster Plan",
           "description": "Family emergency planning guide from the American Red Cross.",
           "file": "content/books/redcross_family_disaster_plan.pdf",
           "type": "pdf",
@@ -209,7 +169,7 @@
     {
       "id": "reference",
       "name": "Law & Government",
-      "icon": "⚖",
+      "icon": "\u2696",
       "description": "Founding documents, legal references, and civil rights texts",
       "items": [
         {
@@ -220,7 +180,7 @@
           "type": "txt",
           "size_mb": 1,
           "source": "Public Record",
-          "license": "Public Domain — Government Document"
+          "license": "Public Domain \u2014 Government Document"
         },
         {
           "id": "declaration",
@@ -230,7 +190,7 @@
           "type": "txt",
           "size_mb": 1,
           "source": "Public Record",
-          "license": "Public Domain — Government Document"
+          "license": "Public Domain \u2014 Government Document"
         },
         {
           "id": "un_declaration",
@@ -250,19 +210,19 @@
           "type": "txt",
           "size_mb": 5,
           "source": "Project Gutenberg",
-          "license": "Public Domain — Published 1910"
+          "license": "Public Domain \u2014 Published 1910"
         }
       ]
     },
     {
       "id": "philosophy",
       "name": "Philosophy & Wisdom",
-      "icon": "∞",
+      "icon": "\u221e",
       "description": "Classic philosophical texts for thought, perspective, and guidance",
       "items": [
         {
           "id": "meditations",
-          "name": "Meditations — Marcus Aurelius",
+          "name": "Meditations \u2014 Marcus Aurelius",
           "description": "The private journal of Roman Emperor Marcus Aurelius. Timeless Stoic philosophy on resilience and duty.",
           "file": "content/books/meditations_marcus_aurelius.txt",
           "type": "txt",
@@ -272,7 +232,7 @@
         },
         {
           "id": "enchiridion",
-          "name": "Enchiridion — Epictetus",
+          "name": "Enchiridion \u2014 Epictetus",
           "description": "The handbook of Epictetus. How to maintain inner freedom regardless of external circumstances.",
           "file": "content/books/enchiridion_epictetus.txt",
           "type": "txt",
@@ -282,7 +242,7 @@
         },
         {
           "id": "art_of_war",
-          "name": "The Art of War — Sun Tzu",
+          "name": "The Art of War \u2014 Sun Tzu",
           "description": "Sun Tzu's 2500-year-old military strategy masterpiece. Applicable to conflict, negotiation, and survival.",
           "file": "content/books/art_of_war.txt",
           "type": "txt",
@@ -296,11 +256,11 @@
       "id": "wikipedia",
       "name": "Wikipedia Offline",
       "icon": "W",
-      "description": "Curated offline Wikipedia archives — no internet required. Opens in Kiwix.",
+      "description": "Curated offline Wikipedia archives \u2014 no internet required. Opens in Kiwix.",
       "items": [
         {
           "id": "wiki_medicine",
-          "name": "Wikipedia — Medicine & Health",
+          "name": "Wikipedia \u2014 Medicine & Health",
           "description": "A comprehensive offline archive of Wikipedia's medical articles. Drug references, diseases, procedures.",
           "file": "content/zim/wikipedia_en_medicine.zim",
           "type": "zim",
@@ -310,7 +270,7 @@
         },
         {
           "id": "wiki_survival",
-          "name": "Wikipedia — Outdoor & Wilderness",
+          "name": "Wikipedia \u2014 Outdoor & Wilderness",
           "description": "Wikipedia's survival, wilderness, and outdoor skills articles compiled offline.",
           "file": "content/zim/wikipedia_en_survival.zim",
           "type": "zim",
@@ -320,7 +280,7 @@
         },
         {
           "id": "wiktionary",
-          "name": "Wiktionary — English Dictionary",
+          "name": "Wiktionary \u2014 English Dictionary",
           "description": "Full offline English dictionary. Definitions, etymologies, and translations of over 7 million words.",
           "file": "content/zim/wiktionary_en.zim",
           "type": "zim",
