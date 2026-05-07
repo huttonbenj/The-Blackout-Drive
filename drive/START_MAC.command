@@ -132,10 +132,10 @@ fi
 # ── Step 10: Start UI server + open chat interface ──────────
 echo -e "  ${CYAN}[BOOT]${NC} Starting UI server..."
 # Serve UI via local HTTP to avoid browser file:// CORS restrictions
-python3 -m http.server "$DOOMSDAY_UI_PORT" --directory "$SCRIPT_DIR/ui" &>/dev/null &
+python3 -m http.server "$DOOMSDAY_UI_PORT" --directory "$SCRIPT_DIR" &>/dev/null &
 UI_SERVER_PID=$!
 sleep 1
-open "${DOOMSDAY_UI_URL}"
+open "${DOOMSDAY_UI_URL}/ui/"
 
 echo ""
 echo "  -------------------------------------------------------"

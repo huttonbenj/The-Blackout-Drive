@@ -221,8 +221,14 @@ async function openItem(item) {
   libActiveItem = item;
 
   if (item.type === 'pdf') {
-    // Browser native PDF viewer
-    window.open('/' + item.file, '_blank');
+    // Use anchor click — treated as user navigation, not a popup (avoids popup blocker)
+    const a = document.createElement('a');
+    a.href = '/' + item.file;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
     return;
   }
 
