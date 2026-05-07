@@ -104,12 +104,51 @@ function updateLibHeader() {
 }
 
 // ── Catalog loading ────────────────────────────────────────
+let libManifest = null;   // files present on this drive (from manifest.json)
+let libDevMode  = false;  // true when no manifest.json found (dev environment)
+
 async function loadCatalog() {
   libMain.innerHTML = '<div class="lib-loading"><span>Loading library catalog...</span></div>';
   try {
+    // Load manifest first — tells us what files are physically on this drive
+    try {
+      const mres = await fetch('/content/manifest.json');
+      if (mres.ok) {
+        const mdata = await mres.json();
+        libManifest = new Set(Object.keys(mdata.files || {}));
+        libDevMode  = false;
+      } else {
+        libManifest = null;
+        libDevMode  = true;
+      }
+    } catch {
+      libManifest = null;
+      libDevMode  = true;
+    }
+
     const res = await fetch('/content/library.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    libCatalog = await res.json();
+    const raw = await res.json();
+
+    if (libManifest) {
+      // Production: filter catalog to only show files actually on this drive
+      libCatalog = {
+        ...raw,
+        categories: raw.categories.map(cat => ({
+          ...cat,
+          items: cat.items.filter(item =>
+            // Check if file is in manifest (normalize path)
+            libManifest.has(item.file) ||
+            libManifest.has('drive/' + item.file) ||
+            [...libManifest].some(p => p.endsWith(item.file.split('/').pop()))
+          )
+        })).filter(cat => cat.items.length > 0)
+      };
+    } else {
+      // Dev mode: show full catalog (some files will be missing)
+      libCatalog = raw;
+    }
+
     renderSidebar();
     showCategorySelect();
   } catch {
@@ -207,10 +246,14 @@ function showCategorySelect() {
       <div class="lib-file-meta">${cat.items.length} item${cat.items.length !== 1 ? 's' : ''}</div>`;
     grid.appendChild(card);
   });
+  const devBadge = libDevMode
+    ? `<div class="lib-dev-badge">⚙ DEV MODE — manifest.json not found. Run <code>bash scripts/setup_drive.sh</code> to populate.</div>`
+    : '';
   libMain.innerHTML = `
     <div class="lib-cat-header">
       <div class="lib-cat-title">OFFLINE LIBRARY</div>
       <div class="lib-cat-desc">Everything preloaded on this drive. Browse and read without internet.</div>
+      ${devBadge}
     </div>`;
   libMain.appendChild(grid);
 }

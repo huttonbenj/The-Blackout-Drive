@@ -1143,3 +1143,20 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ── Dev Mode Badge ──────────────────────────────────────── */
+.lib-dev-badge {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  border-radius: var(--radius);
+  background: rgba(255, 170, 0, 0.06);
+  color: var(--amber-dim);
+  font-size: clamp(10px, 0.7vw, 12px);
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+.lib-dev-badge code {
+  color: var(--green-bright);
+  font-family: var(--font-mono);
+}
