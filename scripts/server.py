@@ -303,6 +303,119 @@ class DoomsdayHandler(BaseHTTPRequestHandler):
             })
             return
 
+        # ── /api/library-context ─────────────────────────────
+        # Returns a human-readable summary of downloaded files for LLM injection
+        if path == '/api/library-context':
+            mf_path = os.path.join(DRIVE_DIR, 'content', 'manifest.json')
+            cat_path = os.path.join(DRIVE_DIR, 'content', 'library.json')
+            files_summary = []
+            try:
+                with open(mf_path) as f:
+                    manifest = json.load(f)
+                installed = set(manifest.get('files', {}).keys())
+            except Exception:
+                installed = set()
+            try:
+                with open(cat_path) as f:
+                    catalog = json.load(f)
+                for cat in catalog.get('categories', []):
+                    for item in cat.get('items', []):
+                        if item.get('file', '') in installed or \
+                           item.get('file', '').lstrip('/') in installed:
+                            files_summary.append({
+                                'id': item.get('id'),
+                                'name': item.get('name'),
+                                'category': cat.get('name'),
+                                'type': item.get('type'),
+                                'path': item.get('file', ''),
+                            })
+            except Exception:
+                pass
+            # Build plain-text summary for LLM injection
+            if files_summary:
+                lines = ['The following resources are available in the local library on this drive:']
+                for f_info in files_summary:
+                    lines.append(f"  • {f_info['name']} [{f_info['category']}]")
+                context_str = '\n'.join(lines)
+            else:
+                context_str = 'No library content is currently downloaded on this drive.'
+            self._send_json(200, {'context': context_str, 'files': files_summary})
+            return
+
+        # ── /api/search ──────────────────────────────────────
+        # Keyword search across all downloaded text files in content/books/
+        if path == '/api/search':
+            query = (qs.get('q', [''])[0]).strip()
+            limit = int(qs.get('limit', ['5'])[0])
+            if not query:
+                self._send_json(400, {'error': 'q param required'})
+                return
+            books_dir = os.path.join(DRIVE_DIR, 'content', 'books')
+            results = []
+            if os.path.isdir(books_dir):
+                for fname in sorted(os.listdir(books_dir)):
+                    if not fname.endswith('.txt'):
+                        continue
+                    fpath = os.path.join(books_dir, fname)
+                    try:
+                        with open(fpath, 'r', encoding='utf-8', errors='replace') as f:
+                            text = f.read()
+                        query_lower = query.lower()
+                        text_lower = text.lower()
+                        idx = 0
+                        file_hits = 0
+                        while file_hits < 2:  # Max 2 excerpts per file
+                            pos = text_lower.find(query_lower, idx)
+                            if pos < 0:
+                                break
+                            start = max(0, pos - 150)
+                            end = min(len(text), pos + len(query) + 150)
+                            excerpt = text[start:end].strip()
+                            # Clean up excerpt edges at word boundaries
+                            if start > 0:
+                                excerpt = '…' + excerpt
+                            if end < len(text):
+                                excerpt = excerpt + '…'
+                            results.append({
+                                'file': fname,
+                                'excerpt': excerpt,
+                                'pos': pos,
+                            })
+                            file_hits += 1
+                            idx = pos + 1
+                            if len(results) >= limit:
+                                break
+                    except Exception:
+                        continue
+                    if len(results) >= limit:
+                        break
+            self._send_json(200, {'query': query, 'results': results})
+            return
+
+        # ── /api/open-file ───────────────────────────────────
+        # Shell-opens a file in the OS native application (PDF, ZIM, etc.)
+        if path == '/api/open-file':
+            rel = (qs.get('path', [''])[0]).strip()
+            if not rel:
+                self._send_json(400, {'error': 'path param required'})
+                return
+            full = self._safe_path(rel)
+            if not full or not os.path.isfile(full):
+                self._send_json(404, {'error': 'file not found'})
+                return
+            try:
+                import subprocess, sys as _sys
+                if _sys.platform == 'darwin':
+                    subprocess.Popen(['open', full])
+                elif _sys.platform == 'win32':
+                    os.startfile(full)
+                else:
+                    subprocess.Popen(['xdg-open', full])
+                self._send_json(200, {'ok': True, 'opened': rel})
+            except Exception as e:
+                self._send_json(500, {'error': str(e)})
+            return
+
         # ── Static file fallback ─────────────────────────────
         self._serve_file(path)
 

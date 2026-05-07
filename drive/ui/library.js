@@ -388,15 +388,17 @@ async function openItem(item) {
   if (item.type === 'pdf') {
     libMode = 'reader';
     updateLibHeader();
-    libMain.innerHTML = '<div class="lib-loading"><span>Checking file...</span></div>';
+    libMain.innerHTML = '<div class="lib-loading"><span>Opening PDF...</span></div>';
     try {
-      const check = await fetch('/' + item.file, { method: 'HEAD' });
-      if (!check.ok) { showMissingPanel(item); return; }
+      const res = await fetch(`/api/open-file?path=${encodeURIComponent(item.file)}`);
+      if (!res.ok) { showMissingPanel(item); return; }
     } catch { showMissingPanel(item); return; }
-    const a = document.createElement('a');
-    a.href = '/' + item.file; a.target = '_blank'; a.rel = 'noopener';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    libMain.innerHTML = `<div class="lib-zim-panel"><div style="font-size:40px">📄</div><div class="lib-zim-title">${item.name.toUpperCase()}</div><div class="lib-zim-desc">Opened in a new tab — use your browser's PDF viewer to read it.</div></div>`;
+    libMain.innerHTML = `<div class="lib-zim-panel">
+      <div style="font-size:48px;margin-bottom:16px">📄</div>
+      <div class="lib-zim-title">${item.name.toUpperCase()}</div>
+      <div class="lib-zim-desc">Opened in your system PDF viewer.<br>It may take a moment to appear.</div>
+      <button class="lib-search-btn" style="margin-top:16px" onclick="DDAPI.openFile('${item.file}')">Open Again</button>
+    </div>`;
     return;
   }
   if (item.type === 'zim') { libMode = 'reader'; updateLibHeader(); showZimPanel(item); return; }

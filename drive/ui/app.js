@@ -127,6 +127,11 @@ async function maintainConnection() {
       retries = 0;
       setStatus('online');
       hideWarning();
+      // RAG Tier 1: fetch library manifest context for LLM injection
+      fetch(`http://localhost:${CONFIG.uiPort}/api/library-context`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { if (d && d.context) libContextStr = d.context; })
+        .catch(() => {});
     } else if (!connected && isConnected) {
       isConnected = false;
       setStatus('error');
@@ -269,12 +274,42 @@ async function sendMessage() {
   let fullContent = '';
 
   try {
+    // ─ RAG Tier 2: Search library for relevant passages ───────────
+    let searchContext = '';
+    try {
+      const searchRes = await fetch(`http://localhost:${CONFIG.uiPort}/api/search?q=${encodeURIComponent(text)}&limit=4`);
+      if (searchRes.ok) {
+        const searchData = await searchRes.json();
+        if (searchData.results && searchData.results.length > 0) {
+          const excerpts = searchData.results.map(r =>
+            `[SOURCE: ${r.file}]\n${r.excerpt}`
+          ).join('\n\n');
+          searchContext = `Relevant passages from the local library:\n\n${excerpts}\n\n---\n`;
+        }
+      }
+    } catch (_) { /* search is best-effort, never block the chat */ }
+
+    // ─ Build messages array with context injections ────────────
+    const messagesWithContext = [];
+
+    // Tier 1: Library manifest context (injected once as first system message)
+    if (libContextStr) {
+      messagesWithContext.push({ role: 'system', content: libContextStr });
+    }
+
+    // Conversation history
+    messagesWithContext.push(...messages.slice(0, -1)); // all but last user msg
+
+    // Tier 2: Prepend search results to the user's last message if found
+    const lastUserContent = searchContext ? searchContext + text : text;
+    messagesWithContext.push({ role: 'user', content: lastUserContent });
+
     const response = await fetch(`${CONFIG.ollamaHost}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model:    CONFIG.model,
-        messages: messages,
+        messages: messagesWithContext,
         stream:   true,
       }),
       signal: AbortSignal.timeout(CONFIG.streamTimeout),

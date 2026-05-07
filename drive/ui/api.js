@@ -211,6 +211,20 @@ window.DDAPI = (() => {
     return navigator.onLine === true;
   }
 
+  /**
+   * openFile — asks the server to shell-open a file in the OS native app.
+   * Used for PDFs (Preview on Mac, Edge/Adobe on Windows), ZIM files, etc.
+   * @param {string} relPath - path relative to drive root
+   */
+  async function openFile(relPath) {
+    try {
+      const res = await fetch(`http://localhost:${SERVER_PORT}/api/open-file?path=${encodeURIComponent(relPath)}`);
+      return res.ok ? await res.json() : { ok: false };
+    } catch {
+      return { ok: false };
+    }
+  }
+
   // ── Public surface ────────────────────────────────────────
   return {
     // Ollama
@@ -223,6 +237,7 @@ window.DDAPI = (() => {
     startDownload,
     getDownloadStatus,
     cancelDownload,
+    openFile,
     // Remote
     fetchRemoteCatalog,
     // Utilities
