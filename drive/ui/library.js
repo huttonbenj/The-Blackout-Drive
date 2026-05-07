@@ -414,16 +414,19 @@ function renderFileList(catId) {
         <div class="lib-file-meta">${item.size_label || ''} &middot; ${item.license || ''} &middot; ${statusBadge}</div>
       </div>`;
 
-    // Download button: proper DOM element with addEventListener — NO inline JSON
+    // Download button: corner icon positioned top-right on the card.
+    // Small, unobtrusive — cards stay uniform height.
     if (!inManifest && hasDirectUrl) {
       const btn = document.createElement('button');
-      btn.className = 'lib-download-btn';
-      btn.textContent = '⬇ DOWNLOAD';
+      btn.className = 'lib-dl-corner-btn';
+      btn.title = 'Download to drive';
+      btn.setAttribute('aria-label', 'Download ' + item.name);
+      btn.innerHTML = '<span class="lib-dl-icon" aria-hidden="true">&#8595;</span>';
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         downloadLibItem(item, el, btn);
       });
-      el.querySelector('.lib-file-info').appendChild(btn);
+      el.appendChild(btn); // append to card, not lib-file-info
     } else if (!inManifest && isZim) {
       const note = document.createElement('div');
       note.className = 'lib-file-note';
@@ -460,7 +463,10 @@ async function downloadLibItem(item, el, btn) {
     return;
   }
   btn.disabled = true;
-  btn.textContent = '⏳ Starting…';
+  btn.title = 'Downloading…';
+  const iconSpan = btn.querySelector('.lib-dl-icon') || btn;
+  iconSpan.textContent = '↻';
+  btn.classList.add('lib-dl-corner-btn--loading');
 
   try {
     const result = await DDAPI.startDownload(item.download_url, item.file);
@@ -477,7 +483,7 @@ async function downloadLibItem(item, el, btn) {
         el.style.cursor = 'pointer';
         el.addEventListener('click', () => openItem(item));
         const meta = el.querySelector('.lib-file-meta');
-        if (meta) meta.innerHTML = `${item.size_label || ''} &middot; ${item.license || ''} &middot; <span class="lib-file-status-ok">✓ ON DRIVE</span>`;
+        if (meta) meta.innerHTML = `${item.size_label || ''} &middot; ${item.license || ''} &middot; <span class="status-ok">✓ ON DRIVE</span>`;
         btn.remove();
         showToast('✓ ' + item.name + ' downloaded successfully.');
         await refreshAfterManifestChange();
@@ -486,17 +492,27 @@ async function downloadLibItem(item, el, btn) {
       if (status.error) {
         clearInterval(poll);
         btn.disabled = false;
-        btn.textContent = '❌ Retry';
+        btn.classList.remove('lib-dl-corner-btn--loading');
+        btn.title = 'Download failed — click to retry';
+        const _iconSpan3 = btn.querySelector('.lib-dl-icon') || btn;
+        _iconSpan3.textContent = '!';
+        btn.classList.add('lib-dl-corner-btn--error');
         btn.addEventListener('click', (e) => { e.stopPropagation(); downloadLibItem(item, el, btn); }, { once: true });
         showToast('⚠ Download failed: ' + (status.error || 'Unknown error'));
         return;
       }
       const pct = status.total > 0 ? Math.round((status.progress / status.total) * 100) : '…';
-      btn.textContent = `⏳ ${pct}%`;
+      const _iconSpan2 = btn.querySelector('.lib-dl-icon') || btn;
+      btn.title = `Downloading ${pct}%`;
+      _iconSpan2.textContent = pct === '…' ? '↻' : pct + '%';
     }, 600);
   } catch (err) {
     btn.disabled = false;
-    btn.textContent = '❌ Retry';
+    btn.classList.remove('lib-dl-corner-btn--loading');
+    btn.title = 'Download failed — click to retry';
+    const _iconSpan4 = btn.querySelector('.lib-dl-icon') || btn;
+    _iconSpan4.textContent = '!';
+    btn.classList.add('lib-dl-corner-btn--error');
     showToast('⚠ Could not start download: ' + err.message);
   }
 }
@@ -705,6 +721,7 @@ function closeReader() {
 
 function stripGutenbergBoilerplate(raw) {
   let text = raw.replace(/^\uFEFF/, ''); // strip BOM
+
   // Strip everything before *** START OF ... ***
   const startRx = /\*\*\* START OF TH(?:E|IS) PROJECT GUTENBERG EBOOK[^*]*\*\*\*/i;
   const endRx   = /\*\*\* END OF TH(?:E|IS) PROJECT GUTENBERG EBOOK[^*]*\*\*\*/i;
@@ -712,8 +729,24 @@ function stripGutenbergBoilerplate(raw) {
   if (startM) text = text.slice(startM.index + startM[0].length);
   const endM = text.match(endRx);
   if (endM) text = text.slice(0, text.lastIndexOf(endM[0]));
-  // Strip preamble notes block (old Gutenberg 1970s notes etc.)
-  // These tend to appear as lines of *** then text then ***
+
+  // Strip old Gutenberg preamble note blocks that appear right after START marker.
+  // Pattern: a *** divider followed by a note block then another *** divider.
+  // These are NOT content — they are archival/production notes.
+  // Repeat up to 3 times to clear multiple note blocks.
+  const preambleBlock = /^[\s\S]*?\*{3}[\s\S]+?\*{3}\s*\n/;
+  for (let i = 0; i < 3; i++) {
+    const trimmed = text.replace(/^\s+/, '');
+    // If the file starts with a *** line (after stripping whitespace), it's a note block
+    if (/^\*{3}[^\n]*\n/.test(trimmed)) {
+      // Find the closing *** and strip past it
+      const closeIdx = trimmed.indexOf('\n***', 3);
+      if (closeIdx > 0) {
+        text = trimmed.slice(closeIdx + 4); // past \n***
+      } else break;
+    } else break;
+  }
+
   return text.replace(/^\s+/, '').trimEnd();
 }
 
@@ -742,38 +775,43 @@ function detectTextSections(text) {
 
 function textToHtml(text, sections) {
   const headingLineSet = new Set(sections.map(s => s.lineIndex));
+  const DIVIDER_RX = /^(\*\*\*|\* \* \*|[-\u2500\u2550]{4,}|={4,})$/;
+  const isSpecial = (ln) => DIVIDER_RX.test(ln.trim()) || headingLineSet.has(-1); // placeholder
   const lines = text.split('\n');
   const out = [];
   let i = 0;
+
+  // Helper: is this line a structural break (heading or divider)?
+  const isBreak = (idx) =>
+    headingLineSet.has(idx) || DIVIDER_RX.test(lines[idx]?.trim() || '');
+
   while (i < lines.length) {
-    const line = lines[i];
+    const line  = lines[i];
     const trimmed = line.trim();
+
     // Heading line
     if (headingLineSet.has(i)) {
       const secIdx = sections.findIndex(s => s.lineIndex === i);
       out.push(`<h2 class="utxt-heading" id="utxt-sec-${secIdx}">${escapeHtml(trimmed)}</h2>`);
       i++; continue;
     }
-    // Divider
-    if (/^(\*\*\*|\* \* \*|[-\u2500\u2550]{4,})$/.test(trimmed)) {
+
+    // Divider line (standalone *** or ----)
+    if (DIVIDER_RX.test(trimmed)) {
       out.push('<hr class="utxt-divider">'); i++; continue;
     }
-    // Blank line(s) → paragraph boundary
-    if (!trimmed) {
-      i++;
-      const paraLines = [];
-      while (i < lines.length && lines[i].trim() && !headingLineSet.has(i)) {
-        paraLines.push(escapeHtml(lines[i].trim()));
-        i++;
-      }
-      if (paraLines.length) out.push(`<p class="utxt-para">${paraLines.join(' ')}</p>`);
-      continue;
-    }
-    // Normal line — group into paragraph
+
+    // Skip blank lines silently (paragraph breaks happen naturally)
+    if (!trimmed) { i++; continue; }
+
+    // Normal text line — collect contiguous non-blank, non-special lines into one <p>
     const paraLines = [escapeHtml(trimmed)];
     i++;
-    while (i < lines.length && lines[i].trim() && !headingLineSet.has(i)) {
-      paraLines.push(escapeHtml(lines[i].trim()));
+    while (i < lines.length) {
+      const t = lines[i].trim();
+      if (!t) break;              // blank line = paragraph break
+      if (isBreak(i)) break;     // heading or divider = break
+      paraLines.push(escapeHtml(t));
       i++;
     }
     out.push(`<p class="utxt-para">${paraLines.join(' ')}</p>`);

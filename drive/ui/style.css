@@ -2392,3 +2392,94 @@ button:focus-visible, select:focus-visible, input:focus-visible {
   font-size: clamp(10px, 0.7vw, 12px) !important;
   color: rgba(255,255,255,0.6) !important;
 }
+
+/* ════════════════════════════════════════════════════════════
+   CORNER DOWNLOAD ICON — sits in top-right of not-downloaded
+   cards. Small, unobtrusive. Card height stays consistent.
+   ════════════════════════════════════════════════════════════ */
+
+/* Card must be relative so corner button can be absolute */
+.lib-file-list .lib-file-item { position: relative !important; }
+
+/* The corner icon button */
+.lib-dl-corner-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: rgba(200,160,74,0.1) !important;
+  border: 1px solid rgba(200,160,74,0.25) !important;
+  color: var(--amber) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s, box-shadow 0.15s !important;
+  z-index: 2 !important;
+  flex-shrink: 0 !important;
+  padding: 0 !important;
+  font-family: var(--font-mono) !important;
+}
+.lib-dl-corner-btn:hover {
+  background: rgba(200,160,74,0.22) !important;
+  border-color: var(--amber) !important;
+  transform: scale(1.12) !important;
+  box-shadow: 0 0 8px rgba(200,160,74,0.25) !important;
+}
+.lib-dl-corner-btn:active {
+  transform: scale(0.96) !important;
+}
+/* Loading spin animation */
+.lib-dl-corner-btn--loading .lib-dl-icon {
+  display: inline-block !important;
+  animation: spin 0.8s linear infinite !important;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Error state */
+.lib-dl-corner-btn--error {
+  background: rgba(200,70,70,0.12) !important;
+  border-color: rgba(200,70,70,0.35) !important;
+  color: rgba(220,80,80,0.9) !important;
+}
+
+/* Downloaded cards: no corner button, full-card click is obvious */
+/* Not-downloaded: dim the name slightly so the icon clearly indicates action needed */
+.lib-file-not-downloaded .lib-file-name {
+  color: rgba(255,255,255,0.7) !important;
+}
+
+/* Remove old lib-download-btn style (corner icon replaces it fully) */
+.lib-download-btn { display: none !important; }
+
+/* ════════════════════════════════════════════════════════════
+   READER: Clean up ALL remaining markdown artifacts
+   ════════════════════════════════════════════════════════════ */
+/* Ensure utxt-divider <hr> renders cleanly */
+.utxt-divider {
+  border: none !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  margin: 24px 0 !important;
+  display: block !important;
+}
+/* Suppress any literal *** that might slip through in older browsers */
+.utxt-body p:empty { display: none !important; }
+
+/* ── Corner icon size boost: more prominent, obvious ──── */
+.lib-dl-corner-btn {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 16px !important;
+  opacity: 0.85 !important;
+}
+.lib-dl-corner-btn:hover { opacity: 1 !important; }
+/* Tooltip hint on not-downloaded card hover */
+.lib-file-not-downloaded:hover .lib-dl-corner-btn {
+  opacity: 1 !important;
+  background: rgba(200,160,74,0.22) !important;
+}

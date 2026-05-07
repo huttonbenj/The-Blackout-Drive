@@ -268,3 +268,116 @@ Ship every drive identical. Include a local "DOOMSDAY Hub" app that lets users d
 optional content packs (Homestead Pack, Tactical Pack) from a CDN on their first run
 while they still have internet. Drive stays operationally uniform. Customization moves
 to software, not hardware.
+
+---
+
+## 🔄 REBRAND SESSION — May 2026 (APPEND ONLY — DO NOT REMOVE)
+
+### Rebranding: DOOMSDAY.AI → THE BLACKOUT DRIVE
+
+**Competitive Intelligence (from market research, May 2026):**
+- **PortableMind**: $138, 128GB, positioned as "privacy tech gadget" — NOT survival. Targets privacy nerds.
+- **DocketDrive / Docket Mini**: $69–79 on Etsy/TikTok. Loads 12 models, trying to be everything. Survival branding is weak.
+- **BunkerAI (BunkerM)**: Open-source MQTT factory platform. Google search = Docker repos, NOT consumer drive.
+- **OffGrid AI Toolkit**: Requires an online "Command Center" — defeats the purpose.
+- **SEO Gap**: "Blackout Drive" returns zero AI competitors. Only old military transport manual results. Complete blank slate for page-one ownership.
+
+**Brand Decision: The Blackout Drive**
+- "Blackout" = universal, non-polarizing infrastructure failure word. Preppers AND faith families AND everyday homeowners relate to it.
+- No competing products own the term. Immediate SEO advantage.
+- The AI persona name remains TBD — consider keeping DOOMSDAY.AI for the AI, with "The Blackout Drive" as the product/hardware name.
+
+**Our Take on Gemini's Tier System:**
+Gemini proposed 3 SKUs (Basecamp/Harvest/Chaplain), which is good segmentation but creates 3 flash images. Our counter-proposal:
+- ONE drive with edition-selector config system (persona + content set defined in config.json)
+- Same flash image → different config file = different edition. Operational simplicity preserved.
+- Editions: **Basecamp** ($79) / **Harvest** ($89, homestead content) / **Chaplain** ($89, Bible + medical)
+- AI persona per edition: Basecamp → "Scout" | Harvest → "Overland" | Chaplain → "Providence"
+
+**Amazon Strategy (per Gemini, we agree):**
+- Launch Basecamp only on Amazon. Simple = algorithm-friendly.
+- Use Shopify/website to sell Harvest and Chaplain at higher margin to targeted audiences.
+
+**Affiliate/Distributor Channel (our addition, not in Gemini's plan):**
+- Ham radio clubs, prepper groups, church groups as bulk purchasers (10+ units at 20% discount)
+- Pastor/church affiliate program: 15% commission for church referrals of Chaplain edition
+
+### Backlog Items Added — Rebrand (APPEND ONLY)
+
+**BRAND:**
+- [ ] Secure blackoutdrive.com domain IMMEDIATELY (check Cloudflare, GoDaddy)
+- [ ] Secure theblackoutdrive.com as secondary
+- [ ] Trademark "The Blackout Drive" — USPTO filing (Hutton Technologies)
+- [ ] Update AGENT_CONTEXT.md product name to "The Blackout Drive" (keep DOOMSDAY.AI as AI persona)
+- [ ] Design The Blackout Drive wordmark and logo (premium, tactical, not cheesy)
+- [ ] Decide final AI persona names for each edition (Scout/Overland/Providence or alternatives)
+
+**CODE — Edition System:**
+- [ ] Implement edition-selector in config.json (edition: "basecamp" | "harvest" | "chaplain")
+- [ ] Edition-aware persona system: drive reads edition from config, uses matching Modelfile system prompt
+- [ ] Edition-aware content catalog: library.json categories shown based on edition
+- [ ] Create 3 Modelfiles: Modelfile.basecamp, Modelfile.harvest, Modelfile.chaplain (different personas, same model)
+- [ ] Flash script: add --edition flag to build_image.sh
+
+**CODE — Architecture (identified this session):**
+- [ ] Refactor library.js (~1300 lines) into ES modules: lib-state.js, lib-render.js, lib-reader.js, lib-downloads.js, lib-packs.js, lib-manage.js
+- [ ] CSS architecture cleanup: consolidate the 4 separate CSS "patch" blocks into a single canonical component structure (no more conflicting cascade via !important overrides)
+- [ ] Add JSDoc comments to all public functions in library.js and app.js
+- [ ] Replace ALL remaining inline onclick= handlers with addEventListener (currently still in Bible reader nav)
+- [ ] Add proper error boundaries: if any module fails to load, show graceful fallback UI instead of blank screen
+- [ ] Global state object: replace scattered `let libCatalog, libManifest, libMode...` with a single LibState object
+- [ ] Add TypeScript-style JSDoc type annotations for IDE intellisense (no build step needed with @ts-check)
+- [ ] Implement proper download debouncing in refreshAfterManifestChange()
+- [ ] Add service worker for aggressive caching of UI assets (JS/CSS) on first load
+
+**CONTENT — Remaining library gaps:**
+- [ ] Find verified plain-text source for UN Universal Declaration of Human Rights (not on Gutenberg as plain text)
+- [ ] Find verified plain-text source for Black's Law Dictionary (not on Gutenberg)
+- [ ] Find verified plain-text source for Seneca's Letters to Lucilius
+- [ ] Add Harvest edition content: USDA agriculture archive, seed saving guide, herbalism guide, off-grid solar guide
+- [ ] Add Chaplain edition content: Complete Bible set already done ✅, add first aid guide, add devotional reading
+- [ ] Verify all PDF download URLs (army FM21-76, FM3-05-70, FEMA guides, etc.) still resolve
+
+**WEBSITE — Doomsday-Web:**
+- [ ] Initialize Next.js 15 app in Doomsday-Web repo
+- [ ] Design and build The Blackout Drive marketing homepage
+- [ ] Build edition comparison/purchase page (Basecamp vs Harvest vs Chaplain)
+- [ ] Integrate Stripe for one-time purchases and content pack license keys
+- [ ] Build license key verification API (FastAPI on Render) for content pack download
+- [ ] Build user portal: order history, pack downloads, license key management
+- [ ] Set up Cloudflare R2 for content pack CDN delivery
+- [ ] SEO: meta tags, structured data (Product schema), sitemap, robots.txt
+- [ ] Build affiliate/referral system (church groups, ham radio clubs)
+- [ ] Email system: Resend transactional emails (order confirm, license key delivery)
+- [ ] Build press/media kit page
+
+**LEGAL:**
+- [ ] File trademark: "The Blackout Drive" — class 9 (electronic devices), class 42 (software)
+- [ ] Update all disclaimer language from "DOOMSDAY.AI" to "The Blackout Drive"
+- [ ] Add brand usage guidelines (don't want Amazon sellers calling knockoffs "Blackout")
+
+**MARKETING:**
+- [ ] TikTok content plan: 15 videos for launch week (plug-in demo, use cases, reactions)
+- [ ] Instagram Reels strategy: "What if the power goes out for 30 days?" hook
+- [ ] YouTube Shorts: 60-second power outage demo video (plug in, chat with AI, no internet)
+- [ ] Press outreach: prepper/survival podcasts, faith/homestead influencers
+- [ ] Church affiliate onboarding kit: sermon notes template, bulletin insert, bulk order form
+- [ ] Ham radio club outreach: target ARRL club newsletter ads
+- [ ] Amazon listing optimization for Basecamp Edition
+
+**OPERATIONS:**
+- [ ] Source 25+ unit bulk USB order (SanDisk or equivalent at <$11/unit)
+- [ ] Design packaging: matte black Mylar bag, kraft insert card, zip seal outer bag
+- [ ] Build flash station: USB hub + validation script = flash 6 drives simultaneously
+- [ ] Create fulfillment SOP: flash → validate → bag → ship
+- [ ] Set up USPS Commercial Base pricing account
+
+**HARDWARE:**
+- [ ] Hardware test: Windows 10 (physical machine, not VM)
+- [ ] Hardware test: Windows 11 (physical machine, not VM)
+- [ ] Hardware test: macOS Apple Silicon (M1+)
+- [ ] Hardware test: macOS Intel
+- [ ] Verify Ollama portable binary runs without host Ollama install on all platforms
+- [ ] Performance benchmark: cold-start time, time-to-first-token on 8GB RAM laptop
+
+---
