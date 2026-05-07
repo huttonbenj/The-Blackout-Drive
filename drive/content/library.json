@@ -28,7 +28,7 @@
           "license": "Public Domain \u2014 Explicitly Dedicated",
           "preloaded": false,
           "catalog_id": "bible_translations",
-          "download_url": "https://www.gutenberg.org/files/8294/8294-0.txt"
+          "download_url": "https://www.gutenberg.org/files/8294/8294.txt"
         },
         {
           "id": "bible_asv",
@@ -40,7 +40,7 @@
           "license": "Public Domain (1901)",
           "preloaded": false,
           "catalog_id": "bible_translations",
-          "download_url": "https://www.gutenberg.org/files/34761/34761-0.txt"
+          "download_url": "https://openbible.com/textfiles/asv.txt"
         },
         {
           "id": "bible_ylt",
@@ -52,7 +52,7 @@
           "license": "Public Domain (1862)",
           "preloaded": false,
           "catalog_id": "bible_translations",
-          "download_url": "https://www.gutenberg.org/files/9548/9548-0.txt"
+          "download_url": "https://openbible.com/textfiles/ylt.txt"
         }
       ]
     },

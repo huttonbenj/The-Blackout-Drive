@@ -653,15 +653,128 @@ function closeReader() {
   } else { showCategorySelect(); }
 }
 
-// ── Generic TXT reader ───────────────────────────────────────
+// ── Universal Smart Text Reader ────────────────────────────────
+// One reader for ALL text content types. No per-pack viewer needed.
+// Strips Gutenberg boilerplate, detects chapters/sections/amendments,
+// builds interactive TOC sidebar, renders clean formatted prose.
+
+function stripGutenbergBoilerplate(raw) {
+  let text = raw.replace(/^\uFEFF/, ''); // strip BOM
+  // Strip everything before *** START OF ... ***
+  const startRx = /\*\*\* START OF TH(?:E|IS) PROJECT GUTENBERG EBOOK[^*]*\*\*\*/i;
+  const endRx   = /\*\*\* END OF TH(?:E|IS) PROJECT GUTENBERG EBOOK[^*]*\*\*\*/i;
+  const startM  = text.match(startRx);
+  if (startM) text = text.slice(startM.index + startM[0].length);
+  const endM = text.match(endRx);
+  if (endM) text = text.slice(0, text.lastIndexOf(endM[0]));
+  // Strip preamble notes block (old Gutenberg 1970s notes etc.)
+  // These tend to appear as lines of *** then text then ***
+  return text.replace(/^\s+/, '').trimEnd();
+}
+
+function detectTextSections(text) {
+  const lines = text.split('\n');
+  const sections = [];
+  const HEADING_RX = [
+    /^(CHAPTER|Chapter)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
+    /^(BOOK|Book|PART|Part)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
+    /^(ARTICLE|Article|SECTION|Section)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
+    /^(AMENDMENT|Amendment)\s+(\d+|[IVXLCDM]+)\.?(?:\s+(.+))?$/,
+    /^([IVXLCDM]{2,6})\.?\s*$/,
+  ];
+  lines.forEach((line, i) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.length > 80) return;
+    for (const rx of HEADING_RX) {
+      if (rx.test(trimmed)) {
+        sections.push({ title: trimmed, lineIndex: i });
+        break;
+      }
+    }
+  });
+  return sections;
+}
+
+function textToHtml(text, sections) {
+  const headingLineSet = new Set(sections.map(s => s.lineIndex));
+  const lines = text.split('\n');
+  const out = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    // Heading line
+    if (headingLineSet.has(i)) {
+      const secIdx = sections.findIndex(s => s.lineIndex === i);
+      out.push(`<h2 class="utxt-heading" id="utxt-sec-${secIdx}">${escapeHtml(trimmed)}</h2>`);
+      i++; continue;
+    }
+    // Divider
+    if (/^(\*\*\*|\* \* \*|[-\u2500\u2550]{4,})$/.test(trimmed)) {
+      out.push('<hr class="utxt-divider">'); i++; continue;
+    }
+    // Blank line(s) → paragraph boundary
+    if (!trimmed) {
+      i++;
+      const paraLines = [];
+      while (i < lines.length && lines[i].trim() && !headingLineSet.has(i)) {
+        paraLines.push(escapeHtml(lines[i].trim()));
+        i++;
+      }
+      if (paraLines.length) out.push(`<p class="utxt-para">${paraLines.join(' ')}</p>`);
+      continue;
+    }
+    // Normal line — group into paragraph
+    const paraLines = [escapeHtml(trimmed)];
+    i++;
+    while (i < lines.length && lines[i].trim() && !headingLineSet.has(i)) {
+      paraLines.push(escapeHtml(lines[i].trim()));
+      i++;
+    }
+    out.push(`<p class="utxt-para">${paraLines.join(' ')}</p>`);
+  }
+  return out.join('\n');
+}
+
 function renderGenericReader(item, rawText) {
-  const header = document.createElement('div');
-  header.className = 'lib-reader-header';
-  header.innerHTML = `<div class="lib-reader-title">${item.name}</div><div class="lib-search-bar"><input type="text" class="lib-search-input" id="libSearchInput" placeholder="Search in text..." onkeydown="if(event.key==='Enter')doLibSearch()"><button class="lib-search-btn" onclick="doLibSearch()">FIND</button><button class="lib-search-btn" onclick="libSearchNext()">NEXT</button><span class="lib-search-count" id="libSearchCount"></span></div>`;
-  const content = document.createElement('div');
-  content.className = 'lib-reader-content'; content.id = 'libReaderContent';
-  content.textContent = rawText;
-  libMain.innerHTML = ''; libMain.appendChild(header); libMain.appendChild(content);
+  const cleaned  = stripGutenbergBoilerplate(rawText);
+  const sections = detectTextSections(cleaned);
+  const bodyHtml = textToHtml(cleaned, sections);
+  const hasTOC   = sections.length > 1;
+
+  const tocHtml = hasTOC ? sections.map((s, idx) =>
+    `<div class="utxt-toc-item" data-sec="${idx}">${escapeHtml(s.title)}</div>`
+  ).join('') : '';
+
+  libMain.innerHTML = `
+    <div class="utxt-layout${hasTOC ? ' utxt-has-toc' : ''}">
+      ${hasTOC ? `<div class="utxt-toc-panel"><div class="utxt-toc-label">CONTENTS</div><div class="utxt-toc-list" id="utxtTocList">${tocHtml}</div></div>` : ''}
+      <div class="utxt-content-wrap">
+        <div class="lib-reader-header">
+          <div class="lib-reader-title">${escapeHtml(item.name)}</div>
+          <div class="lib-search-bar">
+            <input type="text" class="lib-search-input" id="libSearchInput" placeholder="Search in text..." onkeydown="if(event.key==='Enter')doLibSearch()">
+            <button class="lib-search-btn" onclick="doLibSearch()">FIND</button>
+            <button class="lib-search-btn" onclick="libSearchNext()">NEXT</button>
+            <span class="lib-search-count" id="libSearchCount"></span>
+          </div>
+        </div>
+        <div class="lib-reader-content utxt-body" id="libReaderContent">${bodyHtml}</div>
+      </div>
+    </div>`;
+
+  // TOC click: scroll to section
+  if (hasTOC) {
+    document.getElementById('utxtTocList').addEventListener('click', e => {
+      const item = e.target.closest('.utxt-toc-item');
+      if (!item) return;
+      const idx = item.dataset.sec;
+      const target = document.getElementById('utxt-sec-' + idx);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.utxt-toc-item').forEach(x => x.classList.remove('active'));
+      item.classList.add('active');
+    });
+  }
   libMain.scrollTop = 0;
 }
 function doLibSearch() {
@@ -1043,10 +1156,17 @@ async function showManagePanel() {
     html += `</div>`;
   });
 
-  if (uncatFiles.length) {
-    html += `<div class="manage-category"><div class="manage-cat-header"><span>📁 Other Files</span><span class="manage-cat-size"></span></div>`;
-    uncatFiles.forEach(([path, info]) => {
-      html += `<div class="manage-file-row"><span class="manage-file-name" style="font-size:11px;word-break:break-all">${path}</span><span class="manage-file-size">${fmtSize(info.size)}</span><button class="manage-del-btn" onclick="confirmDeleteFile('${path}','${path}','')">🗑</button></div>`;
+  // Only show uncategorized CONTENT files — exclude system/UI files
+  const CONTENT_DIRS = ['content/books/', 'content/zim/', 'content/maps/', 'content/audio/'];
+  const contentUncatFiles = uncatFiles.filter(([p]) =>
+    CONTENT_DIRS.some(d => p.startsWith(d))
+  );
+  if (contentUncatFiles.length) {
+    const uncatSize = contentUncatFiles.reduce((s, [, i]) => s + i.size, 0);
+    html += `<div class="manage-category"><div class="manage-cat-header"><span>\u{1F4C1} Other Content</span><span class="manage-cat-size">${fmtSize(uncatSize)}</span></div>`;
+    contentUncatFiles.forEach(([path, info]) => {
+      const fname = path.split('/').pop();
+      html += `<div class="manage-file-row"><span class="manage-file-name">${escapeHtml(fname)}</span><span class="manage-file-size">${fmtSize(info.size)}</span><button class="manage-del-btn" onclick="confirmDeleteFile('${path}','${escapeHtml(fname)}','')">\u{1F5D1}</button></div>`;
     });
     html += `</div>`;
   }

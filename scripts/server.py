@@ -194,6 +194,8 @@ class DoomsdayHandler(BaseHTTPRequestHandler):
         self.send_response(code)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
+        self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        self.send_header('Pragma', 'no-cache')
         self._cors_headers()
         self.end_headers()
         self.wfile.write(body)
@@ -239,6 +241,10 @@ class DoomsdayHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-Type', mime)
         self.send_header('Content-Length', str(size))
+        # No-cache for JS, CSS, and JSON to prevent stale UI state
+        if full.endswith(('.js', '.css', '.json')):
+            self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+            self.send_header('Pragma', 'no-cache')
         self.end_headers()
         try:
             with open(full, 'rb') as f:
