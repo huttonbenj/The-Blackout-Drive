@@ -302,7 +302,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .message {
@@ -346,17 +346,18 @@ body {
 }
 
 .message-label {
-  font-size: clamp(10px, 0.7vw, 13px);
+  font-size: clamp(9px, 0.6vw, 11px);
   letter-spacing: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  opacity: 0.5;
 }
 
 .message.user .message-label { color: var(--text-dim); }
 .message.assistant .message-label { color: var(--amber-dim); }
 
 .message-body {
-  font-size: clamp(14px, 1.05vw, 18px);
-  line-height: 1.85;
+  font-size: clamp(13px, 1vw, 17px);
+  line-height: 1.65;
   font-family: var(--font-sans);
 }
 
@@ -1226,3 +1227,268 @@ body {
 
 /* ── Hidden utility ─────────────────────────────────────────── */
 .hidden { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════
+   PRODUCTION POLISH — Audit Fixes (2026-05-07)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Library panel open animation ──────────────────────── */
+.library-panel {
+  animation: libSlideIn 0.18s ease-out;
+}
+@keyframes libSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Library category grid cards ─────────────────────────── */
+.lib-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(200px, 22vw, 280px), 1fr));
+  gap: 12px;
+  padding: 4px 0 20px;
+}
+
+.lib-cat-grid .lib-file-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(16px, 1.5vw, 22px);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  text-align: left;
+  min-height: 120px;
+  justify-content: flex-start;
+  gap: 6px;
+}
+.lib-cat-grid .lib-file-item:hover {
+  border-color: rgba(255,170,0,0.4);
+  background: rgba(255,170,0,0.04);
+  transform: translateY(-2px);
+}
+.lib-cat-grid .lib-file-item .lib-file-name {
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+.lib-cat-grid .lib-file-item .lib-file-desc {
+  font-size: clamp(11px, 0.75vw, 13px);
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+.lib-cat-grid .lib-file-item .lib-file-meta {
+  font-size: clamp(10px, 0.68vw, 12px);
+  color: var(--amber-dim);
+  margin-top: auto;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+/* ── File list items hover ───────────────────────────────── */
+.lib-file-list .lib-file-item {
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.lib-file-list .lib-file-item:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,170,0,0.25);
+}
+.lib-file-list .lib-file-item .lib-file-name {
+  font-size: clamp(12px, 0.9vw, 15px);
+}
+.lib-file-list .lib-file-item .lib-file-desc {
+  font-size: clamp(11px, 0.75vw, 13px);
+  color: var(--text-secondary);
+}
+.lib-file-list .lib-file-item .lib-file-meta {
+  font-size: clamp(10px, 0.68vw, 12px);
+  color: rgba(255,255,255,0.35);
+  margin-top: 3px;
+}
+
+/* ── Sidebar readability ─────────────────────────────────── */
+.lib-sidebar-label {
+  font-size: clamp(9px, 0.58vw, 10px) !important;
+  letter-spacing: 2.5px !important;
+  color: rgba(255,255,255,0.45) !important;
+  padding: 12px 12px 4px !important;
+}
+.lib-cat-item .lib-cat-name {
+  font-size: clamp(11px, 0.8vw, 13px);
+  letter-spacing: 0.5px;
+}
+.lib-cat-count {
+  font-size: clamp(9px, 0.58vw, 11px) !important;
+  color: var(--amber-dim) !important;
+  background: rgba(255,170,0,0.1) !important;
+  border: 1px solid rgba(255,170,0,0.15);
+  min-width: 18px;
+  text-align: center;
+}
+.lib-action-item .lib-cat-name {
+  font-size: clamp(10px, 0.75vw, 12px);
+}
+.lib-sidebar-divider {
+  height: 1px !important;
+  background: rgba(255,255,255,0.1) !important;
+  margin: 6px 8px !important;
+}
+
+/* ── Bible reader verse styles ───────────────────────────── */
+.bible-verse {
+  display: flex;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  line-height: 1.65;
+}
+.bible-verse:hover { background: rgba(255,170,0,0.04); border-radius: 3px; }
+.bible-verse-num {
+  font-size: clamp(9px, 0.6vw, 11px);
+  color: var(--amber-dim);
+  font-family: var(--font-mono);
+  min-width: 22px;
+  text-align: right;
+  padding-top: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+.bible-verse-text {
+  font-size: clamp(13px, 0.95vw, 16px);
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+.bible-verse-highlight {
+  background: rgba(255,170,0,0.15) !important;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+.bible-chapter-title {
+  font-size: clamp(11px, 0.8vw, 14px);
+  letter-spacing: 3px;
+  color: var(--amber);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,170,0,0.2);
+  font-weight: 600;
+}
+.bible-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+.bible-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 5px 10px;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 0.72vw, 12px);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.bible-select:focus { outline: none; border-color: var(--amber-dim); }
+.bible-jump-bar { display: flex; gap: 6px; align-items: center; }
+.bible-verses { display: flex; flex-direction: column; gap: 0; }
+.bible-bottom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0 4px;
+  margin-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Bible sidebar readability ───────────────────────────── */
+#libSidebar .lib-cat-item .lib-cat-name {
+  font-size: clamp(10px, 0.72vw, 13px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Manage space bar bigger ─────────────────────────────── */
+.manage-bar {
+  height: 10px !important;
+  border-radius: 5px !important;
+}
+.manage-bar-fill {
+  border-radius: 5px !important;
+}
+.manage-usage-label {
+  font-size: clamp(11px, 0.78vw, 14px) !important;
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+}
+
+/* ── Ordered list items — give a touch more breathing room ── */
+.message.assistant .message-body ol li {
+  margin: 3px 0;
+  line-height: 1.6;
+}
+
+/* ── lib cat header content ──────────────────────────────── */
+.lib-cat-header {
+  padding-bottom: 14px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.lib-cat-title {
+  font-size: clamp(13px, 1vw, 17px);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+.lib-cat-desc {
+  font-size: clamp(11px, 0.75vw, 13px);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ── Smooth scrollbar on libMain ─────────────────────────── */
+.library-main {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,170,0,0.2) transparent;
+}
+.library-main::-webkit-scrollbar { width: 5px; }
+.library-main::-webkit-scrollbar-track { background: transparent; }
+.library-main::-webkit-scrollbar-thumb { background: rgba(255,170,0,0.2); border-radius: 4px; }
+
+/* ── Sidebar scrollbar ───────────────────────────────────── */
+.library-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.library-sidebar::-webkit-scrollbar { width: 3px; }
+.library-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+/* ── File status badges (ON DRIVE / GET MORE) ────────────── */
+.lib-file-status-ok {
+  color: var(--green-bright);
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.6vw, 11px);
+  letter-spacing: 1px;
+}
+.lib-file-status-missing {
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.6vw, 11px);
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.lib-file-info { flex: 1; min-width: 0; }
+.lib-file-name { font-weight: 600; margin-bottom: 2px; }
+.lib-file-desc { color: var(--text-secondary); line-height: 1.35; margin-bottom: 3px; }
+.lib-file-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }

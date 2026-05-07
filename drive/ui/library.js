@@ -203,7 +203,8 @@ function renderSidebar() {
       el.className = 'lib-cat-item' + (libActiveCat === cat.id ? ' active' : '');
       el.dataset.catId = cat.id;
       el.onclick = () => selectCategory(cat.id);
-      el.innerHTML = `<span class="lib-cat-icon">${cat.icon}</span><span class="lib-cat-name">${cat.name}</span><span class="lib-cat-count">${cat.items.length}</span>`;
+      const totalInCat = libDevMode ? cat.items.length : (libRawCatalog.categories.find(r=>r.id===cat.id)||cat).items.filter(item=>libManifest?libManifest.has(item.file):true).length;
+      el.innerHTML = `<span class="lib-cat-icon">${cat.icon}</span><span class="lib-cat-name">${cat.name}</span><span class="lib-cat-count">${totalInCat}</span>`;
       libSidebar.appendChild(el);
     });
     // Dev mode: show all categories from raw catalog
@@ -334,32 +335,48 @@ function selectCategory(catId) {
 }
 
 function renderFileList(catId) {
-  const catalog = libDevMode ? libRawCatalog : libCatalog;
-  const cat = catalog && catalog.categories.find(c => c.id === catId);
-  if (!cat) return;
+  // Always use raw catalog so ALL items show (downloaded + not downloaded)
+  const rawCat = libRawCatalog && libRawCatalog.categories.find(c => c.id === catId);
+  if (!rawCat) return;
+  const downloadedCount = rawCat.items.filter(i => !libManifest || libManifest.has(i.file)).length;
   const list = document.createElement('div');
   list.className = 'lib-file-list';
-  cat.items.forEach(item => {
+  rawCat.items.forEach(item => {
     const inManifest = !libManifest || libManifest.has(item.file);
     const el = document.createElement('div');
-    el.className = 'lib-file-item' + (inManifest ? '' : ' lib-file-missing');
-    el.onclick = () => openItem(item);
+    el.className = 'lib-file-item';
+    if (!inManifest) el.style.opacity = '0.55';
+    el.onclick = () => inManifest ? openItem(item) : showGetMoreHint(item);
     const sizeStr = item.size_mb >= 1000 ? `${(item.size_mb/1024).toFixed(1)} GB` : `~${item.size_mb} MB`;
+    const statusBadge = inManifest
+      ? `<span class="lib-file-status-ok">✓ ON DRIVE</span>`
+      : `<span class="lib-file-status-missing">⬇ GET MORE</span>`;
     el.innerHTML = `
       <span class="lib-file-type-badge ${item.type}">${item.type.toUpperCase()}</span>
       <div class="lib-file-info">
         <div class="lib-file-name">${item.name}</div>
         <div class="lib-file-desc">${item.description}</div>
-        <div class="lib-file-meta">${sizeStr} · ${item.license}${!inManifest ? ' · <span style="color:var(--amber-dim)">not downloaded</span>' : ''}</div>
+        <div class="lib-file-meta">${sizeStr} · ${item.license} · ${statusBadge}</div>
       </div>`;
     list.appendChild(el);
   });
+  const descSuffix = downloadedCount < rawCat.items.length
+    ? ` <span style="color:var(--amber-dim);font-size:0.85em">(${downloadedCount} of ${rawCat.items.length} downloaded)</span>`
+    : '';
   libMain.innerHTML = `
     <div class="lib-cat-header">
-      <div class="lib-cat-title">${cat.icon} ${cat.name.toUpperCase()}</div>
-      <div class="lib-cat-desc">${cat.description}</div>
+      <div class="lib-cat-title">${rawCat.icon} ${rawCat.name.toUpperCase()}</div>
+      <div class="lib-cat-desc">${rawCat.description}${descSuffix}</div>
     </div>`;
   libMain.appendChild(list);
+}
+
+function showGetMoreHint(item) {
+  const hint = document.createElement('div');
+  hint.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,170,0,0.15);border:1px solid rgba(255,170,0,0.4);color:var(--amber);padding:10px 18px;border-radius:8px;font-size:13px;letter-spacing:1px;z-index:9999;pointer-events:none;';
+  hint.textContent = `"${item.name}" is not downloaded. Use ⬇ GET MORE to download it.`;
+  document.body.appendChild(hint);
+  setTimeout(() => hint.remove(), 3000);
 }
 
 // ── Open item ───────────────────────────────────────────────
