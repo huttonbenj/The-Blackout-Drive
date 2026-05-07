@@ -321,6 +321,21 @@
           "note": "Requires Kiwix reader. Download via setup script when online."
         }
       ]
+    },
+    {
+      "id": "ham-radio",
+      "name": "Ham Radio & Comms",
+      "icon": "\ud83d\udcfb",
+      "items": [
+        {
+          "id": "ham-radio-tools-interactive",
+          "name": "Interactive Reference Tools",
+          "type": "ham-radio-tools",
+          "file": "",
+          "desc": "NATO phonetic alphabet, Morse code trainer with audio, frequency chart, and quiz mode",
+          "always_available": true
+        }
+      ]
     }
   ]
 }

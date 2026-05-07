@@ -177,10 +177,12 @@ function hideWarning() {
   if (warningBanner) warningBanner.style.display = 'none';
 }
 
-async function maintainConnection() {
-  // Show overlay once at startup — it has a built-in timeout (12s)
-  showConnectingOverlay();
-  setStatus('');
+async function maintainConnection(showOverlay = true) {
+  // Show overlay only if we didn't already connect in the fast-path check
+  if (showOverlay) {
+    showConnectingOverlay();
+    setStatus('');
+  }
 
   // Poll interval for connection checks
   const POLL_INTERVAL = 2000;
@@ -220,10 +222,15 @@ function renderMessage(role, content, streaming = false) {
   const avatar  = role === 'user' ? '👤' : '📡';
   const label   = role === 'user' ? 'YOU' : (window.BLACKOUT_CONFIG?.aiName || 'BEACON');
 
+  // TTS button for BEACON messages (only when speechSynthesis is available)
+  const ttsBtn = (role === 'assistant' && window.speechSynthesis)
+    ? `<button class="tts-btn" title="Read aloud" onclick="toggleTTS(this)">🔊 <span class="tts-label">LISTEN</span></button>`
+    : '';
+
   msgEl.innerHTML = `
     <div class="message-avatar">${avatar}</div>
     <div class="message-content">
-      <div class="message-label">${label}</div>
+      <div class="message-label">${label}${ttsBtn}</div>
       <div class="message-body">${
         streaming
           ? '<span class="typing-indicator"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>'
@@ -235,6 +242,59 @@ function renderMessage(role, content, streaming = false) {
   messagesEl.appendChild(msgEl);
   scrollToBottom();
   return msgEl;
+}
+
+// ── Text-to-Speech (Web Speech API) ──────────────────────
+let _ttsCurrentBtn = null;
+
+function toggleTTS(btn) {
+  const msgEl = btn.closest('.message');
+  const body = msgEl.querySelector('.message-body');
+  if (!body) return;
+
+  // Get plain text from rendered HTML
+  const text = body.innerText || body.textContent || '';
+  if (!text.trim()) return;
+
+  // If already speaking this message, stop it
+  if (_ttsCurrentBtn === btn && window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    _resetTTSBtn(btn);
+    _ttsCurrentBtn = null;
+    return;
+  }
+
+  // Stop any current speech
+  window.speechSynthesis.cancel();
+  if (_ttsCurrentBtn) _resetTTSBtn(_ttsCurrentBtn);
+
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 0.95;
+  utter.pitch = 0.9;
+  utter.volume = 1;
+
+  // Prefer a natural voice if available
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = voices.find(v => v.name.includes('Samantha') || v.name.includes('Daniel') || v.name.includes('Alex'))
+    || voices.find(v => v.lang.startsWith('en') && !v.name.includes('Google'))
+    || voices[0];
+  if (preferred) utter.voice = preferred;
+
+  utter.onstart = () => {
+    _ttsCurrentBtn = btn;
+    btn.innerHTML = '⏸ <span class="tts-label">STOP</span>';
+    btn.classList.add('tts-active');
+  };
+  utter.onend = utter.onerror = () => {
+    _resetTTSBtn(btn);
+    if (_ttsCurrentBtn === btn) _ttsCurrentBtn = null;
+  };
+
+  window.speechSynthesis.speak(utter);
+}
+
+function _resetTTSBtn(btn) {
+  if (btn) { btn.innerHTML = '🔊 <span class="tts-label">LISTEN</span>'; btn.classList.remove('tts-active'); }
 }
 
 function updateMessageContent(msgEl, content) {
@@ -619,6 +679,26 @@ clearBtn.addEventListener('click', clearConversation);
   // Initialize voice input (shows mic button if browser supports it)
   initVoiceInput();
 
-  // Start connection loop — overlay has built-in 12s timeout
-  maintainConnection();
+  // ── SMART CONNECTION STARTUP ──────────────────────────────
+  // Fast-path: check if Ollama is ALREADY running.
+  // If it responds within 600ms, we know it's up — skip the overlay entirely.
+  // This eliminates the "flicker overlay" when Ollama is already running.
+  const fastCheck = await Promise.race([
+    checkConnection(),
+    sleep(600).then(() => false)
+  ]);
+
+  if (fastCheck) {
+    // Ollama was already running — go straight to READY, no overlay
+    isConnected = true;
+    setStatus('online');
+    // Load library context for RAG in background
+    fetch(`http://localhost:${CONFIG.uiPort}/api/library-context`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.context) libContextStr = d.context; })
+      .catch(() => {});
+  }
+  // Whether or not fast-check passed, start the monitor loop
+  // (handles disconnects mid-session and reconnects when launcher starts)
+  maintainConnection(!fastCheck); // pass skipOverlay=true if already connected
 })();

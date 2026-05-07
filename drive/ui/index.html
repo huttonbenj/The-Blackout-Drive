@@ -14,22 +14,59 @@
     3. app.js calls _restoreLibState() which loads content, then
        removes data-restore attribute (smoothly reveals final state).
   -->
-  <script>!function(){
-    try{
-      var s=JSON.parse(sessionStorage.getItem('dd_lib')||'null');
-      if(s&&s.open){document.documentElement.setAttribute('data-restore','lib');}
-    }catch(e){}
-  }();</script>
+  <script>
+  // ── ANTI-FLICKER: runs synchronously before first paint ──────────
+  // Strategy: keep body ALWAYS visible. Instead of hiding body, we
+  // pre-render skeleton placeholders and replace with real content.
+  // This eliminates ALL opacity flicker on reload.
+  (function(){
+    try {
+      var s = JSON.parse(sessionStorage.getItem('dd_lib') || 'null');
+      if (s && s.open) {
+        document.documentElement.setAttribute('data-restore', 'lib');
+      }
+      // Cache last-known category list in localStorage for instant sidebar
+      var cachedCats = JSON.parse(localStorage.getItem('dd_cats') || 'null');
+      if (cachedCats) {
+        document.documentElement.setAttribute('data-cats', JSON.stringify(cachedCats));
+      }
+    } catch(e) {}
+  })();
+  </script>
   <style>
-    /* Layer 2: If library was open, show it BEFORE any JS runs */
-    html[data-restore="lib"] #libraryPanel{display:flex!important;}
-    /* Hide chat UI so library transition is seamless */
+    /* Library shows instantly if it was open — flex before any JS */
+    html[data-restore="lib"] #libraryPanel { display:flex !important; }
+    /* Chat hidden while library is restoring */
     html[data-restore="lib"] .chat-container,
     html[data-restore="lib"] .input-area,
     html[data-restore="lib"] .offline-bar,
-    html[data-restore="lib"] .app-header .icon-btn#clearBtn{visibility:hidden;}
-    /* Body fade-in — only used when NOT restoring lib (chat page) */
-    body{transition:opacity 0.15s ease;}
+    html[data-restore="lib"] .app-header .icon-btn#clearBtn { visibility:hidden; }
+    /* NO opacity:0 on body — skeleton loaders handle perceived flash instead */
+    body { opacity:1; }
+    /* Skeleton pulse animation for instant perceived render */
+    @keyframes skeleton-pulse {
+      0%,100% { opacity:0.4; }
+      50% { opacity:0.7; }
+    }
+    .skeleton {
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+    /* Pre-render library skeleton sidebar while catalog loads */
+    html[data-restore="lib"] #libSidebar::before {
+      content: '';
+      display: block;
+      height: 12px;
+      width: 60%;
+      margin: 16px 12px 12px;
+      border-radius: 3px;
+      background: rgba(200,160,74,0.15);
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+    html[data-restore="lib"] #libMain {
+      background: transparent;
+    }
   </style>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -176,6 +213,7 @@
   <script src="config.js"></script>
   <script src="api.js"></script>
   <script src="library.js"></script>
+  <script src="ham-radio.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

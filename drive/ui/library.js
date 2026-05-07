@@ -234,7 +234,12 @@ function applyManifestFilter() {
       ...libRawCatalog,
       categories: libRawCatalog.categories.map(cat => ({
         ...cat,
-        items: cat.items.filter(item => libManifest.has(item.file))
+        // Include item if: file is in manifest OR item is always_available (tools/interactive)
+        items: cat.items.filter(item =>
+          item.always_available ||
+          (!item.file && item.type === 'ham-radio-tools') ||
+          libManifest.has(item.file)
+        )
       })).filter(cat => cat.items.length > 0)
     };
   } else {
@@ -414,12 +419,12 @@ function renderFileList(catId) {
   // Use raw catalog so ALL items show (downloaded + not downloaded)
   const rawCat = libRawCatalog && libRawCatalog.categories.find(c => c.id === catId);
   if (!rawCat) return;
-  const downloadedCount = rawCat.items.filter(i => !libManifest || libManifest.has(i.file)).length;
+  const downloadedCount = rawCat.items.filter(i => i.always_available || !libManifest || libManifest.has(i.file)).length;
   const list = document.createElement('div');
   list.className = 'lib-file-list';
 
   rawCat.items.forEach(item => {
-    const inManifest = !libManifest || libManifest.has(item.file);
+    const inManifest = item.always_available || !libManifest || libManifest.has(item.file);
     const hasDirectUrl = !!(item.download_url) && item.type !== 'zim';
     const isZim = item.type === 'zim';
 
@@ -571,6 +576,19 @@ async function openItem(item) {
       <div class="lib-zim-desc">Opened in your system PDF viewer.<br>It may take a moment to appear.</div>
       <button class="lib-search-btn" style="margin-top:16px" onclick="DDAPI.openFile('${item.file}')">Open Again</button>
     </div>`;
+    return;
+  }
+  if (item.type === 'ham-radio-tools') {
+    libMode = 'reader'; updateLibHeader();
+    if (typeof window.renderHamRadioTools === 'function') {
+      libMain.innerHTML = '';
+      const wrapper = document.createElement('div');
+      wrapper.className = 'generic-reader ham-radio-wrapper';
+      libMain.appendChild(wrapper);
+      window.renderHamRadioTools(wrapper);
+    } else {
+      libMain.innerHTML = '<div class="lib-missing-panel"><div class="lib-missing-title">⚠ Ham Radio Tools Not Loaded</div></div>';
+    }
     return;
   }
   if (item.type === 'zim') { libMode = 'reader'; updateLibHeader(); showZimPanel(item); return; }
