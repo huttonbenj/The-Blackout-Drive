@@ -40,6 +40,9 @@ import urllib.request
 import urllib.parse
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+# Register EPUB MIME type (not always in default mimetypes DB)
+mimetypes.add_type('application/epub+zip', '.epub')
+
 # ── Configuration ─────────────────────────────────────────────────────────────
 
 DEFAULT_PORT = 8080

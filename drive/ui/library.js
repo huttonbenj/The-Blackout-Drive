@@ -374,6 +374,26 @@ function showCategorySelect() {
     ? `<div class="lib-dev-badge">⚥ DEV MODE — run <code>bash scripts/setup_drive.sh</code> then <code>bash scripts/build_manifest.sh</code></div>`
     : '';
 
+  // ── Empty library state ──────────────────────────────────
+  if (cats.length === 0 && !libDevMode) {
+    const isOnline = DDAPI.isOnline();
+    libMain.innerHTML = `
+      <div class="lib-empty-state">
+        <div class="lib-empty-icon">📚</div>
+        <div class="lib-empty-title">NO CONTENT ON THIS DRIVE</div>
+        <div class="lib-empty-desc">
+          ${isOnline
+            ? 'Use <strong>⬇ GET MORE</strong> in the sidebar to browse and download content packs — Bible translations, survival manuals, medical references, and more.'
+            : 'Connect to the internet to download content packs to your drive. Once downloaded, content is available offline forever.'}
+        </div>
+        ${isOnline
+          ? `<button class="lib-empty-cta" onclick="showGetMorePanel()">⬇ BROWSE AVAILABLE CONTENT</button>`
+          : `<div class="lib-empty-offline-hint">📡 No internet connection detected</div>`}
+      </div>`;
+    return;
+  }
+
+  // ── Normal category grid ─────────────────────────────────
   const grid = document.createElement('div');
   grid.className = 'lib-cat-grid';
   cats.forEach(cat => {
@@ -395,7 +415,7 @@ function showCategorySelect() {
   libMain.innerHTML = `
     <div class="lib-cat-header">
       <div class="lib-cat-title">OFFLINE LIBRARY</div>
-      <div class="lib-cat-desc">Browse your downloaded content. Get more from the ↓ GET MORE panel.</div>
+      <div class="lib-cat-desc">Browse your downloaded content.${DDAPI.isOnline() ? ' Get more from the ⬇ GET MORE panel.' : ''}</div>
       ${devBadge}
     </div>`;
   libMain.appendChild(grid);
@@ -450,8 +470,8 @@ function renderFileList(catId) {
       </div>`;
 
     // Download button: corner icon positioned top-right on the card.
-    // Small, unobtrusive — cards stay uniform height.
-    if (!inManifest && hasDirectUrl) {
+    // Only show when online AND item has a download URL.
+    if (!inManifest && hasDirectUrl && DDAPI.isOnline()) {
       const btn = document.createElement('button');
       btn.className = 'lib-dl-corner-btn';
       btn.title = 'Download to drive';
@@ -461,7 +481,19 @@ function renderFileList(catId) {
         e.stopPropagation();
         downloadLibItem(item, el, btn);
       });
-      el.appendChild(btn); // append to card, not lib-file-info
+      el.appendChild(btn);
+    } else if (!inManifest && hasDirectUrl && !DDAPI.isOnline()) {
+      // Offline: show disabled indicator
+      const badge = document.createElement('div');
+      badge.className = 'lib-file-note';
+      badge.textContent = 'Connect to internet to download';
+      el.querySelector('.lib-file-info').appendChild(badge);
+    } else if (!inManifest && !hasDirectUrl && item.note) {
+      // No direct URL but has a note (e.g., Hesperian medical PDFs)
+      const note = document.createElement('div');
+      note.className = 'lib-file-note';
+      note.textContent = item.note;
+      el.querySelector('.lib-file-info').appendChild(note);
     } else if (!inManifest && isZim) {
       const note = document.createElement('div');
       note.className = 'lib-file-note';
@@ -561,16 +593,24 @@ async function openItem(item) {
   if (item.type === 'pdf') {
     libMode = 'reader';
     updateLibHeader();
-    libMain.innerHTML = '<div class="lib-loading"><span>Opening PDF...</span></div>';
-    try {
-      const res = await fetch(`/api/open-file?path=${encodeURIComponent(item.file)}`);
-      if (!res.ok) { showMissingPanel(item); return; }
-    } catch { showMissingPanel(item); return; }
-    libMain.innerHTML = `<div class="lib-zim-panel">
-      <div style="font-size:48px;margin-bottom:16px">📄</div>
-      <div class="lib-zim-title">${item.name.toUpperCase()}</div>
-      <div class="lib-zim-desc">Opened in your system PDF viewer.<br>It may take a moment to appear.</div>
-      <button class="lib-search-btn" style="margin-top:16px" onclick="DDAPI.openFile('${item.file}')">Open Again</button>
+    // Check if file exists on drive
+    const isInstalled = libManifest && libManifest.has(item.file);
+    if (!isInstalled) {
+      showMissingPanel(item);
+      return;
+    }
+    const pdfUrl = '/' + item.file;
+    libMain.innerHTML = `<div class="utxt-layout">
+      <div class="utxt-content-wrap" style="padding:0;height:100%">
+        <div class="lib-reader-header" style="padding:12px 16px">
+          <div class="lib-reader-title">${escapeHtml(item.name)}</div>
+          <div style="display:flex;gap:8px">
+            <a href="${pdfUrl}" target="_blank" class="lib-search-btn" style="text-decoration:none">Open in New Tab ↗</a>
+            <a href="${pdfUrl}" download class="lib-search-btn" style="text-decoration:none">⬇ Download</a>
+          </div>
+        </div>
+        <iframe src="${pdfUrl}" style="width:100%;height:calc(100% - 56px);border:none;background:#2a2a2a"></iframe>
+      </div>
     </div>`;
     return;
   }
@@ -590,6 +630,15 @@ async function openItem(item) {
     } catch { showMissingPanel(item); }
     return;
   }
+  // ── EPUB files (epub.js renderer) ──
+  if (item.type === 'epub') {
+    libMode = 'reader';
+    updateLibHeader();
+    libMain.innerHTML = '<div class="lib-loading"><span>Loading book...</span></div>';
+    renderEpubReader(item);
+    return;
+  }
+  // ── Plain text fallback (legacy .txt files that aren't Bible) ──
   libMode = 'reader';
   updateLibHeader();
   libMain.innerHTML = '<div class="lib-loading"><span>Loading...</span></div>';
@@ -647,11 +696,29 @@ function parseBibleText(raw) {
     }
   } else {
     // KJV / WEB format: "1:1 text" or "001:001 text"
+    // Verses can wrap across multiple lines. Pre-join continuation lines
+    // before parsing so we capture full verse text.
     const marker = '*** START OF THE PROJECT GUTENBERG EBOOK';
-    const text = strip.indexOf(marker) >= 0 ? strip.slice(strip.indexOf(marker)) : strip;
+    const rawText = strip.indexOf(marker) >= 0 ? strip.slice(strip.indexOf(marker)) : strip;
+    const rawLines = rawText.split('\n');
+
+    // Pre-join: merge continuation lines (non-verse, non-blank) into preceding verse line
+    const joined = [];
+    for (const rawLine of rawLines) {
+      const trimmed = rawLine.replace(/\r$/, '').trimEnd();
+      if (CHVERSE_RX.test(trimmed)) {
+        joined.push(trimmed);
+      } else if (trimmed.length > 0 && joined.length > 0 && CHVERSE_RX.test(joined[joined.length - 1])) {
+        // Continuation line — append to the previous verse line
+        joined[joined.length - 1] += ' ' + trimmed.trim();
+      } else {
+        joined.push(trimmed);
+      }
+    }
+
     let bookIdx = -1, curCh = 0;
-    for (const rawLine of text.split('\n')) {
-      const m = rawLine.trim().match(CHVERSE_RX);
+    for (const line of joined) {
+      const m = line.match(CHVERSE_RX);
       if (!m) continue;
       const ch = parseInt(m[1]), vs = parseInt(m[2]), verseText = m[3].trim();
       if (ch === 1 && vs === 1) { bookIdx++; if (bookIdx >= BIBLE_BOOK_NAMES.length) break; curCh = 1; books[bookIdx].chapters[1] = []; }
@@ -771,6 +838,7 @@ function closeReader() {
 
 function stripGutenbergBoilerplate(raw) {
   let text = raw.replace(/^\uFEFF/, ''); // strip BOM
+  text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n'); // normalize line endings
 
   // Strip everything before *** START OF ... ***
   const startRx = /\*\*\* START OF TH(?:E|IS) PROJECT GUTENBERG EBOOK[^*]*\*\*\*/i;
@@ -780,22 +848,37 @@ function stripGutenbergBoilerplate(raw) {
   const endM = text.match(endRx);
   if (endM) text = text.slice(0, text.lastIndexOf(endM[0]));
 
-  // Strip old Gutenberg preamble note blocks that appear right after START marker.
-  // Pattern: a *** divider followed by a note block then another *** divider.
-  // These are NOT content — they are archival/production notes.
-  // Repeat up to 3 times to clear multiple note blocks.
-  const preambleBlock = /^[\s\S]*?\*{3}[\s\S]+?\*{3}\s*\n/;
+  // Strip old Gutenberg preamble note blocks (*** ... ***)
   for (let i = 0; i < 3; i++) {
     const trimmed = text.replace(/^\s+/, '');
-    // If the file starts with a *** line (after stripping whitespace), it's a note block
     if (/^\*{3}[^\n]*\n/.test(trimmed)) {
-      // Find the closing *** and strip past it
       const closeIdx = trimmed.indexOf('\n***', 3);
-      if (closeIdx > 0) {
-        text = trimmed.slice(closeIdx + 4); // past \n***
-      } else break;
+      if (closeIdx > 0) { text = trimmed.slice(closeIdx + 4); }
+      else break;
     } else break;
   }
+
+  // Strip "Produced by" / "Transcribed by" attribution (first few lines)
+  text = text.replace(/^\s+/, '');
+  const prodRx = /^(Produced|Transcribed|Prepared|Updated) by[^\n]*(?:\n(?!\n)[^\n]*)*/i;
+  text = text.replace(prodRx, '').replace(/^\s+/, '');
+
+  // Strip [Transcriber's Note: ...] blocks at the beginning
+  while (/^\[Transcriber/.test(text)) {
+    const endBracket = text.indexOf(']');
+    if (endBracket > 0) { text = text.slice(endBracket + 1).replace(/^\s+/, ''); }
+    else break;
+  }
+
+  // Strip [Illustration: ...] markers at the very beginning (before real content)
+  while (/^\[Illustration/.test(text)) {
+    const endBracket = text.indexOf(']');
+    if (endBracket > 0) { text = text.slice(endBracket + 1).replace(/^\s+/, ''); }
+    else break;
+  }
+
+  // Collapse 4+ consecutive blank lines to 2
+  text = text.replace(/\n{4,}/g, '\n\n\n');
 
   return text.replace(/^\s+/, '').trimEnd();
 }
@@ -818,21 +901,23 @@ function detectTextSections(text) {
     /^(BOOK|Book|PART|Part)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
     /^(ARTICLE|Article|SECTION|Section)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
     /^(AMENDMENT|Amendment)\s+(\d+|[IVXLCDM]+)\.?(?:[:\s]+(.+))?$/,
-    /^([IVXLCDM]{2,6})\.?\s*$/,
+    /^([IVXLCDM]{1,6})\.?\s*$/,
+    /^PLATE\s+\d+\.?$/i,
   ];
 
   lines.forEach((line, i) => {
     const trimmed = line.trim();
     if (!trimmed || trimmed.length > 100) return;
 
-    // A line is a candidate heading if it is not indented (col 0 or only spaces, not tab-indent)
+    // Skip lines that look like a printed TOC entry (heading + trailing page number)
+    // e.g., "Chapter I.--City Experiences...  9" or "CHAPTER II 6"
+    if (/\s{2,}\d{1,4}\s*$/.test(trimmed)) return;
+
     const isAtCol0 = line.length === 0 || line[0] !== ' ' || line.startsWith(trimmed);
-    // Also: line must be surrounded by blank-ish context (not mid-paragraph)
     const prevBlank = i === 0 || !lines[i - 1].trim();
     const nextBlank = i === lines.length - 1 || !lines[i + 1].trim();
     const isIsolated = prevBlank || nextBlank;
 
-    // Must be at col 0 OR isolated to count as a structural heading
     if (!isAtCol0 && !isIsolated) return;
 
     for (const rx of HEADING_RX) {
@@ -843,33 +928,29 @@ function detectTextSections(text) {
     }
   });
 
-  // Deduplicate: if two entries share the same canonical form (same structural
-  // keyword + number), keep only the LAST one (body occurrence beats contents block)
+  // Deduplicate: canonical form ignores case, punctuation, trailing subtitle
   const canonical = (t) => t.toLowerCase()
-    .replace(/[.:\s]+/g, ' ')
-    .replace(/\bthe\b/g, '')
+    .replace(/[.:\-–—]+/g, ' ')  // strip punctuation
+    .replace(/\s+/g, ' ')        // collapse whitespace
+    .replace(/\bthe\b/g, '')     // strip articles
     .trim()
-    .slice(0, 30);
+    .split(' ').slice(0, 3).join(' '); // first 3 words only for matching
 
-  const seen = new Map(); // canonical → index in sections[]
+  const seen = new Map();
   sections.forEach((s, idx) => {
     const key = canonical(s.title);
     if (seen.has(key)) {
-      // Keep the later one (actual body text) — remove the earlier (contents index)
-      sections[seen.get(key)] = null; // mark for removal
+      sections[seen.get(key)] = null;
     }
     seen.set(key, idx);
   });
 
-  const deduped = sections.filter(Boolean);
-
-  return deduped;
+  return sections.filter(Boolean);
 }
 
 function textToHtml(text, sections) {
   const headingLineSet = new Set(sections.map(s => s.lineIndex));
   const DIVIDER_RX = /^(\*\*\*|\* \* \*|[-\u2500\u2550]{4,}|={4,})$/;
-  const isSpecial = (ln) => DIVIDER_RX.test(ln.trim()) || headingLineSet.has(-1); // placeholder
   const lines = text.split('\n');
   const out = [];
   let i = 0;
@@ -877,6 +958,21 @@ function textToHtml(text, sections) {
   // Helper: is this line a structural break (heading or divider)?
   const isBreak = (idx) =>
     headingLineSet.has(idx) || DIVIDER_RX.test(lines[idx]?.trim() || '');
+
+  // Helper: is this line genuinely tabular? (has tab chars or right-aligned prices/numbers)
+  const isTabular = (line) => /\t/.test(line) ||
+    (/\$\s*\d/.test(line) && /^\s{4,}/.test(line)) ||
+    (/\s{3,}\d+\.\d{2}\s*$/.test(line));
+
+  // Helper: convert Gutenberg inline markup to HTML
+  const formatInline = (html) => {
+    // _text_ → <em>text</em> (but not __text__ or mid-word underscores)
+    html = html.replace(/(?:^|(?<=\s))_([^_]+?)_(?=\s|[.,;:!?]|$)/g, '<em>$1</em>');
+    // [Illustration: desc] → styled placeholder
+    html = html.replace(/\[Illustration(?::([^\]]*))?\]/gi, (m, desc) =>
+      `<span class="utxt-illus">[Illustration${desc ? ': ' + desc.trim() : ''}]</span>`);
+    return html;
+  };
 
   while (i < lines.length) {
     const line  = lines[i];
@@ -894,20 +990,40 @@ function textToHtml(text, sections) {
       out.push('<hr class="utxt-divider">'); i++; continue;
     }
 
-    // Skip blank lines silently (paragraph breaks happen naturally)
+    // Skip blank lines
     if (!trimmed) { i++; continue; }
 
-    // Normal text line — collect contiguous non-blank, non-special lines into one <p>
-    const paraLines = [escapeHtml(trimmed)];
+    // Tabular block: lines with tabs or right-aligned dollar amounts
+    if (isTabular(line)) {
+      const preLines = [];
+      while (i < lines.length) {
+        if (isBreak(i)) break;
+        const cur = lines[i];
+        if (isTabular(cur) || (/^\s{4,}/.test(cur) && cur.trim())) {
+          preLines.push(escapeHtml(cur));
+          i++;
+        } else if (!cur.trim() && i + 1 < lines.length && isTabular(lines[i + 1])) {
+          preLines.push('');
+          i++;
+        } else break;
+      }
+      out.push(`<pre class="utxt-pre">${preLines.join('\n')}</pre>`);
+      continue;
+    }
+
+    // Normal text — join contiguous non-blank lines into a paragraph
+    const paraLines = [trimmed];
     i++;
     while (i < lines.length) {
       const t = lines[i].trim();
-      if (!t) break;              // blank line = paragraph break
-      if (isBreak(i)) break;     // heading or divider = break
-      paraLines.push(escapeHtml(t));
+      if (!t) break;
+      if (isBreak(i)) break;
+      if (isTabular(lines[i])) break;
+      paraLines.push(t);
       i++;
     }
-    out.push(`<p class="utxt-para">${paraLines.join(' ')}</p>`);
+    const joined = paraLines.join(' ');
+    out.push(`<p class="utxt-para">${formatInline(escapeHtml(joined))}</p>`);
   }
   return out.join('\n');
 }
@@ -951,6 +1067,190 @@ function renderGenericReader(item, rawText) {
       item.classList.add('active');
     });
   }
+}
+
+// ── EPUB Reader (epub.js) ────────────────────────────────────
+// Uses epub.js + JSZip to render EPUB files with:
+//   - Scrolled continuous view (not paginated)
+//   - Dark theme via CSS injection
+//   - TOC from EPUB metadata
+//   - Search support
+let _currentEpubBook = null;
+let _currentEpubRendition = null;
+
+function renderEpubReader(item) {
+  // Clean up previous epub instance
+  if (_currentEpubBook) {
+    try { _currentEpubBook.destroy(); } catch(e) {}
+    _currentEpubBook = null;
+    _currentEpubRendition = null;
+  }
+
+  const fileUrl = '/' + item.file;
+
+  libMain.innerHTML = `
+    <div class="utxt-layout utxt-has-toc">
+      <div class="utxt-toc-panel">
+        <div class="utxt-toc-label">CONTENTS</div>
+        <div class="utxt-toc-list" id="epubTocList">
+          <div class="utxt-toc-item" style="opacity:0.5">Loading...</div>
+        </div>
+      </div>
+      <div class="utxt-content-wrap">
+        <div class="lib-reader-header">
+          <div class="lib-reader-title">${escapeHtml(item.name)}</div>
+          <div class="epub-controls">
+            <button class="lib-search-btn" onclick="epubFontSize(-1)" title="Decrease font">A−</button>
+            <button class="lib-search-btn" onclick="epubFontSize(1)" title="Increase font">A+</button>
+          </div>
+        </div>
+        <div id="epubViewerArea" class="epub-viewer-area"></div>
+      </div>
+    </div>`;
+
+  try {
+    const book = ePub(fileUrl);
+    _currentEpubBook = book;
+
+    const viewerEl = document.getElementById('epubViewerArea');
+    const rendition = book.renderTo(viewerEl, {
+      method: 'continuous',
+      flow: 'scrolled-doc',
+      width: '100%',
+      height: '100%',
+      allowScriptedContent: false
+    });
+    _currentEpubRendition = rendition;
+
+    // Inject dark theme CSS into each EPUB section
+    rendition.themes.default({
+      'html': {
+        'color': '#d4c9a8 !important',
+        'background': 'transparent !important',
+        'font-family': 'Georgia, "Times New Roman", serif !important',
+        'line-height': '1.7 !important'
+      },
+      'body': {
+        'color': '#d4c9a8 !important',
+        'background': 'transparent !important',
+        'padding': '0 12px !important',
+        'max-width': '100% !important'
+      },
+      'p': {
+        'color': '#d4c9a8 !important',
+        'text-align': 'justify !important'
+      },
+      'h1, h2, h3, h4, h5, h6': {
+        'color': '#c8a84e !important'
+      },
+      'a': {
+        'color': '#c8a84e !important'
+      },
+      'pre, code': {
+        'color': '#d4c9a8 !important',
+        'background': 'rgba(0,0,0,0.3) !important'
+      },
+      'table': {
+        'color': '#d4c9a8 !important',
+        'border-color': 'rgba(200,168,78,0.3) !important'
+      },
+      'td, th': {
+        'border-color': 'rgba(200,168,78,0.3) !important',
+        'color': '#d4c9a8 !important'
+      },
+      'img': {
+        'max-width': '100% !important',
+        'opacity': '0.85 !important'
+      }
+    });
+
+    // Set initial font size
+    rendition.themes.fontSize('105%');
+
+    // Hook: clean up Gutenberg boilerplate in rendered sections
+    rendition.hooks.content.register((contents) => {
+      const doc = contents.document;
+      if (!doc) return;
+
+      // Hide Gutenberg boilerplate paragraphs
+      const allText = doc.querySelectorAll('p, div, pre, section');
+      allText.forEach(el => {
+        const txt = el.textContent || '';
+        if (/\*\*\*\s*(START|END)\s+OF\s+(THE\s+)?PROJECT\s+GUTENBERG/i.test(txt) ||
+            /Produced\s+by\s+/i.test(txt) && txt.length < 300 ||
+            /^\s*\*\*\*\s*$/m.test(txt)) {
+          el.style.display = 'none';
+        }
+      });
+
+      // Cap cover images so they don't dominate
+      const imgs = doc.querySelectorAll('img');
+      imgs.forEach(img => {
+        img.style.maxHeight = '70vh';
+        img.style.width = 'auto';
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+      });
+    });
+
+    // Display the book
+    rendition.display();
+
+    // Load table of contents from EPUB metadata
+    book.loaded.navigation.then(nav => {
+      const tocList = document.getElementById('epubTocList');
+      if (!tocList) return;
+
+      if (!nav.toc || nav.toc.length === 0) {
+        tocList.innerHTML = '<div class="utxt-toc-item" style="opacity:0.5">No chapters found</div>';
+        return;
+      }
+
+      // Filter out Gutenberg boilerplate entries from TOC
+      const GUTENBERG_TOC_SKIP = /project\s+gutenberg|gutenberg\s+license|transcriber|pg\d+/i;
+
+      function buildTocHtml(items, depth = 0) {
+        return items.filter(item => {
+          const label = (item.label || '').trim();
+          return label && !GUTENBERG_TOC_SKIP.test(label);
+        }).map(item => {
+          const indent = depth * 12;
+          const label = item.label.trim();
+          let html = `<div class="utxt-toc-item" data-href="${item.href}" style="padding-left:${8 + indent}px">${escapeHtml(label)}</div>`;
+          if (item.subitems && item.subitems.length > 0) {
+            html += buildTocHtml(item.subitems, depth + 1);
+          }
+          return html;
+        }).join('');
+      }
+
+      tocList.innerHTML = buildTocHtml(nav.toc);
+
+      tocList.addEventListener('click', e => {
+        const tocItem = e.target.closest('.utxt-toc-item');
+        if (!tocItem || !tocItem.dataset.href) return;
+        rendition.display(tocItem.dataset.href);
+        tocList.querySelectorAll('.utxt-toc-item').forEach(x => x.classList.remove('active'));
+        tocItem.classList.add('active');
+      });
+    });
+
+  } catch (err) {
+    console.error('EPUB render error:', err);
+    libMain.innerHTML = `<div class="lib-zim-panel">
+      <div style="font-size:40px">⚠️</div>
+      <div class="lib-zim-title">Error Loading Book</div>
+      <div class="lib-zim-desc">Could not render this EPUB file.<br>Error: ${escapeHtml(String(err.message || err))}</div>
+    </div>`;
+  }
+}
+
+// Font size controls for EPUB reader
+let _epubFontPct = 105;
+function epubFontSize(delta) {
+  if (!_currentEpubRendition) return;
+  _epubFontPct = Math.max(80, Math.min(200, _epubFontPct + delta * 10));
+  _currentEpubRendition.themes.fontSize(_epubFontPct + '%');
 }
 // P0-1 FIX: Cache original reader HTML to prevent search from destroying content.
 let _readerOriginalHtml = null;
@@ -1148,8 +1448,8 @@ async function showGetMorePanel() {
   packList.id = 'getmoreList';
 
   remoteCatalog.packs.forEach(pack => {
-    const allInstalled = pack.files.every(f => installed.has(f.dest));
-    const someInstalled = pack.files.some(f => installed.has(f.dest));
+    const allInstalled = pack.files.every(f => installed.has(f.dest) || (f.preloaded && !f.url));
+    const someInstalled = pack.files.some(f => installed.has(f.dest) || (f.preloaded && !f.url));
     const isPaid = (pack.price || 0) > 0;
     const hasLicense = isPaid && licenseExists(pack.id);
     const isLocked = isPaid && !hasLicense && !allInstalled;
@@ -1167,7 +1467,7 @@ async function showGetMorePanel() {
         <span class="pack-file-size">~${f.size_mb} MB</span>
         ${fileInstalled
           ? `<span class="pack-file-done">✓</span>`
-          : (!isLocked ? `<button class="pack-file-dl-btn" onclick="downloadPackFile(${JSON.stringify(pack).replace(/"/g,'&quot;')}, ${JSON.stringify(f).replace(/"/g,'&quot;')})" title="Download this file only">⬇</button>` : `<span class="pack-file-locked">🔒</span>`)}
+          : (f.url && !isLocked ? `<button class="pack-file-dl-btn" onclick="downloadPackFile(${JSON.stringify(pack).replace(/"/g,'&quot;')}, ${JSON.stringify(f).replace(/"/g,'&quot;')})" title="Download this file only">⬇</button>` : (!f.url ? `<span class="pack-file-size" style="opacity:0.5">preloaded</span>` : `<span class="pack-file-locked">🔒</span>`))}
       </div>`;
     }).join('');
 
@@ -1293,8 +1593,8 @@ async function startPackDownload(pack) {
   if (progressBar) progressBar.style.display = 'block';
   if (statusEl) statusEl.textContent = 'Starting download...';
 
-  // Resume support: skip files already fully present in manifest
-  const filesToDownload = pack.files.filter(f => !installed.has(f.dest));
+  // Resume support: skip files already present in manifest AND files without URLs (preloaded)
+  const filesToDownload = pack.files.filter(f => !installed.has(f.dest) && f.url);
   if (!filesToDownload.length) {
     if (statusEl) statusEl.textContent = 'All files already installed.';
     if (actionsEl) actionsEl.innerHTML = `<div class="pack-installed">✓ INSTALLED</div>`;
@@ -1304,6 +1604,7 @@ async function startPackDownload(pack) {
 
   const jobs = {}; // fileId → jobId
   for (const file of filesToDownload) {
+    if (!file.url) continue; // safety: skip preloaded files with no URL
     const result = await DDAPI.startDownload(file.url, file.dest);
     if (result && result.jobId) jobs[file.id] = result.jobId;
     else if (result && result.error) { if (statusEl) statusEl.textContent = `Error: ${result.error}`; return; }

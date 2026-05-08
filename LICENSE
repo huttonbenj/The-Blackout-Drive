@@ -1,89 +1,63 @@
-PolyForm Noncommercial License 1.0.0
+Business Source License 1.1
 
-Copyright (c) 2025 Hutton Technologies
-Product: The Blackout Drive (theblackoutdrive.com)
+License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
+"Business Source License" is a trademark of MariaDB Corporation Ab.
 
----
+─────────────────────────────────────────────────────────────────────
 
-**Acceptance**
+Parameters
 
-By using the software, you agree to all of the terms and conditions below.
+Licensor:             Hutton Technologies LLC
+Licensed Work:        The Blackout Drive
+                      The Licensed Work is (c) 2026 Hutton Technologies LLC.
+Additional Use Grant: You may use the Licensed Work for personal,
+                      non-commercial purposes only. You may NOT use
+                      the Licensed Work to create, distribute, or sell
+                      a competing product or service.
+Change Date:          2030-05-07
+Change License:       Apache License, Version 2.0
 
-**Copyright License**
+─────────────────────────────────────────────────────────────────────
 
-The licensor grants you a non-exclusive, royalty-free, worldwide,
-non-sublicensable, non-transferable license to copy, distribute, make
-available, and prepare derivative works of the software, in each case for
-Noncommercial purposes only.
+Terms
 
-**Noncommercial Purposes**
+The Licensor hereby grants you the right to copy, modify, create
+derivative works, redistribute, and make non-production use of the
+Licensed Work. The Licensor may make an Additional Use Grant, above,
+permitting limited production use.
 
-Noncommercial purposes means personal, educational, academic, research,
-or evaluation use. Noncommercial purposes do NOT include:
+Effective on the Change Date, or the fourth anniversary of the first
+publicly available distribution of a specific version of the Licensed
+Work under this License, whichever comes first, the Licensor hereby
+grants you rights under the terms of the Change License, and the
+rights granted in the paragraph above terminate.
 
-- Selling, bundling, or distributing this software (or any derivative
-  of it) on physical media (USB drives, hard drives, etc.) for commercial gain
-- Including this software in any product or service offered for sale
-- Commercial redistribution of this software in any form
-- Providing this software as a service for a fee
+If your use of the Licensed Work does not comply with the requirements
+currently in effect as described in this License, you must purchase a
+commercial license from the Licensor, its affiliated entities, or
+authorized resellers, or you must refrain from using the Licensed Work.
 
-**Commercial Licensing**
+All copies of the original and modified Licensed Work, and derivative
+works of the Licensed Work, are subject to this License. This License
+applies separately for each version of the Licensed Work and the
+Change Date may vary for each version of the Licensed Work released
+by Licensor.
 
-If you wish to use this software for commercial purposes (including
-bundling it on physical media for resale), contact:
+You must conspicuously display this License on each original or
+modified copy of the Licensed Work. If you receive the Licensed Work
+in original or modified form from a third party, the terms and
+conditions set forth in this License apply to your use of that work.
 
-  Hutton Technologies
-  hello@theblackoutdrive.com
-  https://theblackoutdrive.com
+Any use of the Licensed Work in violation of this License will
+automatically terminate your rights under this License for the
+current and all other versions of the Licensed Work.
 
-**What Is Free to Do**
+This License does not grant you any right in any trademark or logo of
+Licensor or its affiliates (provided that you may use a trademark or
+logo of Licensor as expressly required by this License).
 
-- Read, audit, and inspect every line of code for security/privacy review
-- Run the software on your own hardware for personal, non-commercial use
-- Fork the repository and modify it for personal, non-commercial use
-- Contribute improvements back via pull request
-- Share the repository link publicly
-
-**Trademarks**
-
-"The Blackout Drive", "The Blackout Drive", and the Hutton Technologies name and
-logos are trademarks of Hutton Technologies. This license does NOT grant
-any rights to use these marks. Do not use them without written permission.
-
-**Notices**
-
-You must ensure that anyone who gets a copy of any part of the software
-from you also gets a copy of these terms.
-
-If you modify the software, you must include a prominent notice in your
-modified version stating that you have modified it from the original.
-
-**No Other Rights**
-
-These terms do not imply any licenses other than those expressly granted
-in these terms.
-
-**Termination**
-
-If you use the software in violation of these terms, such use is not
-licensed, and your licenses will automatically terminate.
-
-**No Liability**
-
-As far as the law allows, the software comes AS IS, without any warranty
-or condition, and the licensor will not be liable for any damages arising
-from your use of the software.
-
----
-
-CONTENT LICENSE NOTE:
-
-This license applies to the SOFTWARE ONLY (chat UI, server, scripts, launchers).
-It does NOT apply to:
-
-- Paid content packs distributed via cdn.theblackoutdrive.com — All Rights Reserved
-- The content catalog (library.json, catalog_extended.json) — All Rights Reserved
-- The Ollama binary — MIT License (see drive/LEGAL/OLLAMA_LICENSE.txt)
-- The Phi-3 Mini model — MIT License (see drive/LEGAL/PHI3_LICENSE.txt)
-- Wikipedia/Kiwix content — CC BY-SA 4.0
-- Public domain content in content/ — No restrictions (see individual files)
+TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS
+PROVIDED ON AN "AS IS" BASIS. LICENSOR HEREBY DISCLAIMS ALL
+WARRANTIES AND CONDITIONS, EXPRESS OR IMPLIED, INCLUDING (WITHOUT
+LIMITATION) WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, NON-INFRINGEMENT, AND TITLE.

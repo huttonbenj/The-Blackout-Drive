@@ -1,149 +1,283 @@
 {
-  "schema": "1.1",
-  "updated": "2026-05-07",
-  "_comment": "Available content packs for download via GET MORE panel. price:0 = free. price>0 = paid (requires purchase_url and license). dest paths are fixed \u2014 users cannot change them.",
+  "schema": "2.0",
+  "updated": "2026-05-08",
+  "_comment": "1 Category = 1 Pack. Clean UX. Every category in library.json maps to exactly one pack here.",
   "packs": [
     {
-      "id": "bible-commentary",
-      "name": "Bible Commentary Pack",
-      "description": "Matthew Henry's Complete Commentary on the whole Bible (1706) \u2014 verse-by-verse Puritan exposition, free to download.",
-      "icon": "\ud83d\udcd6",
-      "category": "religious",
+      "id": "bible-translations",
+      "name": "Bible Translations",
+      "description": "Four complete public domain Bible translations — King James Version, World English Bible, American Standard Version, and Young's Literal Translation. Full verse-by-verse reader with book/chapter navigation and jump-to-reference.",
+      "icon": "✝",
+      "category": "holy_bible",
+      "version": "1.0.0",
+      "size_mb": 18,
+      "price": 0,
+      "license_required": false,
+      "files": [
+        {
+          "id": "bible_kjv",
+          "name": "Holy Bible — King James Version (KJV)",
+          "url": "https://www.gutenberg.org/ebooks/10.txt.utf-8",
+          "dest": "content/books/bible_kjv.txt",
+          "size_mb": 5,
+          "license": "Public Domain (1611)"
+        },
+        {
+          "id": "bible_web",
+          "name": "Holy Bible — World English Bible (WEB)",
+          "url": "https://www.gutenberg.org/ebooks/8294.txt.utf-8",
+          "dest": "content/books/bible_web.txt",
+          "size_mb": 5,
+          "license": "Public Domain"
+        },
+        {
+          "id": "bible_asv",
+          "name": "Holy Bible — American Standard Version (ASV)",
+          "url": "https://openbible.com/textfiles/asv.txt",
+          "dest": "content/books/bible_asv.txt",
+          "size_mb": 5,
+          "license": "Public Domain (1901)"
+        },
+        {
+          "id": "bible_ylt",
+          "name": "Holy Bible — Young's Literal Translation (YLT)",
+          "url": "https://openbible.com/textfiles/ylt.txt",
+          "dest": "content/books/bible_ylt.txt",
+          "size_mb": 5,
+          "license": "Public Domain (1862)"
+        }
+      ]
+    },
+    {
+      "id": "survival-pack",
+      "name": "Survival Pack",
+      "description": "Complete survival library — US Army field manuals (FM 21-76, FM 3-05.70), FEMA emergency preparedness guide, plus bushcraft and wilderness living classics. PDFs preserve original diagrams and illustrations.",
+      "icon": "🛡",
+      "category": "survival",
+      "version": "1.0.0",
+      "size_mb": 30,
+      "price": 0,
+      "license_required": false,
+      "files": [
+        {
+          "id": "army_fm21_76",
+          "name": "US Army FM 21-76 — Survival Manual (1992)",
+          "url": "https://archive.org/download/FM21-76USARMY-SURVIVAL-MANUAL/FM%2021-76%20US%20ARMY%20SURVIVAL%20MANUAL.pdf",
+          "dest": "content/books/army_fm21-76_survival_1992.pdf",
+          "size_mb": 16,
+          "license": "Public Domain (US Government)"
+        },
+        {
+          "id": "army_fm3_05_70",
+          "name": "US Army FM 3-05.70 — Survival (2002)",
+          "url": "https://irp.fas.org/doddir/army/fm3-05-70.pdf",
+          "dest": "content/books/army_fm3-05-70_survival_2002.pdf",
+          "size_mb": 8,
+          "license": "Public Domain (US Government)"
+        },
+        {
+          "id": "fema_ready",
+          "name": "FEMA — Are You Ready? Guide",
+          "url": "https://www.ready.gov/sites/default/files/2020-03/ready_full-guide_0.pdf",
+          "dest": "content/books/fema_are_you_ready.pdf",
+          "size_mb": 4,
+          "license": "Public Domain (US Government)"
+        },
+        {
+          "id": "woodcraft_camping",
+          "name": "Woodcraft and Camping (1920)",
+          "url": "https://www.gutenberg.org/ebooks/34607.epub.noimages",
+          "dest": "content/books/woodcraft_camping.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1920)"
+        },
+        {
+          "id": "camp_lore_woodcraft",
+          "name": "The Book of Camp-Lore and Woodcraft (1920)",
+          "url": "https://www.gutenberg.org/ebooks/44215.epub.noimages",
+          "dest": "content/books/camp_lore_woodcraft.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1920)"
+        }
+      ]
+    },
+    {
+      "id": "medical-pack",
+      "name": "Medical & Health Pack",
+      "description": "Essential offline medical references — village health worker handbooks, Merck's drug manual, and Home Medical Library. Critical knowledge for when professional medical care is unavailable.",
+      "icon": "💊",
+      "category": "medical",
       "version": "1.0.0",
       "size_mb": 14,
       "price": 0,
       "license_required": false,
-      "purchase_url": null,
       "files": [
         {
-          "id": "matthew_henry_vol1",
-          "name": "Matthew Henry Commentary \u2014 Vol. 1 (Genesis\u2013Numbers)",
-          "description": "Classic Puritan commentary, public domain since 1706",
-          "url": "https://www.gutenberg.org/cache/epub/4065/pg4065.txt",
-          "dest": "content/books/matthew_henry_vol1.txt",
+          "id": "where_no_doctor",
+          "name": "Where There Is No Doctor",
+          "url": null,
+          "dest": "content/books/where_there_is_no_doctor.pdf",
+          "size_mb": 9,
+          "license": "CC BY-SA 4.0 (Hesperian)",
+          "preloaded": true
+        },
+        {
+          "id": "where_no_dentist",
+          "name": "Where There Is No Dentist",
+          "url": null,
+          "dest": "content/books/where_there_is_no_dentist.pdf",
           "size_mb": 4,
-          "license": "Public Domain (1706)"
-        },
-        {
-          "id": "matthew_henry_vol2",
-          "name": "Matthew Henry Commentary \u2014 Vol. 2 (Joshua\u2013Esther)",
-          "description": "Continuation of the classic commentary",
-          "url": "https://www.gutenberg.org/cache/epub/4613/pg4613.txt",
-          "dest": "content/books/matthew_henry_vol2.txt",
-          "size_mb": 5,
-          "license": "Public Domain (1706)"
-        },
-        {
-          "id": "matthew_henry_nt",
-          "name": "Matthew Henry Commentary \u2014 New Testament",
-          "description": "NT commentary from Acts through Revelation",
-          "url": "https://www.gutenberg.org/cache/epub/6431/pg6431.txt",
-          "dest": "content/books/matthew_henry_nt.txt",
-          "size_mb": 5,
-          "license": "Public Domain (1706)"
-        }
-      ]
-    },
-    {
-      "id": "extended-medical",
-      "name": "Extended Medical Pack",
-      "description": "Advanced offline medical references \u2014 Gray's Anatomy, Merck Materia Medica, and Red Cross home nursing. Free to download.",
-      "icon": "\ud83c\udfe5",
-      "category": "medical",
-      "version": "1.0.0",
-      "size_mb": 9,
-      "price": 0,
-      "license_required": false,
-      "purchase_url": null,
-      "files": [
-        {
-          "id": "grays_anatomy",
-          "name": "Gray's Anatomy (1918 Edition)",
-          "description": "Complete anatomical reference with systematic descriptions",
-          "url": "https://www.gutenberg.org/cache/epub/16413/pg16413.txt",
-          "dest": "content/books/grays_anatomy.txt",
-          "size_mb": 6,
-          "license": "Public Domain (1918)"
+          "license": "CC BY-SA 4.0 (Hesperian)",
+          "preloaded": true
         },
         {
           "id": "merck_materia_medica",
           "name": "Merck's Manual of Materia Medica (1899)",
-          "description": "Drug references, dosages, and treatments",
-          "url": "https://www.gutenberg.org/cache/epub/35980/pg35980.txt",
-          "dest": "content/books/merck_materia_medica.txt",
-          "size_mb": 2,
+          "url": "https://www.gutenberg.org/ebooks/41697.epub.noimages",
+          "dest": "content/books/merck_materia_medica.epub",
+          "size_mb": 1,
           "license": "Public Domain (1899)"
         },
         {
-          "id": "home_nursing",
-          "name": "Home Nursing \u2014 American Red Cross (1918)",
-          "description": "Field nursing and emergency care for non-professionals",
-          "url": "https://www.gutenberg.org/cache/epub/10346/pg10346.txt",
-          "dest": "content/books/home_nursing_redcross.txt",
+          "id": "home_medical_library",
+          "name": "Home Medical Library — Vol. 1: Emergencies",
+          "url": "https://www.gutenberg.org/ebooks/27943.epub.noimages",
+          "dest": "content/books/home_medical_library.epub",
           "size_mb": 1,
-          "license": "Public Domain (1918)"
+          "license": "Public Domain (1907)"
         }
       ]
     },
     {
-      "id": "homestead",
+      "id": "homestead-pack",
       "name": "Homestead & Agriculture Pack",
-      "description": "Off-grid farming, herbalism, and self-sufficient living. Culpeper's herbal, practical farming guides. Free to download.",
-      "icon": "\ud83c\udf3f",
-      "category": "survival",
+      "description": "Off-grid farming, herbalism, and self-sufficient living. Culpeper's herbal medicine reference, gardening manuals, and small-farm guides for independent food production.",
+      "icon": "🌿",
+      "category": "homestead",
       "version": "1.0.0",
-      "size_mb": 5,
+      "size_mb": 2,
       "price": 0,
       "license_required": false,
-      "purchase_url": null,
       "files": [
         {
           "id": "culpeper_herbal",
           "name": "Culpeper's Complete Herbal (1653)",
-          "description": "Classic herbal medicine reference \u2014 400+ medicinal plants",
-          "url": "https://www.gutenberg.org/cache/epub/49778/pg49778.txt",
-          "dest": "content/books/culpeper_herbal.txt",
-          "size_mb": 3,
+          "url": "https://www.gutenberg.org/ebooks/49513.epub.noimages",
+          "dest": "content/books/culpeper_herbal.epub",
+          "size_mb": 1,
           "license": "Public Domain (1653)"
         },
         {
           "id": "ten_acres_enough",
           "name": "Ten Acres Enough (1864)",
-          "description": "Practical guide to small farm self-sufficiency",
-          "url": "https://www.gutenberg.org/cache/epub/23462/pg23462.txt",
-          "dest": "content/books/ten_acres_enough.txt",
+          "url": "https://www.gutenberg.org/ebooks/48753.epub.noimages",
+          "dest": "content/books/ten_acres_enough.epub",
           "size_mb": 1,
           "license": "Public Domain (1864)"
         },
         {
-          "id": "farm_garden_rulebook",
-          "name": "Farm and Garden Rule-Book (1911)",
-          "description": "Practical farming rules, planting calendars, animal husbandry",
-          "url": "https://www.gutenberg.org/cache/epub/37622/pg37622.txt",
-          "dest": "content/books/farm_garden_rulebook.txt",
+          "id": "manual_of_gardening",
+          "name": "Manual of Gardening (1910)",
+          "url": "https://www.gutenberg.org/ebooks/9550.epub.noimages",
+          "dest": "content/books/manual_of_gardening.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1910)"
+        },
+        {
+          "id": "home_vegetable_gardening",
+          "name": "Home Vegetable Gardening (1911)",
+          "url": "https://www.gutenberg.org/ebooks/7123.epub.noimages",
+          "dest": "content/books/home_vegetable_gardening.epub",
           "size_mb": 1,
           "license": "Public Domain (1911)"
         }
       ]
     },
     {
-      "id": "philosophy-extended",
+      "id": "law-government-pack",
+      "name": "Law & Government Pack",
+      "description": "Foundational legal documents — US Constitution, Declaration of Independence, Magna Carta, and Black's Law Dictionary. Essential offline legal references for understanding rights and governance.",
+      "icon": "⚖",
+      "category": "law",
+      "version": "1.0.0",
+      "size_mb": 1,
+      "price": 0,
+      "license_required": false,
+      "files": [
+        {
+          "id": "us_constitution",
+          "name": "US Constitution & Bill of Rights",
+          "url": "https://www.gutenberg.org/ebooks/5.epub.noimages",
+          "dest": "content/books/us_constitution.epub",
+          "size_mb": 1,
+          "license": "Public Domain (US Government)"
+        },
+        {
+          "id": "declaration",
+          "name": "Declaration of Independence (1776)",
+          "url": "https://www.gutenberg.org/ebooks/1.epub.noimages",
+          "dest": "content/books/declaration_of_independence.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1776)"
+        },
+        {
+          "id": "magna_carta",
+          "name": "Magna Carta (1215)",
+          "url": "https://www.gutenberg.org/ebooks/10000.epub.noimages",
+          "dest": "content/books/magna_carta.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1215)"
+        },
+        {
+          "id": "blacks_law",
+          "name": "Black's Law Dictionary (1910 Edition)",
+          "url": "https://www.gutenberg.org/ebooks/55050.epub.noimages",
+          "dest": "content/books/blacks_law_dictionary_1910.epub",
+          "size_mb": 1,
+          "license": "Public Domain (1910)"
+        }
+      ]
+    },
+    {
+      "id": "philosophy-pack",
       "name": "Philosophy & Wisdom Pack",
-      "description": "Extended Stoic philosophy \u2014 Plato's Republic, Marcus Aurelius letters, and Seneca's moral epistles. Free.",
-      "icon": "\u221e",
+      "description": "Timeless works on discipline, strategy, resilience, and governance — Marcus Aurelius, Epictetus, Sun Tzu, and Plato. Essential reading for leadership and survival mindset.",
+      "icon": "∞",
       "category": "philosophy",
       "version": "1.0.0",
       "size_mb": 1,
       "price": 0,
       "license_required": false,
-      "purchase_url": null,
       "files": [
         {
+          "id": "marcus_aurelius",
+          "name": "Meditations — Marcus Aurelius",
+          "url": "https://www.gutenberg.org/ebooks/2680.epub.noimages",
+          "dest": "content/books/meditations_marcus_aurelius.epub",
+          "size_mb": 1,
+          "license": "Public Domain"
+        },
+        {
+          "id": "epictetus",
+          "name": "Enchiridion — Epictetus",
+          "url": "https://www.gutenberg.org/ebooks/45109.epub.noimages",
+          "dest": "content/books/enchiridion_epictetus.epub",
+          "size_mb": 1,
+          "license": "Public Domain"
+        },
+        {
+          "id": "art_of_war",
+          "name": "The Art of War — Sun Tzu",
+          "url": "https://www.gutenberg.org/ebooks/132.epub.noimages",
+          "dest": "content/books/art_of_war.epub",
+          "size_mb": 1,
+          "license": "Public Domain"
+        },
+        {
           "id": "plato_republic",
-          "name": "The Republic \u2014 Plato",
-          "description": "Plato's foundational work on justice, governance, and the ideal society",
-          "url": "https://www.gutenberg.org/cache/epub/1497/pg1497.txt",
-          "dest": "content/books/plato_republic.txt",
+          "name": "The Republic — Plato",
+          "url": "https://www.gutenberg.org/ebooks/1497.epub.noimages",
+          "dest": "content/books/plato_republic.epub",
           "size_mb": 1,
           "license": "Public Domain"
         }
