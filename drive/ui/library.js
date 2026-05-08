@@ -1209,11 +1209,6 @@ async function showGetMorePanel() {
         <div class="pack-progress-bar" id="pp-${pack.id}" style="display:none">
           <div class="pack-progress-fill" id="ppf-${pack.id}" style="width:0%"></div>
         </div>
-      </div>
-      <div class="pack-license-row" id="plr-${pack.id}" style="display:none;flex-basis:100%;margin-top:8px;">
-        <input type="text" class="lib-search-input" id="pli-${pack.id}" placeholder="Enter license key…" style="flex:1;margin:0">
-        <button class="pack-dl-btn" onclick="submitLicenseKey('${pack.id}', ${JSON.stringify(pack).replace(/"/g,'&quot;')})">UNLOCK</button>
-        <button class="pack-files-toggle" onclick="hideLicenseInput('${pack.id}')">✕</button>
       </div>`;
     packList.appendChild(packEl);
   });
@@ -1227,8 +1222,6 @@ async function showGetMorePanel() {
       placeholder="Search packs…" oninput="filterPacks()">
     <div class="packs-filter-btns">
       <button class="pack-filter-btn active" data-filter="all" onclick="setPackFilter(this,'all')">ALL</button>
-      <button class="pack-filter-btn" data-filter="free" onclick="setPackFilter(this,'free')">FREE</button>
-      <button class="pack-filter-btn" data-filter="paid" onclick="setPackFilter(this,'paid')">PAID</button>
     </div>`;
 
   libMain.innerHTML = '';
