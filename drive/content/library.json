@@ -70,9 +70,9 @@
           "type": "pdf",
           "size_label": "~16 MB",
           "license": "Public Domain (US Government)",
-          "preloaded": false,
+          "preloaded": true,
           "pack_id": "survival-pack",
-          "download_url": "https://archive.org/download/FM21-76USARMY-SURVIVAL-MANUAL/FM%2021-76%20US%20ARMY%20SURVIVAL%20MANUAL.pdf"
+          "download_url": null
         },
         {
           "id": "army_fm3_05_70",
@@ -82,9 +82,9 @@
           "type": "pdf",
           "size_label": "~8 MB",
           "license": "Public Domain (US Government)",
-          "preloaded": false,
+          "preloaded": true,
           "pack_id": "survival-pack",
-          "download_url": "https://irp.fas.org/doddir/army/fm3-05-70.pdf"
+          "download_url": null
         },
         {
           "id": "fema_ready",
@@ -94,9 +94,9 @@
           "type": "pdf",
           "size_label": "~4 MB",
           "license": "Public Domain (US Government)",
-          "preloaded": false,
+          "preloaded": true,
           "pack_id": "survival-pack",
-          "download_url": "https://www.ready.gov/sites/default/files/2020-03/ready_full-guide_0.pdf"
+          "download_url": null
         },
         {
           "id": "woodcraft_camping",

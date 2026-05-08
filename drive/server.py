@@ -133,7 +133,9 @@ def _download_worker(job_id: str, url: str, dest_abs: str, drive_dir: str):
     tmp = dest_abs + '.ddtmp'
     try:
         os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-        req = urllib.request.urlopen(url, timeout=30)
+        headers = {'User-Agent': 'Mozilla/5.0 (compatible; BlackoutDrive/1.0)'}
+        request = urllib.request.Request(url, headers=headers)
+        req = urllib.request.urlopen(request, timeout=60)
         total = int(req.getheader('Content-Length', 0))
         with _jobs_lock:
             job['total'] = total

@@ -62,26 +62,29 @@
         {
           "id": "army_fm21_76",
           "name": "US Army FM 21-76 — Survival Manual (1992)",
-          "url": "https://archive.org/download/FM21-76USARMY-SURVIVAL-MANUAL/FM%2021-76%20US%20ARMY%20SURVIVAL%20MANUAL.pdf",
+          "url": null,
           "dest": "content/books/army_fm21-76_survival_1992.pdf",
           "size_mb": 16,
-          "license": "Public Domain (US Government)"
+          "license": "Public Domain (US Government)",
+          "preloaded": true
         },
         {
           "id": "army_fm3_05_70",
           "name": "US Army FM 3-05.70 — Survival (2002)",
-          "url": "https://irp.fas.org/doddir/army/fm3-05-70.pdf",
+          "url": null,
           "dest": "content/books/army_fm3-05-70_survival_2002.pdf",
           "size_mb": 8,
-          "license": "Public Domain (US Government)"
+          "license": "Public Domain (US Government)",
+          "preloaded": true
         },
         {
           "id": "fema_ready",
           "name": "FEMA — Are You Ready? Guide",
-          "url": "https://www.ready.gov/sites/default/files/2020-03/ready_full-guide_0.pdf",
+          "url": null,
           "dest": "content/books/fema_are_you_ready.pdf",
           "size_mb": 4,
-          "license": "Public Domain (US Government)"
+          "license": "Public Domain (US Government)",
+          "preloaded": true
         },
         {
           "id": "woodcraft_camping",
