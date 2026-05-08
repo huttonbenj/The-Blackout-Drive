@@ -345,7 +345,7 @@ function renderMarkdown(text) {
   let inUl = false, inOl = false;
 
   for (const line of lines) {
-    const ulMatch = line.match(/^[-*] (.+)$/);
+    const ulMatch = line.match(/^[-*•–] (.+)$/);
     const olMatch = line.match(/^\d+\. (.+)$/);
 
     if (ulMatch) {
