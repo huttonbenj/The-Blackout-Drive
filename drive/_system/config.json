@@ -1,0 +1,54 @@
+{
+  "_comment": "The Blackout Drive — Master Configuration. Single source of truth. All other configs are derived from this file. Do not hardcode values in shell scripts, JS, or HTML.",
+  "_rule": "BACKLOG IS APPEND-ONLY. Never remove entries from any planning or backlog document. Only add.",
+  "debug": true,
+  "app": {
+    "name": "The Blackout Drive",
+    "aiName": "BEACON",
+    "edition": "standard",
+    "version": "1.0.0",
+    "tagline": "Offline AI. Encrypted Data.",
+    "updateCheckUrl": "https://api.github.com/repos/huttonbenj/The-Blackout-Drive/releases/latest",
+    "tiers": {
+      "standard": {
+        "label": "Standard Edition",
+        "features": ["chat", "library", "voice", "prompts", "diagnostics", "ham-radio"]
+      },
+      "pro": {
+        "label": "Pro Edition",
+        "features": ["chat", "library", "voice", "prompts", "diagnostics", "ham-radio",
+                     "vision", "camera", "mobile-wifi", "knowledge-base", "multi-model",
+                     "wikipedia", "benchmarking", "auto-update"]
+      }
+    }
+  },
+  "model": {
+    "name": "blackout-beacon",
+    "base": "qwen3:4b",
+    "file": "Qwen3-4B-Q4_K_M.gguf",
+    "modelfile": "Modelfile",
+    "profileManifest": "models.json",
+    "available": []
+  },
+  "network": {
+    "ollamaPort": 11434,
+    "ollamaBind": "127.0.0.1",
+    "uiPort": 8080,
+    "mobileAccess": false
+  },
+  "content": {
+    "remoteCatalogUrl": "https://blackout-catalog.hutton-benj.workers.dev",
+    "remoteFilesBase": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev",
+    "contentDir": "content",
+    "booksDir": "content/books",
+    "zimDir": "content/zim",
+    "packsDir": "content/packs",
+    "dataDir": "data"
+  },
+  "chat": {
+    "streamTimeoutMs": 300000,
+    "retryIntervalMs": 2000,
+    "maxRetries": 30,
+    "maxInputChars": 4000
+  }
+}

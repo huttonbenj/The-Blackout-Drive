@@ -1,0 +1,441 @@
+{
+  "version": 1,
+  "generated": "2026-05-09T11:24:33.966Z",
+  "source": "cloudflare-worker",
+  "packs": [
+    {
+      "id": "bible",
+      "name": "The Bible",
+      "description": "KJV, World English Bible, ASV, and Young's Literal Translation.",
+      "files": [
+        {
+          "id": "bible-bible-asv",
+          "name": "The Holy Bible — American Standard Version (ASV)",
+          "filename": "bible_asv.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_asv.txt",
+          "size": 4599132,
+          "uploaded": "2026-05-09T11:22:11.620Z"
+        },
+        {
+          "id": "bible-bible-kjv",
+          "name": "The Holy Bible — King James Version (KJV)",
+          "filename": "bible_kjv.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_kjv.txt",
+          "size": 4455953,
+          "uploaded": "2026-05-09T11:22:13.920Z"
+        },
+        {
+          "id": "bible-bible-web",
+          "name": "The Holy Bible — World English Bible (WEB)",
+          "filename": "bible_web.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_web.txt",
+          "size": 4797042,
+          "uploaded": "2026-05-09T11:22:16.381Z"
+        },
+        {
+          "id": "bible-bible-ylt",
+          "name": "The Holy Bible — Young’s Literal Translation (YLT)",
+          "filename": "bible_ylt.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_ylt.txt",
+          "size": 4613050,
+          "uploaded": "2026-05-09T11:22:18.710Z"
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "name": "Communication & Navigation",
+      "description": "Radio amateur guides, telegraphy, and celestial navigation.",
+      "files": [
+        {
+          "id": "communication-radio-amateurs-handbook",
+          "name": "Radio Amateurs Handbook",
+          "filename": "radio_amateurs_handbook.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/radio_amateurs_handbook.epub",
+          "size": 220606,
+          "uploaded": "2026-05-09T11:22:23.818Z"
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering & Mechanics",
+      "description": "Practical mechanics, machine-shop techniques, carpentry, and basic electricity.",
+      "files": [
+        {
+          "id": "engineering-boy-electrician",
+          "name": "The Boy Electrician (1913)",
+          "filename": "boy_electrician.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/boy_electrician.epub",
+          "size": 606272,
+          "uploaded": "2026-05-09T11:22:28.744Z"
+        },
+        {
+          "id": "engineering-farm-mechanics",
+          "name": "Farm Mechanics (1922)",
+          "filename": "farm_mechanics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/farm_mechanics.epub",
+          "size": 211335,
+          "uploaded": "2026-05-09T11:22:30.401Z"
+        },
+        {
+          "id": "engineering-machine-shop-practice",
+          "name": "Machine Shop Practice (1919)",
+          "filename": "machine_shop_practice.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/machine_shop_practice.epub",
+          "size": 2049833,
+          "uploaded": "2026-05-09T11:22:34.677Z"
+        },
+        {
+          "id": "engineering-practical-mechanics",
+          "name": "Practical Mechanics for Boys",
+          "filename": "practical_mechanics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/practical_mechanics.epub",
+          "size": 209529,
+          "uploaded": "2026-05-09T11:22:36.442Z"
+        },
+        {
+          "id": "engineering-woodwork-joints",
+          "name": "Woodwork Joints: How They Are Set Out and Made",
+          "filename": "woodwork_joints.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/woodwork_joints.epub",
+          "size": 186227,
+          "uploaded": "2026-05-09T11:22:38.158Z"
+        }
+      ]
+    },
+    {
+      "id": "heritage",
+      "name": "Foundational Wisdom & Western Heritage",
+      "description": "Theological classics, philosophical pillars, and timeless texts for spiritual and intellectual resilience.",
+      "files": [
+        {
+          "id": "heritage-art-of-war-suntzu",
+          "name": "Art Of War Suntzu",
+          "filename": "art_of_war_suntzu.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/art_of_war_suntzu.epub",
+          "size": 226435,
+          "uploaded": "2026-05-09T11:22:41.514Z"
+        },
+        {
+          "id": "heritage-confessions-of-augustine",
+          "name": "Confessions Of Augustine",
+          "filename": "confessions_of_augustine.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/confessions_of_augustine.epub",
+          "size": 309276,
+          "uploaded": "2026-05-09T11:22:43.301Z"
+        },
+        {
+          "id": "heritage-enchiridion-epictetus",
+          "name": "Enchiridion — Epictetus",
+          "filename": "enchiridion_epictetus.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/enchiridion_epictetus.epub",
+          "size": 86195,
+          "uploaded": "2026-05-09T11:22:45.061Z"
+        },
+        {
+          "id": "heritage-foxes-book-of-martyrs",
+          "name": "Foxes Book Of Martyrs",
+          "filename": "foxes_book_of_martyrs.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/foxes_book_of_martyrs.epub",
+          "size": 715536,
+          "uploaded": "2026-05-09T11:22:46.903Z"
+        },
+        {
+          "id": "heritage-imitation-of-christ",
+          "name": "Imitation Of Christ",
+          "filename": "imitation_of_christ.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/imitation_of_christ.epub",
+          "size": 315087,
+          "uploaded": "2026-05-09T11:22:49.852Z"
+        },
+        {
+          "id": "heritage-meditations-aurelius",
+          "name": "Meditations Aurelius",
+          "filename": "meditations_aurelius.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/meditations_aurelius.epub",
+          "size": 257435,
+          "uploaded": "2026-05-09T11:22:51.703Z"
+        },
+        {
+          "id": "heritage-orthodoxy-chesterton",
+          "name": "Orthodoxy Chesterton",
+          "filename": "orthodoxy_chesterton.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/orthodoxy_chesterton.epub",
+          "size": 212325,
+          "uploaded": "2026-05-09T11:22:53.426Z"
+        },
+        {
+          "id": "heritage-paradise-lost",
+          "name": "Paradise Lost",
+          "filename": "paradise_lost.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/paradise_lost.epub",
+          "size": 397928,
+          "uploaded": "2026-05-09T11:22:55.097Z"
+        },
+        {
+          "id": "heritage-pilgrims-progress",
+          "name": "Pilgrims Progress",
+          "filename": "pilgrims_progress.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/pilgrims_progress.epub",
+          "size": 189296,
+          "uploaded": "2026-05-09T11:22:56.951Z"
+        },
+        {
+          "id": "heritage-plato-republic",
+          "name": "The Republic — Plato",
+          "filename": "plato_republic.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/plato_republic.epub",
+          "size": 523804,
+          "uploaded": "2026-05-09T11:22:58.692Z"
+        },
+        {
+          "id": "heritage-walden-thoreau",
+          "name": "Walden — Henry David Thoreau (1854)",
+          "filename": "walden_thoreau.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/walden_thoreau.epub",
+          "size": 389411,
+          "uploaded": "2026-05-09T11:23:00.411Z"
+        }
+      ]
+    },
+    {
+      "id": "homestead",
+      "name": "Homesteading & Agriculture",
+      "description": "Off-grid farming, canning, herbalism, beekeeping, and self-sufficiency.",
+      "files": [
+        {
+          "id": "homestead-american-frugal-housewife",
+          "name": "The American Frugal Housewife (1832)",
+          "filename": "american_frugal_housewife.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/american_frugal_housewife.epub",
+          "size": 180422,
+          "uploaded": "2026-05-09T11:23:03.857Z"
+        },
+        {
+          "id": "homestead-compleat-herbal",
+          "name": "Culpeper’s Complete Herbal (1653)",
+          "filename": "compleat_herbal.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/compleat_herbal.epub",
+          "size": 714861,
+          "uploaded": "2026-05-09T11:23:05.636Z"
+        },
+        {
+          "id": "homestead-farmers-of-forty-centuries",
+          "name": "Farmers of Forty Centuries (1911)",
+          "filename": "farmers_of_forty_centuries.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/farmers_of_forty_centuries.epub",
+          "size": 296234,
+          "uploaded": "2026-05-09T11:23:07.561Z"
+        },
+        {
+          "id": "homestead-langstroth-beekeeping",
+          "name": "Langstroth on the Hive and the Honey-Bee (1853)",
+          "filename": "langstroth_beekeeping.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/langstroth_beekeeping.epub",
+          "size": 372100,
+          "uploaded": "2026-05-09T11:23:11.063Z"
+        },
+        {
+          "id": "homestead-manual-of-gardening",
+          "name": "Manual of Gardening (1910)",
+          "filename": "manual_of_gardening.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/manual_of_gardening.epub",
+          "size": 467549,
+          "uploaded": "2026-05-09T11:23:14.256Z"
+        },
+        {
+          "id": "homestead-preservation-of-food-1919",
+          "name": "Preservation of Food (1919)",
+          "filename": "preservation_of_food_1919.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/preservation_of_food_1919.epub",
+          "size": 137823,
+          "uploaded": "2026-05-09T11:23:16.057Z"
+        },
+        {
+          "id": "homestead-ten-acres-enough",
+          "name": "Ten Acres Enough (1864)",
+          "filename": "ten_acres_enough.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/ten_acres_enough.epub",
+          "size": 207309,
+          "uploaded": "2026-05-09T11:23:17.842Z"
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "name": "Law & Founding Documents",
+      "description": "US Constitution, Declaration of Independence, Magna Carta, Federalist Papers, Blackstone.",
+      "files": [
+        {
+          "id": "law-blackstones-commentaries",
+          "name": "Blackstones Commentaries",
+          "filename": "blackstones_commentaries.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/blackstones_commentaries.epub",
+          "size": 532193,
+          "uploaded": "2026-05-09T11:23:22.655Z"
+        },
+        {
+          "id": "law-common-sense",
+          "name": "Common Sense",
+          "filename": "common_sense.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/common_sense.epub",
+          "size": 176901,
+          "uploaded": "2026-05-09T11:23:25.698Z"
+        },
+        {
+          "id": "law-declaration-of-independence",
+          "name": "Declaration of Independence (1776)",
+          "filename": "declaration_of_independence.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/declaration_of_independence.epub",
+          "size": 150115,
+          "uploaded": "2026-05-09T11:23:27.569Z"
+        },
+        {
+          "id": "law-federalist-papers",
+          "name": "The Federalist Papers",
+          "filename": "federalist_papers.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/federalist_papers.epub",
+          "size": 523233,
+          "uploaded": "2026-05-09T11:23:30.437Z"
+        },
+        {
+          "id": "law-magna-carta",
+          "name": "Magna Carta (1215)",
+          "filename": "magna_carta.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/magna_carta.epub",
+          "size": 713823,
+          "uploaded": "2026-05-09T11:23:32.466Z"
+        },
+        {
+          "id": "law-second-treatise-of-gov",
+          "name": "Second Treatise Of Gov",
+          "filename": "second_treatise_of_gov.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/second_treatise_of_gov.epub",
+          "size": 203173,
+          "uploaded": "2026-05-09T11:23:34.273Z"
+        },
+        {
+          "id": "law-us-constitution",
+          "name": "United States Constitution",
+          "filename": "us_constitution.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/us_constitution.epub",
+          "size": 158681,
+          "uploaded": "2026-05-09T11:23:35.965Z"
+        }
+      ]
+    },
+    {
+      "id": "medical",
+      "name": "Medical & First Aid",
+      "description": "Field medicine, anatomy, nursing, and historical drug references.",
+      "files": [
+        {
+          "id": "medical-mercks-1899-manual",
+          "name": "Merck’s Manual of the Materia Medica (1899)",
+          "filename": "mercks_1899_manual.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/mercks_1899_manual.epub",
+          "size": 274386,
+          "uploaded": "2026-05-09T11:23:40.539Z"
+        },
+        {
+          "id": "medical-notes-on-nursing",
+          "name": "Notes on Nursing — Florence Nightingale (1860)",
+          "filename": "notes_on_nursing.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/notes_on_nursing.epub",
+          "size": 171014,
+          "uploaded": "2026-05-09T11:23:42.302Z"
+        }
+      ]
+    },
+    {
+      "id": "survival",
+      "name": "Survival & Field Craft",
+      "description": "Wilderness survival, shelter building, knots, trapping, and woodcraft.",
+      "files": [
+        {
+          "id": "survival-camp-lore-and-woodcraft",
+          "name": "Camp Lore And Woodcraft",
+          "filename": "camp_lore_and_woodcraft.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/camp_lore_and_woodcraft.epub",
+          "size": 216284,
+          "uploaded": "2026-05-09T11:23:45.919Z"
+        },
+        {
+          "id": "survival-knots-splices-rope-work",
+          "name": "Knots, Splices and Rope Work (1912)",
+          "filename": "knots_splices_rope_work.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/knots_splices_rope_work.epub",
+          "size": 74368,
+          "uploaded": "2026-05-09T11:23:49.082Z"
+        },
+        {
+          "id": "survival-shelters-shacks-shanties",
+          "name": "Shelters, Shacks, and Shanties (1914)",
+          "filename": "shelters_shacks_shanties.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/shelters_shacks_shanties.epub",
+          "size": 214457,
+          "uploaded": "2026-05-09T11:23:50.983Z"
+        },
+        {
+          "id": "survival-the-boy-mechanic",
+          "name": "The Boy Mechanic: 700 Things for Boys to Do (1913)",
+          "filename": "the_boy_mechanic.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/the_boy_mechanic.epub",
+          "size": 659665,
+          "uploaded": "2026-05-09T11:23:53.030Z"
+        },
+        {
+          "id": "survival-woodcraft-and-camping",
+          "name": "Woodcraft And Camping",
+          "filename": "woodcraft_and_camping.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/woodcraft_and_camping.epub",
+          "size": 171174,
+          "uploaded": "2026-05-09T11:23:54.981Z"
+        }
+      ]
+    }
+  ]
+}

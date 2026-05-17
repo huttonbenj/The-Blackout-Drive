@@ -1,0 +1,17 @@
+; ============================================================
+; The Blackout Drive — Windows AutoRun Configuration
+; ============================================================
+; Place in USB root. On Windows, AutoRun is blocked for security
+; reasons, so this file won't auto-execute software.
+; BUT it WILL:
+;   - Set the USB drive icon (the lock icon)
+;   - Set the USB drive label shown in Explorer
+;   - Show the "Open" menu item when the drive is inserted
+; ============================================================
+
+[autorun]
+label=The Blackout Drive
+action=Start The Blackout Drive
+open=drive\Start (Windows).bat
+shell\open=Start Blackout Drive
+shell\open\command=drive\Start (Windows).bat

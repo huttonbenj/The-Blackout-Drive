@@ -1,0 +1,136 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # ── Python Lint ─────────────────────────────────────────────────
+  python-lint:
+    name: Python Lint (server.py)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Lint server.py
+        run: |
+          flake8 drive/_system/server.py \
+            --max-line-length=120 \
+            --ignore=E501,W503,E302,E303,W291,W293,E231 \
+            --show-source \
+            --statistics
+
+  # ── JavaScript Lint ─────────────────────────────────────────────
+  js-lint:
+    name: JavaScript Lint (UI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ESLint
+        run: npm install -g eslint
+
+      - name: Create ESLint config
+        run: |
+          cat > .eslintrc.json << 'EOF'
+          {
+            "env": { "browser": true, "es2020": true },
+            "parserOptions": { "ecmaVersion": 2020 },
+            "rules": {
+              "no-undef": "warn",
+              "no-unused-vars": "warn",
+              "no-console": "off",
+              "semi": ["warn", "always"]
+            },
+            "globals": {
+              "BLACKOUT_CONFIG": "readonly",
+              "DDAPI": "readonly",
+              "ePub": "readonly",
+              "JSZip": "readonly",
+              "isOnlineModeEnabled": "readonly",
+              "marked": "readonly"
+            }
+          }
+          EOF
+
+      - name: Lint UI JavaScript
+        run: |
+          eslint drive/_system/ui/app.js drive/_system/ui/api.js drive/_system/ui/library.js \
+            drive/_system/ui/config.js drive/_system/ui/diagnostics.js drive/_system/ui/prompts.js \
+            --no-eslintrc -c .eslintrc.json \
+            --max-warnings=50
+        continue-on-error: true  # Warn only — don't block merges on JS style issues
+
+  # ── Content URL Health Check ─────────────────────────────────────
+  content-urls:
+    name: Content URL Health Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check all catalog URLs
+        run: |
+          python3 << 'EOF'
+          import json, urllib.request, sys, time, os
+
+          catalog_path = 'drive/_system/content/catalog.json'
+          if not os.path.isfile(catalog_path):
+              print(f'⚠️  Catalog not found at {catalog_path} — skipping URL check.')
+              sys.exit(0)
+
+          with open(catalog_path) as f:
+              catalog = json.load(f)
+
+          failures = []
+          checked = 0
+
+          for pack in catalog.get('packs', []):
+              for item in pack.get('files', []):
+                  url = item.get('url')
+                  if not url:
+                      continue
+                  checked += 1
+                  name = item.get('filename', url.split('/')[-1])
+                  try:
+                      req = urllib.request.Request(url, method='HEAD',
+                          headers={'User-Agent': 'BlackoutDrive-CI/1.0'})
+                      resp = urllib.request.urlopen(req, timeout=15)
+                      status = resp.status
+                      if status >= 400:
+                          failures.append(f'  ❌ HTTP {status}: {name}\n     {url}')
+                      else:
+                          print(f'  ✅ {status}: {name}')
+                  except Exception as e:
+                      failures.append(f'  ❌ ERROR: {name}\n     {url}\n     {e}')
+                  time.sleep(0.2)  # Be polite to servers
+
+          print(f'\nChecked {checked} URLs.')
+          if failures:
+              print(f'\n⚠️  {len(failures)} URL(s) failed:\n')
+              for f in failures:
+                  print(f)
+              sys.exit(1)
+          else:
+              print('✅ All content URLs are healthy.')
+          EOF
+        continue-on-error: true  # Warn only — CDN/Archive.org can have transient failures

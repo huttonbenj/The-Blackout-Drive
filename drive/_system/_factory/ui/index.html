@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Blackout Drive — Offline AI. Encrypted data. Runs on your laptop with no internet, no cloud, no accounts.">
+  <title>The Blackout Drive // Offline AI. Encrypted Data.</title>
+  <!--
+    ANTI-FLICKER SYSTEM (3-layer):
+    1. Inline script runs synchronously in <head> BEFORE any rendering.
+       Reads sessionStorage and adds html[data-restore] attribute ('lib' or 'ws').
+    2. CSS immediately makes libraryPanel/workspacePanel flex + hides chat.
+       This is applied before first paint — zero flash.
+    3. app.js calls _restoreLibState() / _restoreWsState() which loads content,
+       then removes data-restore attribute (smoothly reveals final state).
+  -->
+  <script>
+  // ── ANTI-FLICKER: runs synchronously before first paint ──────────
+  (function(){
+    try {
+      var s = JSON.parse(sessionStorage.getItem('dd_lib') || 'null');
+      if (s && s.open) {
+        document.documentElement.setAttribute('data-restore', 'lib');
+      }
+      // Workspace was open — restore it instead of chat
+      var ws = JSON.parse(sessionStorage.getItem('dd_ws') || 'null');
+      if (ws && ws.open) {
+        document.documentElement.setAttribute('data-restore', 'ws');
+      }
+      // Chat messages exist — hide welcome screen to prevent flash
+      var chat = sessionStorage.getItem('dd_chat');
+      if (chat && chat.length > 4) {
+        document.documentElement.setAttribute('data-restore-chat', '1');
+      }
+      var cachedCats = JSON.parse(localStorage.getItem('dd_cats') || 'null');
+      if (cachedCats) {
+        document.documentElement.setAttribute('data-cats', JSON.stringify(cachedCats));
+      }
+    } catch(e) {}
+  })();
+  </script>
+  <style>
+    /* Body starts invisible — JS reveals after state restore */
+    body { opacity: 0; transition: opacity 0.12s ease; }
+
+    /* Library shows instantly if it was open — flex before any JS */
+    html[data-restore="lib"] #libraryPanel { display:flex !important; }
+    /* Hide the ENTIRE main content area — nuclear approach.
+       .main-content wraps chat-container, input-area, welcome-screen,
+       header, and everything else that could flash. */
+    html[data-restore="lib"] .main-content { display:none !important; }
+
+    /* Workspace shows instantly if it was open */
+    html[data-restore="ws"] #workspacePanel { display:flex !important; }
+    html[data-restore="ws"] .main-content { display:none !important; }
+
+    /* Chat has messages — hide welcome screen to prevent flash */
+    html[data-restore-chat] .welcome-screen { display: none !important; }
+
+    @keyframes skeleton-pulse {
+      0%,100% { opacity:0.4; }
+      50% { opacity:0.7; }
+    }
+    .skeleton {
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+    html[data-restore="lib"] #libSidebar::before {
+      content: '';
+      display: block;
+      height: 12px;
+      width: 60%;
+      margin: 16px 12px 12px;
+      border-radius: 3px;
+      background: rgba(200,160,74,0.15);
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+    html[data-restore="lib"] #libMain { background: transparent; }
+  </style>
+  <link rel="stylesheet" href="lib/hljs-blackout.css">
+  <link rel="stylesheet" href="style.css?v=10">
+</head>
+<body>
+
+  <!-- ── Left Sidebar Navigation ───────────────────────────── -->
+  <nav class="sidebar-nav" id="sidebarNav" aria-label="Main navigation">
+    <!-- CHAT — primary view, always accessible -->
+    <button class="sidebar-btn sidebar-btn--active" id="chatNavBtn" title="Conversations"
+            onclick="toggleConversationsPanel()">
+      <span class="sidebar-icon" id="sidebarIconChat"></span>
+      <span class="sidebar-label">CHATS</span>
+    </button>
+    <button class="sidebar-btn" id="promptsNavBtn" title="Prompt Library"
+            onclick="togglePromptPanel()">
+      <span class="sidebar-icon" id="sidebarIconPrompts"></span>
+      <span class="sidebar-label">PROMPTS</span>
+    </button>
+    <button class="sidebar-btn" id="libraryNavBtn" title="Offline Library"
+            onclick="openLibrary()">
+      <span class="sidebar-icon" id="sidebarIconLibrary"></span>
+      <span class="sidebar-label">LIBRARY</span>
+    </button>
+    <button class="sidebar-btn" id="workspaceNavBtn" title="Your Files &amp; Editor"
+            onclick="openWorkspace()">
+      <span class="sidebar-icon" id="sidebarIconWorkspace"></span>
+      <span class="sidebar-label">WORKSPACE</span>
+    </button>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-divider"></div>
+    <button class="sidebar-btn" id="statusNavBtn" title="System Status & Settings"
+            onclick="toggleDiagnosticsPanel()">
+      <span class="sidebar-icon" id="sidebarIconStatus"></span>
+      <span class="sidebar-label">STATUS</span>
+    </button>
+    <button class="sidebar-btn sidebar-btn--help" id="helpNavBtn" title="Help & Quick Start"
+            onclick="toggleHelpPanel()">
+      <span class="sidebar-icon" id="sidebarIconHelp"></span>
+      <span class="sidebar-label">HELP</span>
+    </button>
+    <button class="sidebar-btn" id="settingsNavBtn" title="Settings"
+            onclick="toggleSettingsPanel()">
+      <span class="sidebar-icon" id="sidebarIconSettings"></span>
+      <span class="sidebar-label">SETTINGS</span>
+    </button>
+  </nav>
+
+  <!-- ── Workspace Panel (full-screen overlay) ─────────────── -->
+  <div class="workspace-panel" id="workspacePanel" style="display:none" role="dialog" aria-label="Workspace">
+    <div class="workspace-header" id="workspaceHeader">
+      <button class="workspace-back-btn" onclick="closeWorkspace()">← BACK</button>
+      <div class="workspace-header-title" id="workspaceHeaderTitle">WORKSPACE</div>
+      <div class="workspace-header-actions" id="workspaceHeaderActions"></div>
+    </div>
+    <div class="workspace-body" id="workspaceBody">
+      <div class="workspace-main" id="workspaceMain"></div>
+    </div>
+    <!-- IDE Mode (shown when editing a project) -->
+    <div class="ide-mode" id="ideMode" style="display:none">
+      <div class="ide-header">
+        <div class="ide-header-left">
+          <button class="ide-back-btn" onclick="closeIdeMode()">← BACK TO FILES</button>
+          <div class="ide-title" id="ideTitle">Project Name</div>
+        </div>
+        <div class="ide-header-right">
+          <span class="ide-dirty-indicator" id="ideDirtyIndicator" style="display:none">● UNSAVED</span>
+          <button class="ide-save-btn" id="ideSaveBtn" onclick="_workspaceSaveFile()">💾 SAVE</button>
+        </div>
+      </div>
+      <div class="ide-body">
+        <div class="ide-sidebar" id="ideSidebar">
+          <div class="ide-sidebar-title">EXPLORER</div>
+          <div class="ide-tree" id="ideTree"></div>
+        </div>
+        <div class="ide-main" id="ideMain">
+          <div class="ide-empty-state" id="ideEmptyState">Select a file to edit</div>
+          <div id="ideEditorContainer" style="display:none; width:100%; height:100%;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Settings Panel ────────────────────────────────────── -->
+  <aside class="settings-panel left-panel" id="settingsPanel" aria-label="Settings">
+    <div class="panel-header">
+      <div class="panel-title" id="settingsPanelTitle">SETTINGS</div>
+      <button class="panel-close" onclick="toggleSettingsPanel(false)">✕ CLOSE</button>
+    </div>
+    <div class="settings-content">
+      <!-- ── SECURITY ── -->
+      <div class="settings-group">
+        <div class="settings-section-title">SECURITY</div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">Network Lock</span>
+            <span class="settings-label-desc">Prevents the drive from accessing the internet. BEACON works 100% offline — this only needs to be off if you want to download new library content.</span>
+          </div>
+          <label class="settings-toggle" for="settingNetworkLock">
+            <input type="checkbox" id="settingNetworkLock" checked>
+            <span class="settings-toggle-track"><span class="settings-toggle-knob"></span></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ── PRIVACY ── -->
+      <div class="settings-group">
+        <div class="settings-section-title">PRIVACY</div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">Save Chat History</span>
+            <span class="settings-label-desc">When ON, your conversations are saved to the drive so you can come back to them later. When OFF, conversations disappear when you close the browser.</span>
+          </div>
+          <label class="settings-toggle" for="settingAutoSave">
+            <input type="checkbox" id="settingAutoSave">
+            <span class="settings-toggle-track"><span class="settings-toggle-knob"></span></span>
+          </label>
+        </div>
+        <div class="settings-row" id="encryptHistoryRow">
+          <div class="settings-label">
+            <span class="settings-label-text">Encrypt Chat History</span>
+            <span class="settings-label-desc">When ON, saved conversations are encrypted with your master password so no one else can read them.</span>
+          </div>
+          <label class="settings-toggle" for="settingEncryptHistory">
+            <input type="checkbox" id="settingEncryptHistory">
+            <span class="settings-toggle-track"><span class="settings-toggle-knob"></span></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ── INTERFACE ── -->
+      <div class="settings-group">
+        <div class="settings-section-title">INTERFACE</div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">Auto-read responses</span>
+            <span class="settings-label-desc">BEACON reads its answers out loud using text-to-speech. You can also speak to BEACON using the microphone button next to the chat input.</span>
+          </div>
+          <label class="settings-toggle" for="settingAutoRead">
+            <input type="checkbox" id="settingAutoRead">
+            <span class="settings-toggle-track"><span class="settings-toggle-knob"></span></span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">Speech speed</span>
+            <span class="settings-label-desc">Playback rate for text-to-speech</span>
+          </div>
+          <select class="settings-select" id="settingSpeechSpeed">
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.25">1.25×</option>
+            <option value="1.5">1.5×</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">Font size</span>
+            <span class="settings-label-desc">Adjust text size for the interface</span>
+          </div>
+          <select class="settings-select" id="settingFontSize">
+            <option value="small">Small</option>
+            <option value="default" selected>Default</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ── AI ENGINE ── -->
+      <div class="settings-group">
+        <div class="settings-section-title">AI ENGINE</div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span class="settings-label-text">AI model</span>
+            <span class="settings-label-desc">BEACON automatically picks the best AI model for your computer. Only change this if responses are very slow.</span>
+          </div>
+          <select class="settings-select" id="settingEngineTier">
+            <option value="auto">Auto-Detect</option>
+            <option value="base">Compact (4B)</option>
+            <option value="max">Performance (8B)</option>
+          </select>
+        </div>
+        <div class="settings-tier-info" id="settingsTierInfo"></div>
+      </div>
+
+      <!-- ── Privacy notice ── -->
+      <div class="settings-privacy">
+        <div class="settings-privacy-icon" id="settingsPrivacyIcon"></div>
+        <p>Everything on this drive runs 100% on your computer. Nothing is ever sent to the internet. The only reason to turn off Network Lock is to check for free new books and guides.</p>
+      </div>
+
+      <!-- ── DATA ── -->
+      <div class="settings-group settings-danger-zone">
+        <div class="settings-section-title">DATA</div>
+        <button class="settings-export-btn" id="changePwBtn" onclick="_showChangePasswordModal()">
+          🔑 Change Master Password
+        </button>
+        <button class="settings-export-btn" id="exportConvBtn" onclick="_showExportModal()">
+          🔒 Export Conversations (Encrypted)
+        </button>
+        <button class="settings-danger-btn" id="clearConvBtn" onclick="clearConversation()">
+          ✕ Clear current conversation
+        </button>
+        <button class="settings-danger-btn settings-danger-btn--destructive" id="purgeAllConvBtn">
+          ⚠ Purge all saved conversations
+        </button>
+        <span class="settings-label-desc" style="margin-top:4px;font-size:0.7rem;opacity:0.5">Permanently deletes all chat history from this drive</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Left Panel Spacer ─────────────────────────────────── -->
+  <!-- Grows from 0→320px when HISTORY or PROMPTS panel opens,   -->
+  <!-- pushing main-content right (push-panel, not overlay).      -->
+  <div class="left-panel-spacer" id="leftPanelSpacer" aria-hidden="true"></div>
+
+  <!-- ── Main Content Area ─────────────────────────────────── -->
+  <div class="main-content">
+
+    <!-- ── Header ───────────────────────────────────────────── -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="status-indicator" id="statusIndicator" role="status">
+          <span class="status-dot" id="statusDot"></span>
+          <span class="status-text" id="statusText" aria-live="assertive">CONNECTING...</span>
+        </div>
+      </div>
+      <div class="header-center">
+        <h1 class="brand-title">THE BLACKOUT DRIVE</h1>
+        <p class="brand-sub">O F F L I N E &ensp; A I . &ensp; E N C R Y P T E D &ensp; D A T A .</p>
+      </div>
+      <div class="header-right">
+        <!-- Blackout Protocol master switch -->
+        <button class="blackout-badge" id="blackoutBadge"
+                title="Blackout Protocol active — maximum security"
+                onclick="toggleBlackoutProtocol()">
+          <span class="bp-label" id="bpLabel">BLACKOUT PROTOCOL</span>
+          <span class="bp-switch">
+            <span class="bp-switch-knob"></span>
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Blackout Protocol Confirmation Dialog ──────────── -->
+    <div class="conn-confirm-overlay" id="bpConfirmOverlay" style="display:none;">
+      <div class="conn-confirm-dialog">
+        <div class="conn-confirm-icon">⚠</div>
+        <div class="conn-confirm-title">Disable Blackout Protocol?</div>
+        <div class="conn-confirm-body">
+          Blackout Protocol is your one-click security switch. When it's ON, it forces two things:<br><br>
+          • <strong>Network Lock ON</strong> — the drive can't access the internet<br>
+          • <strong>Encrypt Chat History ON</strong> — your conversations are encrypted<br><br>
+          Turning it OFF does <strong>not</strong> make you less secure — it just lets you control these two settings individually in the Settings panel.<br><br>
+          Both settings <strong>stay ON</strong> until you manually turn them off yourself. You can turn Blackout Protocol back on at any time.
+        </div>
+        <div class="conn-confirm-actions">
+          <button class="conn-confirm-btn conn-confirm-neutral" onclick="cancelBlackoutDisable()">CANCEL</button>
+          <button class="conn-confirm-btn conn-confirm-destructive" onclick="confirmBlackoutDisable()">CONFIRM &amp; DISABLE</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Network Lock Warning Dialog ────────────────────── -->
+    <div class="conn-confirm-overlay" id="networkLockOverlay" style="display:none;">
+      <div class="conn-confirm-dialog">
+        <div class="conn-confirm-icon">🔓</div>
+        <div class="conn-confirm-title">Disable Network Lock?</div>
+        <div class="conn-confirm-body">
+          You <strong>never need to go online</strong>. Everything on this drive works 100% without internet.<br><br>
+          Disabling Network Lock <strong>only</strong> allows:<br>
+          • Checking for new free content (books, manuals, guides)<br><br>
+          What <strong>never</strong> happens — even with Network Lock off:<br>
+          • BEACON never goes online — AI stays 100% local<br>
+          • Your conversations are never sent anywhere<br>
+          • No personal data, analytics, or telemetry<br><br>
+          <em style="color:var(--text-secondary);font-size:0.9em">The only request made is a single check against our public content catalog. Nothing else.</em>
+        </div>
+        <div class="conn-confirm-actions">
+          <button class="conn-confirm-btn conn-confirm-cancel" onclick="cancelNetworkUnlock()">KEEP LOCKED</button>
+          <button class="conn-confirm-btn conn-confirm-accept" onclick="confirmNetworkUnlock()">UNLOCK NETWORK</button>
+        </div>
+      </div>
+    </div>
+    <div class="warning-banner warning-banner--info" id="warningBanner" style="display:none;">
+      <span class="warning-icon" id="warningIcon"></span>
+      <span id="warningText"></span>
+      <button class="warning-action-btn" id="warningActionBtn" onclick="toggleHelpPanel()" style="display:none;">HOW TO START</button>
+    </div>
+
+    <!-- ── First-Run Welcome Overlay ───────────────────────── -->
+    <div class="first-run-overlay" id="firstRunOverlay" style="display:none;">
+      <div class="first-run-dialog">
+        <div class="first-run-icon" id="firstRunIcon"></div>
+        <div class="first-run-title">WELCOME TO THE BLACKOUT DRIVE</div>
+        <div class="first-run-body">
+          <p>Offline AI. Encrypted data. Everything runs right here on your device — no internet, no cloud, no accounts.</p>
+          <div class="first-run-features">
+            <div class="first-run-feature"><span class="fr-icon" data-icon="chat"></span> BEACON — An AI that runs on this drive. Ask it anything. Speak to it or type.</div>
+            <div class="first-run-feature"><span class="fr-icon" data-icon="library"></span> Library — Offline reference books, manuals, and guides pre-loaded on the drive</div>
+            <div class="first-run-feature"><span class="fr-icon" data-icon="prompts"></span> Prompts — 110+ ready-made questions across medicine, law, engineering, cybersecurity, and more</div>
+            <div class="first-run-feature"><span class="fr-icon" data-icon="lock"></span> Private — Everything stays on this drive. No internet, no accounts, no tracking</div>
+          </div>
+          <p class="first-run-note">No internet connection is ever required. An optional content channel can add new free books and references — nothing personal is ever transmitted.</p>
+          <p class="first-run-warning">WARNING &amp; LIMITATION OF LIABILITY: The Blackout Drive is an offline AI system with encrypted data storage, designed for environments without reliable connectivity. It is provided "as-is" without warranties of any kind. Hutton Technologies, LLC assumes no liability for injury, death, or legal damages resulting from the use of the information contained within. When possible, always consult licensed medical or legal professionals.</p>
+        </div>
+        <button class="first-run-start" onclick="dismissFirstRun()">I UNDERSTAND AND AGREE</button>
+      </div>
+    </div>
+
+    <!-- ── Main Chat Area ─────────────────────────────────── -->
+    <main class="chat-container" id="chatContainer" role="main" aria-label="Chat with BEACON">
+
+      <!-- Welcome Screen (shown when no messages) -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-beacon beacon-icon" id="beaconIcon"></div>
+        <h2 class="welcome-title">BEACON:READY</h2>
+        <p class="welcome-sub">Your offline AI. No internet. No cloud. Ask anything — from trauma medicine and engine repair to cybersecurity and constitutional law. 110+ expert prompts built in.</p>
+
+        <div class="prompt-grid">
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="bandage"></div>
+            <p>Provide clinical treatment steps for second and third-degree thermal burns.</p>
+          </div>
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="wrench"></div>
+            <p>Detail the diagnostic procedure for a no-start condition on a gasoline engine.</p>
+          </div>
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="scale"></div>
+            <p>Enumerate constitutional protections applicable during a police detention.</p>
+          </div>
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="terminal"></div>
+            <p>Design a hardened Linux server baseline with firewall rules and audit logging.</p>
+          </div>
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="shield"></div>
+            <p>Outline an incident response playbook for a suspected network compromise.</p>
+          </div>
+          <div class="prompt-card" onclick="usePrompt(this)">
+            <div class="prompt-icon" data-icon="code"></div>
+            <p>Explain the SOLID principles of software development with practical code examples.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Messages -->
+      <div class="messages" id="messages" aria-live="polite" aria-relevant="additions"></div>
+
+    </main>
+
+    <!-- ── Input Area ──────────────────────────────────────── -->
+    <footer class="input-area">
+      <!-- Auto-save status — flashes briefly after save completes -->
+      <div class="autosave-indicator" id="autosaveIndicator" style="display:none;">
+        <span class="autosave-check">✓</span> Saved
+      </div>
+      <div class="input-wrapper">
+        <textarea
+          id="userInput"
+          class="message-input"
+          placeholder="Ask BEACON anything..."
+          rows="1"
+          maxlength="4000"
+        ></textarea>
+        <button class="mic-btn" id="micBtn" title="Voice input" style="display:none;" aria-label="Voice input">
+          <span class="mic-icon" id="micIcon"></span>
+          <span class="mic-label">SPEAK</span>
+        </button>
+        <button class="send-btn" id="sendBtn" disabled title="Send message (Enter)" aria-label="Send message">
+          <span id="sendIcon">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M8 13V3M8 3L4 7M8 3L12 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="send-label" id="sendLabel">SEND</span>
+        </button>
+      </div>
+      <div class="input-footer">
+        <span class="char-count" id="charCount">0 / 4000</span>
+        <span class="disclaimer">AI runs fully offline · No internet required · No data sent anywhere</span>
+        <span class="voice-controls" id="voiceControls" style="display:none;">
+          <button class="voice-ctrl-btn" id="autoReadBtn" title="Auto-read BEACON responses" onclick="toggleAutoRead()">AUTO</button>
+          <button class="voice-ctrl-btn" id="ttsSpeedBtn" title="TTS speed" onclick="cycleTTSSpeed()">1x</button>
+        </span>
+      </div>
+    </footer>
+
+  </div><!-- /.main-content -->
+
+  <!-- ── Library Panel ──────────────────────────────────── -->
+  <div class="library-panel" id="libraryPanel" style="display:none;" role="dialog" aria-label="Offline Library" aria-modal="true">
+
+    <!-- Library Header -->
+    <div class="library-header">
+      <button class="lib-back-btn hidden" id="libBackBtn" onclick="handleLibBack()">← BACK</button>
+      <div class="lib-header-title" id="libHeaderTitle">OFFLINE LIBRARY</div>
+      <button class="lib-close-btn" onclick="closeLibrary()">✕ CLOSE</button>
+    </div>
+
+    <!-- Library Body: sidebar + main -->
+    <div class="library-body" id="libraryBody">
+
+      <!-- Category Sidebar -->
+      <nav class="lib-sidebar" id="libSidebar">
+        <div class="lib-sidebar-label">CATEGORIES</div>
+        <!-- Populated by JS from catalog.json -->
+      </nav>
+
+      <!-- Main Content: file list or reader -->
+      <div class="lib-main" id="libMain">
+        <div class="lib-loading" id="libLoading">
+          <span>Loading library...</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="conversations-panel" id="conversationsPanel" role="dialog" aria-label="Conversations">
+    <div class="panel-header">
+      <div class="panel-title" id="convPanelTitle">CONVERSATIONS</div>
+      <button class="panel-close" onclick="toggleConversationsPanel(false)">✕ CLOSE</button>
+    </div>
+    <!-- History mode banners removed — Settings toggle is the single source of truth -->
+
+    <div class="conv-panel-actions" id="convPanelActions">
+      <button class="conv-new-btn" id="convNewBtn" onclick="_newConversation()">
+        + NEW CONVERSATION
+      </button>
+    </div>
+    <div class="conv-list" id="convList">
+      <div class="conv-empty" id="convEmptyMsg">No saved conversations yet.</div>
+    </div>
+  </div>
+
+  <!-- ── Diagnostics Panel ─────────────────────────────────── -->
+  <div class="diag-panel" id="diagPanel" role="dialog" aria-label="System Diagnostics">
+    <div class="panel-header">
+      <div class="panel-title" id="diagPanelTitle">SYSTEM STATUS</div>
+      <button class="panel-close" onclick="toggleDiagnosticsPanel(false)">✕ CLOSE</button>
+    </div>
+    <div class="diag-panel-body" id="diagBody">
+      <div class="diag-loading">Loading diagnostics...</div>
+    </div>
+    <div class="diag-panel-footer">
+      <button class="diag-run-btn" id="diagRunBtn" onclick="runDiagnostics()">
+        ↻ RUN CHECK
+      </button>
+      <button class="diag-export-btn" id="diagExportBtn" onclick="exportDiagnostics()">
+        ⊛ COPY REPORT
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Prompt Library Panel ─────────────────────────────── -->
+  <div class="prompt-panel" id="promptPanel" role="dialog" aria-label="Prompt Library">
+    <div class="panel-header">
+      <div class="panel-title" id="promptPanelTitle">PROMPT LIBRARY</div>
+      <button class="panel-close" onclick="togglePromptPanel(false)">✕ CLOSE</button>
+    </div>
+    <div class="prompt-panel-search-wrap">
+      <input
+        type="search"
+        class="prompt-panel-search"
+        id="promptSearch"
+        placeholder="Search 110+ prompts..."
+        oninput="onPromptSearch(event)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <div class="prompt-panel-body" id="promptBody">
+      <div class="prompt-panel-loading">Loading prompts...</div>
+    </div>
+  </div>
+
+  <!-- ── Help Panel ────────────────────────────────────────── -->
+  <div class="help-panel" id="helpPanel" role="dialog" aria-label="Help">
+    <div class="panel-header">
+      <div class="panel-title">? QUICK START</div>
+      <button class="panel-close" onclick="toggleHelpPanel(false)">✕ CLOSE</button>
+    </div>
+    <div class="help-panel-body">
+
+      <div class="help-section">
+        <div class="help-section-title">WHAT IS BEACON?</div>
+        <p class="help-text">BEACON is an AI that runs entirely from this USB drive — no internet, no cloud, no accounts. Just plug in the drive and ask it anything: trauma &amp; medicine, food &amp; agriculture, engineering &amp; mechanics, comms &amp; navigation, applied sciences, tactical &amp; security, governance &amp; law, history &amp; philosophy, theology &amp; classics, systems &amp; cybersecurity, and software &amp; development. You can type your questions or speak them using the microphone button, and BEACON can read its answers back to you out loud.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">WHAT'S ON THIS DRIVE?</div>
+        <div class="help-row"><span class="help-key">BEACON</span><span class="help-desc">The AI — ask it anything, by typing or speaking</span></div>
+        <div class="help-row"><span class="help-key">CHATS</span><span class="help-desc">Your saved conversations — browse, reopen, or start a new one</span></div>
+        <div class="help-row"><span class="help-key">LIBRARY</span><span class="help-desc">Offline books, manuals, and guides pre-loaded on the drive</span></div>
+        <div class="help-row"><span class="help-key">WORKSPACE</span><span class="help-desc">Your personal files &amp; code editor — Unlocked (accessible) or Locked (encrypted, password-protected)</span></div>
+        <div class="help-row"><span class="help-key">PROMPTS</span><span class="help-desc">110+ ready-made questions across all 11 domains — trauma, engineering, cybersecurity, software, law, and more — tap any to use it</span></div>
+        <div class="help-row"><span class="help-key">SETTINGS</span><span class="help-desc">Control security, privacy, voice, AI model, and manage your data</span></div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">BLACKOUT PROTOCOL</div>
+        <p class="help-text">The toggle in the top-right corner of the screen. This is your one-click security switch.<br><br>
+        When Blackout Protocol is <strong>ON</strong> (the default):<br>
+        &bull; <strong>Network Lock</strong> is forced ON — the drive cannot access the internet<br>
+        &bull; <strong>Encrypt Chat History</strong> is forced ON — your conversations are encrypted with your master password<br><br>
+        You can turn it OFF to control these settings individually in the Settings panel. Turning it off does <strong>not</strong> make you less secure — both settings stay on until you manually change them. You can turn Blackout Protocol back on at any time.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">PASSWORD &amp; ENCRYPTION</div>
+        <p class="help-text">When you first use the drive, you create a <strong>master password</strong>. This one password protects everything that is encrypted:</p>
+        <div class="help-row"><span class="help-key">Encrypted chats</span><span class="help-desc">Your conversations are scrambled so only you can read them</span></div>
+        <div class="help-row"><span class="help-key">Locked files</span><span class="help-desc">Files you upload to the "Locked" tab in the Workspace</span></div>
+        <div class="help-row"><span class="help-key">Exported backups</span><span class="help-desc">Conversation exports are encrypted too</span></div>
+        <p class="help-text" style="margin-top:12px"><strong>Changing your password:</strong><br>Go to Settings &rarr; Data &rarr; Change Master Password. This re-encrypts all your data with the new password. Nothing is deleted — your data stays intact.</p>
+        <p class="help-text" style="margin-top:8px"><strong>Forgot your password:</strong><br>Click "Forgot password?" when you're asked to enter it. <strong>&#9888; Warning:</strong> This permanently deletes ALL encrypted conversations and locked files. BEACON, the Library, Prompts, unlocked files, and your settings are not affected. There is no way to recover a forgotten password — this is by design for your security.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">CHATTING WITH BEACON</div>
+        <div class="help-row"><span class="help-key">Type + Enter</span><span class="help-desc">Send a message</span></div>
+        <div class="help-row"><span class="help-key">Shift+Enter</span><span class="help-desc">New line in message</span></div>
+        <div class="help-row"><span class="help-key">SPEAK button</span><span class="help-desc">Talk to BEACON using your microphone (next to the chat input)</span></div>
+        <div class="help-row"><span class="help-key">LISTEN button</span><span class="help-desc">Have BEACON read a specific response out loud</span></div>
+        <div class="help-row"><span class="help-key">AUTO</span><span class="help-desc">Automatically read every BEACON response out loud</span></div>
+        <p class="help-note">Voice features require Chrome, Edge, or Safari. Firefox has limited support.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">KEYBOARD SHORTCUTS</div>
+        <div class="help-row"><span class="help-key">Esc</span><span class="help-desc">Close any open panel</span></div>
+        <div class="help-row"><span class="help-key">&#8984;/Ctrl + K</span><span class="help-desc">Clear current conversation</span></div>
+        <div class="help-row"><span class="help-key">&#8984;/Ctrl + L</span><span class="help-desc">Toggle library</span></div>
+        <div class="help-row"><span class="help-key">&#8984;/Ctrl + P</span><span class="help-desc">Toggle prompt library</span></div>
+        <div class="help-row"><span class="help-key">&#8984;/Ctrl + /</span><span class="help-desc">Toggle this help panel</span></div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">LIBRARY &amp; WORKSPACE</div>
+        <div class="help-row"><span class="help-key">LIBRARY</span><span class="help-desc">Browse all reference books and guides on the drive</span></div>
+        <div class="help-row"><span class="help-key">WORKSPACE</span><span class="help-desc">Your personal files &amp; code editor — click WORKSPACE in the sidebar</span></div>
+        <div class="help-row"><span class="help-key">Unlocked tab</span><span class="help-desc">Files anyone can view (not password-protected)</span></div>
+        <div class="help-row"><span class="help-key">Locked tab</span><span class="help-desc">Files encrypted with your master password (only you can access them)</span></div>
+        <div class="help-row"><span class="help-key">GET MORE</span><span class="help-desc">Download additional free content (requires internet)</span></div>
+        <div class="help-row"><span class="help-key">MANAGE SPACE</span><span class="help-desc">See what's using space and delete files you don't need</span></div>
+        <p class="help-text">All library content is public domain — free, legal, and yours to keep. If you delete a file to free space, you can always re-download it for free.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">PROMPTS</div>
+        <p class="help-text">Tap any prompt card to load it into the chat. Search by keyword or browse by category — Trauma &amp; Medicine, Food &amp; Agriculture, Engineering &amp; Mechanics, Comms &amp; Navigation, Applied Sciences, Tactical &amp; Security, Governance &amp; Law, History &amp; Philosophy, Theology &amp; Classics, Systems &amp; Cybersecurity, Software &amp; Development.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">YOUR PRIVACY</div>
+        <p class="help-text">The Blackout Drive is built around one principle: <strong>your data never leaves this drive.</strong></p>
+        <div class="help-row"><span class="help-key">No internet needed</span><span class="help-desc">Everything runs on your computer — BEACON never goes online</span></div>
+        <div class="help-row"><span class="help-key">No accounts</span><span class="help-desc">No sign-up, no login, no personal information collected</span></div>
+        <div class="help-row"><span class="help-key">No tracking</span><span class="help-desc">Zero telemetry, zero analytics — nothing is ever sent anywhere</span></div>
+        <div class="help-row"><span class="help-key">Your chats</span><span class="help-desc">Saved only on this physical drive — never uploaded</span></div>
+        <p class="help-note">If you turn off Network Lock, the only request made is a check for free new books. No personal data is ever transmitted.</p>
+      </div>
+
+      <div class="help-section">
+        <div class="help-section-title">TROUBLESHOOTING</div>
+        <div class="help-row help-row-warn"><span class="help-key">BEACON not started</span><span class="help-desc">Open the drive folder and run the START launcher for your system</span></div>
+        <div class="help-row help-row-warn"><span class="help-key">Slow responses</span><span class="help-desc">Normal on first load — the AI needs 15-30 seconds to load into memory</span></div>
+        <div class="help-row help-row-warn"><span class="help-key">Voice not working</span><span class="help-desc">Click "Allow" when your browser asks for microphone access</span></div>
+        <div class="help-row help-row-warn"><span class="help-key">Library empty</span><span class="help-desc">Make sure you launched the drive first, then refresh the page</span></div>
+        <p class="help-note">Keep the launcher terminal/command window open while using the drive. Closing it shuts down BEACON.</p>
+      </div>
+
+      <div class="help-section help-section-last">
+        <div class="help-section-title">IMPORTANT</div>
+        <p class="help-text">&bull; BEACON is an AI — always verify critical medical or legal information with a professional.<br>&bull; Do not type passwords or sensitive secrets into the chat.<br>&bull; All data stays on this physical drive. Nothing is sent anywhere — ever.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- LOAD ORDER IS CRITICAL FOR ANTI-FLICKER:
+    1. config.js    — app config (appName, model, ports)
+    2. api.js       — DDAPI helper (fetch wrappers)
+    3. library.js   — defines _restoreLibState (MUST be before app.js)
+    4. workspace.js — defines _restoreWsState (MUST be before app.js)
+    5. app.js       — calls _restoreLibState() / _restoreWsState() synchronously in init()
+  -->
+  <script src="icons.js?v=9"></script>
+  <script src="config.js?v=9"></script>
+  <script src="api.js?v=9"></script>
+  <script src="lib/jszip.min.js"></script>
+  <script src="lib/marked.min.js"></script>
+  <script src="lib/highlight.min.js"></script>
+  <script src="lib/epub.min.js"></script>
+  <script src="library.js?v=10"></script>
+  <script src="diagnostics.js?v=10"></script>
+  <script src="prompts.js?v=10"></script>
+  <script src="help.js?v=10"></script>
+  <script src="crypto.js?v=9"></script>
+  <script src="myfiles.js?v=11"></script>
+  <script src="workspace.js?v=17"></script>
+  <script src="app.js?v=14"></script>
+</body>
+</html>

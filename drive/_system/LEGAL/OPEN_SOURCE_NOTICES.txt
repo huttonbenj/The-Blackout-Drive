@@ -1,0 +1,72 @@
+The Blackout Drive — OPEN SOURCE NOTICES & ATTRIBUTION
+===================================================
+
+This product is built on open-source software. The following components 
+are included on this drive, each under their respective licenses. Full 
+license text for each component is provided in this LEGAL/ directory.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Ollama
+LICENSE:   MIT License
+AUTHOR:    Ollama, Inc.
+SOURCE:    https://github.com/ollama/ollama
+FULL TEXT: See OLLAMA_LICENSE.txt in this directory
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Qwen3 Language Models (4B, 8B)
+LICENSE:   Apache License 2.0
+AUTHOR:    Alibaba Cloud
+SOURCE:    https://huggingface.co/Qwen
+FULL TEXT: See QWEN3_LICENSE.txt in this directory
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Wikipedia Offline Content
+LICENSE:   Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)
+AUTHOR:    Wikipedia contributors
+SOURCE:    https://www.wikipedia.org
+           https://kiwix.org
+           https://dumps.wikimedia.org
+ATTRIBUTION: This product includes content from Wikipedia 
+             (https://en.wikipedia.org), used under the Creative Commons 
+             Attribution-ShareAlike 4.0 International License. 
+             See: https://creativecommons.org/licenses/by-sa/4.0/
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Kiwix (offline reader for ZIM files)
+LICENSE:   GNU General Public License v3 (GPL v3)
+AUTHOR:    Kiwix team
+SOURCE:    https://github.com/kiwix/kiwix-tools
+           https://kiwix.org
+NOTE:      Source code available at https://github.com/kiwix
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PUBLIC DOMAIN CONTENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The following documents are works of the United States federal government 
+and are in the public domain under 17 U.S.C. § 105:
+
+  - Army Field Manual FM 21-76 (Survival)
+  - Army Field Manual FM 3-05.70 (Survival)
+  - FEMA "Are You Ready?" Emergency Preparedness Guide
+  - CDC Emergency Preparedness publications
+  - USDA National Center for Home Food Preservation guides
+  - EPA Emergency Drinking Water guidelines
+
+No copyright claim is made on these materials.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: "Where There Is No Doctor" & "Where There Is No Dentist"
+LICENSE:   Free for reproduction with attribution (Hesperian Foundation)
+AUTHOR:    Hesperian Health Guides
+SOURCE:    https://hesperian.org
+ATTRIBUTION: Published by the Hesperian Foundation. 
+             Available free of charge from hesperian.org.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The Blackout Drive custom software (launchers, chat UI, Modelfile):
+Copyright © 2026 Hutton Technologies. All rights reserved.
