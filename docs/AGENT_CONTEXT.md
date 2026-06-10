@@ -37,7 +37,7 @@ The-Blackout-Drive/
 │   │   ├── content/                ← User-uploaded documents (EPUBs, PDFs, etc.)
 │   │   ├── conversations/          ← Saved chat sessions (JSON)
 │   │   ├── unlocked/               ← User files (standard access)
-│   │   └── locked/                 ← User files (AES-256-GCM encrypted via 7-Zip)
+│   │   └── locked/                 ← User files (AES-256-GCM encrypted, native .bkv format)
 │   └── _system/                    ← System internals
 │       ├── config.sh / config.bat  ← Shell config for launchers
 │       ├── models.json            ← Model definitions (multi-model support)
@@ -54,7 +54,7 @@ The-Blackout-Drive/
 │       ├── content/                 ← Pre-loaded library content
 │       │   ├── books/{category}/    ← EPUBs, PDFs, TXTs by category
 │       │   ├── manifest.json        ← Auto-generated file inventory
-│       │   └── text_index.json      ← Pre-built search index (28MB)
+│       │   └── text_index.json      ← Pre-built search index (~76MB)
 │       └── ui/                      ← Frontend (17 JS files + CSS + HTML)
 │           ├── tools.js             ← Tools panel controller (registry pattern)
 │           ├── hamradio.js          ← Ham Radio toolkit (self-registering module)
@@ -210,7 +210,7 @@ registerTool({
 - Medical Timers (tourniquet application tracker, CPR compression metronome at 110 BPM)
 - Prep Checklists (bug-out bag, vehicle, home, first aid, comms plan + custom list builder + readiness scoring)
 - COMMS panel (tactical mesh communications — Hardware Required / Radio Silence / Active states)
-- Radio Silence toggle (independent of Blackout Protocol — suspends all mesh radio I/O)
+- Radio Silence toggle (independent of Blackout Protocol — suspends all outbound mesh radio transmissions; incoming RF is physically received by the hardware but not processed or stored)
 - Voice input (STT) and text-to-speech (TTS)
 - Conversation persistence with auto-save
 - AES-256-GCM chat encryption (Single Ecosystem Key)
@@ -221,4 +221,4 @@ registerTool({
 - Diagnostics panel
 - 100+ prompt library
 - macOS + Windows + Linux launchers
-- 4-SKU pricing: Core Library 64GB ($89), Core Library 128GB ($119), Tactical Mesh Bundle 64GB ($149), Tactical Mesh Bundle 128GB ($179)
+- 7-SKU pricing: Core Edition 64GB ($89), Core Edition 128GB ($119), Basecamp Bundle 64GB ($149), Basecamp Bundle 128GB ($179), Field Kit 64GB ($199), Field Kit 128GB ($229), Field Node add-on ($59)

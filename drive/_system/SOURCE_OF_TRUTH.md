@@ -257,15 +257,15 @@ The frontend loads `_system/config.json` via HTTP. The server's `_CONFIG_PATH` p
 
 | Repo | Purpose | Branch |
 |------|---------|--------|
-| `The-Blackout-Drive` | The product (USB drive contents) | `design/spec-ops` |
+| `The-Blackout-Drive` | The product (USB drive contents) | `main` |
 | `The-Blackout-Drive-Web` | Marketing website (theblackoutdrive.com) | `main` |
 
 ---
 
 ## 8. KNOWN ISSUES — REMAINING FIXES NEEDED
 
-### 8.1 🔴 pyserial — Missing from OPEN_SOURCE_NOTICES.txt
-Bundled in `vendor/serial/` (BSD-3-Clause). License file exists at `vendor/LICENSE-pyserial.txt` but the component is not listed in the attribution file. **Legal compliance gap.**
+### 8.1 ✅ pyserial — RESOLVED
+pyserial is now attributed in `OPEN_SOURCE_NOTICES.txt` (BSD-3-Clause, Chris Liechti).
 
 ### 8.2 🔴 Web Privacy Page Out of Sync
 **File:** `The-Blackout-Drive-Web/src/app/privacy/page.tsx`
@@ -387,8 +387,13 @@ Every third-party dependency must be properly attributed in `OPEN_SOURCE_NOTICES
 - **Restriction:** Cannot use to create a competing product
 
 ### 12.3 Product SKUs
-- **Standard Drive** — The Blackout Drive (USB drive only)
-- **Mesh Bundle** — The Blackout Drive + Heltec V3 LoRa radios
+- **Core Edition** (64GB) — USB drive only — $89
+- **Core Edition** (128GB) — USB drive only — $119
+- **Basecamp Bundle** (64GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $149
+- **Basecamp Bundle** (128GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $179
+- **Field Kit** (64GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $199
+- **Field Kit** (128GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $229
+- **Field Node** (add-on, no drive) — 1x pre-flashed Heltec V3 radio + antenna + cable — $59
 
 ### 12.4 Website
 - `theblackoutdrive.com` — Next.js + Tailwind, hosted separately

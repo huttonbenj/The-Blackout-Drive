@@ -24,7 +24,7 @@ This repo uses a structured documentation system so any AI agent or developer ca
 | Doc | Purpose |
 |-----|---------|
 | [`docs/AGENT_CONTEXT.md`](docs/AGENT_CONTEXT.md) | Full project context — architecture, stack, data flow |
-| [`docs/STATE.md`](docs/STATE.md) | Current project state + V1/V2 feature status |
+| [`STATE.md`](STATE.md) | Current project state + V1/V2 feature status |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | All architectural decisions with rationale |
 | [`docs/LEGAL.md`](docs/LEGAL.md) | License compliance + medical disclaimer |
 | `drive/_system/config.json` | Master runtime configuration |
@@ -112,7 +112,7 @@ All editions run the **exact same Blackout Drive software, AI models, and librar
 - **Voice I/O** — Voice input and text-to-speech for hands-free operation
 - **In-browser reader** — EPUB/PDF/TXT reader with chapter navigation and full-text search
 - **Monaco code editor** — Full-featured offline code editor
-- **Cross-platform** — Mac + Windows + Linux
+- **Cross-platform** — Mac + Windows + Linux (Linux experimental — not yet fully tested)
 - ~37GB free space for your own files
 
 ### Core Edition 128GB — $119
