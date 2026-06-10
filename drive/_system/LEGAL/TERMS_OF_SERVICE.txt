@@ -1,0 +1,179 @@
+The Blackout Drive — Terms of Service
+=======================================
+Last Updated: May 17, 2026
+
+PLEASE READ THESE TERMS CAREFULLY BEFORE USING THE BLACKOUT DRIVE.
+
+By using The Blackout Drive, you agree to be bound by these Terms of
+Service ("Terms"). If you do not agree, do not use the product.
+
+
+1. DEFINITIONS
+──────────────
+"The Product"    — The Blackout Drive, including all software, content,
+                   and documentation on the USB drive.
+"Hutton Tech"    — Hutton Technologies LLC, the developer and licensor.
+"BEACON"         — The AI assistant software included on the drive.
+"You" / "User"   — Any individual using The Blackout Drive.
+
+
+2. LICENSE GRANT
+────────────────
+The Blackout Drive software is licensed under the Business Source
+License 1.1 (BSL 1.1). Subject to these Terms and the BSL 1.1:
+
+  • You MAY use the Product for personal, non-commercial purposes
+  • You MAY modify the software for personal use
+  • You may NOT use the Product to create, distribute, or sell a
+    competing product or service
+  • You may NOT remove or alter copyright notices, trademarks, or
+    license information
+
+The full license text is in the LICENSE file included on the drive.
+
+On the Change Date (May 7, 2030), the software license converts to
+the Apache License, Version 2.0.
+
+
+3. INTELLECTUAL PROPERTY
+────────────────────────
+The Blackout Drive™ is a trademark of Hutton Technologies LLC.
+The software, UI design, system prompts, and
+original content are copyrighted works of Hutton Technologies LLC.
+
+Third-party components (Ollama, Qwen3 models, Monaco Editor, etc.)
+are used under their respective open-source licenses. See the
+OPEN_SOURCE_NOTICES.txt file for full attribution.
+
+Library content (books, manuals, reference documents) consists of
+public domain works and openly licensed materials. No copyright
+claim is made on public domain content.
+
+
+4. PERMITTED USE
+────────────────
+You may use The Blackout Drive for:
+
+  • Personal education and reference
+  • Emergency preparedness and planning
+  • Offline AI assistance in any personal, non-commercial capacity
+  • Storing and encrypting personal files on the drive
+
+You may NOT use The Blackout Drive for:
+
+  • Medical diagnosis or treatment (see Section 7)
+  • Legal advice in lieu of licensed counsel
+  • Any use that violates applicable law
+  • Commercial redistribution without a license from Hutton Tech
+  • Reverse engineering the AI model configuration for commercial use
+
+
+5. AI DISCLAIMER
+────────────────
+BEACON is an AI language model running locally on your hardware. It:
+
+  • May produce inaccurate, incomplete, or misleading information
+  • Has no real-time knowledge and cannot access the internet
+  • Is not a licensed professional in any field
+  • Should never be the sole basis for critical decisions
+
+AI responses are provided "as-is" for informational purposes only.
+Always verify important information with qualified professionals.
+
+
+6. CONTENT DISCLAIMER
+──────────────────────
+The reference library on The Blackout Drive includes public-domain
+books, government publications, and openly licensed materials. This
+content:
+
+  • Is provided for educational purposes only
+  • May contain outdated information (many texts are historical)
+  • Does not constitute professional advice in any field
+  • Is not endorsed by Hutton Technologies as current or authoritative
+
+
+7. MEDICAL DISCLAIMER
+──────────────────────
+THE BLACKOUT DRIVE IS NOT A MEDICAL DEVICE. Nothing on this drive —
+including AI responses, reference books, and medical guides — should
+be used as a substitute for professional medical advice, diagnosis,
+or treatment.
+
+IN ANY MEDICAL EMERGENCY:
+  → Call 911 (United States) or your local emergency number
+  → Seek trained medical professionals immediately
+
+See DISCLAIMER.txt for the full medical and liability disclaimer.
+
+
+8. LIMITATION OF LIABILITY
+──────────────────────────
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW:
+
+THE PRODUCT IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL HUTTON TECHNOLOGIES LLC, ITS OFFICERS, EMPLOYEES,
+OR AFFILIATES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+CONSEQUENTIAL, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO
+INJURY, DEATH, PROPERTY DAMAGE, LOSS OF DATA, OR LOSS OF PROFITS)
+ARISING FROM THE USE OF OR INABILITY TO USE THE PRODUCT.
+
+YOU ASSUME ALL RISK ASSOCIATED WITH THE USE OF THE PRODUCT.
+
+
+9. DATA AND PRIVACY
+────────────────────
+The Blackout Drive collects no personal data. All data is stored
+locally on the physical USB drive. See PRIVACY_POLICY.txt for the
+full privacy policy.
+
+
+10. UPDATES AND MODIFICATIONS
+─────────────────────────────
+Hutton Technologies may release updated versions of The Blackout Drive.
+Updates are delivered via new drive images or the optional content
+channel — never pushed automatically. You are under no obligation to
+update.
+
+These Terms may be updated in future releases. Continued use of the
+Product constitutes acceptance of any updated Terms included with the
+version you are using.
+
+
+11. TERMINATION
+───────────────
+Your right to use The Blackout Drive terminates automatically if you
+violate these Terms or the BSL 1.1 license. Upon termination, you
+must cease all use of the Product.
+
+
+12. GOVERNING LAW
+─────────────────
+These Terms are governed by the laws of the State of Mississippi, United
+States, without regard to conflict of law provisions. Any disputes
+shall be resolved in the courts of Mississippi.
+
+
+13. SEVERABILITY
+────────────────
+If any provision of these Terms is found unenforceable, the remaining
+provisions continue in full force and effect.
+
+
+14. ENTIRE AGREEMENT
+────────────────────
+These Terms, together with the BSL 1.1 License, Privacy Policy, and
+Medical Disclaimer, constitute the entire agreement between you and
+Hutton Technologies LLC regarding The Blackout Drive.
+
+
+15. CONTACT
+───────────
+  Hutton Technologies LLC
+  Email: support@theblackoutdrive.com
+
+
+© 2026 Hutton Technologies LLC. All rights reserved.

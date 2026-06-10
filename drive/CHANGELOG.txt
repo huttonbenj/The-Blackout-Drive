@@ -1,0 +1,27 @@
+THE BLACKOUT DRIVE — CHANGELOG
+===============================
+
+v1.0.0 (May 2026)
+──────────────────
+  Initial release.
+
+  • BEACON — Offline AI powered by Qwen3 (4B/8B auto-selected)
+  • Reference Library — Offline books, manuals, and guides with
+    built-in EPUB reader and keyword search
+  • COMMS — Encrypted mesh communications via LoRa radio (Meshtastic)
+    with live NodeDB tracking and AI-assisted dispatch
+  • Workspace — Personal file management with Unlocked and
+    Locked (AES-256-GCM encrypted) storage tabs
+  • Tools — Ham Radio, Navigator, Cipher Studio, Survival
+    Calculators, Medical Timers, Prep Checklists
+  • Prompts — 100+ curated prompts across 11 knowledge domains
+  • Voice — Speak to BEACON and hear responses with TTS
+  • Encryption — Optional AES-256-GCM encryption for chat history
+    and locked files, protected by a single master password
+  • Blackout Protocol — One-click security switch (forces Network
+    Lock + Encrypt Chat History)
+  • OTA Updates — Optional software update checker (Network Lock
+    must be off; no personal data transmitted)
+  • Factory Restore — Emergency restore scripts preserve USER_DATA
+  • Cross-platform — macOS and Windows from a single USB drive (Linux launcher included, experimental)
+

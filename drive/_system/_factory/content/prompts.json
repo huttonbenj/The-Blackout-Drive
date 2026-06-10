@@ -1,0 +1,1039 @@
+{
+  "version": 2,
+  "categories": [
+    {
+      "id": "medicine",
+      "name": "Trauma & Medicine",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "med01",
+          "title": "Thermal burn treatment protocol",
+          "prompt": "Provide clinical treatment steps for first, second, and third-degree thermal burns. Include wound classification criteria, fluid resuscitation guidelines, and infection prevention measures.",
+          "tags": [
+            "burns",
+            "trauma"
+          ]
+        },
+        {
+          "id": "med02",
+          "title": "Hemorrhage control procedures",
+          "prompt": "Detail the standard procedures for controlling arterial and venous hemorrhage in a field environment. Include tourniquet application criteria, wound packing technique, and pressure point locations.",
+          "tags": [
+            "bleeding",
+            "trauma"
+          ]
+        },
+        {
+          "id": "med03",
+          "title": "Chest seal for penetrating thoracic trauma",
+          "prompt": "Outline the assessment and treatment protocol for a sucking chest wound. Include improvised chest seal construction, patient positioning, and monitoring for tension pneumothorax.",
+          "tags": [
+            "chest",
+            "trauma"
+          ]
+        },
+        {
+          "id": "med04",
+          "title": "Fracture stabilization and splinting",
+          "prompt": "Describe the procedures for identifying, reducing, and immobilizing long bone fractures using improvised materials. Include traction splint indications and neurovascular assessment checkpoints.",
+          "tags": [
+            "fracture",
+            "orthopedic"
+          ]
+        },
+        {
+          "id": "med05",
+          "title": "Hypovolemic shock recognition and management",
+          "prompt": "Define the clinical stages of hypovolemic shock. Provide assessment criteria, compensatory mechanism indicators, and field management procedures including fluid replacement priorities.",
+          "tags": [
+            "shock",
+            "emergency"
+          ]
+        },
+        {
+          "id": "med06",
+          "title": "Adult cardiopulmonary resuscitation protocol",
+          "prompt": "Provide the current adult CPR protocol including compression-to-ventilation ratio, compression rate and depth, hand placement, and decision criteria for continuing or terminating resuscitation.",
+          "tags": [
+            "cpr",
+            "cardiac"
+          ]
+        },
+        {
+          "id": "med07",
+          "title": "Wound infection assessment and treatment",
+          "prompt": "Detail the clinical signs of wound infection progression from localized to systemic. Include debridement principles, antimicrobial treatment options, and criteria for surgical intervention.",
+          "tags": [
+            "infection",
+            "wound"
+          ]
+        },
+        {
+          "id": "med08",
+          "title": "Envenomation identification and management",
+          "prompt": "Classify the major categories of venomous snakebite by symptom presentation. Provide field management protocols, contraindicated interventions, and evacuation priority criteria.",
+          "tags": [
+            "venom",
+            "toxicology"
+          ]
+        },
+        {
+          "id": "med09",
+          "title": "Dehydration severity assessment",
+          "prompt": "Define the clinical indicators for mild, moderate, and severe dehydration across age groups. Provide oral rehydration solution formulation and administration rate guidelines.",
+          "tags": [
+            "dehydration",
+            "fluid"
+          ]
+        },
+        {
+          "id": "med10",
+          "title": "Emergency childbirth delivery procedure",
+          "prompt": "Outline the step-by-step procedure for managing an unassisted emergency delivery. Include umbilical cord management, postpartum hemorrhage indicators, and neonatal assessment criteria.",
+          "tags": [
+            "obstetric",
+            "emergency"
+          ]
+        },
+        {
+          "id": "med11",
+          "title": "Dental emergency field management",
+          "prompt": "Provide treatment protocols for dental abscess, avulsed teeth, and fractured mandible in a field setting. Include pain management options and infection control measures.",
+          "tags": [
+            "dental",
+            "emergency"
+          ]
+        },
+        {
+          "id": "med12",
+          "title": "Pharmacology of common analgesics",
+          "prompt": "Compare the mechanisms of action, dosing schedules, contraindications, and toxicity thresholds for acetaminophen, ibuprofen, and aspirin. Include hepatotoxicity and renal risk profiles.",
+          "tags": [
+            "pharmacology",
+            "pain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agriculture",
+      "name": "Food & Agriculture",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "agr01",
+          "title": "Crop planning by caloric yield per acre",
+          "prompt": "Rank the highest calorie-producing crops per acre of cultivated land. Include planting density, days to maturity, water requirements, and storage characteristics for each.",
+          "tags": [
+            "crops",
+            "planning"
+          ]
+        },
+        {
+          "id": "agr02",
+          "title": "Composting and soil amendment protocols",
+          "prompt": "Detail the carbon-to-nitrogen ratios, temperature profiles, and turning schedules for producing finished compost. Include amendments for correcting acidic, alkaline, and clay-heavy soils.",
+          "tags": [
+            "soil",
+            "composting"
+          ]
+        },
+        {
+          "id": "agr03",
+          "title": "Seed saving and germination procedures",
+          "prompt": "Outline the seed harvesting, drying, and storage procedures for open-pollinated vegetable varieties. Include viability testing methods and cross-pollination isolation distances by species.",
+          "tags": [
+            "seeds",
+            "propagation"
+          ]
+        },
+        {
+          "id": "agr04",
+          "title": "Livestock health assessment and treatment",
+          "prompt": "Define the baseline vital signs and common disease indicators for poultry, goats, and cattle. Include vaccination schedules, parasite management protocols, and emergency veterinary procedures.",
+          "tags": [
+            "livestock",
+            "veterinary"
+          ]
+        },
+        {
+          "id": "agr05",
+          "title": "Irrigation system design and water management",
+          "prompt": "Compare drip, flood, and sprinkler irrigation methods by efficiency, cost, and crop suitability. Include water requirement calculations per crop type and rainwater harvesting system sizing.",
+          "tags": [
+            "irrigation",
+            "water"
+          ]
+        },
+        {
+          "id": "agr06",
+          "title": "Food preservation without refrigeration",
+          "prompt": "Detail the procedures for canning, dehydration, fermentation, smoking, and salt-curing of meats and produce. Include botulism prevention measures and shelf-life expectations for each method.",
+          "tags": [
+            "preservation",
+            "food"
+          ]
+        },
+        {
+          "id": "agr07",
+          "title": "Integrated pest management strategies",
+          "prompt": "Identify the most destructive agricultural pests by crop type and region. Provide non-chemical control methods including companion planting, biological controls, and physical barriers.",
+          "tags": [
+            "pest",
+            "management"
+          ]
+        },
+        {
+          "id": "agr08",
+          "title": "Poultry husbandry for egg and meat production",
+          "prompt": "Specify housing requirements, feed formulations, lighting schedules, and breed selection criteria for dual-purpose poultry operations. Include egg production optimization and processing procedures.",
+          "tags": [
+            "poultry",
+            "livestock"
+          ]
+        },
+        {
+          "id": "agr09",
+          "title": "Season extension and climate adaptation",
+          "prompt": "Detail the construction and management of cold frames, hoop houses, and greenhouse structures for extending the growing season. Include frost date calculations and microclimate modification techniques.",
+          "tags": [
+            "greenhouse",
+            "climate"
+          ]
+        },
+        {
+          "id": "agr10",
+          "title": "Grain milling and flour production",
+          "prompt": "Compare manual and powered grain milling methods for wheat, corn, and rice. Include stone versus steel burr characteristics, flour grade classifications, and post-milling storage requirements.",
+          "tags": [
+            "grain",
+            "processing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering & Mechanics",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "eng01",
+          "title": "Internal combustion engine diagnostics",
+          "prompt": "Detail the diagnostic procedure for a no-start condition on a four-stroke gasoline engine. Include ignition system testing, fuel delivery verification, and compression analysis.",
+          "tags": [
+            "engine",
+            "diagnostics"
+          ]
+        },
+        {
+          "id": "eng02",
+          "title": "Off-grid solar array design parameters",
+          "prompt": "Calculate the component specifications for a standalone 1kW solar installation. Include panel wattage, charge controller sizing, battery bank capacity in amp-hours, and inverter requirements.",
+          "tags": [
+            "solar",
+            "electrical"
+          ]
+        },
+        {
+          "id": "eng03",
+          "title": "DC circuit design fundamentals",
+          "prompt": "Define the relationships between voltage, current, resistance, and power in DC circuits. Provide wire gauge selection criteria based on amperage and run length, and common failure modes that cause electrical fires.",
+          "tags": [
+            "electrical",
+            "safety"
+          ]
+        },
+        {
+          "id": "eng04",
+          "title": "Structural load-bearing calculations",
+          "prompt": "Calculate the load-bearing requirements for a single-span wooden beam supporting a distributed floor load. Include dead load, live load, deflection limits, and species-specific lumber strength values.",
+          "tags": [
+            "structural",
+            "construction"
+          ]
+        },
+        {
+          "id": "eng05",
+          "title": "Water pump selection and hydraulic calculations",
+          "prompt": "Determine pump sizing requirements for a gravity-fed and pumped water distribution system. Include total dynamic head calculation, flow rate requirements, pipe friction losses, and pump curve interpretation.",
+          "tags": [
+            "hydraulic",
+            "mechanical"
+          ]
+        },
+        {
+          "id": "eng06",
+          "title": "Welding metallurgy and joint design",
+          "prompt": "Compare MIG, TIG, and stick welding processes by application suitability. Include filler material selection for carbon steel and aluminum, joint preparation requirements, and common defect identification.",
+          "tags": [
+            "welding",
+            "fabrication"
+          ]
+        },
+        {
+          "id": "eng08",
+          "title": "Small engine maintenance schedule",
+          "prompt": "Provide the standard maintenance intervals and procedures for two-stroke and four-stroke small engines. Include carburetor adjustment, valve clearance specification, and fuel system winterization.",
+          "tags": [
+            "engine",
+            "maintenance"
+          ]
+        },
+        {
+          "id": "eng09",
+          "title": "Concrete mix design and curing parameters",
+          "prompt": "Specify the standard mix ratios for structural concrete by application. Include water-cement ratio effects on strength, curing temperature requirements, minimum cure time, and cold weather placement precautions.",
+          "tags": [
+            "construction",
+            "materials"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comms",
+      "name": "Comms & Navigation",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "eng07",
+          "title": "Radio frequency propagation characteristics",
+          "prompt": "Explain HF, VHF, and UHF radio propagation behavior including ground wave, line-of-sight, and skywave modes. Define the relationship between frequency, wavelength, and antenna length requirements.",
+          "tags": [
+            "radio",
+            "communications"
+          ]
+        },
+        {
+          "id": "eng10",
+          "title": "Mesh network architecture for local communications",
+          "prompt": "Detail the hardware requirements and network topology for deploying a local mesh communications network independent of cellular infrastructure. Include protocol options, range specifications, and power requirements.",
+          "tags": [
+            "communications",
+            "networking"
+          ]
+        },
+        {
+          "id": "math04",
+          "title": "Trigonometric functions for surveying and navigation",
+          "prompt": "Define sine, cosine, and tangent relationships and demonstrate their application to distance estimation, height calculation, and triangulation-based position fixing without electronic instruments.",
+          "tags": [
+            "trigonometry",
+            "navigation"
+          ]
+        },
+        {
+          "id": "sci03",
+          "title": "GPS satellite navigation system architecture",
+          "prompt": "Describe the three-segment GPS architecture and the trilateration algorithm used for position fixing. Include signal structure, clock error correction, atmospheric delay sources, and precision limitations.",
+          "tags": [
+            "navigation",
+            "electronics"
+          ]
+        },
+        {
+          "id": "comms01",
+          "title": "Amateur radio operating frequencies",
+          "prompt": "List the primary HF, VHF, and UHF amateur radio bands. Include calling frequencies, simplex channels, and emergency communications protocols for off-grid scenarios.",
+          "tags": [
+            "radio",
+            "frequency"
+          ]
+        },
+        {
+          "id": "comms02",
+          "title": "One-time pad cryptography",
+          "prompt": "Explain the mathematical principle behind a one-time pad cipher and why it provides perfect forward secrecy. Provide instructions for generating, distributing, and using one-time pads securely without digital devices.",
+          "tags": [
+            "crypto",
+            "security"
+          ]
+        },
+        {
+          "id": "comms03",
+          "title": "Celestial navigation basics",
+          "prompt": "Detail the procedures for determining latitude using Polaris in the Northern Hemisphere and the Southern Cross in the Southern Hemisphere. Include the method for determining longitude using local solar noon and an accurate chronometer.",
+          "tags": [
+            "navigation",
+            "celestial"
+          ]
+        },
+        {
+          "id": "comms04",
+          "title": "Map reading and terrain association",
+          "prompt": "Explain how to interpret topographic map contour lines to identify ridges, valleys, saddles, and depressions. Detail the procedure for orienting a map to north and triangulating your position using two known landmarks.",
+          "tags": [
+            "map",
+            "orienteering"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "applied_sciences",
+      "name": "Applied Sciences",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "sci01",
+          "title": "Water purification chemistry and methods",
+          "prompt": "Detail the chemical and mechanical procedures for purifying standing water. Compare chlorination, UV treatment, boiling, reverse osmosis, and activated carbon filtration by pathogen removal effectiveness.",
+          "tags": [
+            "chemistry",
+            "water"
+          ]
+        },
+        {
+          "id": "sci02",
+          "title": "Photovoltaic cell operating principles",
+          "prompt": "Explain the physics of photovoltaic energy conversion from photon absorption through electron flow. Define the factors affecting cell efficiency including temperature coefficient, irradiance, and degradation rate.",
+          "tags": [
+            "physics",
+            "energy"
+          ]
+        },
+        {
+          "id": "sci04",
+          "title": "Antibiotic mechanisms and resistance pathways",
+          "prompt": "Classify antibiotics by mechanism of action: cell wall inhibitors, protein synthesis disruptors, and nucleic acid inhibitors. Detail the genetic and biochemical pathways that produce bacterial resistance.",
+          "tags": [
+            "microbiology",
+            "medicine"
+          ]
+        },
+        {
+          "id": "sci05",
+          "title": "Periodic table organization and elemental properties",
+          "prompt": "Explain the organizational logic of the periodic table including group trends, period trends, electronegativity gradients, and valence electron configurations. Identify the most industrially and biologically critical elements.",
+          "tags": [
+            "chemistry",
+            "reference"
+          ]
+        },
+        {
+          "id": "sci06",
+          "title": "Thermodynamics of heat transfer",
+          "prompt": "Define conduction, convection, and radiation as heat transfer mechanisms. Provide the governing equations for each and apply them to shelter insulation design, cooking system efficiency, and body heat management.",
+          "tags": [
+            "physics",
+            "thermal"
+          ]
+        },
+        {
+          "id": "sci07",
+          "title": "Atmospheric pressure and weather prediction",
+          "prompt": "Explain the relationship between barometric pressure, temperature, humidity, and wind patterns. Provide field-observable indicators for predicting weather changes without instruments.",
+          "tags": [
+            "meteorology",
+            "observation"
+          ]
+        },
+        {
+          "id": "sci08",
+          "title": "Battery chemistry and storage systems",
+          "prompt": "Compare lithium-ion, lead-acid, and nickel-metal hydride battery chemistries by energy density, cycle life, discharge characteristics, and failure modes. Include safe storage parameters and disposal requirements.",
+          "tags": [
+            "chemistry",
+            "energy"
+          ]
+        },
+        {
+          "id": "sci09",
+          "title": "Nuclear radiation types and shielding",
+          "prompt": "Classify alpha, beta, gamma, and neutron radiation by penetration depth, biological hazard, and shielding requirements. Provide safe distance calculations and exposure time limits based on dosimetry principles.",
+          "tags": [
+            "physics",
+            "safety"
+          ]
+        },
+        {
+          "id": "sci10",
+          "title": "Soil composition and nutrient chemistry",
+          "prompt": "Define the primary macronutrients (N-P-K) and micronutrients required for plant growth. Explain soil pH effects on nutrient availability, organic matter decomposition cycles, and field-testable soil assessment methods.",
+          "tags": [
+            "chemistry",
+            "agriculture"
+          ]
+        },
+        {
+          "id": "math01",
+          "title": "Unit conversion reference tables",
+          "prompt": "Provide comprehensive conversion factors between metric and imperial systems for length, mass, volume, temperature, area, and pressure. Include derived units commonly used in engineering and medicine.",
+          "tags": [
+            "conversion",
+            "reference"
+          ]
+        },
+        {
+          "id": "math02",
+          "title": "Geometric area and volume formulas",
+          "prompt": "List the area and volume formulas for all standard geometric shapes: circle, triangle, rectangle, trapezoid, ellipse, sphere, cylinder, cone, and pyramid. Provide worked examples for each.",
+          "tags": [
+            "geometry",
+            "formulas"
+          ]
+        },
+        {
+          "id": "math03",
+          "title": "Compound interest and amortization calculations",
+          "prompt": "Derive the compound interest formula and demonstrate its application to loan amortization, investment growth, and inflation-adjusted purchasing power over 10, 20, and 30-year periods.",
+          "tags": [
+            "finance",
+            "algebra"
+          ]
+        },
+        {
+          "id": "math05",
+          "title": "Statistical analysis fundamentals",
+          "prompt": "Define mean, median, mode, standard deviation, variance, and percentile rank. Provide interpretation guidelines and demonstrate when each measure is appropriate for a given dataset.",
+          "tags": [
+            "statistics",
+            "analysis"
+          ]
+        },
+        {
+          "id": "math06",
+          "title": "Logarithmic and exponential functions",
+          "prompt": "Explain the relationship between logarithmic and exponential functions. Demonstrate practical applications in decibel calculations, pH measurement, radioactive decay, and population growth modeling.",
+          "tags": [
+            "algebra",
+            "applied"
+          ]
+        },
+        {
+          "id": "math07",
+          "title": "Probability and risk assessment",
+          "prompt": "Define fundamental probability rules including conditional probability, Bayes' theorem, and expected value. Apply these to practical risk assessment scenarios in engineering and medical decision-making.",
+          "tags": [
+            "probability",
+            "risk"
+          ]
+        },
+        {
+          "id": "math08",
+          "title": "Linear algebra for systems of equations",
+          "prompt": "Demonstrate methods for solving systems of linear equations using substitution, elimination, and matrix operations. Include practical applications in circuit analysis and structural load distribution.",
+          "tags": [
+            "algebra",
+            "systems"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tactical",
+      "name": "Tactical & Security",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "tac01",
+          "title": "Perimeter defense and early warning",
+          "prompt": "Detail the principles of concentric rings of security for an off-grid compound. Include passive defensive measures, physical barriers, field-expedient early warning devices, and observation post placement.",
+          "tags": [
+            "security",
+            "defense"
+          ]
+        },
+        {
+          "id": "tac02",
+          "title": "Verbal de-escalation techniques",
+          "prompt": "Provide psychological frameworks and tactical communication techniques for de-escalating hostile encounters before they become physical. Include body language cues, active listening, and the management of adrenaline-induced aggression.",
+          "tags": [
+            "conflict",
+            "psychology"
+          ]
+        },
+        {
+          "id": "tac03",
+          "title": "Small unit movement and patrolling",
+          "prompt": "Describe standard infantry movement formations including the wedge, file, and line. Explain crossing danger areas, establishing rally points, and immediate action drills upon contact.",
+          "tags": [
+            "tactics",
+            "patrol"
+          ]
+        },
+        {
+          "id": "tac04",
+          "title": "Evasion and tracking fundamentals",
+          "prompt": "Detail the principles of counter-tracking and evasion in a woodland environment. Include techniques for disguising sign, masking scent, movement pacing, and identifying tracking indicators left by others.",
+          "tags": [
+            "evasion",
+            "tracking"
+          ]
+        },
+        {
+          "id": "tac05",
+          "title": "Emergency route planning",
+          "prompt": "Provide a methodology for planning primary, alternate, contingency, and emergency (PACE) evacuation routes from a populated area. Include criteria for evaluating choke points, avoiding major arteries, and identifying supply caches.",
+          "tags": [
+            "evacuation",
+            "planning"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "name": "Governance & Law",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "law01",
+          "title": "Constitutional rights during detention",
+          "prompt": "Enumerate the specific constitutional protections applicable during a police stop, detention, and arrest. Include the legal threshold for each level of encounter and the consequences of rights waiver.",
+          "tags": [
+            "rights",
+            "detention"
+          ]
+        },
+        {
+          "id": "law02",
+          "title": "Search and seizure legal framework",
+          "prompt": "Define the Fourth Amendment protections against unreasonable search and seizure. Detail the warrant requirement, recognized exceptions, and the legal standard for probable cause versus reasonable suspicion.",
+          "tags": [
+            "search",
+            "fourth-amendment"
+          ]
+        },
+        {
+          "id": "law03",
+          "title": "Self-defense legal doctrine",
+          "prompt": "Compare the castle doctrine, stand-your-ground, and duty-to-retreat legal frameworks. Define the reasonable force standard, the imminence requirement, and the legal distinctions between lethal and non-lethal force.",
+          "tags": [
+            "self-defense",
+            "force"
+          ]
+        },
+        {
+          "id": "law04",
+          "title": "Emergency powers and civil liberties",
+          "prompt": "Identify the federal and state legal authorities activated during a declared emergency. Specify which constitutional rights can and cannot be suspended, including historical precedent from martial law declarations.",
+          "tags": [
+            "emergency",
+            "civil-liberties"
+          ]
+        },
+        {
+          "id": "law05",
+          "title": "Property rights and eminent domain",
+          "prompt": "Define the legal framework for eminent domain, inverse condemnation, and just compensation under the Fifth Amendment. Include the distinction between regulatory takings and physical seizure of property.",
+          "tags": [
+            "property",
+            "fifth-amendment"
+          ]
+        },
+        {
+          "id": "law06",
+          "title": "Contract law essentials",
+          "prompt": "Define the elements required for a legally binding contract: offer, acceptance, consideration, capacity, and legality. Include common defenses to enforcement and the statute of frauds requirements.",
+          "tags": [
+            "contracts",
+            "commercial"
+          ]
+        },
+        {
+          "id": "law07",
+          "title": "Tort liability and negligence standards",
+          "prompt": "Define the four elements of a negligence claim: duty, breach, causation, and damages. Compare contributory negligence, comparative fault, and strict liability doctrines across jurisdictions.",
+          "tags": [
+            "tort",
+            "liability"
+          ]
+        },
+        {
+          "id": "law08",
+          "title": "Intellectual property classification",
+          "prompt": "Distinguish between patent, trademark, copyright, and trade secret protections. Define the registration requirements, duration of protection, and enforcement mechanisms for each category.",
+          "tags": [
+            "ip",
+            "commercial"
+          ]
+        },
+        {
+          "id": "law09",
+          "title": "Federal disaster relief legal framework",
+          "prompt": "Outline the legal structure of FEMA disaster declarations, the Stafford Act, and individual assistance programs. Define applicant rights, appeal procedures, and the legal obligations of federal responders.",
+          "tags": [
+            "disaster",
+            "federal"
+          ]
+        },
+        {
+          "id": "law10",
+          "title": "Miranda rights and interrogation procedures",
+          "prompt": "State the complete Miranda warning and the legal conditions triggering its requirement. Define what constitutes custodial interrogation, the consequences of a Miranda violation, and the public safety exception.",
+          "tags": [
+            "miranda",
+            "interrogation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "name": "History & Philosophy",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "hist01",
+          "title": "Founding documents and constitutional origins",
+          "prompt": "Analyze the philosophical influences and historical events that produced the Declaration of Independence, the Constitution, and the Bill of Rights. Identify the key compromises and their lasting structural effects.",
+          "tags": [
+            "constitutional",
+            "founding"
+          ]
+        },
+        {
+          "id": "hist02",
+          "title": "Collapse patterns of historical civilizations",
+          "prompt": "Identify the recurring structural factors in the decline of the Roman Empire, the Ottoman Empire, and the Soviet Union. Compare economic, military, and institutional failure patterns across these cases.",
+          "tags": [
+            "collapse",
+            "civilizations"
+          ]
+        },
+        {
+          "id": "hist03",
+          "title": "Major pandemic historical case studies",
+          "prompt": "Compare the Black Death, the 1918 influenza pandemic, and the HIV/AIDS crisis by transmission vector, mortality rate, societal response, and long-term demographic and economic effects.",
+          "tags": [
+            "pandemic",
+            "disease"
+          ]
+        },
+        {
+          "id": "hist04",
+          "title": "Evolution of military strategy and doctrine",
+          "prompt": "Trace the evolution of military doctrine from Napoleonic warfare through World War II blitzkrieg to modern asymmetric conflict. Identify the technological and strategic innovations that drove each transition.",
+          "tags": [
+            "military",
+            "strategy"
+          ]
+        },
+        {
+          "id": "hist05",
+          "title": "History of monetary systems and currency",
+          "prompt": "Trace the evolution from commodity money through the gold standard to fiat currency and central banking. Identify the causes and consequences of major currency collapses including Weimar Germany and Zimbabwe.",
+          "tags": [
+            "economics",
+            "currency"
+          ]
+        },
+        {
+          "id": "hist06",
+          "title": "Agricultural revolutions and food production",
+          "prompt": "Detail the Neolithic, Medieval, and Green agricultural revolutions. Analyze the technological innovations, demographic shifts, and societal restructuring produced by each transformation in food production.",
+          "tags": [
+            "agriculture",
+            "civilization"
+          ]
+        },
+        {
+          "id": "hist07",
+          "title": "Civil rights movements and legal milestones",
+          "prompt": "Identify the key legal victories, legislative acts, and judicial decisions in the American civil rights movement from Reconstruction through the Civil Rights Act of 1964 and the Voting Rights Act of 1965.",
+          "tags": [
+            "civil-rights",
+            "legal"
+          ]
+        },
+        {
+          "id": "hist08",
+          "title": "Industrial Revolution and technological disruption",
+          "prompt": "Analyze the First and Second Industrial Revolutions by key inventions, labor market disruption, urbanization effects, and the political movements they generated. Compare to the current digital transformation.",
+          "tags": [
+            "industrial",
+            "technology"
+          ]
+        },
+        {
+          "id": "phil01",
+          "title": "Stoic philosophy for adversity management",
+          "prompt": "Present the core Stoic principles from Marcus Aurelius, Epictetus, and Seneca as applied to decision-making under uncertainty. Include the dichotomy of control, negative visualization, and voluntary hardship practices.",
+          "tags": [
+            "stoicism",
+            "resilience"
+          ]
+        },
+        {
+          "id": "phil02",
+          "title": "Ethical frameworks for resource allocation",
+          "prompt": "Compare utilitarian, deontological, and virtue ethics frameworks as applied to resource allocation under scarcity. Include triage ethics, the trolley problem variants, and distributive justice principles.",
+          "tags": [
+            "ethics",
+            "decision-making"
+          ]
+        },
+        {
+          "id": "phil03",
+          "title": "Logical reasoning and fallacy identification",
+          "prompt": "Catalog the most common logical fallacies: ad hominem, straw man, appeal to authority, false dichotomy, slippery slope, and circular reasoning. Provide identification criteria and real-world examples for each.",
+          "tags": [
+            "logic",
+            "critical-thinking"
+          ]
+        },
+        {
+          "id": "phil04",
+          "title": "Social contract theory and governance",
+          "prompt": "Compare the social contract theories of Hobbes, Locke, and Rousseau. Analyze their positions on the state of nature, legitimate authority, and the conditions under which civil disobedience is justified.",
+          "tags": [
+            "political",
+            "governance"
+          ]
+        },
+        {
+          "id": "phil05",
+          "title": "Existentialism and personal responsibility",
+          "prompt": "Present the existentialist positions of Kierkegaard, Nietzsche, Sartre, and Camus on individual agency, meaning-making, and responsibility. Define radical freedom, bad faith, and the absurd as operative concepts.",
+          "tags": [
+            "existentialism",
+            "agency"
+          ]
+        },
+        {
+          "id": "phil06",
+          "title": "Eastern philosophy: Buddhism and Taoism",
+          "prompt": "Outline the Four Noble Truths and the Eightfold Path of Buddhism alongside the core principles of Taoism including wu wei and the Tao Te Ching's view of natural order. Compare their approaches to suffering and action.",
+          "tags": [
+            "eastern",
+            "mindfulness"
+          ]
+        },
+        {
+          "id": "phil07",
+          "title": "Epistemology and the limits of knowledge",
+          "prompt": "Define empiricism, rationalism, and skepticism as epistemological positions. Analyze the problem of induction, Descartes' methodological doubt, and the pragmatist response to foundationalist concerns.",
+          "tags": [
+            "epistemology",
+            "knowledge"
+          ]
+        },
+        {
+          "id": "phil08",
+          "title": "Leadership philosophy and command ethics",
+          "prompt": "Compare the leadership philosophies presented in Sun Tzu's Art of War, Machiavelli's The Prince, and the Meditations of Marcus Aurelius. Extract actionable principles for decision-making under pressure.",
+          "tags": [
+            "leadership",
+            "strategy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "theology",
+      "name": "Theology & Classics",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "faith01",
+          "title": "Old and New Testament textual themes",
+          "prompt": "Catalog the primary thematic categories found across the Old and New Testaments. Index key passages from Psalms, Proverbs, Romans, and James by subject matter and provide historical-critical context for each.",
+          "tags": [
+            "textual-analysis",
+            "scripture"
+          ]
+        },
+        {
+          "id": "faith02",
+          "title": "Comparative world religions overview",
+          "prompt": "Provide a structured comparison of Christianity, Islam, Judaism, Hinduism, and Buddhism by core beliefs, sacred texts, worship practices, and ethical frameworks. Maintain strict objectivity.",
+          "tags": [
+            "comparative",
+            "world-religions"
+          ]
+        },
+        {
+          "id": "faith03",
+          "title": "The Book of Proverbs as practical wisdom",
+          "prompt": "Extract and categorize the practical wisdom from the Book of Proverbs by subject: financial management, interpersonal conduct, leadership, discipline, and speech. Present as actionable guidance.",
+          "tags": [
+            "bible",
+            "wisdom"
+          ]
+        },
+        {
+          "id": "faith04",
+          "title": "Christian soteriology: comparative doctrinal positions",
+          "prompt": "Outline the major theological positions on soteriology: sola fide, faith and works, and covenant theology. Compare the Protestant, Catholic, and Orthodox doctrinal frameworks with supporting textual references.",
+          "tags": [
+            "theology",
+            "doctrine"
+          ]
+        },
+        {
+          "id": "faith05",
+          "title": "Psychology of grief: clinical and religious frameworks",
+          "prompt": "Compare the clinical psychology model of grief (K\u00fcbler-Ross stages) with the theological frameworks for processing loss found in Psalms and Ecclesiastes. Analyze the structural parallels and divergences between secular and religious approaches.",
+          "tags": [
+            "psychology",
+            "comparative"
+          ]
+        },
+        {
+          "id": "faith06",
+          "title": "Comparative ritual structures across Abrahamic religions",
+          "prompt": "Document the structure, frequency, and theological function of ritual prayer in Christianity, Islam, and Judaism. Compare liturgical forms, prescribed schedules, and the organizational role of communal versus individual observance.",
+          "tags": [
+            "comparative",
+            "ritual"
+          ]
+        },
+        {
+          "id": "faith07",
+          "title": "The Sermon on the Mount: ethical framework",
+          "prompt": "Analyze the ethical teachings presented in Matthew chapters 5 through 7. Extract the Beatitudes, the Lord's Prayer, and the sermon's positions on anger, oaths, retaliation, and judgment as a coherent moral framework.",
+          "tags": [
+            "bible",
+            "ethics"
+          ]
+        },
+        {
+          "id": "faith08",
+          "title": "Early church organizational models and lay leadership",
+          "prompt": "Outline the historical precedent and textual basis for lay-led religious assembly and scriptural study in the absence of ordained hierarchy. Reference the organizational structures documented in Acts and the Pauline epistles.",
+          "tags": [
+            "history",
+            "organization"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Systems & Cybersecurity",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "sec01",
+          "title": "Linux server hardening baseline",
+          "prompt": "Design a comprehensive hardening checklist for a fresh Linux server deployment. Include SSH configuration lockdown, firewall rules using iptables or nftables, user privilege separation, file permission auditing, kernel parameter tuning via sysctl, and automated security update policies.",
+          "tags": ["linux", "hardening"]
+        },
+        {
+          "id": "sec02",
+          "title": "Incident response playbook",
+          "prompt": "Outline a structured incident response playbook for a suspected network compromise. Cover the six NIST phases: preparation, identification, containment, eradication, recovery, and lessons learned. Include evidence preservation procedures and chain-of-custody documentation.",
+          "tags": ["incident-response", "forensics"]
+        },
+        {
+          "id": "sec03",
+          "title": "Network segmentation and firewall architecture",
+          "prompt": "Design a network segmentation strategy for a mid-size organization. Include DMZ architecture, VLAN design, zero-trust micro-segmentation principles, and firewall rule-set design patterns. Detail the trade-offs between flat networks and fully segmented architectures.",
+          "tags": ["networking", "firewall"]
+        },
+        {
+          "id": "sec04",
+          "title": "Cryptographic primitives and protocol selection",
+          "prompt": "Compare symmetric (AES-256-GCM, ChaCha20-Poly1305) and asymmetric (RSA, Ed25519, X25519) cryptographic algorithms. Detail key derivation functions (PBKDF2, Argon2, scrypt), hashing algorithms (SHA-256, BLAKE3), and when to use each in real-world protocol design.",
+          "tags": ["cryptography", "protocols"]
+        },
+        {
+          "id": "sec05",
+          "title": "Web application vulnerability assessment",
+          "prompt": "Detail the OWASP Top 10 vulnerability categories with technical examples of each. Provide exploitation methodology and remediation guidance for injection attacks, broken authentication, XSS, CSRF, and insecure deserialization.",
+          "tags": ["web-security", "owasp"]
+        },
+        {
+          "id": "sec06",
+          "title": "TLS/SSL configuration and certificate management",
+          "prompt": "Explain TLS 1.3 handshake mechanics, cipher suite selection, certificate authority chains, and OCSP stapling. Provide a production-grade configuration for Nginx and Apache that achieves an A+ SSL Labs rating. Include certificate renewal automation with ACME.",
+          "tags": ["tls", "certificates"]
+        },
+        {
+          "id": "sec07",
+          "title": "Container security and runtime hardening",
+          "prompt": "Detail security best practices for Docker and Kubernetes deployments. Cover image scanning, read-only root filesystems, seccomp profiles, AppArmor/SELinux policies, network policies, secrets management, and runtime anomaly detection strategies.",
+          "tags": ["containers", "kubernetes"]
+        },
+        {
+          "id": "sec08",
+          "title": "Log analysis and SIEM fundamentals",
+          "prompt": "Design a centralized logging architecture using syslog, journald, and a SIEM pipeline. Detail log source priorities, retention policies, correlation rules for detecting lateral movement, and alert tuning to minimize false positives.",
+          "tags": ["logging", "siem"]
+        },
+        {
+          "id": "sec09",
+          "title": "Backup strategy and disaster recovery planning",
+          "prompt": "Design a 3-2-1 backup strategy with RPO and RTO definitions. Cover full, incremental, and differential backup approaches, encryption-at-rest for backup media, automated verification testing, and air-gapped backup storage for ransomware resilience.",
+          "tags": ["backup", "disaster-recovery"]
+        },
+        {
+          "id": "sec10",
+          "title": "DNS architecture and security",
+          "prompt": "Explain DNS resolution mechanics, recursive vs authoritative servers, DNSSEC validation, DNS-over-HTTPS and DNS-over-TLS. Detail DNS-based attack vectors including cache poisoning, DNS amplification, and domain hijacking with their mitigations.",
+          "tags": ["dns", "networking"]
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "name": "Software & Development",
+      "icon": "",
+      "prompts": [
+        {
+          "id": "dev01",
+          "title": "System architecture design patterns",
+          "prompt": "Compare monolithic, microservices, and serverless architectures. Detail the trade-offs in complexity, deployment, scaling, and observability. Include decision criteria for choosing each pattern based on team size, traffic patterns, and operational maturity.",
+          "tags": ["architecture", "design"]
+        },
+        {
+          "id": "dev02",
+          "title": "Git workflow and branching strategies",
+          "prompt": "Compare Git Flow, GitHub Flow, and trunk-based development branching strategies. Detail merge vs rebase policies, commit message conventions, release tagging, and cherry-pick workflows. Include conflict resolution strategies for large teams.",
+          "tags": ["git", "workflow"]
+        },
+        {
+          "id": "dev03",
+          "title": "RESTful API design principles",
+          "prompt": "Define RESTful API design best practices including resource naming, HTTP method semantics, status code usage, pagination patterns, versioning strategies, authentication (OAuth2, JWT, API keys), rate limiting, and HATEOAS. Include error response format standards.",
+          "tags": ["api", "rest"]
+        },
+        {
+          "id": "dev04",
+          "title": "Database indexing and query optimization",
+          "prompt": "Explain B-tree and hash index structures, composite index design, query execution plan analysis, and the N+1 query problem. Compare strategies for PostgreSQL, MySQL, and SQLite optimization including EXPLAIN ANALYZE interpretation and index-only scans.",
+          "tags": ["database", "performance"]
+        },
+        {
+          "id": "dev05",
+          "title": "CI/CD pipeline design",
+          "prompt": "Design a production CI/CD pipeline covering source control triggers, automated testing stages (unit, integration, end-to-end), container image building, artifact versioning, staged deployments (canary, blue-green, rolling), and rollback procedures.",
+          "tags": ["devops", "ci-cd"]
+        },
+        {
+          "id": "dev06",
+          "title": "Shell scripting and automation patterns",
+          "prompt": "Provide advanced Bash scripting patterns including error handling (set -euo pipefail), signal trapping, parallel execution, argument parsing with getopts, heredoc templating, and portable POSIX-compliant constructs. Include common pitfalls and security considerations.",
+          "tags": ["bash", "automation"]
+        },
+        {
+          "id": "dev07",
+          "title": "Debugging and profiling methodology",
+          "prompt": "Detail systematic debugging methodologies: binary search debugging, rubber duck technique, log-based diagnosis, and profiling tools. Cover CPU profiling, memory leak detection, network debugging (tcpdump, Wireshark), and strace/dtrace for system call analysis.",
+          "tags": ["debugging", "profiling"]
+        },
+        {
+          "id": "dev08",
+          "title": "Data structures and algorithm complexity",
+          "prompt": "Compare arrays, linked lists, hash tables, binary search trees, heaps, and graphs by time complexity for insertion, deletion, search, and traversal. Detail Big-O analysis methodology and provide guidance on choosing the right data structure for common problems.",
+          "tags": ["algorithms", "data-structures"]
+        },
+        {
+          "id": "dev09",
+          "title": "Networking fundamentals for developers",
+          "prompt": "Explain the TCP/IP stack layers, TCP three-way handshake, UDP use cases, HTTP/1.1 vs HTTP/2 vs HTTP/3 (QUIC), WebSocket protocol mechanics, and common networking debugging tools (ping, traceroute, netstat, ss, curl). Include NAT traversal and port forwarding.",
+          "tags": ["networking", "tcp-ip"]
+        },
+        {
+          "id": "dev10",
+          "title": "Regular expressions reference and patterns",
+          "prompt": "Provide a comprehensive regular expression reference covering character classes, quantifiers, anchors, groups, backreferences, lookaheads, and lookbehinds. Include practical patterns for validating emails, URLs, IP addresses, dates, and parsing structured log files.",
+          "tags": ["regex", "text-processing"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+The Blackout Drive — Privacy Policy
+====================================
+Last Updated: May 28, 2026
+
+Hutton Technologies LLC ("we," "us," or "our") built The Blackout Drive
+to be a fully offline, private product. This Privacy Policy explains
+what data The Blackout Drive collects — and more importantly, what it
+does not.
+
+
+1. DATA WE DO NOT COLLECT
+─────────────────────────
+The Blackout Drive does NOT collect, transmit, store, or process:
+
+  • Personal information (name, email, phone, address, IP address)
+  • Usage analytics or data collection
+  • Chat conversations or AI responses
+  • Files you upload or create
+  • Browsing behavior or session data
+  • Device identifiers or fingerprints
+  • Cookies or tracking pixels
+  • Location data (GPS broadcasts via mesh radio stay on the local
+    radio network — see Section 5)
+  • Any data of any kind to any external server
+
+There are no accounts. There is no sign-up. There is no login.
+There is no user profile. There is nothing to opt out of because
+there is nothing to opt into.
+
+
+2. DATA STORED ON YOUR DRIVE
+─────────────────────────────
+All data created by The Blackout Drive is stored exclusively on the
+physical USB drive in your possession:
+
+  • Chat history — saved to the drive's local filesystem only
+  • Uploaded files — saved to the drive's USER_DATA/ directory only
+  • Encrypted files — AES-256-GCM encrypted and stored on the drive only
+  • Settings — saved as JSON files on the drive only
+
+When you unplug the drive, your data goes with you. We have no access
+to it. We have never had access to it. There is no mechanism in the
+software for us to access it.
+
+
+3. OPTIONAL CONTENT DOWNLOADS
+──────────────────────────────
+If Network Lock is disabled, The Blackout Drive can optionally download
+free public-domain books and reference material from our content server.
+During this process:
+
+  • A GET request is made to our Cloudflare-hosted content catalog
+    (a static JSON file listing available books)
+  • File downloads are standard HTTPS requests to our R2 storage bucket
+  • NO personal data, device identifiers, chat history, or user content
+    is included in these requests
+  • No cookies or tracking headers are sent
+  • Download logs are not stored on our servers
+
+When Network Lock is enabled (default), The Blackout Drive makes zero
+network connections of any kind.
+
+
+3.5. SOFTWARE UPDATES
+──────────────────────
+If Network Lock is disabled, The Blackout Drive can check for software
+updates from our update server. During this process:
+
+  • A GET request is made to our update manifest
+    (a static JSON file listing the latest version)
+  • If an update is available, the update package is downloaded via HTTPS
+  • The only data sent is your current software version number
+    (e.g., "1.0.0") in the HTTP User-Agent header
+  • NO personal data, device identifiers, chat history, or user content
+    is included in these requests
+  • Updates are never downloaded or applied automatically — you must
+    explicitly choose to check for and install updates
+
+
+4. AI PROCESSING
+─────────────────
+All AI inference runs locally on your machine using the Ollama runtime
+bundled on the drive. Your questions and the AI's responses:
+
+  • Never leave your machine
+  • Are never sent to any server
+  • Are never used for model training
+  • Are stored only on the physical drive (if chat history saving is on)
+
+The AI model is Qwen3, developed by Alibaba Cloud (Apache 2.0 License),
+running via the Ollama runtime (MIT License). The Ollama runtime may
+create a small history file in its default directory on the host machine
+(~/.ollama/ on macOS/Linux). This file contains only model names loaded
+during the session — no user prompts, responses, or personal data.
+
+
+4.5. VOICE INPUT & TEXT-TO-SPEECH
+──────────────────────────────────
+The Blackout Drive supports voice input (speech-to-text) and text-to-speech
+(read-aloud) using your browser's built-in speech engines.
+
+  • Text-to-Speech (TTS): Uses your browser's built-in speech synthesis.
+    All audio is generated locally on your device using pre-installed voices.
+    No data is sent anywhere.
+
+  • Voice Input (Speech-to-Text): Uses the Web Speech API with the
+    processLocally flag set to true, which forces all speech recognition
+    to run on your device. Your voice audio is never sent to any external
+    server. If your browser does not support on-device speech recognition,
+    the microphone button is not displayed and the feature is unavailable.
+
+  • No voice data is recorded, stored, or transmitted by The Blackout Drive.
+
+5. MESH RADIO COMMUNICATIONS
+───────────────────────────
+If you purchased the Mesh Bundle, your Blackout Drive can transmit
+and receive messages via LoRa radio frequency. These are local RF signals,
+not internet traffic. Messages are encrypted by the Meshtastic radio
+firmware using AES-256 channel keys.
+
+Radio transmissions can be suspended at any time via the Radio Silence toggle
+in Settings. When Radio Silence is active, no data is transmitted over the
+radio hardware, and incoming messages are not forwarded to the AI dispatch
+engine. However, the radio hardware may still receive RF packets passively.
+For true zero-emission security, physically disconnect the radio hardware.
+
+
+6. ENCRYPTION
+──────────────
+The Blackout Drive offers AES-256-GCM encryption for:
+
+  • Chat history (when "Encrypt Chat History" is enabled)
+  • Files in the Locked storage partition
+
+Encryption keys are derived from your master password using PBKDF2
+(an industry-standard key-derivation process that strengthens your password).
+We do not have your password. We cannot recover your password. We
+cannot decrypt your data. If you lose your password, your encrypted
+data is permanently inaccessible.
+
+
+7. CHILDREN'S PRIVACY
+──────────────────────
+The Blackout Drive does not collect any personal information from anyone,
+including children under 13. There is no data collection mechanism in
+the product.
+
+
+8. THIRD-PARTY SERVICES
+────────────────────────
+The Blackout Drive does not integrate with, send data to, or receive
+data from any third-party analytics, advertising, social media, or
+tracking service. The only external service is the optional content
+download described in Section 3.
+
+
+9. CHANGES TO THIS POLICY
+──────────────────────────
+If we update this Privacy Policy, the updated version will be included
+on future drives and published in the project repository. Since we
+collect no data, there is nothing to notify you about retroactively.
+
+
+10. CONTACT
+───────────
+If you have questions about this Privacy Policy:
+
+  Hutton Technologies LLC
+  Email: support@theblackoutdrive.com
+
+
+This Privacy Policy is effective as of the date listed above.
+
+© 2026 Hutton Technologies LLC. All rights reserved.

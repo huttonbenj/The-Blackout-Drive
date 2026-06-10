@@ -1,0 +1,56 @@
+{
+  "_comment": "Model profiles for The Blackout Drive. Auto-detect picks tier based on system RAM.",
+  "autoDetect": true,
+  "ramThresholdGB": 14,
+  "default": "qwen3-4b",
+  "tiers": {
+    "base": "qwen3-4b",
+    "max": "qwen3-8b"
+  },
+  "models": {
+    "qwen3-4b": {
+      "tier": "base",
+      "name": "Qwen3 4B",
+      "file": "Qwen3-4B-Q4_K_M.gguf",
+      "ollamaName": "blackout-beacon",
+      "base": "qwen3:4b",
+      "size": "2.5GB",
+      "vram": "4GB",
+      "speed": "fast",
+      "quality": "good",
+      "description": "Alibaba Qwen3 4B — fast, excellent instruction following. Compact model for systems with less than 14GB RAM.",
+      "parameters": {
+        "temperature": 0.5,
+        "top_p": 0.9,
+        "num_ctx": 4096,
+        "num_predict": 2048,
+        "repeat_penalty": 1.1,
+        "num_keep": 1800
+      },
+      "template": "{{- if .System }}<|im_start|>system\n{{ .System }}<|im_end|>\n{{- end }}{{- range .Messages }}{{- if eq .Role \"user\" }}\n<|im_start|>user\n{{ .Content }}<|im_end|>\n{{- else if eq .Role \"assistant\" }}\n<|im_start|>assistant\n{{ .Content }}<|im_end|>\n{{- end }}{{- end }}\n<|im_start|>assistant\n",
+      "stop": ["<|im_end|>", "<|im_start|>"]
+    },
+    "qwen3-8b": {
+      "tier": "max",
+      "name": "Qwen3 8B",
+      "file": "Qwen3-8B-Q4_K_M.gguf",
+      "ollamaName": "blackout-beacon",
+      "base": "qwen3:8b",
+      "size": "5.1GB",
+      "vram": "7GB",
+      "speed": "moderate",
+      "quality": "premium",
+      "description": "Alibaba Qwen3 8B — superior reasoning and instruction following. Performance model for systems with 14GB+ RAM.",
+      "parameters": {
+        "temperature": 0.5,
+        "top_p": 0.9,
+        "num_ctx": 6144,
+        "num_predict": 2048,
+        "repeat_penalty": 1.1,
+        "num_keep": 1800
+      },
+      "template": "{{- if .System }}<|im_start|>system\n{{ .System }}<|im_end|>\n{{- end }}{{- range .Messages }}{{- if eq .Role \"user\" }}\n<|im_start|>user\n{{ .Content }}<|im_end|>\n{{- else if eq .Role \"assistant\" }}\n<|im_start|>assistant\n{{ .Content }}<|im_end|>\n{{- end }}{{- end }}\n<|im_start|>assistant\n",
+      "stop": ["<|im_end|>", "<|im_start|>"]
+    }
+  }
+}

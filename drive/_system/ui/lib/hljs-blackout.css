@@ -1,0 +1,117 @@
+/*
+ * Highlight.js – The Blackout Drive Custom Theme
+ * ================================================
+ * Deep charcoal base with teal/cyan syntax accents.
+ * Designed for the BEACON dark-mode chat interface.
+ */
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1.1em 1.2em;
+}
+code.hljs {
+  padding: 0.2em 0.4em;
+}
+.hljs {
+  color: #c5cdd8;
+  background: #141a1f;
+  border-radius: 6px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Menlo', 'Consolas', monospace;
+  font-size: 0.88em;
+  line-height: 1.55;
+}
+
+/* ── Comments ──────────────────────────────────────── */
+.hljs-comment,
+.hljs-quote {
+  color: #5a6a7a;
+  font-style: italic;
+}
+
+/* ── Keywords / Control flow ───────────────────────── */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-deletion {
+  color: #e06c75;
+}
+
+/* ── Strings ───────────────────────────────────────── */
+.hljs-string,
+.hljs-addition {
+  color: #7ec8a0;
+}
+
+/* ── Numbers / Literals ────────────────────────────── */
+.hljs-number,
+.hljs-literal {
+  color: #d4a067;
+}
+
+/* ── Functions / Titles ────────────────────────────── */
+.hljs-title,
+.hljs-title.function_,
+.hljs-section {
+  color: #5cc9df;
+}
+
+/* ── Types / Classes ───────────────────────────────── */
+.hljs-type,
+.hljs-title.class_,
+.hljs-built_in {
+  color: #e5c07b;
+}
+
+/* ── Variables / Attributes / Params ───────────────── */
+.hljs-variable,
+.hljs-attr,
+.hljs-params {
+  color: #61afef;
+}
+
+/* ── Template / Regex / Symbols ────────────────────── */
+.hljs-regexp,
+.hljs-symbol {
+  color: #56b6c2;
+}
+
+/* ── Meta / Preprocessor ──────────────────────────── */
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #8896a8;
+}
+
+/* ── Tags (HTML/XML) ──────────────────────────────── */
+.hljs-tag {
+  color: #c5cdd8;
+}
+.hljs-name {
+  color: #e06c75;
+}
+.hljs-attribute {
+  color: #d19a66;
+}
+
+/* ── Emphasis / Strong ─────────────────────────────── */
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 700;
+}
+
+/* ── Misc ──────────────────────────────────────────── */
+.hljs-subst {
+  color: #c5cdd8;
+}
+.hljs-operator {
+  color: #89a0b8;
+}
+.hljs-punctuation {
+  color: #6a7a8a;
+}
+
+/* ── Selection ─────────────────────────────────────── */
+.hljs ::selection,
+.hljs::selection {
+  background: rgba(92, 201, 223, 0.18);
+}

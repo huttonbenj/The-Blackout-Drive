@@ -1,0 +1,1199 @@
+{
+  "version": 1,
+  "generated": "2026-05-30T04:56:11.432Z",
+  "source": "cloudflare-worker",
+  "packs": [
+    {
+      "id": "bible",
+      "name": "The Bible",
+      "description": "KJV, ASV, World English Bible, and Young's Literal Translation — four public domain translations.",
+      "files": [
+        {
+          "id": "bible-bible-asv",
+          "name": "The Holy Bible — American Standard Version (ASV)",
+          "filename": "bible_asv.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_asv.txt",
+          "size": 4599132,
+          "uploaded": "2026-05-09T11:22:11.620Z"
+        },
+        {
+          "id": "bible-bible-kjv",
+          "name": "The Holy Bible — King James Version (KJV)",
+          "filename": "bible_kjv.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_kjv.txt",
+          "size": 4455953,
+          "uploaded": "2026-05-09T11:22:13.920Z"
+        },
+        {
+          "id": "bible-bible-web",
+          "name": "The Holy Bible — World English Bible (WEB)",
+          "filename": "bible_web.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_web.txt",
+          "size": 4797042,
+          "uploaded": "2026-05-09T11:22:16.381Z"
+        },
+        {
+          "id": "bible-bible-ylt",
+          "name": "The Holy Bible — Young’s Literal Translation (YLT)",
+          "filename": "bible_ylt.txt",
+          "type": "txt",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/bible/bible_ylt.txt",
+          "size": 4613050,
+          "uploaded": "2026-05-09T11:22:18.710Z"
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "name": "Communication & Navigation",
+      "description": "Radio engineering, wireless telegraphy, seamanship, and the history of long-distance communication.",
+      "files": [
+        {
+          "id": "communication-kedge-anchor-sailors-assistant",
+          "name": "The Kedge-Anchor: Young Sailors' Assistant — Brady",
+          "filename": "kedge_anchor_sailors_assistant.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/kedge_anchor_sailors_assistant.epub",
+          "size": 15342518,
+          "uploaded": "2026-05-30T03:45:34.684Z"
+        },
+        {
+          "id": "communication-letters-radio-engineer",
+          "name": "Letters of a Radio-Engineer to His Son — John Mills",
+          "filename": "letters_radio_engineer.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/letters_radio_engineer.epub",
+          "size": 3546052,
+          "uploaded": "2026-05-30T03:45:36.993Z"
+        },
+        {
+          "id": "communication-masters-of-space",
+          "name": "Masters of Space: Morse and the Telegraph — Towers",
+          "filename": "masters_of_space.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/masters_of_space.epub",
+          "size": 198585,
+          "uploaded": "2026-05-30T03:45:38.913Z"
+        },
+        {
+          "id": "communication-radio-amateurs-handbook",
+          "name": "The Radio Amateur's Hand Book — A. Frederick Collins",
+          "filename": "radio_amateurs_handbook.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/radio_amateurs_handbook.epub",
+          "size": 220606,
+          "uploaded": "2026-05-09T11:22:23.818Z"
+        },
+        {
+          "id": "communication-wireless-telegraphy-explained",
+          "name": "Wireless Telegraphy and Telephony Simply Explained — Morgan",
+          "filename": "wireless_telegraphy_explained.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/communication/wireless_telegraphy_explained.epub",
+          "size": 29152743,
+          "uploaded": "2026-05-30T03:45:43.198Z"
+        }
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Systems & Cybersecurity",
+      "description": "NIST security frameworks, access controls, and incident response guides.",
+      "files": [
+        {
+          "id": "cybersecurity-nist-cybersecurity-framework-2",
+          "name": "Nist Cybersecurity Framework 2",
+          "filename": "nist_cybersecurity_framework_2.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_cybersecurity_framework_2.pdf",
+          "size": 1518858,
+          "uploaded": "2026-05-15T19:42:07.344Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-115-security-testing",
+          "name": "NIST SP 800-115: Technical Guide to Security Testing",
+          "filename": "nist_sp800-115_security_testing.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-115_security_testing.pdf",
+          "size": 544047,
+          "uploaded": "2026-05-29T00:43:04.407Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-12-intro-infosec",
+          "name": "NIST SP 800-12: Introduction to Information Security",
+          "filename": "nist_sp800-12_intro_infosec.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-12_intro_infosec.pdf",
+          "size": 1339030,
+          "uploaded": "2026-05-29T00:42:59.355Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-171-protecting-cui",
+          "name": "NIST SP 800-171: Protecting Controlled Unclassified Information",
+          "filename": "nist_sp800-171_protecting_cui.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-171_protecting_cui.pdf",
+          "size": 1539170,
+          "uploaded": "2026-05-29T00:43:09.551Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-30-risk-assessment",
+          "name": "NIST SP 800-30: Guide for Conducting Risk Assessments",
+          "filename": "nist_sp800-30_risk_assessment.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-30_risk_assessment.pdf",
+          "size": 826897,
+          "uploaded": "2026-05-29T00:43:02.016Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-34-contingency-plan",
+          "name": "NIST SP 800-34: Contingency Planning Guide",
+          "filename": "nist_sp800-34_contingency_plan.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-34_contingency_plan.pdf",
+          "size": 952921,
+          "uploaded": "2026-05-29T00:43:06.911Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-39-managing-risk",
+          "name": "NIST SP 800-39: Managing Information Security Risk",
+          "filename": "nist_sp800-39_managing_risk.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-39_managing_risk.pdf",
+          "size": 1228127,
+          "uploaded": "2026-05-29T00:43:11.822Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-53-rev5",
+          "name": "Nist Sp800 53 Rev5",
+          "filename": "nist_sp800-53_rev5.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-53_rev5.pdf",
+          "size": 6073678,
+          "uploaded": "2026-05-15T19:42:04.770Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-61-incident-handling",
+          "name": "Nist Sp800 61 Incident Handling",
+          "filename": "nist_sp800-61_incident_handling.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-61_incident_handling.pdf",
+          "size": 1744473,
+          "uploaded": "2026-05-15T19:42:09.732Z"
+        },
+        {
+          "id": "cybersecurity-nist-sp800-82-ot-security",
+          "name": "NIST SP 800-82: Guide to Operational Technology Security",
+          "filename": "nist_sp800-82_ot_security.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/cybersecurity/nist_sp800-82_ot_security.pdf",
+          "size": 8584345,
+          "uploaded": "2026-05-29T00:43:15.419Z"
+        }
+      ]
+    },
+    {
+      "id": "development",
+      "name": "Software & Development",
+      "description": "Programming, logic, mathematics, electricity, and the foundational works behind modern computing.",
+      "files": [
+        {
+          "id": "development-babbage-philosopher",
+          "name": "Passages from the Life of a Philosopher — Babbage (1864)",
+          "filename": "babbage_philosopher.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/babbage_philosopher.epub",
+          "size": 740282,
+          "uploaded": "2026-05-29T22:27:19.209Z"
+        },
+        {
+          "id": "development-euclids-elements",
+          "name": "Euclid’s Elements — Foundational Mathematics",
+          "filename": "euclids_elements.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/euclids_elements.epub",
+          "size": 1330668,
+          "uploaded": "2026-05-29T01:01:12.044Z"
+        },
+        {
+          "id": "development-foundations-of-science-poincare",
+          "name": "The Foundations of Science — Poincaré",
+          "filename": "foundations_of_science_poincare.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/foundations_of_science_poincare.epub",
+          "size": 559299,
+          "uploaded": "2026-05-29T00:44:00.256Z"
+        },
+        {
+          "id": "development-linux-command-line",
+          "name": "Linux Command Line",
+          "filename": "linux_command_line.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/linux_command_line.pdf",
+          "size": 2120211,
+          "uploaded": "2026-05-15T19:42:20.926Z"
+        },
+        {
+          "id": "development-practical-electricity-1917",
+          "name": "Practical Electricity (1917)",
+          "filename": "practical_electricity_1917.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/practical_electricity_1917.epub",
+          "size": 3966413,
+          "uploaded": "2026-05-29T00:44:16.531Z"
+        },
+        {
+          "id": "development-pro-git",
+          "name": "Pro Git",
+          "filename": "pro_git.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/pro_git.epub",
+          "size": 13996573,
+          "uploaded": "2026-05-15T19:42:15.639Z"
+        },
+        {
+          "id": "development-symbolic-logic-carroll",
+          "name": "Symbolic Logic — Lewis Carroll (1896)",
+          "filename": "symbolic_logic_carroll.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/symbolic_logic_carroll.epub",
+          "size": 367658,
+          "uploaded": "2026-05-29T00:43:27.304Z"
+        },
+        {
+          "id": "development-system-of-logic-mill",
+          "name": "A System of Logic — John Stuart Mill (1843)",
+          "filename": "system_of_logic_mill.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/system_of_logic_mill.epub",
+          "size": 1170711,
+          "uploaded": "2026-05-29T00:43:34.058Z"
+        },
+        {
+          "id": "development-think-python",
+          "name": "Think Python",
+          "filename": "think_python.pdf",
+          "type": "pdf",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/development/think_python.pdf",
+          "size": 921415,
+          "uploaded": "2026-05-15T19:42:19.012Z"
+        }
+      ]
+    },
+    {
+      "id": "economics",
+      "name": "Economics & Trade",
+      "description": "Economic theory, money, trade, markets, and financial systems.",
+      "files": [
+        {
+          "id": "economics-economic-consequences-peace",
+          "name": "Economic Consequences of the Peace — Keynes (1919)",
+          "filename": "economic_consequences_peace.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/economic_consequences_peace.epub",
+          "size": 252534,
+          "uploaded": "2026-05-29T00:22:29.177Z"
+        },
+        {
+          "id": "economics-essay-population-malthus",
+          "name": "An Essay on the Principle of Population — Malthus (1798)",
+          "filename": "essay_population_malthus.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/essay_population_malthus.epub",
+          "size": 189598,
+          "uploaded": "2026-05-29T01:15:06.322Z"
+        },
+        {
+          "id": "economics-essays-on-political-economy",
+          "name": "Essays on Political Economy — Bastiat",
+          "filename": "essays_on_political_economy.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/essays_on_political_economy.epub",
+          "size": 211177,
+          "uploaded": "2026-05-29T22:27:10.617Z"
+        },
+        {
+          "id": "economics-lombard-street-bagehot",
+          "name": "Lombard Street — Walter Bagehot (1873)",
+          "filename": "lombard_street_bagehot.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/lombard_street_bagehot.epub",
+          "size": 255690,
+          "uploaded": "2026-05-29T01:00:10.016Z"
+        },
+        {
+          "id": "economics-road-to-serfdom-precursors",
+          "name": "The Law — Frédéric Bastiat (1850)",
+          "filename": "road_to_serfdom_precursors.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/road_to_serfdom_precursors.epub",
+          "size": 582962,
+          "uploaded": "2026-05-29T00:22:13.913Z"
+        },
+        {
+          "id": "economics-theory-of-leisure-class-veblen",
+          "name": "The Theory of the Leisure Class — Veblen (1899)",
+          "filename": "theory_of_leisure_class_veblen.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/theory_of_leisure_class_veblen.epub",
+          "size": 296915,
+          "uploaded": "2026-05-29T00:21:59.903Z"
+        },
+        {
+          "id": "economics-wealth-of-nations-vol1",
+          "name": "The Wealth of Nations — Adam Smith (1776)",
+          "filename": "wealth_of_nations_vol1.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/economics/wealth_of_nations_vol1.epub",
+          "size": 947416,
+          "uploaded": "2026-05-29T00:21:31.461Z"
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering & Mechanics",
+      "description": "Practical mechanics, machine-shop techniques, carpentry, electricity, and basic engineering.",
+      "files": [
+        {
+          "id": "engineering-boy-electrician",
+          "name": "The Boy Electrician (1913)",
+          "filename": "boy_electrician.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/boy_electrician.epub",
+          "size": 606272,
+          "uploaded": "2026-05-09T11:22:28.744Z"
+        },
+        {
+          "id": "engineering-concrete-construction-1910",
+          "name": "Concrete Construction (1910)",
+          "filename": "concrete_construction_1910.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/concrete_construction_1910.epub",
+          "size": 18099286,
+          "uploaded": "2026-05-29T22:27:22.386Z"
+        },
+        {
+          "id": "engineering-farm-mechanics",
+          "name": "Farm Mechanics (1922)",
+          "filename": "farm_mechanics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/farm_mechanics.epub",
+          "size": 211335,
+          "uploaded": "2026-05-09T11:22:30.401Z"
+        },
+        {
+          "id": "engineering-machine-shop-practice",
+          "name": "Machine Shop Practice (1919)",
+          "filename": "machine_shop_practice.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/machine_shop_practice.epub",
+          "size": 2049833,
+          "uploaded": "2026-05-09T11:22:34.677Z"
+        },
+        {
+          "id": "engineering-practical-mechanics",
+          "name": "Practical Mechanics for Boys",
+          "filename": "practical_mechanics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/practical_mechanics.epub",
+          "size": 209529,
+          "uploaded": "2026-05-09T11:22:36.442Z"
+        },
+        {
+          "id": "engineering-woodwork-joints",
+          "name": "Woodwork Joints: How They Are Set Out and Made",
+          "filename": "woodwork_joints.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/engineering/woodwork_joints.epub",
+          "size": 186227,
+          "uploaded": "2026-05-09T11:22:38.158Z"
+        }
+      ]
+    },
+    {
+      "id": "heritage",
+      "name": "Foundational Wisdom & Western Heritage",
+      "description": "Theological classics, philosophical pillars, and timeless texts for spiritual and intellectual resilience.",
+      "files": [
+        {
+          "id": "heritage-art-of-war-suntzu",
+          "name": "Art Of War Suntzu",
+          "filename": "art_of_war_suntzu.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/art_of_war_suntzu.epub",
+          "size": 226435,
+          "uploaded": "2026-05-09T11:22:41.514Z"
+        },
+        {
+          "id": "heritage-confessions-of-augustine",
+          "name": "Confessions Of Augustine",
+          "filename": "confessions_of_augustine.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/confessions_of_augustine.epub",
+          "size": 309276,
+          "uploaded": "2026-05-09T11:22:43.301Z"
+        },
+        {
+          "id": "heritage-enchiridion-epictetus",
+          "name": "Enchiridion — Epictetus",
+          "filename": "enchiridion_epictetus.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/enchiridion_epictetus.epub",
+          "size": 86195,
+          "uploaded": "2026-05-09T11:22:45.061Z"
+        },
+        {
+          "id": "heritage-foxes-book-of-martyrs",
+          "name": "Foxes Book Of Martyrs",
+          "filename": "foxes_book_of_martyrs.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/foxes_book_of_martyrs.epub",
+          "size": 715536,
+          "uploaded": "2026-05-09T11:22:46.903Z"
+        },
+        {
+          "id": "heritage-imitation-of-christ",
+          "name": "Imitation Of Christ",
+          "filename": "imitation_of_christ.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/imitation_of_christ.epub",
+          "size": 315087,
+          "uploaded": "2026-05-09T11:22:49.852Z"
+        },
+        {
+          "id": "heritage-meditations-aurelius",
+          "name": "Meditations Aurelius",
+          "filename": "meditations_aurelius.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/meditations_aurelius.epub",
+          "size": 257435,
+          "uploaded": "2026-05-09T11:22:51.703Z"
+        },
+        {
+          "id": "heritage-orthodoxy-chesterton",
+          "name": "Orthodoxy Chesterton",
+          "filename": "orthodoxy_chesterton.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/orthodoxy_chesterton.epub",
+          "size": 212325,
+          "uploaded": "2026-05-09T11:22:53.426Z"
+        },
+        {
+          "id": "heritage-paradise-lost",
+          "name": "Paradise Lost",
+          "filename": "paradise_lost.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/paradise_lost.epub",
+          "size": 397928,
+          "uploaded": "2026-05-09T11:22:55.097Z"
+        },
+        {
+          "id": "heritage-pilgrims-progress",
+          "name": "Pilgrims Progress",
+          "filename": "pilgrims_progress.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/pilgrims_progress.epub",
+          "size": 189296,
+          "uploaded": "2026-05-09T11:22:56.951Z"
+        },
+        {
+          "id": "heritage-plato-republic",
+          "name": "The Republic — Plato",
+          "filename": "plato_republic.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/heritage/plato_republic.epub",
+          "size": 523804,
+          "uploaded": "2026-05-09T11:22:58.692Z"
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "name": "History & Civilization",
+      "description": "The rise and fall of civilizations, military history, exploration, and the lessons of the past.",
+      "files": [
+        {
+          "id": "history-autobiography-benjamin-franklin",
+          "name": "Autobiography of Benjamin Franklin",
+          "filename": "autobiography_benjamin_franklin.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/autobiography_benjamin_franklin.epub",
+          "size": 4913561,
+          "uploaded": "2026-05-29T00:19:42.589Z"
+        },
+        {
+          "id": "history-histories-herodotus",
+          "name": "The Histories — Herodotus",
+          "filename": "histories_herodotus.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/histories_herodotus.epub",
+          "size": 435710,
+          "uploaded": "2026-05-29T00:19:28.404Z"
+        },
+        {
+          "id": "history-history-peloponnesian-war",
+          "name": "History of the Peloponnesian War — Thucydides",
+          "filename": "history_peloponnesian_war.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/history_peloponnesian_war.epub",
+          "size": 539917,
+          "uploaded": "2026-05-29T00:19:19.764Z"
+        },
+        {
+          "id": "history-leviathan-hobbes",
+          "name": "Leviathan — Thomas Hobbes (1651)",
+          "filename": "leviathan_hobbes.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/leviathan_hobbes.epub",
+          "size": 860807,
+          "uploaded": "2026-05-29T00:20:12.421Z"
+        },
+        {
+          "id": "history-memoirs-us-grant",
+          "name": "Personal Memoirs of U.S. Grant",
+          "filename": "memoirs_us_grant.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/memoirs_us_grant.epub",
+          "size": 7096002,
+          "uploaded": "2026-05-29T00:59:48.656Z"
+        },
+        {
+          "id": "history-narrative-frederick-douglass",
+          "name": "Narrative of the Life of Frederick Douglass (1845)",
+          "filename": "narrative_frederick_douglass.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/narrative_frederick_douglass.epub",
+          "size": 207413,
+          "uploaded": "2026-05-29T01:00:00.255Z"
+        },
+        {
+          "id": "history-oregon-trail-parkman",
+          "name": "The Oregon Trail — Francis Parkman (1849)",
+          "filename": "oregon_trail_parkman.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/oregon_trail_parkman.epub",
+          "size": 408174,
+          "uploaded": "2026-05-29T22:27:24.184Z"
+        },
+        {
+          "id": "history-prince-machiavelli",
+          "name": "The Prince — Machiavelli (1513)",
+          "filename": "prince_machiavelli.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/prince_machiavelli.epub",
+          "size": 212478,
+          "uploaded": "2026-05-29T00:19:35.324Z"
+        },
+        {
+          "id": "history-up-from-slavery-washington",
+          "name": "Up From Slavery — Booker T. Washington (1901)",
+          "filename": "up_from_slavery_washington.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/up_from_slavery_washington.epub",
+          "size": 344779,
+          "uploaded": "2026-05-29T00:59:40.620Z"
+        },
+        {
+          "id": "history-wealth-of-nations-smith",
+          "name": "Wealth Of Nations Smith",
+          "filename": "wealth_of_nations_smith.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/history/wealth_of_nations_smith.epub",
+          "size": 947416,
+          "uploaded": "2026-05-29T00:19:59.930Z"
+        }
+      ]
+    },
+    {
+      "id": "homestead",
+      "name": "Homesteading & Agriculture",
+      "description": "Off-grid farming, canning, herbalism, beekeeping, animal husbandry, and self-sufficiency.",
+      "files": [
+        {
+          "id": "homestead-american-frugal-housewife",
+          "name": "The American Frugal Housewife (1832)",
+          "filename": "american_frugal_housewife.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/american_frugal_housewife.epub",
+          "size": 180422,
+          "uploaded": "2026-05-09T11:23:03.857Z"
+        },
+        {
+          "id": "homestead-compleat-herbal",
+          "name": "Culpeper’s Complete Herbal (1653)",
+          "filename": "compleat_herbal.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/compleat_herbal.epub",
+          "size": 714861,
+          "uploaded": "2026-05-09T11:23:05.636Z"
+        },
+        {
+          "id": "homestead-farmers-of-forty-centuries",
+          "name": "Farmers of Forty Centuries (1911)",
+          "filename": "farmers_of_forty_centuries.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/farmers_of_forty_centuries.epub",
+          "size": 296234,
+          "uploaded": "2026-05-09T11:23:07.561Z"
+        },
+        {
+          "id": "homestead-langstroth-beekeeping",
+          "name": "Langstroth on the Hive and the Honey-Bee (1853)",
+          "filename": "langstroth_beekeeping.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/langstroth_beekeeping.epub",
+          "size": 372100,
+          "uploaded": "2026-05-09T11:23:11.063Z"
+        },
+        {
+          "id": "homestead-manual-of-gardening",
+          "name": "Manual of Gardening (1910)",
+          "filename": "manual_of_gardening.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/manual_of_gardening.epub",
+          "size": 467549,
+          "uploaded": "2026-05-09T11:23:14.256Z"
+        },
+        {
+          "id": "homestead-soil-culture-1908",
+          "name": "Soil Culture (1908)",
+          "filename": "soil_culture_1908.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/soil_culture_1908.epub",
+          "size": 1895650,
+          "uploaded": "2026-05-29T22:27:26.027Z"
+        },
+        {
+          "id": "homestead-ten-acres-enough",
+          "name": "Ten Acres Enough (1864)",
+          "filename": "ten_acres_enough.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/homestead/ten_acres_enough.epub",
+          "size": 207309,
+          "uploaded": "2026-05-09T11:23:17.842Z"
+        }
+      ]
+    },
+    {
+      "id": "language",
+      "name": "Language & Writing",
+      "description": "Grammar, rhetoric, composition, language instruction, and the craft of clear writing.",
+      "files": [
+        {
+          "id": "language-elements-of-style-strunk",
+          "name": "The Elements of Style — Strunk (1918)",
+          "filename": "elements_of_style_strunk.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/elements_of_style_strunk.epub",
+          "size": 76439,
+          "uploaded": "2026-05-29T00:22:47.109Z"
+        },
+        {
+          "id": "language-english-grammar-composition",
+          "name": "English Grammar and Composition",
+          "filename": "english_grammar_composition.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/english_grammar_composition.epub",
+          "size": 329390,
+          "uploaded": "2026-05-29T00:23:46.048Z"
+        },
+        {
+          "id": "language-how-to-speak-and-write",
+          "name": "How to Speak and Write Correctly",
+          "filename": "how_to_speak_and_write.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/how_to_speak_and_write.epub",
+          "size": 241435,
+          "uploaded": "2026-05-29T00:22:59.032Z"
+        },
+        {
+          "id": "language-latin-for-beginners",
+          "name": "Latin for Beginners",
+          "filename": "latin_for_beginners.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/latin_for_beginners.epub",
+          "size": 1225550,
+          "uploaded": "2026-05-29T00:23:31.174Z"
+        },
+        {
+          "id": "language-manual-of-english-grammar",
+          "name": "Manual of English Grammar",
+          "filename": "manual_of_english_grammar.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/manual_of_english_grammar.epub",
+          "size": 2623381,
+          "uploaded": "2026-05-29T00:23:38.814Z"
+        },
+        {
+          "id": "language-on-the-art-of-writing",
+          "name": "On the Art of Writing (1916)",
+          "filename": "on_the_art_of_writing.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/on_the_art_of_writing.epub",
+          "size": 247485,
+          "uploaded": "2026-05-29T22:27:27.811Z"
+        },
+        {
+          "id": "language-spanish-grammar-1919",
+          "name": "Spanish Grammar (1919)",
+          "filename": "spanish_grammar_1919.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/language/spanish_grammar_1919.epub",
+          "size": 342496,
+          "uploaded": "2026-05-29T22:27:29.639Z"
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "name": "Law & Founding Documents",
+      "description": "US Constitution, Declaration of Independence, Magna Carta, Federalist Papers, and foundational legal texts.",
+      "files": [
+        {
+          "id": "law-blackstones-commentaries",
+          "name": "Blackstones Commentaries",
+          "filename": "blackstones_commentaries.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/blackstones_commentaries.epub",
+          "size": 532193,
+          "uploaded": "2026-05-09T11:23:22.655Z"
+        },
+        {
+          "id": "law-common-sense",
+          "name": "Common Sense",
+          "filename": "common_sense.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/common_sense.epub",
+          "size": 176901,
+          "uploaded": "2026-05-09T11:23:25.698Z"
+        },
+        {
+          "id": "law-declaration-of-independence",
+          "name": "Declaration of Independence (1776)",
+          "filename": "declaration_of_independence.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/declaration_of_independence.epub",
+          "size": 150115,
+          "uploaded": "2026-05-09T11:23:27.569Z"
+        },
+        {
+          "id": "law-democracy-in-america-tocqueville",
+          "name": "Democracy in America — Tocqueville (1835)",
+          "filename": "democracy_in_america_tocqueville.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/democracy_in_america_tocqueville.epub",
+          "size": 543051,
+          "uploaded": "2026-05-29T00:16:50.130Z"
+        },
+        {
+          "id": "law-federalist-papers",
+          "name": "The Federalist Papers",
+          "filename": "federalist_papers.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/federalist_papers.epub",
+          "size": 523233,
+          "uploaded": "2026-05-09T11:23:30.437Z"
+        },
+        {
+          "id": "law-magna-carta",
+          "name": "Magna Carta (1215)",
+          "filename": "magna_carta.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/magna_carta.epub",
+          "size": 713823,
+          "uploaded": "2026-05-09T11:23:32.466Z"
+        },
+        {
+          "id": "law-rights-of-man-paine",
+          "name": "Rights of Man — Thomas Paine (1791)",
+          "filename": "rights_of_man_paine.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/rights_of_man_paine.epub",
+          "size": 318183,
+          "uploaded": "2026-05-29T00:16:33.910Z"
+        },
+        {
+          "id": "law-second-treatise-of-gov",
+          "name": "Second Treatise Of Gov",
+          "filename": "second_treatise_of_gov.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/second_treatise_of_gov.epub",
+          "size": 203173,
+          "uploaded": "2026-05-09T11:23:34.273Z"
+        },
+        {
+          "id": "law-us-constitution",
+          "name": "United States Constitution",
+          "filename": "us_constitution.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/law/us_constitution.epub",
+          "size": 158681,
+          "uploaded": "2026-05-09T11:23:35.965Z"
+        }
+      ]
+    },
+    {
+      "id": "medical",
+      "name": "Medical & First Aid",
+      "description": "Field medicine, anatomy, nursing, first aid, and emergency medical references.",
+      "files": [
+        {
+          "id": "medical-emergency-childbirth-manual",
+          "name": "Emergency Childbirth Manual",
+          "filename": "emergency_childbirth_manual.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/emergency_childbirth_manual.epub",
+          "size": 431406,
+          "uploaded": "2026-05-29T22:27:31.549Z"
+        },
+        {
+          "id": "medical-manual-of-surgery-1889",
+          "name": "A Manual of the Operations of Surgery (1889)",
+          "filename": "manual_of_surgery_1889.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/manual_of_surgery_1889.epub",
+          "size": 1235806,
+          "uploaded": "2026-05-29T22:27:33.428Z"
+        },
+        {
+          "id": "medical-mercks-1899-manual",
+          "name": "Merck’s Manual of the Materia Medica (1899)",
+          "filename": "mercks_1899_manual.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/mercks_1899_manual.epub",
+          "size": 274386,
+          "uploaded": "2026-05-09T11:23:40.539Z"
+        },
+        {
+          "id": "medical-notes-on-nursing",
+          "name": "Notes on Nursing — Florence Nightingale (1860)",
+          "filename": "notes_on_nursing.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/medical/notes_on_nursing.epub",
+          "size": 171014,
+          "uploaded": "2026-05-09T11:23:42.302Z"
+        }
+      ]
+    },
+    {
+      "id": "philosophy",
+      "name": "Philosophy & Ethics",
+      "description": "Foundational works in logic, reason, morality, and the examined life — from Aristotle and Kant to Russell.",
+      "files": [
+        {
+          "id": "philosophy-beyond-good-and-evil",
+          "name": "Beyond Good and Evil — Nietzsche (1886)",
+          "filename": "beyond_good_and_evil.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/beyond_good_and_evil.epub",
+          "size": 238210,
+          "uploaded": "2026-05-30T00:51:21.335Z"
+        },
+        {
+          "id": "philosophy-critique-of-pure-reason",
+          "name": "Critique of Pure Reason — Immanuel Kant (1781)",
+          "filename": "critique_of_pure_reason.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/critique_of_pure_reason.epub",
+          "size": 628449,
+          "uploaded": "2026-05-30T00:51:23.154Z"
+        },
+        {
+          "id": "philosophy-essay-human-understanding-v1",
+          "name": "An Essay Concerning Human Understanding, Vol. 1 — Locke (1690)",
+          "filename": "essay_human_understanding_v1.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/essay_human_understanding_v1.epub",
+          "size": 541240,
+          "uploaded": "2026-05-30T00:51:25.230Z"
+        },
+        {
+          "id": "philosophy-essay-human-understanding-v2",
+          "name": "An Essay Concerning Human Understanding, Vol. 2 — Locke (1690)",
+          "filename": "essay_human_understanding_v2.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/essay_human_understanding_v2.epub",
+          "size": 349559,
+          "uploaded": "2026-05-30T00:51:27.284Z"
+        },
+        {
+          "id": "philosophy-essays-montaigne",
+          "name": "Essays — Michel de Montaigne (1580)",
+          "filename": "essays_montaigne.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/essays_montaigne.epub",
+          "size": 1277105,
+          "uploaded": "2026-05-30T00:51:29.214Z"
+        },
+        {
+          "id": "philosophy-nicomachean-ethics",
+          "name": "Nicomachean Ethics — Aristotle",
+          "filename": "nicomachean_ethics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/nicomachean_ethics.epub",
+          "size": 463740,
+          "uploaded": "2026-05-30T00:51:31.348Z"
+        },
+        {
+          "id": "philosophy-problems-of-philosophy",
+          "name": "The Problems of Philosophy — Bertrand Russell (1912)",
+          "filename": "problems_of_philosophy.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/philosophy/problems_of_philosophy.epub",
+          "size": 159422,
+          "uploaded": "2026-05-30T00:51:33.284Z"
+        }
+      ]
+    },
+    {
+      "id": "psychology",
+      "name": "Psychology & Leadership",
+      "description": "Human behavior, decision-making, leadership principles, and the study of the mind.",
+      "files": [
+        {
+          "id": "psychology-art-of-public-speaking",
+          "name": "The Art of Public Speaking",
+          "filename": "art_of_public_speaking.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/art_of_public_speaking.epub",
+          "size": 500785,
+          "uploaded": "2026-05-29T00:18:24.999Z"
+        },
+        {
+          "id": "psychology-characters-theophrastus",
+          "name": "Characters — Theophrastus (300 BC)",
+          "filename": "characters_theophrastus.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/characters_theophrastus.epub",
+          "size": 106897,
+          "uploaded": "2026-05-29T22:27:35.293Z"
+        },
+        {
+          "id": "psychology-crowd-gustave-le-bon",
+          "name": "The Crowd: A Study of the Popular Mind — Le Bon",
+          "filename": "crowd_gustave_le_bon.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/crowd_gustave_le_bon.epub",
+          "size": 211094,
+          "uploaded": "2026-05-29T00:18:05.603Z"
+        },
+        {
+          "id": "psychology-how-to-analyze-people",
+          "name": "How to Analyze People on Sight",
+          "filename": "how_to_analyze_people.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/how_to_analyze_people.epub",
+          "size": 1009354,
+          "uploaded": "2026-05-29T22:27:37.149Z"
+        },
+        {
+          "id": "psychology-human-nature-politics",
+          "name": "Human Nature in Politics (1908)",
+          "filename": "human_nature_politics.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/human_nature_politics.epub",
+          "size": 280217,
+          "uploaded": "2026-05-29T22:27:39.092Z"
+        },
+        {
+          "id": "psychology-instinct-of-workmanship-veblen",
+          "name": "The Instinct of Workmanship — Veblen",
+          "filename": "instinct_of_workmanship_veblen.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/instinct_of_workmanship_veblen.epub",
+          "size": 499641,
+          "uploaded": "2026-05-29T22:27:40.892Z"
+        },
+        {
+          "id": "psychology-psychology-william-james",
+          "name": "The Principles of Psychology — William James",
+          "filename": "psychology_william_james.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/psychology_william_james.epub",
+          "size": 1549662,
+          "uploaded": "2026-05-29T00:17:59.920Z"
+        },
+        {
+          "id": "psychology-self-help-samuel-smiles",
+          "name": "Self-Help — Samuel Smiles (1859)",
+          "filename": "self_help_samuel_smiles.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/self_help_samuel_smiles.epub",
+          "size": 587640,
+          "uploaded": "2026-05-29T01:00:38.438Z"
+        },
+        {
+          "id": "psychology-will-to-believe-william-james",
+          "name": "The Will to Believe — William James",
+          "filename": "will_to_believe_william_james.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/psychology/will_to_believe_william_james.epub",
+          "size": 354829,
+          "uploaded": "2026-05-29T00:18:54.717Z"
+        }
+      ]
+    },
+    {
+      "id": "science",
+      "name": "Applied Sciences",
+      "description": "Physics, chemistry, biology, astronomy, and the foundations of scientific thought.",
+      "files": [
+        {
+          "id": "science-astronomy-with-opera-glass",
+          "name": "Astronomy with an Opera-Glass (1888)",
+          "filename": "astronomy_with_opera_glass.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/astronomy_with_opera_glass.epub",
+          "size": 3021868,
+          "uploaded": "2026-05-29T22:27:42.761Z"
+        },
+        {
+          "id": "science-chemical-history-candle-faraday",
+          "name": "The Chemical History of a Candle — Faraday",
+          "filename": "chemical_history_candle_faraday.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/chemical_history_candle_faraday.epub",
+          "size": 168089,
+          "uploaded": "2026-05-29T00:16:59.886Z"
+        },
+        {
+          "id": "science-elements-of-chemistry-lavoisier",
+          "name": "Elements of Chemistry — Lavoisier (1789)",
+          "filename": "elements_of_chemistry_lavoisier.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/elements_of_chemistry_lavoisier.epub",
+          "size": 10194365,
+          "uploaded": "2026-05-29T00:17:07.919Z"
+        },
+        {
+          "id": "science-experimental-researches-faraday",
+          "name": "Experimental Researches in Electricity — Faraday",
+          "filename": "experimental_researches_faraday.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/experimental_researches_faraday.epub",
+          "size": 613212,
+          "uploaded": "2026-05-29T00:17:25.727Z"
+        },
+        {
+          "id": "science-principia-newton",
+          "name": "Principia Mathematica — Newton",
+          "filename": "principia_newton.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/principia_newton.epub",
+          "size": 3077338,
+          "uploaded": "2026-05-29T00:17:14.258Z"
+        },
+        {
+          "id": "science-relativity-einstein",
+          "name": "Relativity — Einstein (1920)",
+          "filename": "relativity_einstein.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/science/relativity_einstein.epub",
+          "size": 943175,
+          "uploaded": "2026-05-29T00:17:20.415Z"
+        }
+      ]
+    },
+    {
+      "id": "survival",
+      "name": "Survival & Field Craft",
+      "description": "Wilderness survival, shelter building, knots, trapping, fire-making, and woodcraft.",
+      "files": [
+        {
+          "id": "survival-camp-lore-and-woodcraft",
+          "name": "Camp Lore And Woodcraft",
+          "filename": "camp_lore_and_woodcraft.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/camp_lore_and_woodcraft.epub",
+          "size": 216284,
+          "uploaded": "2026-05-09T11:23:45.919Z"
+        },
+        {
+          "id": "survival-how-to-camp-out-1877",
+          "name": "How to Camp Out (1877)",
+          "filename": "how_to_camp_out_1877.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/how_to_camp_out_1877.epub",
+          "size": 213584,
+          "uploaded": "2026-05-29T22:27:45.742Z"
+        },
+        {
+          "id": "survival-knots-splices-rope-work",
+          "name": "Knots, Splices and Rope Work (1912)",
+          "filename": "knots_splices_rope_work.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/knots_splices_rope_work.epub",
+          "size": 74368,
+          "uploaded": "2026-05-09T11:23:49.082Z"
+        },
+        {
+          "id": "survival-on-the-trail-1911",
+          "name": "On the Trail: An Outdoor Book for Girls (1911)",
+          "filename": "on_the_trail_1911.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/on_the_trail_1911.epub",
+          "size": 6836211,
+          "uploaded": "2026-05-29T22:27:47.807Z"
+        },
+        {
+          "id": "survival-scouting-for-boys-1908",
+          "name": "Scouting for Boys (1908)",
+          "filename": "scouting_for_boys_1908.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/scouting_for_boys_1908.epub",
+          "size": 13423942,
+          "uploaded": "2026-05-29T22:27:50.794Z"
+        },
+        {
+          "id": "survival-shelters-shacks-shanties",
+          "name": "Shelters, Shacks, and Shanties (1914)",
+          "filename": "shelters_shacks_shanties.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/shelters_shacks_shanties.epub",
+          "size": 214457,
+          "uploaded": "2026-05-09T11:23:50.983Z"
+        },
+        {
+          "id": "survival-the-boy-mechanic",
+          "name": "The Boy Mechanic: 700 Things for Boys to Do (1913)",
+          "filename": "the_boy_mechanic.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/the_boy_mechanic.epub",
+          "size": 659665,
+          "uploaded": "2026-05-09T11:23:53.030Z"
+        },
+        {
+          "id": "survival-tracks-and-tracking-1909",
+          "name": "Tracks and Tracking (1909)",
+          "filename": "tracks_and_tracking_1909.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/tracks_and_tracking_1909.epub",
+          "size": 4620149,
+          "uploaded": "2026-05-29T22:27:53.127Z"
+        },
+        {
+          "id": "survival-two-years-before-mast",
+          "name": "Two Years Before the Mast (1840)",
+          "filename": "two_years_before_mast.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/two_years_before_mast.epub",
+          "size": 456160,
+          "uploaded": "2026-05-29T22:27:54.952Z"
+        },
+        {
+          "id": "survival-woodcraft-and-camping",
+          "name": "Woodcraft And Camping",
+          "filename": "woodcraft_and_camping.epub",
+          "type": "epub",
+          "url": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev/survival/woodcraft_and_camping.epub",
+          "size": 171174,
+          "uploaded": "2026-05-09T11:23:54.981Z"
+        }
+      ]
+    }
+  ]
+}

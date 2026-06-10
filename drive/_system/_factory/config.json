@@ -1,0 +1,74 @@
+{
+  "_comment": "The Blackout Drive \u2014 Master Configuration. Single source of truth. All other configs are derived from this file. Do not hardcode values in shell scripts, JS, or HTML.",
+  "_rule": "BACKLOG IS APPEND-ONLY. Never remove entries from any planning or backlog document. Only add.",
+  "debug": false,
+  "app": {
+    "name": "The Blackout Drive",
+    "aiName": "BEACON",
+    "edition": "standard",
+    "version": "1.0.0",
+    "tagline": "Offline AI. Encrypted Vault. Mesh Comms.",
+    "tiers": {
+      "standard": {
+        "label": "Standard Edition",
+        "features": [
+          "chat",
+          "library",
+          "voice",
+          "prompts",
+          "diagnostics",
+          "ham-radio"
+        ]
+      },
+      "pro": {
+        "label": "Pro Edition",
+        "features": [
+          "chat",
+          "library",
+          "voice",
+          "prompts",
+          "diagnostics",
+          "ham-radio"
+        ]
+      }
+    }
+  },
+  "model": {
+    "name": "blackout-beacon",
+    "base": "qwen3:4b",
+    "file": "Qwen3-4B-Q4_K_M.gguf",
+    "modelfile": "Modelfile",
+    "profileManifest": "models.json",
+    "available": []
+  },
+  "network": {
+    "ollamaPort": 11434,
+    "ollamaBind": "127.0.0.1",
+    "uiPort": 8080,
+    "mobileAccess": false
+  },
+  "content": {
+    "remoteCatalogUrl": "https://blackout-catalog.hutton-benj.workers.dev",
+    "remoteFilesBase": "https://pub-04e18483c8444717b2d33ec2fff64722.r2.dev",
+    "contentDir": "content",
+    "booksDir": "content/books",
+    "zimDir": "content/zim",
+    "packsDir": "content/packs",
+    "dataDir": "data"
+  },
+  "chat": {
+    "streamTimeoutMs": 300000,
+    "retryIntervalMs": 2000,
+    "maxRetries": 30,
+    "maxInputChars": 4000
+  },
+  "comms": {
+    "_comment": "COMMS subsystem \u2014 @BEACON Dispatch over Meshtastic LoRa mesh.",
+    "dispatch_enabled": true,
+    "dispatch_channel": 1,
+    "dispatch_role": "primary",
+    "gps_position": true,
+    "radio_telemetry": true
+  },
+  "eula_accepted": false
+}

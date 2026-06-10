@@ -1,0 +1,113 @@
+The Blackout Drive™ — OPEN SOURCE NOTICES & ATTRIBUTION
+===================================================
+
+This product is built on open-source software. The following components 
+are included on this drive, each under their respective licenses. Full 
+license text for each component is provided in this directory or inline.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Ollama
+LICENSE:   MIT License
+AUTHOR:    Ollama, Inc.
+SOURCE:    https://github.com/ollama/ollama
+FULL TEXT: See OLLAMA_LICENSE.txt in this directory
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Qwen3 Language Models (4B, 8B)
+LICENSE:   Apache License 2.0
+AUTHOR:    Alibaba Cloud
+SOURCE:    https://huggingface.co/Qwen
+FULL TEXT: See QWEN3_LICENSE.txt in this directory
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Monaco Editor
+LICENSE:   MIT License
+AUTHOR:    Microsoft Corporation
+SOURCE:    https://github.com/microsoft/monaco-editor
+FULL TEXT: See drive/_system/ui/lib/monaco/LICENSE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: epub.js
+LICENSE:   BSD-2-Clause (FreeBSD)
+AUTHOR:    Fred Chasen
+SOURCE:    https://github.com/futurepress/epub.js
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: JSZip
+LICENSE:   MIT License (dual-licensed MIT/GPLv3)
+AUTHOR:    Stuart Knightley
+SOURCE:    https://github.com/Stuk/jszip
+NOTE:      Includes pako (MIT License, https://github.com/nodeca/pako)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: marked.js
+LICENSE:   MIT License
+AUTHOR:    Christopher Jeffrey
+SOURCE:    https://github.com/markedjs/marked
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Highlight.js
+LICENSE:   BSD-3-Clause
+AUTHOR:    Josh Goebel and contributors
+SOURCE:    https://github.com/highlightjs/highlight.js
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: CPython (Embedded, Windows only)
+LICENSE:   Python Software Foundation License (PSF)
+AUTHOR:    Python Software Foundation
+SOURCE:    https://www.python.org
+FULL TEXT: See drive/_system/runtime/python-windows/LICENSE.txt
+NOTE:      Windows-only embedded distribution. macOS and Linux
+           use the system-installed Python interpreter.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: Meshtastic (Radio Firmware — not bundled on drive)
+LICENSE:   GNU General Public License v3.0
+AUTHOR:    Meshtastic Project
+SOURCE:    https://github.com/meshtastic/firmware
+NOTE:      The Blackout Drive integrates with Meshtastic-powered
+           radios for mesh communications. The Meshtastic firmware
+           runs on the radio hardware, not on the USB drive.
+           We did not create Meshtastic. See meshtastic.org.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COMPONENT: pyserial
+LICENSE:   BSD-3-Clause
+AUTHOR:    Chris Liechti
+SOURCE:    https://github.com/pyserial/pyserial
+FULL TEXT: See drive/_system/vendor/LICENSE-pyserial.txt
+NOTE:      Used for USB serial communication with LoRa radio
+           hardware (Meshtastic devices).
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LIBRARY CONTENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+All books in the offline library are either:
+
+  • Public domain works (pre-1929 U.S. publication or expired copyright)
+  • U.S. federal government works (17 U.S.C. § 105)
+  • Open-access publications released under permissive licenses
+    (Creative Commons, Apache 2.0, or equivalent)
+
+Specific titles include public-domain classics (KJV Bible, Meditations,
+Art of War, etc.), NIST cybersecurity frameworks (U.S. government works),
+and open-access programming textbooks (Think Python, Pro Git).
+
+No copyright claim is made on public domain materials.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The Blackout Drive™ custom software (server, chat UI, library, launchers):
+Copyright © 2026 Hutton Technologies LLC. All rights reserved.
+Licensed under the Business Source License 1.1 — see LICENSE.
