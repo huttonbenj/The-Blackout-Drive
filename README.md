@@ -113,11 +113,11 @@ All editions run the **exact same Blackout Drive software, AI models, and librar
 - **In-browser reader** — EPUB/PDF/TXT reader with chapter navigation and full-text search
 - **Monaco code editor** — Full-featured offline code editor
 - **Cross-platform** — Mac + Windows + Linux (Linux experimental — not yet fully tested)
-- ~37GB free space for your own files
+- ~43GB free space for your own files
 
 ### Core Edition 128GB — $119
 - **Everything in the 64GB edition**
-- **~100GB+ free space** for your own PDFs, photos, documents, and encrypted backups
+- **~104GB free space** for your own PDFs, photos, documents, and encrypted backups
 
 ### Basecamp Bundle 64GB — $149
 - **Everything in the Core Edition 64GB**
