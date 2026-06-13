@@ -100,7 +100,7 @@ bash scripts/download_models.sh
 
 All editions run the **exact same Blackout Drive software, AI models, and library content**. The AI auto-detects your hardware and selects the optimal model.
 
-### Core Edition 64GB — $89
+### Core Edition 64GB — $69
 - **BEACON AI** — Adaptive offline AI assistant (Qwen3 4B/8B, auto-selected by RAM)
 - **Reference Library** — A curated collection of offline books, manuals, and guides covering survival, medical, legal, engineering, philosophy, homestead, cybersecurity, development, communication, and theology
 - **Interactive Tools** — Ham Radio toolkit, Tactical Navigator, Cipher Studio, Survival Calculators, Medical Timers, and Prep Checklists
@@ -115,31 +115,31 @@ All editions run the **exact same Blackout Drive software, AI models, and librar
 - **Cross-platform** — Mac + Windows + Linux (Linux experimental — not yet fully tested)
 - ~43GB free space for your own files
 
-### Core Edition 128GB — $119
+### Core Edition 128GB — $99
 - **Everything in the 64GB edition**
 - **~104GB free space** for your own PDFs, photos, documents, and encrypted backups
 
-### Basecamp Bundle 64GB — $149
+### Basecamp Bundle 64GB — $119
 - **Everything in the Core Edition 64GB**
 - **Pre-flashed Heltec V3 LoRa radio** — Ready for off-grid encrypted mesh communication
 - **Mesh antenna & USB-C data cable**
 
-### Basecamp Bundle 128GB — $179
+### Basecamp Bundle 128GB — $149
 - **Everything in the Core Edition 128GB**
 - **Pre-flashed Heltec V3 LoRa radio** — Ready for off-grid encrypted mesh communication
 - **Mesh antenna & USB-C data cable**
 
-### Field Kit 64GB — $199
+### Field Kit 64GB — $169
 - **Everything in the Core Edition 64GB**
 - **2x Pre-flashed Heltec V3 LoRa radios** — Hand one to a partner, communicate encrypted miles away with no cell service
 - **2x Mesh antennas & USB-C data cables**
 
-### Field Kit 128GB — $229
+### Field Kit 128GB — $199
 - **Everything in the Core Edition 128GB**
 - **2x Pre-flashed Heltec V3 LoRa radios** — Hand one to a partner, communicate encrypted miles away with no cell service
 - **2x Mesh antennas & USB-C data cables**
 
-### Field Node (Add-on) — $59
+### Field Node (Add-on) — $45
 - **Standalone pre-flashed Heltec V3 LoRa radio** — Pre-configured to join your encrypted channel out of the box
 - **Mesh antenna & USB-C data cable**
 - Drive not included

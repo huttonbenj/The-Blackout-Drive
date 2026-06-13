@@ -387,13 +387,13 @@ Every third-party dependency must be properly attributed in `OPEN_SOURCE_NOTICES
 - **Restriction:** Cannot use to create a competing product
 
 ### 12.3 Product SKUs
-- **Core Edition** (64GB) — USB drive only — $89
-- **Core Edition** (128GB) — USB drive only — $119
-- **Basecamp Bundle** (64GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $149
-- **Basecamp Bundle** (128GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $179
-- **Field Kit** (64GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $199
-- **Field Kit** (128GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $229
-- **Field Node** (add-on, no drive) — 1x pre-flashed Heltec V3 radio + antenna + cable — $59
+- **Core Edition** (64GB) — USB drive only — $69
+- **Core Edition** (128GB) — USB drive only — $99
+- **Basecamp Bundle** (64GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $119
+- **Basecamp Bundle** (128GB) — Drive + 1x pre-flashed Heltec V3 radio + antenna + cable — $149
+- **Field Kit** (64GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $169
+- **Field Kit** (128GB) — Drive + 2x pre-flashed Heltec V3 radios + antennas + cables — $199
+- **Field Node** (add-on, no drive) — 1x pre-flashed Heltec V3 radio + antenna + cable — $45
 
 ### 12.4 Website
 - `theblackoutdrive.com` — Next.js + Tailwind, hosted separately

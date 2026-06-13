@@ -221,4 +221,4 @@ registerTool({
 - Diagnostics panel
 - 100+ prompt library
 - macOS + Windows + Linux launchers
-- 7-SKU pricing: Core Edition 64GB ($89), Core Edition 128GB ($119), Basecamp Bundle 64GB ($149), Basecamp Bundle 128GB ($179), Field Kit 64GB ($199), Field Kit 128GB ($229), Field Node add-on ($59)
+- 7-SKU pricing: Core Edition 64GB ($69), Core Edition 128GB ($99), Basecamp Bundle 64GB ($119), Basecamp Bundle 128GB ($149), Field Kit 64GB ($169), Field Kit 128GB ($199), Field Node add-on ($45)

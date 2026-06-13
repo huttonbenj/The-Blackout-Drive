@@ -102,13 +102,13 @@ All editions run the **exact same software, AI models, and library content**. Co
 
 | SKU | Edition | Hardware | Price | Included |
 |---|---|---|---|---|
-| 1 | **Core Edition** | SanDisk Ultra Dual Drive Go (64GB) | $89 | BEACON AI, reference library, 6 interactive tools, encrypted storage, voice I/O, Monaco editor |
-| 2 | **Core Edition** | SanDisk Ultra Dual Drive Go (128GB) | $119 | Everything in SKU 1 + double storage capacity |
-| 3 | **Basecamp Bundle** | SanDisk Ultra Dual Drive Go (64GB) | $149 | Everything in SKU 1 + 1x pre-flashed Heltec V3 radio, mesh antenna, USB-C data cable |
-| 4 | **Basecamp Bundle** | SanDisk Ultra Dual Drive Go (128GB) | $179 | Everything in SKU 2 + 1x pre-flashed Heltec V3 radio, mesh antenna, USB-C data cable |
-| 5 | **Field Kit** | SanDisk Ultra Dual Drive Go (64GB) | $199 | Everything in SKU 1 + 2x pre-flashed Heltec V3 radios, 2x mesh antennas, 2x USB-C data cables |
-| 6 | **Field Kit** | SanDisk Ultra Dual Drive Go (128GB) | $229 | Everything in SKU 2 + 2x pre-flashed Heltec V3 radios, 2x mesh antennas, 2x USB-C data cables |
-| 7 | **Field Node** (add-on) | Heltec V3 LoRa radio only (no drive) | $59 | Pre-flashed radio + mesh antenna + USB-C data cable; joins existing encrypted channel out of the box |
+| 1 | **Core Edition** | SanDisk Ultra Dual Drive Go (64GB) | $69 | BEACON AI, reference library, 6 interactive tools, encrypted storage, voice I/O, Monaco editor |
+| 2 | **Core Edition** | SanDisk Ultra Dual Drive Go (128GB) | $99 | Everything in SKU 1 + double storage capacity |
+| 3 | **Basecamp Bundle** | SanDisk Ultra Dual Drive Go (64GB) | $119 | Everything in SKU 1 + 1x pre-flashed Heltec V3 radio, mesh antenna, USB-C data cable |
+| 4 | **Basecamp Bundle** | SanDisk Ultra Dual Drive Go (128GB) | $149 | Everything in SKU 2 + 1x pre-flashed Heltec V3 radio, mesh antenna, USB-C data cable |
+| 5 | **Field Kit** | SanDisk Ultra Dual Drive Go (64GB) | $169 | Everything in SKU 1 + 2x pre-flashed Heltec V3 radios, 2x mesh antennas, 2x USB-C data cables |
+| 6 | **Field Kit** | SanDisk Ultra Dual Drive Go (128GB) | $199 | Everything in SKU 2 + 2x pre-flashed Heltec V3 radios, 2x mesh antennas, 2x USB-C data cables |
+| 7 | **Field Node** (add-on) | Heltec V3 LoRa radio only (no drive) | $45 | Pre-flashed radio + mesh antenna + USB-C data cable; joins existing encrypted channel out of the box |
 
 ## V2 Features (Planned — Not Implemented)
 
